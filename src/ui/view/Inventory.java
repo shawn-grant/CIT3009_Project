@@ -1,4 +1,10 @@
 package ui.view;
 
-public class Inventory {
+import javax.swing.*;
+
+public class Inventory extends JPanel {
+
+    public JComponent getComponent() {
+        return this;
+    }
 }
