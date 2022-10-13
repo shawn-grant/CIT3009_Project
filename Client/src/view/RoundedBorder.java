@@ -1,10 +1,8 @@
-package ui.view;
+package view;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
-import java.awt.Graphics2D;
 
 import javax.swing.border.Border;
 
@@ -28,10 +26,5 @@ class RoundedBorder implements Border
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         g.drawRoundRect(x, y, width-1, height-1, r, r);
-
-        if(g instanceof Graphics2D){
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(Color.RED);
-        }
     }
 }
