@@ -8,12 +8,13 @@ import java.awt.event.ActionListener;
 public class MainScreen extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private final String[] TableHead = {"Student ID", "Student Name", "Assignment ID", "Assignment Grade"};
-    private JButton customerButton, staffButton, inventoryButton, checkOutButton, exitButton;
-    private GroupLayout leftPanelLayout;
-    private GroupLayout rightPanelLayout;
-    JPanel rightPanel;
-    JPanel leftPanel;
+    private static JButton customerButton;
+    private static JButton staffButton;
+    private static JButton inventoryButton;
+    private static JButton checkOutButton;
+    private static JButton exitButton;
+    static JPanel rightPanel;
+    static JPanel leftPanel;
 
     public MainScreen() {
         initializeComponents();
@@ -25,15 +26,15 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void initializeComponents() {
         //Button properties
-        customerButton = new JButton("models.Customer Options");
+        customerButton = new JButton("Customer");
         customerButton.setFocusPainted(false);
         customerButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
-        staffButton = new JButton("Staff Options");
+        staffButton = new JButton("Staff");
         staffButton.setFocusPainted(false);
         staffButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
-        inventoryButton = new JButton("View Inventory");
+        inventoryButton = new JButton("Inventory");
         inventoryButton.setFocusPainted(false);
         inventoryButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
@@ -51,28 +52,31 @@ public class MainScreen extends JFrame implements ActionListener {
         leftPanel.setBorder(BorderFactory.createEtchedBorder());
         leftPanel.setFocusable(false);
         leftPanel.setPreferredSize(new Dimension(100, 500));
-        leftPanelLayout = new GroupLayout(leftPanel);
+        GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
         leftPanelLayout.setHorizontalGroup(
                 leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
-                                .addContainerGap(107, Short.MAX_VALUE)
+                                .addContainerGap(100, Short.MAX_VALUE)
                                 .addGroup(leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(staffButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(inventoryButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(checkOutButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-                                .addGap(99, 99, 99)));
+                                        .addComponent(customerButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(staffButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inventoryButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(checkOutButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+                                .addGap(93, 93, 93)));
         leftPanelLayout.setVerticalGroup(
                 leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(leftPanelLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(staffButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(inventoryButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(checkOutButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(customerButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(staffButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(inventoryButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(checkOutButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(106, Short.MAX_VALUE))
         );
         leftPanel.setLayout(leftPanelLayout);
@@ -85,7 +89,7 @@ public class MainScreen extends JFrame implements ActionListener {
         rightPanel.setMaximumSize(new Dimension(880, 500));
         rightPanel.setMinimumSize(new Dimension(880, 500));
         rightPanel.setPreferredSize(new Dimension(880, 500));
-        rightPanelLayout = new GroupLayout(rightPanel);
+        GroupLayout rightPanelLayout = new GroupLayout(rightPanel);
         rightPanelLayout.setHorizontalGroup(
                 rightPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(rightPanelLayout.createSequentialGroup()
@@ -116,7 +120,7 @@ public class MainScreen extends JFrame implements ActionListener {
         rightPanel.setBounds(350, 0, 880, 500);
     }
 
-    private void addComponentsToPanels() {
+    public static void addComponentsToPanels() {
         //Add components to panel
         leftPanel.add(customerButton);
         leftPanel.add(staffButton);
@@ -161,6 +165,15 @@ public class MainScreen extends JFrame implements ActionListener {
             rightPanel.add(inventory[1]);
             rightPanel.repaint();
             rightPanel.revalidate();
+        }
+
+        if (e.getSource().equals(exitButton)) {
+            boolean isYes;
+            int selection = JOptionPane.showConfirmDialog(null, "Do you want to continue?",
+                    "Prompt", JOptionPane.YES_NO_OPTION);
+            isYes = (selection == JOptionPane.YES_OPTION);
+            if (isYes)
+                dispose();
         }
     }
 }
