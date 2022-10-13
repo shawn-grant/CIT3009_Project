@@ -2,10 +2,10 @@
 University of Technology, Advanced Programming (CIT3009) group project.
 
 **Developers**
-- Malik Heron ()
-- Tori Horne ()
+- Malik Heron (2001158)
+- Tori Horne (2002633)
 - Shawn Grant (2002432)
-- Tyrien Gilpin ()
+- Tyrien Gilpin (2003893)
 
 Project Definition: `./Project_Definition.pdf`
 
