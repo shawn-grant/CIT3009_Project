@@ -1,5 +1,7 @@
+import ui.view.TestFrame;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        new TestFrame();
     }
 }
