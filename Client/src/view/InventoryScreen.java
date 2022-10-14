@@ -31,27 +31,22 @@ public class InventoryScreen implements ActionListener {
     private void initializeComponents() {
         //Button properties
         addButton = new JButton("Add Product");
-        addButton.setBounds(90, 50, 160, 45);
         addButton.setFocusPainted(false);
         addButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         updateButton = new JButton("Update Product");
-        updateButton.setBounds(90, 125, 160, 45);
         updateButton.setFocusPainted(false);
         updateButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         removeButton = new JButton("Remove Product");
-        removeButton.setBounds(90, 205, 160, 45);
         removeButton.setFocusPainted(false);
         removeButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         refreshButton = new JButton("Refresh");
-        refreshButton.setBounds(90, 285, 160, 45);
         refreshButton.setFocusPainted(false);
         refreshButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         backButton = new JButton("Back");
-        backButton.setBounds(90, 365, 160, 45);
         backButton.setFocusPainted(false);
         backButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
