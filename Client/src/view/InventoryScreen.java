@@ -2,6 +2,8 @@ package view;
 
 import client.Client;
 import models.Product;
+import view.dialogs.InventoryInsertDialog;
+import view.dialogs.InventoryUpdateDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -109,6 +111,9 @@ public class InventoryScreen implements ActionListener {
     }
 
     private void registerListeners() {
+        addButton.addActionListener(this);
+        updateButton.addActionListener(this);
+        removeButton.addActionListener(this);
         refreshButton.addActionListener(this);
         backButton.addActionListener(this);
     }
@@ -145,6 +150,18 @@ public class InventoryScreen implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource().equals(addButton)) {
+            InventoryInsertDialog insertDialog = new InventoryInsertDialog();
+            insertDialog.setVisible(true);
+        }
+        if (e.getSource().equals(updateButton)) {
+            InventoryUpdateDialog updateDialog = new InventoryUpdateDialog();
+            updateDialog.setVisible(true);
+        }
+        if (e.getSource().equals(removeButton)) {
+            //InventoryRemoveDialog removeDialog = new InventoryRemoveDialog();
+            //removeDialog.setVisible(true);
+        }
         if (e.getSource().equals(refreshButton)) {
             getInventory();
         }

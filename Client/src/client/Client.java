@@ -108,9 +108,69 @@ public class Client {
                 if (flag) {
                     JOptionPane.showMessageDialog(null, "Record added successfully", "Add Record Status",
                             JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Employee")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Employee updated successfully", "Update Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Employee")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Employee removed successfully", "Remove Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             if (action.equalsIgnoreCase("Find Employee")) {
+                Employee employee = (Employee) objIs.readObject();
+                if (employee == null) {
+                    JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Add Customer")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Record added successfully", "Add Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to add record", "Add Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Customer")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Customer updated successfully", "Update Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Customer")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Customer removed successfully", "Remove Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Find Customer")) {
                 Employee employee = (Employee) objIs.readObject();
                 if (employee == null) {
                     JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
@@ -122,12 +182,62 @@ public class Client {
                 if (flag) {
                     JOptionPane.showMessageDialog(null, "Product added successfully", "Add Product Status",
                             JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Product could not be added", "Add Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Product")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Product updated successfully", "Update Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Product")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Product removed successfully", "Remove Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Find Product")) {
+                Product product = (Product) objIs.readObject();
+                if (product == null) {
+                    JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             if (action.equalsIgnoreCase("Add Invoice")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
                     JOptionPane.showMessageDialog(null, "Invoice added successfully", "Add Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Invoice")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Invoice updated successfully", "Update Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Invoice")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Invoice removed successfully", "Remove Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Invoice Status",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }

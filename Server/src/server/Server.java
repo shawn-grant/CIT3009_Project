@@ -114,6 +114,11 @@ public class Server {
                         addProductToFile(product);
                         objOs.writeObject(true);
                     }
+                    if (action.equals("Update Product")) {
+                        product = (Product) objIs.readObject();
+                        updateProductData(product);
+                        objOs.writeObject(true);
+                    }
                     if (action.equals("View Inventory")) {
                         List<Product> productList = getInventoryList();
                         for (Product prod : productList) {
@@ -222,6 +227,94 @@ public class Server {
         }
     }
 
+    /* Update queries */
+    public void updateEmployeeData(Employee employee) {
+        String query = "UPDATE jwr.employees SET first_name = '" + employee.getFirstName() + "', " +
+                "last_name = '" + employee.getLastName() + "', " +
+                "address = '" + employee.getAddress() + "', " +
+                "type = '" + employee.getType() + "', " +
+                "department = '" + employee.getDepartment() +
+                "telephone = '" + employee.getTelephone() +
+                "dob = '" + employee.getDOB() +
+                "email = '" + employee.getEmail() +
+                "'WHERE empId = '" + employee.getId() + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCustomerData(Customer customer) {
+        String query = "UPDATE jwr.customers SET first_name = '" + customer.getFirstName() + "', " +
+                "last_name = '" + customer.getLastName() + "', " +
+                "address = '" + customer.getAddress() + "', " +
+                "telephone = '" + customer.getTelephone() +
+                "dob = '" + customer.getDOB() +
+                "email = '" + customer.getEmail() +
+                "membershipDate = '" + customer.getMembershipDate() +
+                "membershipExpDate = '" + customer.getMembershipExpiryDate() +
+                "'WHERE cusId = '" + customer.getId() + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateInvoiceData(Invoice invoice) {
+        String query = "UPDATE jwr.invoices SET billing_date = '" + invoice.getBillingDate() + "', " +
+                "employee = '" + invoice.getEmployee() + "', " +
+                "customer = '" + invoice.getCustomer() + "', " +
+                "item_name = '" + invoice.getItemName() + "', " +
+                "quantity = '" + invoice.getQuantity() +
+                "'WHERE invoiceNum = '" + invoice.getInvoiceNumber() + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateProductData(Product product) {
+        String query = "UPDATE jwr.inventory SET product_name = '" + product.getName() + "', " +
+                "short_desc = '" + product.getShortDescription() + "', " +
+                "long_desc = '" + product.getLongDescription() + "', " +
+                "stock = '" + product.getItemInStock() + "', " +
+                "unit_price = '" + product.getUnitPrice() +
+                "'WHERE product_code = '" + product.getCode() + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Select queries */
     private Invoice findInvoiceByNumber(String invoiceNum) {
         Invoice invoice = new Invoice();
         String query = "SELECT * FROM jwr.invoices WHERE invoiceNum = " + invoiceNum;
@@ -300,7 +393,6 @@ public class Server {
                 productList.add(new Product(result.getString("product_code"), result.getString("product_name"),
                         result.getString("short_desc"), result.getString("long_desc"),
                         result.getInt("stock"), result.getFloat("unit_price")));
-                System.out.println(productList);
             }
             return productList;
         } catch (SQLException e) {
