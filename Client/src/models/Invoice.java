@@ -1,103 +1,97 @@
 package models;
 
-import models.Employee;
-import models.Customer;
+import java.io.Serializable;
 
-public class Invoice {
-	private int invoiceNumber;
-	private Date billingDate;
-	private String itemName;
-	private int quantity;
-	private String employee;
-	private String customer;
-	
-	public Invoice() {
-		this.invoiceNumber = -1;
-		this.billingDate = new Date();
-		this.itemName = itemName;
-		this.quantity = quantity;
-		this.employee = employee;
-		this.customer = customer;
-	}
-	
-	//Primary Constructor
-	public Invoice(int invoiceNumber, int day, int month, int year, String itemName, 
-			int quantity, String employee,String customer) {
-		this.invoiceNumber = invoiceNumber;
-		this.billingDate = new Date(day, month, year);
-		this.itemName = itemName;
-		this.quantity = quantity;
-		this.employee = employee;
-		this.customer = customer;
-	}
-	
-	//Copy Consturctor
-	public Invoice(Invoice invoice) {
-		this.invoiceNumber = invoice.invoiceNumber;
-		this.billingDate = invoice.billingDate;
-		this.itemName = invoice.itemName;
-		this.quantity = invoice.quantity;
-		this.employee = invoice.employee;
-		this.customer = invoice.customer;
-	}
+public class Invoice implements Serializable {
+    private int invoiceNumber;
+    private Date billingDate;
+    private String itemName;
+    private int quantity;
+    private String employee;
+    private String customer;
 
-	
-	
-	//Getters and Setters
-	public int getInvoiceNumber() {
-		return invoiceNumber;
-	}
+    public Invoice() {
+        this.invoiceNumber = 0;
+        this.billingDate = new Date();
+        this.itemName = "";
+        this.quantity = 0;
+        this.employee = "";
+        this.customer = "";
+    }
 
-	public void setInvoiceNumber(int invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
-	}
+    //Primary Constructor
+    public Invoice(int invoiceNumber, Date billingDate, String itemName,
+                   int quantity, String employee, String customer) {
+        this.invoiceNumber = invoiceNumber;
+        this.billingDate = billingDate;
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.employee = employee;
+        this.customer = customer;
+    }
 
-	public Date getBillingDate() {
-		return billingDate;
-	}
+    //Copy Constructor
+    public Invoice(Invoice invoice) {
+        this.invoiceNumber = invoice.invoiceNumber;
+        this.billingDate = invoice.billingDate;
+        this.itemName = invoice.itemName;
+        this.quantity = invoice.quantity;
+        this.employee = invoice.employee;
+        this.customer = invoice.customer;
+    }
 
-	public void setBillingDate(Date billingDate) {
-		this.billingDate = billingDate;
-	}
+    //Getters and Setters
+    public int getInvoiceNumber() {
+        return invoiceNumber;
+    }
 
-	public String getItemName() {
-		return itemName;
-	}
+    public void setInvoiceNumber(int invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
+    public Date getBillingDate() {
+        return billingDate;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public void setBillingDate(Date billingDate) {
+        this.billingDate = billingDate;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public String getItemName() {
+        return itemName;
+    }
 
-	public String getEmployee() {
-		return employee;
-	}
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee.getFirstName() + " " +employee.getLastName();
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public String getCustomer() {
-		return customer;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer.getFirstName()+" "+customer.getLastName();
-	}
+    public String getEmployee() {
+        return employee;
+    }
 
-	
-	public void displayInvoice() {
-		System.out.println("Invoice Number: " + getInvoiceNumber() + "\nDate" + getBillingDate()
-				+ "Items" + getItemName() + "Quantity: " + getQuantity() + "Employee: "
-				+ getEmployee() + "Customer: " + getCustomer());
-	}
+    public void setEmployee(Employee employee) {
+        this.employee = employee.getFirstName() + " " + employee.getLastName();
+    }
 
+    public String getCustomer() {
+        return customer;
+    }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer.getFirstName() + " " + customer.getLastName();
+    }
+
+    public void displayInvoice() {
+        System.out.println("Invoice Number: " + getInvoiceNumber() + "\nDate" + getBillingDate()
+                + "Items" + getItemName() + "Quantity: " + getQuantity() + "Employee: "
+                + getEmployee() + "Customer: " + getCustomer());
+    }
 }

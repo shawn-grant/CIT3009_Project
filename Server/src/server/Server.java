@@ -1,9 +1,7 @@
 package server;
 
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
+import models.Date;
+import models.*;
 
 import javax.swing.*;
 import java.io.EOFException;
@@ -17,17 +15,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
+    private static Connection dbConn;
     private ServerSocket serverSocket;
     private Socket connectionSocket;
     private ObjectOutputStream objOs;
     private ObjectInputStream objIs;
-    private static Connection dbConn;
     private Statement stmt;
     private ResultSet result;
 
     public Server() {
         this.createConnection();
         this.waitForRequests();
+    }
+
+    public static void getDatabaseConnection() {
+        try {
+            if (dbConn == null) {
+                String url = "jdbc:mysql://localhost:3306/jwr";
+                dbConn = DriverManager.getConnection(url, "root", "Bo$$2001");
+            }
+            /*JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
+                    JOptionPane.INFORMATION_MESSAGE);*/
+            System.out.println("DB Connection Established");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Could not connect to database\n" + e, "Connection Failure",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createConnection() {
@@ -43,22 +58,6 @@ public class Server {
             objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
             objIs = new ObjectInputStream(connectionSocket.getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void getDatabaseConnection() {
-        try {
-            if (dbConn == null) {
-                String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root", "");
-            }
-            JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Could not connect to database\n" + e, "Connection Failure",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -86,42 +85,47 @@ public class Server {
                 this.configureStreams();
                 try {
                     action = (String) objIs.readObject();
+                    System.out.println("Requested action: " + action);
 
                     if (action.equals("Add Employee")) {
                         employee = (Employee) objIs.readObject();
                         addEmployeeToFile(employee);
                         objOs.writeObject(true);
-                    } else if (action.equals("View Employees")) {
-                        List<Employee> employeeList;
-                        employeeList = getEmployeeList();
-                        objOs.writeObject(employeeList);
                     }
-
+                    if (action.equals("View Employees")) {
+                        List<Employee> employeeList = getEmployeeList();
+                        for (Employee emp : employeeList) {
+                            objOs.writeObject(emp);
+                        }
+                    }
                     if (action.equals("Add Customer")) {
                         customer = (Customer) objIs.readObject();
                         addCustomerToFile(customer);
                         objOs.writeObject(true);
-                    } else if (action.equals("View Customers")) {
-                        List<Customer> customerList;
-                        customerList = getCustomerList();
-                        objOs.writeObject(customerList);
                     }
-
+                    if (action.equals("View Customers")) {
+                        List<Customer> customerList = getCustomerList();
+                        for (Customer cus : customerList) {
+                            objOs.writeObject(cus);
+                        }
+                    }
                     if (action.equals("Add Product")) {
                         product = (Product) objIs.readObject();
                         addProductToFile(product);
                         objOs.writeObject(true);
-                    } else if (action.equals("View Inventory")) {
-                        List<Product> productList;
-                        productList = getInventoryList();
-                        objOs.writeObject(productList);
                     }
-
+                    if (action.equals("View Inventory")) {
+                        List<Product> productList = getInventoryList();
+                        for (Product prod : productList) {
+                            objOs.writeObject(prod);
+                        }
+                    }
                     if (action.equals("Add Invoice")) {
                         invoice = (Invoice) objIs.readObject();
                         addInvoiceToFile(invoice);
                         objOs.writeObject(true);
-                    } else if (action.equals("Find Invoice")) {
+                    }
+                    if (action.equals("Find Invoice")) {
                         String invoiceNum = (String) objIs.readObject();
                         invoice = findInvoiceByNumber(invoiceNum);
                         objOs.writeObject(invoice);
@@ -141,10 +145,11 @@ public class Server {
     }
 
     public void addCustomerToFile(Customer customer) {
-        String query = "INSERT INTO jwr.customers() " +
-                "VALUES ('" + customer + "', '" + customer + "', '" + customer +
-                "', '" + customer + "', '" + customer +
-                "', '" + customer + "')";
+        String query = "INSERT INTO jwr.customers(cusId, first_name, last_name, dob, address, " +
+                "telephone, membershipDate, membershipExpDate) " + "VALUES ('" + customer.getId() +
+                "', '" + customer.getFirstName() + "', '" + customer.getLastName() + "', '" + customer.getDOB() +
+                "', '" + customer.getAddress() + "', '" + customer.getTelephone() + "', '" + customer.getEmail() +
+                "', '" + customer.getMembershipDate() + "', '" + customer.getMembershipExpiryDate() + "')";
         try {
             stmt = dbConn.createStatement();
             if ((stmt.executeUpdate(query) == 1)) {
@@ -160,10 +165,11 @@ public class Server {
     }
 
     public void addEmployeeToFile(Employee employee) {
-        String query = "INSERT INTO jwr.employees() " +
-                "VALUES ('" + employee + "', '" + employee + "', '" + employee +
-                "', '" + employee + "', '" + employee +
-                "', '" + employee + "')";
+        String query = "INSERT INTO jwr.employees(empId, first_name, last_name, dob, address, telephone, " +
+                "type, department) " + "VALUES ('" + employee.getId() + "', '" + employee.getFirstName() +
+                "', '" + employee.getLastName() + "', '" + employee.getDOB() + "', '" + employee.getAddress() +
+                "', '" + employee.getTelephone() + "', '" + employee.getType() +
+                "', '" + employee.getDepartment() + "')";
         try {
             stmt = dbConn.createStatement();
             if ((stmt.executeUpdate(query) == 1)) {
@@ -198,10 +204,10 @@ public class Server {
     }
 
     public void addInvoiceToFile(Invoice invoice) {
-        String query = "INSERT INTO jwr.invoices() " +
-                "VALUES ('" + invoice + "', '" + invoice + "', '" + invoice +
-                "', '" + invoice + "', '" + invoice +
-                "', '" + invoice + "')";
+        String query = "INSERT INTO jwr.invoices(invoiceNum, billing_date, item_name, quantity, employee, customer) " +
+                "VALUES ('" + invoice.getInvoiceNumber() + "', '" + invoice.getBillingDate()
+                + "', '" + invoice.getItemName() + "', '" + invoice.getQuantity() + "', '" + invoice.getEmployee() +
+                "', '" + invoice.getCustomer() + "')";
         try {
             stmt = dbConn.createStatement();
             if ((stmt.executeUpdate(query) == 1)) {
@@ -237,9 +243,17 @@ public class Server {
         String query = "SELECT * FROM jwr.employees";
         try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
             while (result.next()) {
-                employeeList.add(new Employee(result.getString(""), result.getString(""),
-                        result.getString(""), result.getString(""),
-                        result.getInt(""), result.getFloat("")));
+                String id = result.getString("empId");
+                String firstName = result.getString("first_name");
+                String lastName = result.getString("last_name");
+                Date DOB = null;
+                String address = result.getString("address");
+                String telephone = result.getString("telephone");
+                String email = result.getString("email");
+                String type = result.getString("type");
+                String department = result.getString("department");
+                employeeList.add(new Employee(id, firstName, lastName, DOB, address, telephone, email,
+                        type, department));
             }
             return employeeList;
         } catch (SQLException e) {
@@ -253,9 +267,17 @@ public class Server {
         String query = "SELECT * FROM jwr.customers";
         try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
             while (result.next()) {
-                customerList.add(new Customer(result.getString(""), result.getString(""),
-                        result.getString(""), result.getString(""),
-                        result.getInt(""), result.getFloat("")));
+                String id = result.getString("cusId");
+                String firstName = result.getString("first_name");
+                String lastName = result.getString("last_name");
+                Date DOB = null;
+                String address = result.getString("address");
+                String telephone = result.getString("telephone");
+                String email = result.getString("email");
+                Date membershipDate = null;
+                Date membershipExpiryDate = null;
+                customerList.add(new Customer(id, firstName, lastName, DOB, address, telephone, email, membershipDate
+                        , membershipExpiryDate));
             }
             return customerList;
         } catch (SQLException e) {
@@ -272,6 +294,7 @@ public class Server {
                 productList.add(new Product(result.getString("product_code"), result.getString("product_name"),
                         result.getString("short_desc"), result.getString("long_desc"),
                         result.getInt("stock"), result.getFloat("unit_price")));
+                System.out.println(productList);
             }
             return productList;
         } catch (SQLException e) {

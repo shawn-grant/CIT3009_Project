@@ -1,136 +1,138 @@
 package models;
 
-public class Customer {
-	private String id;
-	private String firstName;
-	private String lastName;
-	private Date DOB;
-	private String address;
-	private String telephone;
-	private String email;
-	private Date membershipDate;
-	private Date membershipExpiryDate;
-	
-	//Default Constructor
-	public Customer() {
-		this.id = "N/A";
-		this.firstName = "N/A";
-		this.lastName = "N/A";
-		DOB = new Date();
-		this.address = "N/A";
-		telephone = "N/A";
-		this.email = "N/A";
-		this.membershipDate = new Date();
-		this.membershipExpiryDate = new Date();
-	}
-		
-	//Primary Constructor
-	public Customer(String id, String firstName, String lastName, Date dOB, String address, String telephone,
-			String email, Date membershipDate, Date membershipExpiryDate) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		DOB = dOB;
-		this.address = address;
-		this.telephone = telephone;
-		this.email = email;
-		this.membershipDate = membershipDate;
-		this.membershipExpiryDate = membershipExpiryDate;
-	}
-	
-	//Copy Constructor
-	public Customer(Customer customer) {
-		this.id = customer.id;
-		this.firstName = customer.firstName;
-		this.lastName = customer.lastName;
-		DOB = customer.DOB;
-		this.address = customer.address;
-		this.telephone = customer.telephone;
-		this.email = customer.email;
-		this.membershipDate = customer.membershipDate;
-		this.membershipExpiryDate = customer.membershipExpiryDate;
-	}
+import java.io.Serializable;
 
-	//Getters and setters
-	public String getId() {
-		return id;
-	}
+public class Customer implements Serializable {
+    private String id;
+    private String firstName;
+    private String lastName;
+    private Date DOB;
+    private String address;
+    private String telephone;
+    private String email;
+    private Date membershipDate;
+    private Date membershipExpiryDate;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    //Default Constructor
+    public Customer() {
+        this.id = "N/A";
+        this.firstName = "N/A";
+        this.lastName = "N/A";
+        DOB = new Date();
+        this.address = "N/A";
+        telephone = "N/A";
+        this.email = "N/A";
+        this.membershipDate = new Date();
+        this.membershipExpiryDate = new Date();
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    //Primary Constructor
+    public Customer(String id, String firstName, String lastName, Date dOB, String address, String telephone,
+                    String email, Date membershipDate, Date membershipExpiryDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        DOB = dOB;
+        this.address = address;
+        this.telephone = telephone;
+        this.email = email;
+        this.membershipDate = membershipDate;
+        this.membershipExpiryDate = membershipExpiryDate;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    //Copy Constructor
+    public Customer(Customer customer) {
+        this.id = customer.id;
+        this.firstName = customer.firstName;
+        this.lastName = customer.lastName;
+        DOB = customer.DOB;
+        this.address = customer.address;
+        this.telephone = customer.telephone;
+        this.email = customer.email;
+        this.membershipDate = customer.membershipDate;
+        this.membershipExpiryDate = customer.membershipExpiryDate;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    //Getters and setters
+    public String getId() {
+        return id;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Date getDOB() {
-		return DOB;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setDOB(Date dOB) {
-		DOB = dOB;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getTelephone() {
-		return telephone;
-	}
+    public Date getDOB() {
+        return DOB;
+    }
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
+    public void setDOB(Date dOB) {
+        DOB = dOB;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public Date getMembershipDate() {
-		return membershipDate;
-	}
+    public String getTelephone() {
+        return telephone;
+    }
 
-	public void setMembershipDate(Date membershipDate) {
-		this.membershipDate = membershipDate;
-	}
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
-	public Date getMembershipExpiryDate() {
-		return membershipExpiryDate;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setMembershipExpiryDate(Date membershipExpiryDate) {
-		this.membershipExpiryDate = membershipExpiryDate;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	//Method to display a customer
-	public void displayCustomer() {
-		System.out.println("Customer ID: " + getId() + "\nFirstname: " + getFirstName() + "\nLastName: "
-				+ getLastName() + "\nDOB: " + getDOB() + "\nAddress: " + getAddress() + "\nTelephone: "
-				+ getTelephone() + "\nEmail: " + getEmail() + "\nDate Joined" + getMembershipDate()
-				+ "Membership Expiration Date: " + getMembershipExpiryDate());
-	}
-	
-	
+    public Date getMembershipDate() {
+        return membershipDate;
+    }
+
+    public void setMembershipDate(Date membershipDate) {
+        this.membershipDate = membershipDate;
+    }
+
+    public Date getMembershipExpiryDate() {
+        return membershipExpiryDate;
+    }
+
+    public void setMembershipExpiryDate(Date membershipExpiryDate) {
+        this.membershipExpiryDate = membershipExpiryDate;
+    }
+
+    //Method to display a customer
+    public void displayCustomer() {
+        System.out.println("Customer ID: " + getId() + "\nFirstname: " + getFirstName() + "\nLastName: "
+                + getLastName() + "\nDOB: " + getDOB() + "\nAddress: " + getAddress() + "\nTelephone: "
+                + getTelephone() + "\nEmail: " + getEmail() + "\nDate Joined" + getMembershipDate()
+                + "Membership Expiration Date: " + getMembershipExpiryDate());
+    }
+
+
 }

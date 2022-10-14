@@ -1,6 +1,8 @@
 package models;
 
-public class Department {
+import java.io.Serializable;
+
+public class Department implements Serializable {
     private String name;
     private String code;
 
@@ -44,4 +46,3 @@ public class Department {
         return "Department: " + getName() + "\nDepartment Code: " + getCode();
     }
 }
-

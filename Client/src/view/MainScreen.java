@@ -8,13 +8,13 @@ import java.awt.event.ActionListener;
 public class MainScreen extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
+    static JPanel rightPanel;
+    static JPanel leftPanel;
     private static JButton customerButton;
     private static JButton staffButton;
     private static JButton inventoryButton;
     private static JButton checkOutButton;
     private static JButton exitButton;
-    static JPanel rightPanel;
-    static JPanel leftPanel;
 
     public MainScreen() {
         initializeComponents();
@@ -22,6 +22,15 @@ public class MainScreen extends JFrame implements ActionListener {
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
+    }
+
+    public static void addComponentsToPanels() {
+        //Add components to panel
+        leftPanel.add(customerButton);
+        leftPanel.add(staffButton);
+        leftPanel.add(inventoryButton);
+        leftPanel.add(checkOutButton);
+        leftPanel.add(exitButton);
     }
 
     private void initializeComponents() {
@@ -97,13 +106,13 @@ public class MainScreen extends JFrame implements ActionListener {
                                         .addGroup(rightPanelLayout.createSequentialGroup()
                                                 .addGap(40, 40, 40)
                                                 //.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 540, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(rightPanelLayout.createSequentialGroup()
-                                                .addGap(183, 183, 183)
-                                                //.addComponent(jLabel2))
-                                        .addGroup(rightPanelLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                //.addComponent(jLabel3)))
-                                .addContainerGap(16, Short.MAX_VALUE))))))
+                                                .addGroup(rightPanelLayout.createSequentialGroup()
+                                                        .addGap(183, 183, 183)
+                                                        //.addComponent(jLabel2))
+                                                        .addGroup(rightPanelLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                //.addComponent(jLabel3)))
+                                                                .addContainerGap(16, Short.MAX_VALUE))))))
         );
         rightPanelLayout.setVerticalGroup(
                 rightPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -118,15 +127,6 @@ public class MainScreen extends JFrame implements ActionListener {
         );
         rightPanel.setLayout(rightPanelLayout);
         rightPanel.setBounds(350, 0, 880, 500);
-    }
-
-    public static void addComponentsToPanels() {
-        //Add components to panel
-        leftPanel.add(customerButton);
-        leftPanel.add(staffButton);
-        leftPanel.add(inventoryButton);
-        leftPanel.add(checkOutButton);
-        leftPanel.add(exitButton);
     }
 
     private void addPanelsToWindow() {

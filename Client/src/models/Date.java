@@ -1,61 +1,60 @@
 package models;
 
-public class Date {
+import java.io.Serializable;
 
-	private int day;
-	private int month;
-	private int year;
-	
-	//Default Consturctor
-	public Date() {
-		this.day = 00;
-		this.month = 00;
-		this.year = 0000;
-	}
-	
-	//Primary Constructor
-	public Date(int day, int month, int year) {
-		this.day = day;
-		this.month = month;
-		this.year = year;
-	}
-	
-	//Copy Constructor
-	public Date(Date date) {
-		this.day = date.day;
-		this.month = date.month;
-		this.year = date.year;
-	}
+public class Date implements Serializable {
 
-	//Getters and Setters
-	public int getDay() {
-		return day;
-	}
+    private int day;
+    private int month;
+    private int year;
 
-	public void setDay(int day) {
-		this.day = day;
-	}
+    //Default Constructor
+    public Date() {
+        this.day = 0;
+        this.month = 0;
+        this.year = 0;
+    }
 
-	public int getMonth() {
-		return month;
-	}
+    //Primary Constructor
+    public Date(int day, int month, int year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
 
-	public void setMonth(int month) {
-		this.month = month;
-	}
+    //Copy Constructor
+    public Date(Date date) {
+        this.day = date.day;
+        this.month = date.month;
+        this.year = date.year;
+    }
 
-	public int getYear() {
-		return year;
-	}
+    //Getters and Setters
+    public int getDay() {
+        return day;
+    }
 
-	public void setYear(int year) {
-		this.year = year;
-	}
+    public void setDay(int day) {
+        this.day = day;
+    }
 
-	public void displayDate() {
-		System.out.println("\nDay: " + getDay() + "\nMonth: " + getMonth() + "\nYear: " + getYear());
-	}
-	
-	
-	
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void displayDate() {
+        System.out.println("\nDay: " + getDay() + "\nMonth: " + getMonth() + "\nYear: " + getYear());
+    }
 }

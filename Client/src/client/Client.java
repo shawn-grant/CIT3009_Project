@@ -27,7 +27,7 @@ public class Client {
 
     private void createConnection() {
         try {
-            connectionSocket = new Socket("127.0.0.1",8888);
+            connectionSocket = new Socket("127.0.0.1", 8888);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,14 +133,23 @@ public class Client {
     }
 
     public List<Product> receiveViewInventoryResponse() {
-        List<Product> productList = null;
+        List<Product> productList = new ArrayList<>();
+        Product product;
         if (action.equalsIgnoreCase("View Inventory")) {
             try {
-                Object obj = objIs.readObject();
-                productList = (ArrayList<Product>) obj;
+                while (true) {
+                    product = (Product) objIs.readObject();
+                    if (product != null) {
+                        productList.add(product);
+                    } else {
+                        break;
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
         }

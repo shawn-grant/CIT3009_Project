@@ -1,13 +1,8 @@
 package domain;
 
-import client.Client;
-import models.Product;
 import view.MainScreen;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Driver {
     public static void main(String[] args) {
@@ -16,9 +11,8 @@ public class Driver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //Client client = new Client();
         new MainScreen();
-;
+
         /*Object obj = addProducts();
         List<Product> productList = (ArrayList<Product>) obj;
 
