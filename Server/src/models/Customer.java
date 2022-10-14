@@ -130,7 +130,6 @@ public class Customer {
 				+ getLastName() + "\nDOB: " + getDOB() + "\nAddress: " + getAddress() + "\nTelephone: "
 				+ getTelephone() + "\nEmail: " + getEmail() + "\nDate Joined" + getMembershipDate()
 				+ "Membership Expiration Date: " + getMembershipExpiryDate());
-	}
-	
+	}	
 	
 }

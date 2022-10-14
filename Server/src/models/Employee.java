@@ -132,6 +132,5 @@ public class Employee {
 				+ getTelephone() + "\nEmail: " + getEmail() + "\nType: " + getType() + "\nDepartment: "
 				+ getDepartment());
 	}
-		
-	
+			
 }

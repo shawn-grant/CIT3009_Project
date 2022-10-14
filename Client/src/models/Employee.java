@@ -131,7 +131,6 @@ public class Employee {
 				+ getLastName() + "\nDOB: " + getDOB() + "\nAddress: " + getAddress() + "\nTelephone: "
 				+ getTelephone() + "\nEmail: " + getEmail() + "\nType: " + getType() + "\nDepartment: "
 				+ getDepartment());
-	}
-		
+	}	
 	
 }
