@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
     private ServerSocket serverSocket;
@@ -48,7 +50,7 @@ public class Server {
     public static void getDatabaseConnection() {
         try {
             if (dbConn == null) {
-                String url = "jdbc:mysql://localhost:3306/JWR";
+                String url = "jdbc:mysql://localhost:3306/jwr";
                 dbConn = DriverManager.getConnection(url, "root", "");
             }
             JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
@@ -72,12 +74,12 @@ public class Server {
     }
 
     private void waitForRequests() {
-        String action = "";
+        String action;
         getDatabaseConnection();
-        Employee employee = null;
-        Product product = null;
-        Customer customer = null;
-        Invoice invoice = null;
+        Employee employee;
+        Product product;
+        Customer customer;
+        Invoice invoice;
         try {
             while (true) {
                 connectionSocket = serverSocket.accept();
@@ -89,30 +91,30 @@ public class Server {
                         employee = (Employee) objIs.readObject();
                         addEmployeeToFile(employee);
                         objOs.writeObject(true);
-                    } else if (action.equals("Find Employee")) {
-                        String empId = (String) objIs.readObject();
-                        employee = findEmployeeById(empId);
-                        objOs.writeObject(employee);
+                    } else if (action.equals("View Employees")) {
+                        List<Employee> employeeList;
+                        employeeList = getEmployeeList();
+                        objOs.writeObject(employeeList);
                     }
 
                     if (action.equals("Add Customer")) {
                         customer = (Customer) objIs.readObject();
                         addCustomerToFile(customer);
                         objOs.writeObject(true);
-                    } else if (action.equals("Find Customer")) {
-                        String cusId = (String) objIs.readObject();
-                        customer = findCustomerById(cusId);
-                        objOs.writeObject(customer);
+                    } else if (action.equals("View Customers")) {
+                        List<Customer> customerList;
+                        customerList = getCustomerList();
+                        objOs.writeObject(customerList);
                     }
 
                     if (action.equals("Add Product")) {
                         product = (Product) objIs.readObject();
                         addProductToFile(product);
                         objOs.writeObject(true);
-                    } else if (action.equals("Find Product")) {
-                        String prodId = (String) objIs.readObject();
-                        product = findProductById(empId);
-                        objOs.writeObject(product);
+                    } else if (action.equals("View Inventory")) {
+                        List<Product> productList;
+                        productList = getInventoryList();
+                        objOs.writeObject(productList);
                     }
 
                     if (action.equals("Add Invoice")) {
@@ -120,8 +122,8 @@ public class Server {
                         addInvoiceToFile(invoice);
                         objOs.writeObject(true);
                     } else if (action.equals("Find Invoice")) {
-                        String invoiceId = (String) objIs.readObject();
-                        invoice = findInvoiceById(invoiceId);
+                        String invoiceNum = (String) objIs.readObject();
+                        invoice = findInvoiceByNumber(invoiceNum);
                         objOs.writeObject(invoice);
                     }
                 } catch (ClassNotFoundException e) {
@@ -136,5 +138,145 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void addCustomerToFile(Customer customer) {
+        String query = "INSERT INTO jwr.customers() " +
+                "VALUES ('" + customer + "', '" + customer + "', '" + customer +
+                "', '" + customer + "', '" + customer +
+                "', '" + customer + "')";
+        try {
+            stmt = dbConn.createStatement();
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addEmployeeToFile(Employee employee) {
+        String query = "INSERT INTO jwr.employees() " +
+                "VALUES ('" + employee + "', '" + employee + "', '" + employee +
+                "', '" + employee + "', '" + employee +
+                "', '" + employee + "')";
+        try {
+            stmt = dbConn.createStatement();
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addProductToFile(Product product) {
+        String query = "INSERT INTO jwr.inventory(product_code, product_name, short_desc, long_desc, stock, unit_price) " +
+                "VALUES ('" + product.getCode() + "', '" + product.getName() + "', '" + product.getShortDescription() +
+                "', '" + product.getLongDescription() + "', '" + product.getItemInStock() +
+                "', '" + product.getUnitPrice() + "')";
+        try {
+            stmt = dbConn.createStatement();
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addInvoiceToFile(Invoice invoice) {
+        String query = "INSERT INTO jwr.invoices() " +
+                "VALUES ('" + invoice + "', '" + invoice + "', '" + invoice +
+                "', '" + invoice + "', '" + invoice +
+                "', '" + invoice + "')";
+        try {
+            stmt = dbConn.createStatement();
+            if ((stmt.executeUpdate(query) == 1)) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Invoice findInvoiceByNumber(String invoiceNum) {
+        Invoice invoice = null;
+        String query = "SELECT * FROM jwr.invoices WHERE invoiceNum = " + invoiceNum;
+        try {
+            stmt = dbConn.createStatement();
+            result = stmt.executeQuery(query);
+
+            if (result.next()) {
+                //add values to invoice object
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return invoice;
+    }
+
+    private List<Employee> getEmployeeList() {
+        List<Employee> employeeList = new ArrayList<>();
+        String query = "SELECT * FROM jwr.employees";
+        try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
+            while (result.next()) {
+                employeeList.add(new Employee(result.getString(""), result.getString(""),
+                        result.getString(""), result.getString(""),
+                        result.getInt(""), result.getFloat("")));
+            }
+            return employeeList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employeeList;
+    }
+
+    private List<Customer> getCustomerList() {
+        List<Customer> customerList = new ArrayList<>();
+        String query = "SELECT * FROM jwr.customers";
+        try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
+            while (result.next()) {
+                customerList.add(new Customer(result.getString(""), result.getString(""),
+                        result.getString(""), result.getString(""),
+                        result.getInt(""), result.getFloat("")));
+            }
+            return customerList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerList;
+    }
+
+    private List<Product> getInventoryList() {
+        List<Product> productList = new ArrayList<>();
+        String query = "SELECT * FROM jwr.inventory";
+        try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
+            while (result.next()) {
+                productList.add(new Product(result.getString("product_code"), result.getString("product_name"),
+                        result.getString("short_desc"), result.getString("long_desc"),
+                        result.getInt("stock"), result.getFloat("unit_price")));
+            }
+            return productList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
     }
 }

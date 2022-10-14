@@ -1,6 +1,7 @@
 package view;
 
-import sun.applet.Main;
+import client.Client;
+import models.Product;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -9,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class Inventory implements ActionListener, TableModelListener {
 
@@ -78,7 +80,11 @@ public class Inventory implements ActionListener, TableModelListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(refreshButton)) {
-            /*List<Product> productList = //select();
+            Client client = new Client();
+            client.sendAction("View Inventory");
+            List<Product> productList = client.receiveViewInventoryResponse();
+            client.closeConnections();
+
             int count = 0;
             int rowCount = model.getRowCount();
             int counter = 0;
@@ -93,9 +99,9 @@ public class Inventory implements ActionListener, TableModelListener {
 
                 model.insertRow(count, new Object[]{product.getCode(), product.getName(),
                         product.getShortDescription(), product.getLongDescription(),
-                        product.getInStock(), product.getUnitPrice()});
+                        product.getItemInStock(), product.getUnitPrice()});
                 count++;
-            }*/
+            }
         }
 
         if (e.getSource().equals(backButton)) {
