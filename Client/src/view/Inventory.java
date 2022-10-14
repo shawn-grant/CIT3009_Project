@@ -1,5 +1,8 @@
 package view;
 
+import client.Client;
+import models.Product;
+
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -7,10 +10,11 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class Inventory implements ActionListener, TableModelListener {
 
-    private JButton refreshButton, backButton;
+    private JButton refreshButton, productButton, backButton;
     private final String[] TableHead = {"Student ID", "Student Name", "Assignment ID", "Assignment Grade"};
     private JPanel leftPanel, rightPanel;
     private JTable table;
@@ -24,13 +28,20 @@ public class Inventory implements ActionListener, TableModelListener {
 
     private void initializeComponents() {
         //Button properties
+        productButton = new JButton("New Product");
+        productButton.setBounds(100,90,150,50);
+        productButton.setFocusPainted(false);
+        productButton.setFont(new Font("times new roman", Font.PLAIN, 18));
+
         refreshButton = new JButton("Refresh");
-        refreshButton.setBounds(140,90,100,50);
+        refreshButton.setBounds(100,170,150,50);
         refreshButton.setFocusPainted(false);
+        refreshButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         backButton = new JButton("Back");
-        backButton.setBounds(140,150,100,50);
+        backButton.setBounds(100,250,150,50);
         backButton.setFocusPainted(false);
+        backButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         //Table properties
         model = new DefaultTableModel(TableHead, 0);
@@ -41,6 +52,7 @@ public class Inventory implements ActionListener, TableModelListener {
         leftPanel = new JPanel();
         leftPanel.setLayout(null);
         leftPanel.setSize(new Dimension(350,500));
+        leftPanel.setBackground(new Color(0, 140, 255));
 
         rightPanel = new JPanel();
         rightPanel.setLayout(new GridLayout(1,1,5,5));
@@ -50,11 +62,13 @@ public class Inventory implements ActionListener, TableModelListener {
     private void addComponentsToPanel() {
         rightPanel.add(new JScrollPane(table));
         leftPanel.add(refreshButton);
+        leftPanel.add(productButton);
         leftPanel.add(backButton);
     }
 
     private void registerListeners() {
         refreshButton.addActionListener(this);
+        backButton.addActionListener(this);
         model.addTableModelListener(this);
     }
 
@@ -66,7 +80,11 @@ public class Inventory implements ActionListener, TableModelListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(refreshButton)) {
-            /*List<Product> productList = //select();
+            Client client = new Client();
+            client.sendAction("View Inventory");
+            List<Product> productList = client.receiveViewInventoryResponse();
+            client.closeConnections();
+
             int count = 0;
             int rowCount = model.getRowCount();
             int counter = 0;
@@ -81,9 +99,19 @@ public class Inventory implements ActionListener, TableModelListener {
 
                 model.insertRow(count, new Object[]{product.getCode(), product.getName(),
                         product.getShortDescription(), product.getLongDescription(),
-                        product.getInStock(), product.getUnitPrice()});
+                        product.getItemInStock(), product.getUnitPrice()});
                 count++;
-            }*/
+            }
+        }
+
+        if (e.getSource().equals(backButton)) {
+            MainScreen.leftPanel.removeAll();
+            MainScreen.rightPanel.removeAll();
+            MainScreen.addComponentsToPanels();
+            MainScreen.leftPanel.repaint();
+            MainScreen.rightPanel.repaint();
+            MainScreen.leftPanel.revalidate();
+            MainScreen.rightPanel.revalidate();
         }
     }
 

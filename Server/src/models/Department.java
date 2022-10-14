@@ -1,56 +1,47 @@
 package models;
 
 public class Department {
-	private String name;
-	private String code;
-	
-	//Default Constructor
-	public Department() {
-		this.name = "N/A";
-		this.code = "N/A";
-	}
-	
-	//Primary Constructor
-	public Department(String name, String code) {
-		this.name = name;
-		this.code = code;
-	}
-	
-	
-	//Copy Constructor
-	public Department(Department department) {
-		this.name = department.name;
-		this.code = department.code;
-	}
+    private String name;
+    private String code;
 
-	
-	//Getters and Setters
-	public String getName() {
-		return name;
-	}
+    //Default Constructor
+    public Department() {
+        this.name = "N/A";
+        this.code = "N/A";
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    //Primary Constructor
+    public Department(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    //Copy Constructor
+    public Department(Department department) {
+        this.name = department.name;
+        this.code = department.code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    //Getters and Setters
+    public String getName() {
+        return name;
+    }
 
-	
-	
-	@Override
-	public String toString() {
-		return "Department: " + getName() + "\nDepartment Code: " + getCode();
-	}
-	
-	
-	
-	
-	
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return "Department: " + getName() + "\nDepartment Code: " + getCode();
+    }
 }
 

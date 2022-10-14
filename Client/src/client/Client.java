@@ -1,12 +1,17 @@
 package client;
 
+import models.Customer;
 import models.Employee;
+import models.Invoice;
+import models.Product;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
 
@@ -37,7 +42,7 @@ public class Client {
         }
     }
 
-    private void closeConnections() {
+    public void closeConnections() {
         try {
             objOs.close();
             objIs.close();
@@ -64,15 +69,31 @@ public class Client {
         }
     }
 
-    public void sendEmployeeId(String empId) {
+    public void sendCustomer(Customer customer) {
         try {
-            objOs.writeObject(empId);
+            objOs.writeObject(customer);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void receiveRequests() {
+    public void sendProduct(Product product) {
+        try {
+            objOs.writeObject(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendInvoice(Invoice invoice) {
+        try {
+            objOs.writeObject(invoice);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void receiveResponse() {
         try {
             if (action.equalsIgnoreCase("Add Employee")) {
                 Boolean flag = (Boolean) objIs.readObject();
@@ -82,12 +103,24 @@ public class Client {
                 }
             }
             if (action.equalsIgnoreCase("Find Employee")) {
-                Employee employee = new Employee();
-                employee = (Employee) objIs.readObject();
+                Employee employee = (Employee) objIs.readObject();
                 if (employee == null) {
                     JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
                             JOptionPane.INFORMATION_MESSAGE);
-                    return;
+                }
+            }
+            if (action.equalsIgnoreCase("Add Product")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Product added successfully", "Add Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Add Invoice")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Invoice added successfully", "Add Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         } catch (ClassCastException e) {
@@ -98,4 +131,21 @@ public class Client {
             e.printStackTrace();
         }
     }
+
+    public List<Product> receiveViewInventoryResponse() {
+        List<Product> productList = null;
+        if (action.equalsIgnoreCase("View Inventory")) {
+            try {
+                Object obj = objIs.readObject();
+                productList = (ArrayList<Product>) obj;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return productList;
+    }
+
+
 }
