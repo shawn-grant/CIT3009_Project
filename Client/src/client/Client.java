@@ -146,6 +146,4 @@ public class Client {
         }
         return productList;
     }
-
-
 }

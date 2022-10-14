@@ -12,15 +12,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class Inventory implements ActionListener, TableModelListener {
+public class InventoryScreen implements ActionListener, TableModelListener {
 
     private JButton refreshButton, productButton, backButton;
-    private final String[] TableHead = {"Student ID", "Student Name", "Assignment ID", "Assignment Grade"};
+    private final String[] TableHead = {"Product Code", "Product Name", "Short Description", "Long Description",
+            "Items in Stock", "Unit Price"};
     private JPanel leftPanel, rightPanel;
     private JTable table;
     private DefaultTableModel model;
 
-    public Inventory() {
+    public InventoryScreen() {
         initializeComponents();
         addComponentsToPanel();
         registerListeners();

@@ -154,8 +154,8 @@ public class MainScreen extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(inventoryButton)) {
-            JComponent[] inventory = new Inventory().getComponent();
+        /*if (e.getSource().equals(inventoryButton)) {
+            JComponent[] inventory = new InventoryScreen().getComponent();
             leftPanel.removeAll();
             leftPanel.add(inventory[0]);
             leftPanel.repaint();
@@ -166,6 +166,67 @@ public class MainScreen extends JFrame implements ActionListener {
             rightPanel.repaint();
             rightPanel.revalidate();
         }
+
+        if (e.getSource().equals(exitButton)) {
+            boolean isYes;
+            int selection = JOptionPane.showConfirmDialog(null, "Do you want to continue?",
+                    "Prompt", JOptionPane.YES_NO_OPTION);
+            isYes = (selection == JOptionPane.YES_OPTION);
+            if (isYes)
+                dispose();
+        }
+
+        if (e.getSource().equals(customerButton)) {
+            //JComponent[] customerScreen = new CustomerScreen().getComponent();
+            leftPanel.removeAll();
+            //leftPanel.add(customerScreen[0]);
+            leftPanel.repaint();
+            leftPanel.revalidate();
+
+            rightPanel.removeAll();
+            //rightPanel.add(customerScreen[1]);
+            rightPanel.repaint();
+            rightPanel.revalidate();
+        }
+
+        if (e.getSource().equals(staffButton)) {
+            //JComponent[] staffScreen = new StaffScreen().getComponent();
+            leftPanel.removeAll();
+            //leftPanel.add(staffScreen[0]);
+            leftPanel.repaint();
+            leftPanel.revalidate();
+
+            rightPanel.removeAll();
+            //rightPanel.add(staffScreen[1]);
+            rightPanel.repaint();
+            rightPanel.revalidate();
+        }*/
+
+        if (e.getSource().equals(inventoryButton)) {
+            JComponent[] inventory = new InventoryScreen().getComponent();
+            leftPanel.removeAll();
+            leftPanel.add(inventory[0]);
+            leftPanel.repaint();
+            leftPanel.revalidate();
+
+            rightPanel.removeAll();
+            rightPanel.add(inventory[1]);
+            rightPanel.repaint();
+            rightPanel.revalidate();
+        }
+
+        /*if (e.getSource().equals(checkOutButton)) {
+            //JComponent[] checkOutScreen = new checkOutScreen().getComponent();
+            leftPanel.removeAll();
+            //leftPanel.add(checkOutScreen[0]);
+            leftPanel.repaint();
+            leftPanel.revalidate();
+
+            rightPanel.removeAll();
+            //rightPanel.add(checkOutScreen[1]);
+            rightPanel.repaint();
+            rightPanel.revalidate();
+        }*/
 
         if (e.getSource().equals(exitButton)) {
             boolean isYes;
