@@ -93,6 +93,14 @@ public class Client {
         }
     }
 
+    public void sendInvoiceNumber(String invoiceNum) {
+        try {
+            objOs.writeObject(invoiceNum);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void receiveResponse() {
         try {
             if (action.equalsIgnoreCase("Add Employee")) {
@@ -123,6 +131,13 @@ public class Client {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
+            if (action.equalsIgnoreCase("Find Invoice")) {
+                Invoice invoice = (Invoice) objIs.readObject();
+                if (invoice == null) {
+                    JOptionPane.showMessageDialog(null, "Invoice could not be found", "Find Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         } catch (ClassCastException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -130,6 +145,54 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Employee> receiveViewEmployeesResponse() {
+        List<Employee> employeeList = new ArrayList<>();
+        Employee employee;
+        if (action.equalsIgnoreCase("View Employees")) {
+            try {
+                while (true) {
+                    employee = (Employee) objIs.readObject();
+                    if (employee != null) {
+                        employeeList.add(employee);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return employeeList;
+    }
+
+    public List<Customer> receiveViewCustomersResponse() {
+        List<Customer> customerList = new ArrayList<>();
+        Customer customer;
+        if (action.equalsIgnoreCase("View Customers")) {
+            try {
+                while (true) {
+                    customer = (Customer) objIs.readObject();
+                    if (customer != null) {
+                        customerList.add(customer);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return customerList;
     }
 
     public List<Product> receiveViewInventoryResponse() {

@@ -1,5 +1,7 @@
 package domain;
 
+import client.Client;
+import models.Product;
 import view.MainScreen;
 
 import javax.swing.*;
@@ -11,6 +13,12 @@ public class Driver {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        /*Client client = new Client();
+        client.sendAction("Add Product");
+        client.sendProduct(new Product("JUC", "Juice", "Sweet", "Tasty liquids",
+                15, 70.0f));
+        client.receiveResponse();
+        client.closeConnections();*/
         new MainScreen();
 
         /*Object obj = addProducts();

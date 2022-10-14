@@ -223,14 +223,20 @@ public class Server {
     }
 
     private Invoice findInvoiceByNumber(String invoiceNum) {
-        Invoice invoice = null;
+        Invoice invoice = new Invoice();
         String query = "SELECT * FROM jwr.invoices WHERE invoiceNum = " + invoiceNum;
         try {
             stmt = dbConn.createStatement();
             result = stmt.executeQuery(query);
 
             if (result.next()) {
-                //add values to invoice object
+                invoice.setInvoiceNumber(result.getInt("invoiceNum"));
+                Date billingDate = null;
+                invoice.setItemName(result.getString("itemName"));
+                //invoice.setCustomer(result.getString("customer"));
+                //invoice.setEmployee(result.getString("employee"));
+                invoice.setQuantity(result.getInt("quantity"));
+                invoice.setBillingDate(billingDate);
             }
         } catch (SQLException e) {
             e.printStackTrace();
