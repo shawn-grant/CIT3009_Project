@@ -14,7 +14,7 @@ public class InventoryScreen implements ActionListener {
 
     private final String[] TableHead = {"Product Code", "Product Name", "Short Description", "Long Description",
             "Items in Stock", "Unit Price"};
-    private JButton refreshButton, productButton, backButton;
+    private JButton refreshButton, addButton, updateButton, removeButton, backButton;
     private JPanel leftPanel, rightPanel;
     private JTable table;
     private DefaultTableModel model;
@@ -28,18 +28,28 @@ public class InventoryScreen implements ActionListener {
 
     private void initializeComponents() {
         //Button properties
-        productButton = new JButton("New Product");
-        productButton.setBounds(100, 90, 150, 50);
-        productButton.setFocusPainted(false);
-        productButton.setFont(new Font("times new roman", Font.PLAIN, 18));
+        addButton = new JButton("Add Product");
+        addButton.setBounds(90, 50, 160, 45);
+        addButton.setFocusPainted(false);
+        addButton.setFont(new Font("times new roman", Font.PLAIN, 18));
+
+        updateButton = new JButton("Update Product");
+        updateButton.setBounds(90, 125, 160, 45);
+        updateButton.setFocusPainted(false);
+        updateButton.setFont(new Font("times new roman", Font.PLAIN, 18));
+
+        removeButton = new JButton("Remove Product");
+        removeButton.setBounds(90, 205, 160, 45);
+        removeButton.setFocusPainted(false);
+        removeButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         refreshButton = new JButton("Refresh");
-        refreshButton.setBounds(100, 170, 150, 50);
+        refreshButton.setBounds(90, 285, 160, 45);
         refreshButton.setFocusPainted(false);
         refreshButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         backButton = new JButton("Back");
-        backButton.setBounds(100, 250, 150, 50);
+        backButton.setBounds(90, 365, 160, 45);
         backButton.setFocusPainted(false);
         backButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
@@ -50,9 +60,39 @@ public class InventoryScreen implements ActionListener {
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
 
         leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setSize(new Dimension(350, 500));
         leftPanel.setBackground(new Color(0, 140, 255));
+        leftPanel.setBorder(BorderFactory.createEtchedBorder());
+        leftPanel.setFocusable(false);
+        leftPanel.setPreferredSize(new Dimension(100, 500));
+        GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
+        leftPanelLayout.setHorizontalGroup(
+                leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
+                                .addContainerGap(100, Short.MAX_VALUE)
+                                .addGroup(leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(addButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(updateButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(removeButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(refreshButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+                                .addGap(93, 93, 93)));
+        leftPanelLayout.setVerticalGroup(
+                leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(leftPanelLayout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(addButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(updateButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(removeButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(refreshButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(106, Short.MAX_VALUE))
+        );
+        leftPanel.setLayout(leftPanelLayout);
+        leftPanel.setBounds(0, 0, 350, 500);
 
         rightPanel = new JPanel();
         rightPanel.setLayout(new GridLayout(1, 1, 5, 5));
@@ -61,8 +101,10 @@ public class InventoryScreen implements ActionListener {
 
     private void addComponentsToPanel() {
         rightPanel.add(new JScrollPane(table));
+        leftPanel.add(addButton);
+        leftPanel.add(updateButton);
+        leftPanel.add(removeButton);
         leftPanel.add(refreshButton);
-        leftPanel.add(productButton);
         leftPanel.add(backButton);
     }
 
