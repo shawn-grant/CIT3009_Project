@@ -119,7 +119,7 @@ public class Client {
             if (action.equalsIgnoreCase("Add Invoice")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
-                    JOptionPane.showMessageDialog(null, "Product added successfully", "Add Product Status",
+                    JOptionPane.showMessageDialog(null, "Invoice added successfully", "Add Invoice Status",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
