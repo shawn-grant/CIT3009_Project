@@ -99,7 +99,5 @@ public class Invoice {
 				+ getEmployee() + "Customer: " + getCustomer());
 	}
 
-	
-	
 
 }
