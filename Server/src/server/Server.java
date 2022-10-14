@@ -37,10 +37,94 @@ public class Server {
             /*JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
                     JOptionPane.INFORMATION_MESSAGE);*/
             System.out.println("DB Connection Established");
+            createEmployeeTable();
+            createCustomerTable();
+            createInventoryTable();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Could not connect to database\n" + e, "Connection Failure",
-                    JOptionPane.INFORMATION_MESSAGE);
+            System.err.println("SQLException: " + e.getMessage());
+            boolean isYes;
+            int selection = JOptionPane.showConfirmDialog(null, "Could not connect to database\nRetry?" + e, "Connection Failure",
+                    JOptionPane.YES_NO_OPTION);
+            isYes = (selection == JOptionPane.YES_OPTION);
+            if (isYes) {
+                createJWRDatabase();
+                getDatabaseConnection();
+            } else {
+                System.exit(0);
+            }
         } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void createJWRDatabase() {
+        final String JBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        final String DB_URL = "jdbc:mysql://localhost:3306/";
+        final String USER = "root";
+        final String PASS = "Bo$$2001";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             Statement stmt = conn.createStatement()
+        ) {
+            Class.forName(JBC_DRIVER);
+            String query = "CREATE DATABASE IF NOT EXISTS jwr";
+            if ((stmt.executeUpdate(query)) == 0) {
+                System.out.println("JWR Database created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("ClassNotFoundException: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void createEmployeeTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String sql = "CREATE TABLE employees(empId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
+                    "last_name varchar(25), dob varchar(25), address varchar(40), telephone varchar(25), " +
+                    "email varchar(25), type varchar(25), department varchar(40), PRIMARY KEY(empId))";
+
+            if ((stmt.executeUpdate(sql)) == 0) {
+                System.out.println("Employee table created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void createCustomerTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String sql = "CREATE TABLE customers(cusId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
+                    "last_name varchar(25), dob varchar(25), address varchar(40), telephone varchar(25), " +
+                    "email varchar(25), membershipDate varchar(25), membershipExpDate varchar(40), PRIMARY KEY(cusId))";
+
+            if ((stmt.executeUpdate(sql)) == 0) {
+                System.out.println("Customer table created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void createInventoryTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String sql = "CREATE TABLE inventory(product_code varchar(10) NOT NULL, product_name varchar(25)," +
+                    "short_desc varchar(25), long_desc varchar(70), stock int, unit_price float, PRIMARY KEY(product_code))";
+
+            if ((stmt.executeUpdate(sql)) == 0) {
+                System.out.println("Inventory table created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -49,6 +133,7 @@ public class Server {
         try {
             serverSocket = new ServerSocket(8888);
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -58,6 +143,7 @@ public class Server {
             objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
             objIs = new ObjectInputStream(connectionSocket.getInputStream());
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -68,6 +154,7 @@ public class Server {
             objIs.close();
             connectionSocket.close();
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -136,15 +223,17 @@ public class Server {
                         objOs.writeObject(invoice);
                     }
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    System.err.println("ClassNotFoundException: " + e.getMessage());
                 } catch (ClassCastException e) {
-                    e.printStackTrace();
+                    System.err.println("ClassCastException: " + e.getMessage());
                 }
                 this.closeConnections();
             }
         } catch (EOFException e) {
+            System.err.println("EOFException: " + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -163,8 +252,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -183,8 +274,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -202,8 +295,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -221,8 +316,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -245,8 +342,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -268,8 +367,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -288,8 +389,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -308,8 +411,10 @@ public class Server {
                 objOs.writeObject(false);
             }
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -332,6 +437,7 @@ public class Server {
                 invoice.setBillingDate(billingDate);
             }
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
         return invoice;
@@ -356,6 +462,7 @@ public class Server {
             }
             return employeeList;
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
         return employeeList;
@@ -380,6 +487,7 @@ public class Server {
             }
             return customerList;
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
         return customerList;
@@ -396,6 +504,7 @@ public class Server {
             }
             return productList;
         } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
         }
         return productList;
