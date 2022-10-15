@@ -81,11 +81,11 @@ public class Server {
 
     public static void createEmployeeTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String sql = "CREATE TABLE employees(empId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
+            String query = "CREATE TABLE employees(empId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
                     "last_name varchar(25), dob varchar(25), address varchar(40), telephone varchar(25), " +
                     "email varchar(25), type varchar(25), department varchar(40), PRIMARY KEY(empId))";
 
-            if ((stmt.executeUpdate(sql)) == 0) {
+            if ((stmt.executeUpdate(query)) == 0) {
                 System.out.println("Employee table created.");
             }
         } catch (SQLException e) {
@@ -98,11 +98,11 @@ public class Server {
 
     public static void createCustomerTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String sql = "CREATE TABLE customers(cusId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
+            String query = "CREATE TABLE customers(cusId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
                     "last_name varchar(25), dob varchar(25), address varchar(40), telephone varchar(25), " +
                     "email varchar(25), membershipDate varchar(25), membershipExpDate varchar(40), PRIMARY KEY(cusId))";
 
-            if ((stmt.executeUpdate(sql)) == 0) {
+            if ((stmt.executeUpdate(query)) == 0) {
                 System.out.println("Customer table created.");
             }
         } catch (SQLException e) {
@@ -115,10 +115,10 @@ public class Server {
 
     public static void createInventoryTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String sql = "CREATE TABLE inventory(product_code varchar(10) NOT NULL, product_name varchar(25)," +
+            String query = "CREATE TABLE inventory(product_code varchar(10) NOT NULL, product_name varchar(25)," +
                     "short_desc varchar(25), long_desc varchar(70), stock int, unit_price float, PRIMARY KEY(product_code))";
 
-            if ((stmt.executeUpdate(sql)) == 0) {
+            if ((stmt.executeUpdate(query)) == 0) {
                 System.out.println("Inventory table created.");
             }
         } catch (SQLException e) {

@@ -60,7 +60,7 @@ public class MainScreen extends JFrame implements ActionListener {
         leftPanel.setBackground(new Color(0, 140, 255));
         leftPanel.setBorder(BorderFactory.createEtchedBorder());
         leftPanel.setFocusable(false);
-        leftPanel.setPreferredSize(new Dimension(100, 500));
+        leftPanel.setPreferredSize(new Dimension(100, 600));
         GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
         leftPanelLayout.setHorizontalGroup(
                 leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -89,15 +89,13 @@ public class MainScreen extends JFrame implements ActionListener {
                                 .addContainerGap(106, Short.MAX_VALUE))
         );
         leftPanel.setLayout(leftPanelLayout);
-        leftPanel.setBounds(0, 0, 350, 500);
+        leftPanel.setBounds(0, 0, 350, 600);
 
         //Right Panel Properties
         rightPanel = new JPanel();
         rightPanel.setBackground(new Color(255, 255, 0));
         rightPanel.setBorder(BorderFactory.createEtchedBorder());
-        rightPanel.setMaximumSize(new Dimension(880, 500));
-        rightPanel.setMinimumSize(new Dimension(880, 500));
-        rightPanel.setPreferredSize(new Dimension(880, 500));
+        rightPanel.setPreferredSize(new Dimension(900, 600));
         GroupLayout rightPanelLayout = new GroupLayout(rightPanel);
         rightPanelLayout.setHorizontalGroup(
                 rightPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -126,7 +124,7 @@ public class MainScreen extends JFrame implements ActionListener {
                                 .addContainerGap())
         );
         rightPanel.setLayout(rightPanelLayout);
-        rightPanel.setBounds(350, 0, 880, 500);
+        rightPanel.setBounds(350, 0, 900, 600);
     }
 
     private void addPanelsToWindow() {
@@ -136,7 +134,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void setWindowProperties() {
         setLayout(null);
-        setSize(1200, 500);
+        setSize(1220, 600);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

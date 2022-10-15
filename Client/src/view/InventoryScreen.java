@@ -16,7 +16,7 @@ public class InventoryScreen implements ActionListener {
 
     private final String[] TableHead = {"Product Code", "Product Name", "Short Description", "Long Description",
             "Items in Stock", "Unit Price"};
-    private JButton refreshButton, addButton, updateButton, removeButton, backButton;
+    private JButton refreshButton, addButton, searchButton, updateButton, removeButton, backButton;
     private JPanel leftPanel, rightPanel;
     private JTable table;
     private DefaultTableModel model;
@@ -33,6 +33,10 @@ public class InventoryScreen implements ActionListener {
         addButton = new JButton("Add Product");
         addButton.setFocusPainted(false);
         addButton.setFont(new Font("times new roman", Font.PLAIN, 18));
+
+        searchButton = new JButton("Search Products");
+        searchButton.setFocusPainted(false);
+        searchButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
         updateButton = new JButton("Update Product");
         updateButton.setFocusPainted(false);
@@ -60,7 +64,7 @@ public class InventoryScreen implements ActionListener {
         leftPanel.setBackground(new Color(0, 140, 255));
         leftPanel.setBorder(BorderFactory.createEtchedBorder());
         leftPanel.setFocusable(false);
-        leftPanel.setPreferredSize(new Dimension(100, 500));
+        leftPanel.setPreferredSize(new Dimension(100, 600));
         GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
         leftPanelLayout.setHorizontalGroup(
                 leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -68,6 +72,7 @@ public class InventoryScreen implements ActionListener {
                                 .addContainerGap(100, Short.MAX_VALUE)
                                 .addGroup(leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(addButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(searchButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(updateButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(removeButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(refreshButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
@@ -79,6 +84,8 @@ public class InventoryScreen implements ActionListener {
                                 .addGap(50, 50, 50)
                                 .addComponent(addButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
+                                .addComponent(searchButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
                                 .addComponent(updateButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(removeButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
@@ -89,16 +96,17 @@ public class InventoryScreen implements ActionListener {
                                 .addContainerGap(106, Short.MAX_VALUE))
         );
         leftPanel.setLayout(leftPanelLayout);
-        leftPanel.setBounds(0, 0, 350, 500);
+        leftPanel.setBounds(0, 0, 350, 600);
 
         rightPanel = new JPanel();
         rightPanel.setLayout(new GridLayout(1, 1, 5, 5));
-        rightPanel.setSize(new Dimension(880, 500));
+        rightPanel.setSize(new Dimension(900, 600));
     }
 
     private void addComponentsToPanel() {
         rightPanel.add(new JScrollPane(table));
         leftPanel.add(addButton);
+        leftPanel.add(searchButton);
         leftPanel.add(updateButton);
         leftPanel.add(removeButton);
         leftPanel.add(refreshButton);
@@ -107,6 +115,7 @@ public class InventoryScreen implements ActionListener {
 
     private void registerListeners() {
         addButton.addActionListener(this);
+        searchButton.addActionListener(this);
         updateButton.addActionListener(this);
         removeButton.addActionListener(this);
         refreshButton.addActionListener(this);
@@ -148,6 +157,10 @@ public class InventoryScreen implements ActionListener {
         if (e.getSource().equals(addButton)) {
             InventoryInsertDialog insertDialog = new InventoryInsertDialog();
             insertDialog.setVisible(true);
+        }
+        if (e.getSource().equals(searchButton)) {
+            //InventorySearchDialog searchDialog = new InventorySearchDialog();
+            //searchDialog.setVisible(true);
         }
         if (e.getSource().equals(updateButton)) {
             InventoryUpdateDialog updateDialog = new InventoryUpdateDialog();
