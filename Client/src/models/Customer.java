@@ -133,6 +133,4 @@ public class Customer implements Serializable {
                 + getTelephone() + "\nEmail: " + getEmail() + "\nDate Joined" + getMembershipDate()
                 + "Membership Expiration Date: " + getMembershipExpiryDate());
     }
-
-
 }

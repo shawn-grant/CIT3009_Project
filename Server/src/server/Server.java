@@ -43,7 +43,7 @@ public class Server {
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             boolean isYes;
-            int selection = JOptionPane.showConfirmDialog(null, "Could not connect to database\nRetry?" + e, "Connection Failure",
+            int selection = JOptionPane.showConfirmDialog(null, "Could not connect to "  + "database\nRetry?" + e, "Connection Failure",
                     JOptionPane.YES_NO_OPTION);
             isYes = (selection == JOptionPane.YES_OPTION);
             if (isYes) {

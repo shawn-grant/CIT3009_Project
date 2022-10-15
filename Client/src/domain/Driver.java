@@ -5,6 +5,8 @@ import models.Product;
 import view.MainScreen;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Driver {
     public static void main(String[] args) {
@@ -21,17 +23,16 @@ public class Driver {
         client.closeConnections();*/
         new MainScreen();
 
-        /*Object obj = addProducts();
+        Object obj = addProducts();
         List<Product> productList = (ArrayList<Product>) obj;
 
         for(Product product: productList) {
             System.out.println(product.getName());
-        }*/
+        }
     }
 
-    /*private static List<Product> addProducts() {
-        Product product = new Product("HSD", "Bulla", "Bulla sweet",
-                "Sweetest food you'll eat", 20, 78.0f);
+    private static List<Product> addProducts() {
+        Product product = new Product("HSD", "Bulla", "Bulla sweet", "Sweetest food you'll eat", 20, 78.0f);
         Product product2 = new Product("HSD", "Bun", "Bulla sweet",
                 "Sweetest food you'll eat", 20, 78.0f);
 
@@ -39,5 +40,5 @@ public class Driver {
         productList.add(product);
         productList.add(product2);
         return productList;
-    }*/
+    }
 }

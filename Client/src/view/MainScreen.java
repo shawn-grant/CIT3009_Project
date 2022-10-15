@@ -14,6 +14,7 @@ public class MainScreen extends JFrame implements ActionListener {
     private static JButton staffButton;
     private static JButton inventoryButton;
     private static JButton checkOutButton;
+    private static JButton reportButton;
     private static JButton exitButton;
 
     public MainScreen() {
@@ -30,6 +31,7 @@ public class MainScreen extends JFrame implements ActionListener {
         leftPanel.add(staffButton);
         leftPanel.add(inventoryButton);
         leftPanel.add(checkOutButton);
+        leftPanel.add(reportButton);
         leftPanel.add(exitButton);
     }
 
@@ -51,6 +53,10 @@ public class MainScreen extends JFrame implements ActionListener {
         checkOutButton.setFocusPainted(false);
         checkOutButton.setFont(new Font("times new roman", Font.PLAIN, 18));
 
+        reportButton = new JButton("Reports");
+        reportButton.setFocusPainted(false);
+        reportButton.setFont(new Font("times new roman", Font.PLAIN, 18));
+
         exitButton = new JButton("Exit");
         exitButton.setFocusPainted(false);
         exitButton.setFont(new Font("times new roman", Font.PLAIN, 18));
@@ -62,17 +68,19 @@ public class MainScreen extends JFrame implements ActionListener {
         leftPanel.setFocusable(false);
         leftPanel.setPreferredSize(new Dimension(100, 600));
         GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
-        leftPanelLayout.setHorizontalGroup(
-                leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
-                                .addContainerGap(100, Short.MAX_VALUE)
-                                .addGroup(leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(customerButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(staffButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(inventoryButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(checkOutButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-                                .addGap(93, 93, 93)));
+        leftPanelLayout.setHorizontalGroup(leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
+                        .addContainerGap(100, Short.MAX_VALUE)
+                        .addGroup(leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(customerButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(staffButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inventoryButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkOutButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(reportButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+                        .addGap(93, 93, 93)
+                )
+        );
         leftPanelLayout.setVerticalGroup(
                 leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(leftPanelLayout.createSequentialGroup()
@@ -84,6 +92,8 @@ public class MainScreen extends JFrame implements ActionListener {
                                 .addComponent(inventoryButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(checkOutButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(reportButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(106, Short.MAX_VALUE))
@@ -147,6 +157,7 @@ public class MainScreen extends JFrame implements ActionListener {
         staffButton.addActionListener(this);
         inventoryButton.addActionListener(this);
         checkOutButton.addActionListener(this);
+        reportButton.addActionListener(this);
         exitButton.addActionListener(this);
     }
 
