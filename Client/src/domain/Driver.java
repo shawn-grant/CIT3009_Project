@@ -1,6 +1,5 @@
 package domain;
 
-import client.Client;
 import view.MainScreen;
 
 import javax.swing.*;
@@ -12,7 +11,6 @@ public class Driver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //Client client = new Client();
         new MainScreen();
     }
 }

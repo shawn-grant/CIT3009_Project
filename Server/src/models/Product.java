@@ -1,6 +1,8 @@
 package models;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String code;
     private String name;
     private String shortDescription;
@@ -14,8 +16,8 @@ public class Product {
         this.name = "N/A";
         this.shortDescription = "N/A";
         this.longDescription = "N/A";
-        this.itemInStock = -1;
-        this.unitPrice = (float) 0000.00;
+        this.itemInStock = 0;
+        this.unitPrice = 0f;
     }
 
     //Primary Constructor

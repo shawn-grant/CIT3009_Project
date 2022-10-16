@@ -1,12 +1,17 @@
 package client;
 
+import models.Customer;
 import models.Employee;
+import models.Invoice;
+import models.Product;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
 
@@ -22,7 +27,7 @@ public class Client {
 
     private void createConnection() {
         try {
-            connectionSocket = new Socket("127.0.0.1",8888);
+            connectionSocket = new Socket("127.0.0.1", 8888);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,7 +42,7 @@ public class Client {
         }
     }
 
-    private void closeConnections() {
+    public void closeConnections() {
         try {
             objOs.close();
             objIs.close();
@@ -64,30 +69,183 @@ public class Client {
         }
     }
 
-    public void sendEmployeeId(String empId) {
+    public void sendCustomer(Customer customer) {
         try {
-            objOs.writeObject(empId);
+            objOs.writeObject(customer);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void receiveRequests() {
+    public void sendProduct(Product product) {
+        try {
+            objOs.writeObject(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendInvoice(Invoice invoice) {
+        try {
+            objOs.writeObject(invoice);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendInvoiceNumber(String invoiceNum) {
+        try {
+            objOs.writeObject(invoiceNum);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void receiveResponse() {
         try {
             if (action.equalsIgnoreCase("Add Employee")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
                     JOptionPane.showMessageDialog(null, "Record added successfully", "Add Record Status",
                             JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Employee")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Employee updated successfully", "Update Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Employee")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Employee removed successfully", "Remove Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Employee Status",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             if (action.equalsIgnoreCase("Find Employee")) {
-                Employee employee = new Employee();
-                employee = (Employee) objIs.readObject();
+                Employee employee = (Employee) objIs.readObject();
                 if (employee == null) {
                     JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
                             JOptionPane.INFORMATION_MESSAGE);
-                    return;
+                }
+            }
+            if (action.equalsIgnoreCase("Add Customer")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Record added successfully", "Add Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to add record", "Add Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Customer")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Customer updated successfully", "Update Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Customer")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Customer removed successfully", "Remove Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Customer Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Find Customer")) {
+                Employee employee = (Employee) objIs.readObject();
+                if (employee == null) {
+                    JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Add Product")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Product added successfully", "Add Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Product could not be added", "Add Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Product")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Product updated successfully", "Update Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Product")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Product removed successfully", "Remove Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Product Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Find Product")) {
+                Product product = (Product) objIs.readObject();
+                if (product == null) {
+                    JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Add Invoice")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Invoice added successfully", "Add Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Update Invoice")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Invoice updated successfully", "Update Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update record", "Update Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Remove Invoice")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(null, "Invoice removed successfully", "Remove Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to remove record", "Remove Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            if (action.equalsIgnoreCase("Find Invoice")) {
+                Invoice invoice = (Invoice) objIs.readObject();
+                if (invoice == null) {
+                    JOptionPane.showMessageDialog(null, "Invoice could not be found", "Find Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         } catch (ClassCastException e) {
@@ -97,5 +255,77 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Employee> receiveViewEmployeesResponse() {
+        List<Employee> employeeList = new ArrayList<>();
+        Employee employee;
+        if (action.equalsIgnoreCase("View Employees")) {
+            try {
+                while (true) {
+                    employee = (Employee) objIs.readObject();
+                    if (employee != null) {
+                        employeeList.add(employee);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return employeeList;
+    }
+
+    public List<Customer> receiveViewCustomersResponse() {
+        List<Customer> customerList = new ArrayList<>();
+        Customer customer;
+        if (action.equalsIgnoreCase("View Customers")) {
+            try {
+                while (true) {
+                    customer = (Customer) objIs.readObject();
+                    if (customer != null) {
+                        customerList.add(customer);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return customerList;
+    }
+
+    public List<Product> receiveViewInventoryResponse() {
+        List<Product> productList = new ArrayList<>();
+        Product product;
+        if (action.equalsIgnoreCase("View Inventory")) {
+            try {
+                while (true) {
+                    product = (Product) objIs.readObject();
+                    if (product != null) {
+                        productList.add(product);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return productList;
     }
 }
