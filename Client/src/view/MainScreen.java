@@ -84,7 +84,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
         //Right Panel Properties
         rightPanel = new JPanel();
-        rightPanel.setBackground(new Color(255, 255, 0));
+        rightPanel.setBackground(new Color(205, 255, 0));
         rightPanel.setBorder(BorderFactory.createEtchedBorder());
         rightPanel.setMaximumSize(new Dimension(880, 500));
         rightPanel.setMinimumSize(new Dimension(880, 500));
@@ -116,6 +116,7 @@ public class MainScreen extends JFrame implements ActionListener {
                                 //.addComponent(jLabel3)
                                 .addContainerGap())
         );
+        
         rightPanel.setLayout(rightPanelLayout);
         rightPanel.setBounds(350, 0, 880, 500);
     }
@@ -136,7 +137,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void setWindowProperties() {
         setLayout(null);
-        setSize(1200, 500);
+        setSize(800, 500);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,8 +1,0 @@
-{
-    "java.project.sourcePaths": [
-        "Client/properties",
-        "Server/properties",
-        "Client/src",
-        "Server/src",
-    ]
-}
