@@ -127,7 +127,7 @@ public class Server {
                     "PRIMARY KEY(product_code))";
 
             if ((stmt.executeUpdate(query)) == 0) {
-                System.out.println("Inventory table created.");
+                System.out.println("Product table created.");
             }
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
@@ -217,7 +217,7 @@ public class Server {
 
                     if (action.equals("Add Employee")) {
                         employee = (Employee) objIs.readObject();
-                        addEmployeeToFile(employee);
+                        addEmployeeData(employee);
                     }
                     if (action.equals("View Employees")) {
                         List<Employee> employeeList = getEmployeeList();
@@ -227,7 +227,7 @@ public class Server {
                     }
                     if (action.equals("Add Customer")) {
                         customer = (Customer) objIs.readObject();
-                        addCustomerToFile(customer);
+                        addCustomerData(customer);
                     }
                     if (action.equals("View Customers")) {
                         List<Customer> customerList = getCustomerList();
@@ -237,7 +237,7 @@ public class Server {
                     }
                     if (action.equals("Add Product")) {
                         product = (Product) objIs.readObject();
-                        addProductToFile(product);
+                        addProductData(product);
                     }
                     if (action.equals("Update Product")) {
                         product = (Product) objIs.readObject();
@@ -251,7 +251,7 @@ public class Server {
                     }
                     if (action.equals("Add Invoice")) {
                         invoice = (Invoice) objIs.readObject();
-                        addInvoiceToFile(invoice);
+                        addInvoiceData(invoice);
                     }
                     if (action.equals("Find Invoice")) {
                         String invoiceNum = (String) objIs.readObject();
@@ -274,7 +274,7 @@ public class Server {
         }
     }
 
-    public void addCustomerToFile(Customer customer) throws IOException {
+    public void addCustomerData(Customer customer) throws IOException {
         String query = "INSERT INTO jwr.customer(ID, firstName, lastName, dob, address, " +
                 "telephone, email, membershipDate, membershipExpiryDate) " + "VALUES ('" + customer.getId() +
                 "', '" + customer.getFirstName() + "', '" + customer.getLastName() + "', '" + customer.getDOB() +
@@ -298,7 +298,7 @@ public class Server {
         }
     }
 
-    public void addEmployeeToFile(Employee employee) throws IOException {
+    public void addEmployeeData(Employee employee) throws IOException {
         String query = "INSERT INTO jwr.employee(ID, firstName, lastName, dob, address, telephone, email" +
                 "dept_code, employeeType) " + "VALUES ('" + employee.getId() + "', '" + employee.getFirstName() +
                 "', '" + employee.getLastName() + "', '" + employee.getDOB() + "', '" + employee.getAddress() +
@@ -322,8 +322,8 @@ public class Server {
         }
     }
 
-    public void addProductToFile(Product product) throws IOException {
-        String query = "INSERT INTO jwr.product(product_code, product_name, shortDescription, longDescription, itemInStock, unit_price) " +
+    public void addProductData(Product product) throws IOException {
+        String query = "INSERT INTO jwr.product(product_code, productName, shortDescription, longDescription, itemInStock, unitPrice) " +
                 "VALUES ('" + product.getCode() + "', '" + product.getName() + "', '" + product.getShortDescription() +
                 "', '" + product.getLongDescription() + "', '" + product.getItemInStock() +
                 "', '" + product.getUnitPrice() + "')";
@@ -345,7 +345,7 @@ public class Server {
         }
     }
 
-    public void addInvoiceToFile(Invoice invoice) throws IOException {
+    public void addInvoiceData(Invoice invoice) throws IOException {
         String query = "INSERT INTO jwr.invoice(invoice_number, billing_date, item_name, quantity, employeeID, customerID) " +
                 "VALUES ('" + invoice.getInvoiceNumber() + "', '" + invoice.getBillingDate()
                 + "', '" + invoice.getItemName() + "', '" + invoice.getQuantity() + "', '" + invoice.getEmployee() +

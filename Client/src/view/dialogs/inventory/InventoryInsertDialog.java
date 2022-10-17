@@ -1,4 +1,4 @@
-package view.dialogs;
+package view.dialogs.inventory;
 
 import client.Client;
 import models.Product;
@@ -8,15 +8,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InventoryUpdateDialog extends JDialog implements ActionListener {
-
+public class InventoryInsertDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private JLabel nameLabel, codeLabel, shortDescLabel, longDescLabel, inStockLabel, unitPriceLabel;
     private JTextField nameField, codeField, shortDescField, longDescField, inStockField, unitPriceField;
     private JButton cancelButton, confirmButton;
     private JPanel panTop, panBottom;
 
-    public InventoryUpdateDialog() {
+    public InventoryInsertDialog() {
         setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
         initializeComponents();
         addComponentsToPanels();
@@ -100,7 +99,7 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
     }
 
     private void setWindowProperties() {
-        setTitle("Update Product");
+        setTitle("Add New Product");
         setSize(500, 400);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -132,7 +131,7 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
                 Client client = new Client();
-                client.sendAction("Update Product");
+                client.sendAction("Add Product");
                 Product product = new Product(codeField.getText(), nameField.getText(), shortDescField.getText(),
                         longDescField.getText(), Integer.parseInt(inStockField.getText()),
                         Float.parseFloat(unitPriceField.getText()));
@@ -140,13 +139,13 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
                 client.receiveResponse();
                 client.closeConnections();
                 resetFields();
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(
                         this,
                         "One or more fields empty",
                         "Warning",
-                        JOptionPane.WARNING_MESSAGE
-                );
+                        JOptionPane.WARNING_MESSAGE);
             }
         }
 
@@ -154,5 +153,4 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
             dispose();
         }
     }
-
 }
