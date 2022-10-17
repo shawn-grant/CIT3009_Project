@@ -3,6 +3,8 @@ package view;
 import client.Client;
 import models.Product;
 import view.dialogs.inventory.InventoryInsertDialog;
+import view.dialogs.inventory.InventoryRemoveDialog;
+import view.dialogs.inventory.InventorySearchDialog;
 import view.dialogs.inventory.InventoryUpdateDialog;
 
 import javax.swing.*;
@@ -13,7 +15,7 @@ import java.util.List;
 
 public class InventoryScreen extends BaseScreen implements ActionListener {
 
-    private final String[] TableHead = {"Product Code", "Product Name", "Short Description", "Long Description",
+    private final String[] tableHeaders = {"Product Code", "Product Name", "Short Description", "Long Description",
             "Items in Stock", "Unit Price"};
     private JTable table;
     private DefaultTableModel model;
@@ -29,7 +31,7 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
 
     private void initializeComponents() {
         //Table properties
-        model = new DefaultTableModel(TableHead, 0);
+        model = new DefaultTableModel(tableHeaders, 0);
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
@@ -75,6 +77,21 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         }
     }
 
+    private void setProduct(Product product) {
+        int count = 0;
+        int rowCount = model.getRowCount();
+        int counter = 0;
+
+        while (counter < rowCount) {
+            model.removeRow(count);
+            counter++;
+        }
+
+        model.insertRow(count, new Object[]{product.getCode(), product.getName(),
+                    product.getShortDescription(), product.getLongDescription(),
+                    product.getItemInStock(), product.getUnitPrice()});
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -83,17 +100,23 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
             insertDialog.setVisible(true);
             getInventory();
         }
-        /*if (e.getSource().equals(searchButton)) {
-            //InventorySearchDialog searchDialog = new InventorySearchDialog();
-            //searchDialog.setVisible(true);
-        }*/
+        if (e.getSource().equals(searchButton)) {
+            Client client = new Client();
+            InventorySearchDialog searchDialog = new InventorySearchDialog(client);
+            searchDialog.setVisible(true);
+            Product product = client.receiveFindProductResponse();
+            setProduct(product);
+            client.closeConnections();
+        }
         if (e.getSource().equals(updateButton)) {
             InventoryUpdateDialog updateDialog = new InventoryUpdateDialog();
             updateDialog.setVisible(true);
+            getInventory();
         }
         if (e.getSource().equals(deleteButton)) {
-            //InventoryRemoveDialog removeDialog = new InventoryRemoveDialog();
-            //removeDialog.setVisible(true);
+            InventoryRemoveDialog removeDialog = new InventoryRemoveDialog();
+            removeDialog.setVisible(true);
+            getInventory();
         }
         if (e.getSource().equals(refreshButton)) {
             getInventory();

@@ -71,6 +71,14 @@ public class Client {
         }
     }
 
+    public void sendEmployeeId(String employeeId) {
+        try {
+            objOs.writeObject(employeeId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendCustomer(Customer customer) {
         try {
             objOs.writeObject(customer);
@@ -79,9 +87,25 @@ public class Client {
         }
     }
 
+    public void sendCustomerId(String customerId) {
+        try {
+            objOs.writeObject(customerId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendProduct(Product product) {
         try {
             objOs.writeObject(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendProductCode(String productCode) {
+        try {
+            objOs.writeObject(productCode);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,13 +233,6 @@ public class Client {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            if (action.equalsIgnoreCase("Find Product")) {
-                Product product = (Product) objIs.readObject();
-                if (product == null) {
-                    JOptionPane.showMessageDialog(null, "Record could not be found", "Find Record Status",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
             if (action.equalsIgnoreCase("Add Invoice")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
@@ -259,7 +276,71 @@ public class Client {
         }
     }
 
-    public List<Employee> receiveViewEmployeesResponse() {
+    public Employee receiveFindEmployeeResponse() {
+        Employee employee = new Employee();
+        if (action.equalsIgnoreCase("Find Employee")) {
+            try {
+                employee = (Employee) objIs.readObject();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return employee;
+    }
+
+    public Customer receiveFindCustomerResponse() {
+        Customer customer = new Customer();
+        if (action.equalsIgnoreCase("Find Customer")) {
+            try {
+                customer = (Customer) objIs.readObject();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return customer;
+    }
+
+    public Product receiveFindProductResponse() {
+        Product product = new Product();
+        if (action.equalsIgnoreCase("Find Product")) {
+            try {
+                product = (Product) objIs.readObject();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return product;
+    }
+
+    public Invoice receiveFindInvoiceResponse() {
+        Invoice invoice = new Invoice();
+        if (action.equalsIgnoreCase("Find Invoice")) {
+            try {
+                invoice = (Invoice) objIs.readObject();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return invoice;
+    }
+
+    public List<Employee> receiveViewEmployeeResponse() {
         List<Employee> employeeList = new ArrayList<>();
         Employee employee;
         if (action.equalsIgnoreCase("View Employees")) {
