@@ -1,19 +1,14 @@
 package view;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.io.File;
+import java.awt.event.MouseEvent;
 
-public class MainScreen extends JFrame implements ActionListener{
+public class MainScreen extends JFrame implements ActionListener {
+
     private JPanel leftPanel;
     private JPanel rightPanel;
     private JToggleButton customerButton;
@@ -21,53 +16,70 @@ public class MainScreen extends JFrame implements ActionListener{
     private JToggleButton inventoryButton;
     private JToggleButton checkOutButton;
     private JToggleButton reportButton;
-    private JToggleButton exitButton;    
+    private JToggleButton exitButton;
 
-    public MainScreen(){
+    public MainScreen() {
+        super("Jan's Wholesale and Retail");
+
         initializeComponents();
         addComponentsToPanels();
         addPanelsToWindow();
         setWindowProperties();
     }
-    
+
     private void initializeComponents() {
-        
-        // init Buttons
-        customerButton = new JToggleButton("Customers", new ImageIcon(getClass().getResource("/res/customer_icon.png")));
-        staffButton = new JToggleButton("Staff", new ImageIcon(getClass().getResource("/res/staff_icon.png")));
-        inventoryButton = new JToggleButton("Products", new ImageIcon(getClass().getResource("/res/product_icon.png")));
-        checkOutButton = new JToggleButton("Checkout", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
-        reportButton = new JToggleButton("Reports", new ImageIcon(getClass().getResource("/res/report_icon.png")));
-        exitButton = new JToggleButton("Exit", new ImageIcon(getClass().getResource("/res/exit_icon.png")));
+        // initialize toggleButtons
+        customerButton = new JToggleButton(" Customers", new ImageIcon(getClass().getResource("/res/customer_icon.png")));
+        staffButton = new JToggleButton(" Staff", new ImageIcon(getClass().getResource("/res/staff_icon.png")));
+        inventoryButton = new JToggleButton(" Products", new ImageIcon(getClass().getResource("/res/product_icon.png")));
+        checkOutButton = new JToggleButton(" Checkout", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
+        reportButton = new JToggleButton(" Reports", new ImageIcon(getClass().getResource("/res/report_icon.png")));
+        exitButton = new JToggleButton(" Exit", new ImageIcon(getClass().getResource("/res/exit_icon.png")));
 
-        JToggleButton[] buttons = {customerButton, staffButton, inventoryButton, checkOutButton, reportButton, exitButton};
-        ButtonGroup grp = new ButtonGroup();
-        grp.add(customerButton);
-        grp.add(staffButton);
-        grp.add(inventoryButton);
-        grp.add(checkOutButton);
-        grp.add(reportButton);
+        // used to create hover effect on toggleButtons
+        MouseAdapter btnHover = new MouseAdapter() {
+            Color startColor;
 
-        for(JToggleButton btn : buttons) {
-            // setup all the buttons properties
-            btn.setForeground(Color.WHITE);
-            btn.setBackground(null);
-            btn.setFocusPainted(false);
-            btn.setHorizontalAlignment(SwingConstants.LEFT);
-            btn.setPreferredSize(new Dimension(200, 65));
-            btn.setFont(new Font("arial", Font.BOLD, 18));
-            btn.setBorderPainted(false);
-            btn.addMouseListener(btnHover);
-            btn.addActionListener(this);
+            public void mouseEntered(MouseEvent evt) {
+                Component c = evt.getComponent();
+                startColor = c.getBackground();
+                c.setBackground(new Color(0, 0, 179));
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                Component c = evt.getComponent();
+                c.setBackground(startColor);
+            }
+        };
+
+        JToggleButton[] toggleButtons = {customerButton, staffButton, inventoryButton, checkOutButton, reportButton, exitButton};
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(customerButton);
+        buttonGroup.add(staffButton);
+        buttonGroup.add(inventoryButton);
+        buttonGroup.add(checkOutButton);
+        buttonGroup.add(reportButton);
+
+        for (JToggleButton button : toggleButtons) {
+            // setup all the toggleButtons properties
+            button.setForeground(Color.WHITE);
+            button.setBackground(null);
+            button.setFocusPainted(false);
+            button.setHorizontalAlignment(SwingConstants.LEFT);
+            button.setPreferredSize(new Dimension(200, 65));
+            button.setFont(new Font("arial", Font.BOLD, 18));
+            button.setBorderPainted(false);
+            button.addMouseListener(btnHover);
+            button.addActionListener(this);
         }
-        
-        // Left Panel properties        
+
+        // Left Panel properties
         leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         leftPanel.setSize(200, 600);
         leftPanel.setBackground(new Color(0, 0, 230));
-        
+
         // Right Panel properties
-        rightPanel = new JPanel(new GridLayout(0,1));
+        rightPanel = new JPanel(new GridLayout(1, 1));
         rightPanel.setBounds(200, 0, 800, 600);
     }
 
@@ -80,83 +92,68 @@ public class MainScreen extends JFrame implements ActionListener{
         leftPanel.add(reportButton);
         leftPanel.add(exitButton);
 
-        // Add default/ splash screen
+        // Add default/splash screen
         rightPanel.add(new DefaultScreen());
     }
 
     private void addPanelsToWindow() {
-        this.add(leftPanel);
-        this.add(rightPanel);
+        add(leftPanel);
+        add(rightPanel);
     }
 
     private void setWindowProperties() {
-        this.setLayout(null);
-        this.setSize(1000, 600);
-        this.setLocationRelativeTo(null);
-
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setTitle("Jan's Wholesale and Retail");
-        this.setVisible(true);
+        setLayout(null);
+        setSize(1000, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
     }
 
-    // SWITCH TO THE APPROPRIATE SREEN WHEN A TAB BUTTON IS CLICKED
+    // SWITCH TO THE APPROPRIATE SCREEN WHEN A TAB BUTTON IS CLICKED
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == customerButton) {
+        if (e.getSource() == customerButton) {
             rightPanel.removeAll();
-            rightPanel.add(new ExampleScreen()); //testing
+            rightPanel.add(new BaseScreen("Customers")); //testing
             rightPanel.repaint();
-        }
-        else if(e.getSource() == staffButton) {
+            rightPanel.revalidate();
+        } else if (e.getSource() == staffButton) {
             rightPanel.removeAll();
             // rightPanel.add(new StaffScreen());
             rightPanel.repaint();
-        }
-        else if(e.getSource() == inventoryButton) {
+            rightPanel.revalidate();
+        } else if (e.getSource() == inventoryButton) {
             rightPanel.removeAll();
-            // rightPanel.add(new InventoryScreen());
+            rightPanel.add(new InventoryScreen());
             rightPanel.repaint();
-        }
-        else if(e.getSource() == checkOutButton) {
+            rightPanel.revalidate();
+        } else if (e.getSource() == checkOutButton) {
             rightPanel.removeAll();
             // rightPanel.add(new CheckoutScreen());
             rightPanel.repaint();
-        }
-        else if(e.getSource() == reportButton) {
+            rightPanel.revalidate();
+        } else if (e.getSource() == reportButton) {
             rightPanel.removeAll();
             // rightPanel.add(new ReportScreen());
             rightPanel.repaint();
-        }
-        else if(e.getSource() == exitButton) {
+            rightPanel.revalidate();
+        } else if (e.getSource() == exitButton) {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             int selection = JOptionPane.showConfirmDialog(
-                null, 
-                "Are you sure ?",
-                "Exit Application", 
-                JOptionPane.YES_NO_OPTION
+                    null,
+                    "Are you sure ?",
+                    "Exit Application",
+                    JOptionPane.YES_NO_OPTION
             );
 
             if (selection == JOptionPane.YES_OPTION)
-                System.exit(1);
+                System.exit(0);
         }
     }
-
-    /// used to create hover effect on buttons
-    MouseAdapter btnHover = new MouseAdapter() {
-        Color startColor;
-
-        public void mouseEntered(java.awt.event.MouseEvent evt)
-        {            
-            Component c = evt.getComponent();
-            startColor = c.getBackground();    
-            c.setBackground(new Color(0, 0, 179));
-        }                                      
-
-        public void mouseExited(java.awt.event.MouseEvent evt)
-        {                                      
-            Component c = evt.getComponent();
-            c.setBackground(startColor);
-        }
-    };
 }
