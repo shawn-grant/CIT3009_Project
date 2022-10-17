@@ -100,4 +100,16 @@ public class Invoice implements Serializable {
                 + "Items" + getItemName() + "Quantity: " + getQuantity() + "Employee: "
                 + getEmployee() + "Customer: " + getCustomer());
     }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceNumber=" + invoiceNumber +
+                ", billingDate=" + billingDate +
+                ", itemName='" + itemName + '\'' +
+                ", quantity=" + quantity +
+                ", employee='" + employee + '\'' +
+                ", customer='" + customer + '\'' +
+                '}';
+    }
 }

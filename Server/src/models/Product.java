@@ -102,4 +102,16 @@ public class Product implements Serializable {
                 + getShortDescription() + "\nLong Description: " + getLongDescription() + "\nItem in Stock: "
                 + getItemInStock() + "\nUnit Price: " + getUnitPrice());
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", longDescription='" + longDescription + '\'' +
+                ", itemInStock=" + itemInStock +
+                ", unitPrice=" + unitPrice +
+                '}';
+    }
 }

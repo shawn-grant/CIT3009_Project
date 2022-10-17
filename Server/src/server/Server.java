@@ -10,22 +10,86 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
     private static Connection dbConn;
     private ServerSocket serverSocket;
-    private Socket connectionSocket;
+    private Socket clientSocket;
     private ObjectOutputStream objOs;
     private ObjectInputStream objIs;
     private Statement stmt;
     private ResultSet result;
 
     public Server() {
-        this.createConnection();
-        this.waitForRequests();
+        createConnection();
+        getDatabaseConnection();
+        waitForRequests();
+    }
+
+    private void createConnection() {
+        try {
+            serverSocket = new ServerSocket(8888);
+            serverSocket.setReuseAddress(true);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void configureStreams() {
+        try {
+            objOs = new ObjectOutputStream(clientSocket.getOutputStream());
+            objIs = new ObjectInputStream(clientSocket.getInputStream());
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void closeConnections() {
+        try {
+            objOs.close();
+            objIs.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void waitForRequests() {
+        try {
+            // running infinite loop for getting client request
+            while (true) {
+                // socket object to receive incoming clientSocket requests
+                clientSocket = serverSocket.accept();
+
+                // Displaying that new client is connected to server
+                System.out.println("\nClient connected: " + clientSocket.getInetAddress().getHostAddress());
+                System.out.println("Time Connected: " + LocalDateTime.now());
+
+                // create a new thread object
+                ClientHandler clientHandler = new ClientHandler();
+
+                // This thread will handle the client separately
+                new Thread(clientHandler).start();
+            }
+        } catch (SocketException e) {
+            System.err.println("SocketException: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e.getMessage());
+            }
+        }
     }
 
     public static void getDatabaseConnection() {
@@ -47,7 +111,7 @@ public class Server {
             boolean isYes;
             int selection = JOptionPane.showConfirmDialog(
                     null,
-                    "Could not connect to " + "database\nRetry?" + e,
+                    "Could not connect to database\nRetry?" + e,
                     "Connection Failure",
                     JOptionPane.YES_NO_OPTION
             );
@@ -64,6 +128,9 @@ public class Server {
         }
     }
 
+    /**
+     * Create queries
+     */
     public static void createJWRDatabase() {
         final String JBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost:3306/";
@@ -170,154 +237,9 @@ public class Server {
         }
     }
 
-    private void createConnection() {
-        try {
-            serverSocket = new ServerSocket(8888);
-        } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private void configureStreams() {
-        try {
-            objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
-            objIs = new ObjectInputStream(connectionSocket.getInputStream());
-        } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private void closeConnections() {
-        try {
-            objOs.close();
-            objIs.close();
-            connectionSocket.close();
-        } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private void waitForRequests() {
-        String action;
-        getDatabaseConnection();
-        Employee employee;
-        Product product;
-        Customer customer;
-        Invoice invoice;
-        try {
-            while (true) {
-                connectionSocket = serverSocket.accept();
-                configureStreams();
-                try {
-                    action = (String) objIs.readObject();
-                    System.out.println("Requested action: " + action);
-
-                    if (action.equals("Add Employee")) {
-                        employee = (Employee) objIs.readObject();
-                        addEmployeeData(employee);
-                    }
-                    if (action.equals("Update Employee")) {
-                        employee = (Employee) objIs.readObject();
-                        updateEmployeeData(employee);
-                    }
-                    if (action.equals("View Employees")) {
-                        List<Employee> employeeList = getEmployeeList();
-                        for (Employee emp : employeeList) {
-                            objOs.writeObject(emp);
-                        }
-                    }
-                    if (action.equals("Find Employee")) {
-                        String employeeId = (String) objIs.readObject();
-                        employee = getEmployeeData(employeeId);
-                        objOs.writeObject(employee);
-                    }
-                    if (action.equals("Remove Employee")) {
-                        String employeeId = (String) objIs.readObject();
-                        removeEmployeeData(employeeId);
-                    }
-                    if (action.equals("Add Customer")) {
-                        customer = (Customer) objIs.readObject();
-                        addCustomerData(customer);
-                    }
-                    if (action.equals("Update Customer")) {
-                        customer = (Customer) objIs.readObject();
-                        updateCustomerData(customer);
-                    }
-                    if (action.equals("View Customers")) {
-                        List<Customer> customerList = getCustomerList();
-                        for (Customer cus : customerList) {
-                            objOs.writeObject(cus);
-                        }
-                    }
-                    if (action.equals("Find Customer")) {
-                        String customerId = (String) objIs.readObject();
-                        customer = getCustomerData(customerId);
-                        objOs.writeObject(customer);
-                    }
-                    if (action.equals("Remove Customer")) {
-                        String customerId = (String) objIs.readObject();
-                        removeCustomerData(customerId);
-                    }
-                    if (action.equals("Add Product")) {
-                        product = (Product) objIs.readObject();
-                        addProductData(product);
-                    }
-                    if (action.equals("Update Product")) {
-                        product = (Product) objIs.readObject();
-                        updateProductData(product);
-                    }
-                    if (action.equals("Find Product")) {
-                        String productCode = (String) objIs.readObject();
-                        product = getProductData(productCode);
-                        objOs.writeObject(product);
-                    }
-                    if (action.equals("Remove Product")) {
-                        String productCode = (String) objIs.readObject();
-                        removeProductData(productCode);
-                    }
-                    if (action.equals("View Inventory")) {
-                        List<Product> productList = getInventoryList();
-                        for (Product prod : productList) {
-                            objOs.writeObject(prod);
-                        }
-                    }
-                    if (action.equals("Add Invoice")) {
-                        invoice = (Invoice) objIs.readObject();
-                        addInvoiceData(invoice);
-                    }
-                    if (action.equals("Update Invoice")) {
-                        invoice = (Invoice) objIs.readObject();
-                        updateInvoiceData(invoice);
-                    }
-                    if (action.equals("Find Invoice")) {
-                        String invoiceNum = (String) objIs.readObject();
-                        invoice = getInvoiceData(invoiceNum);
-                        objOs.writeObject(invoice);
-                    }
-                    if (action.equals("Remove Invoice")) {
-                        String invoiceNum = (String) objIs.readObject();
-                        removeInvoiceData(invoiceNum);
-                    }
-                } catch (ClassNotFoundException e) {
-                    System.err.println("ClassNotFoundException: " + e.getMessage());
-                } catch (ClassCastException e) {
-                    System.err.println("ClassCastException: " + e.getMessage());
-                }
-                closeConnections();
-            }
-        } catch (EOFException e) {
-            System.err.println("EOFException: " + e.getMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /** Insert queries **/
+    /**
+     * Insert queries
+     **/
     public void addCustomerData(Customer customer) throws IOException {
         String query = "INSERT INTO jwr.customer(ID, firstName, lastName, dob, address, " +
                 "telephone, email, membershipDate, membershipExpiryDate) " + "VALUES ('" + customer.getId() +
@@ -412,7 +334,9 @@ public class Server {
         }
     }
 
-    /** Update queries **/
+    /**
+     * Update queries
+     **/
     public void updateEmployeeData(Employee employee) throws IOException {
         String query = "UPDATE jwr.employee SET firstName = '" + employee.getFirstName() + "', " +
                 "lastName = '" + employee.getLastName() + "', " +
@@ -515,7 +439,9 @@ public class Server {
         }
     }
 
-    /** Select queries **/
+    /**
+     * Select queries
+     **/
     private Employee getEmployeeData(String employeeId) {
         Employee employee = new Employee();
         String query = "SELECT * FROM jwr.employee WHERE ID = '" + employeeId + "'";
@@ -678,7 +604,9 @@ public class Server {
         return productList;
     }
 
-    /** Delete queries **/
+    /**
+     * Delete queries
+     **/
     public void removeEmployeeData(String employeeId) throws IOException {
         String query = "DELETE FROM jwr.employee WHERE ID = '" + employeeId + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
@@ -735,6 +663,7 @@ public class Server {
             objOs.writeObject(false);
         }
     }
+
     public void removeInvoiceData(String invoiceNum) throws IOException {
         String query = "DELETE FROM jwr.invoice WHERE invoice_number = '" + invoiceNum + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
@@ -751,6 +680,122 @@ public class Server {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
+        }
+    }
+
+    class ClientHandler implements Runnable {
+
+        @Override
+        public void run() {
+            String action;
+            Employee employee;
+            Product product;
+            Customer customer;
+            Invoice invoice;
+            configureStreams();
+            try {
+                action = (String) objIs.readObject();
+                System.out.println("Requested action: " + action);
+
+                if (action.equals("Add Employee")) {
+                    employee = (Employee) objIs.readObject();
+                    addEmployeeData(employee);
+                }
+                if (action.equals("Update Employee")) {
+                    employee = (Employee) objIs.readObject();
+                    updateEmployeeData(employee);
+                }
+                if (action.equals("View Employees")) {
+                    List<Employee> employeeList = getEmployeeList();
+                    for (Employee emp : employeeList) {
+                        objOs.writeObject(emp);
+                    }
+                }
+                if (action.equals("Find Employee")) {
+                    String employeeId = (String) objIs.readObject();
+                    employee = getEmployeeData(employeeId);
+                    objOs.writeObject(employee);
+                }
+                if (action.equals("Remove Employee")) {
+                    String employeeId = (String) objIs.readObject();
+                    removeEmployeeData(employeeId);
+                }
+                if (action.equals("Add Customer")) {
+                    customer = (Customer) objIs.readObject();
+                    addCustomerData(customer);
+                }
+                if (action.equals("Update Customer")) {
+                    customer = (Customer) objIs.readObject();
+                    updateCustomerData(customer);
+                }
+                if (action.equals("View Customers")) {
+                    List<Customer> customerList = getCustomerList();
+                    for (Customer cus : customerList) {
+                        objOs.writeObject(cus);
+                    }
+                }
+                if (action.equals("Find Customer")) {
+                    String customerId = (String) objIs.readObject();
+                    customer = getCustomerData(customerId);
+                    objOs.writeObject(customer);
+                }
+                if (action.equals("Remove Customer")) {
+                    String customerId = (String) objIs.readObject();
+                    removeCustomerData(customerId);
+                }
+                if (action.equals("Add Product")) {
+                    product = (Product) objIs.readObject();
+                    addProductData(product);
+                }
+                if (action.equals("Update Product")) {
+                    product = (Product) objIs.readObject();
+                    updateProductData(product);
+                }
+                if (action.equals("Find Product")) {
+                    String productCode = (String) objIs.readObject();
+                    product = getProductData(productCode);
+                    objOs.writeObject(product);
+                }
+                if (action.equals("Remove Product")) {
+                    String productCode = (String) objIs.readObject();
+                    removeProductData(productCode);
+                }
+                if (action.equals("View Inventory")) {
+                    List<Product> productList = getInventoryList();
+                    for (Product prod : productList) {
+                        objOs.writeObject(prod);
+                    }
+                }
+                if (action.equals("Add Invoice")) {
+                    invoice = (Invoice) objIs.readObject();
+                    addInvoiceData(invoice);
+                }
+                if (action.equals("Update Invoice")) {
+                    invoice = (Invoice) objIs.readObject();
+                    updateInvoiceData(invoice);
+                }
+                if (action.equals("Find Invoice")) {
+                    String invoiceNum = (String) objIs.readObject();
+                    invoice = getInvoiceData(invoiceNum);
+                    objOs.writeObject(invoice);
+                }
+                if (action.equals("Remove Invoice")) {
+                    String invoiceNum = (String) objIs.readObject();
+                    removeInvoiceData(invoiceNum);
+                }
+            } catch (EOFException e) {
+                System.err.println("EOFException: " + e.getMessage());
+                e.printStackTrace();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e.getMessage());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                System.err.println("ClassNotFoundException: " + e.getMessage());
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e.getMessage());
+            } finally {
+                closeConnections();
+            }
         }
     }
 }
