@@ -20,7 +20,7 @@ public class BaseScreen extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setBackground(Color.YELLOW);
+        setBackground(new Color(0, 100, 205));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(800, 600);
 
@@ -60,7 +60,7 @@ public class BaseScreen extends JPanel {
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         mainContent = new JPanel(new GridLayout(0, 1, 0, 0));
 
-        buttonPanel.setBackground(Color.YELLOW);
+        buttonPanel.setBackground(new Color(0, 100, 205));
     }
 
     private void addComponentsToPanels() {

@@ -140,8 +140,11 @@ public class InventoryInsertDialog extends JDialog implements ActionListener {
                 client.closeConnections();
                 resetFields();
             } else {
-                JOptionPane.showMessageDialog(this, "One or more fields empty",
-                        "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        this,
+                        "One or more fields empty",
+                        "Warning",
+                        JOptionPane.WARNING_MESSAGE);
             }
         }
 
