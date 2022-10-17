@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.io.File;
 
 public class MainScreen extends JFrame implements ActionListener{
     private JPanel leftPanel;
@@ -30,13 +31,14 @@ public class MainScreen extends JFrame implements ActionListener{
     }
     
     private void initializeComponents() {
+        
         // init Buttons
-        customerButton = new JToggleButton("Customers", new ImageIcon("./images/customer_icon.png"));
-        staffButton = new JToggleButton("Staff", new ImageIcon("./images/staff_icon.png"));
-        inventoryButton = new JToggleButton("Products", new ImageIcon("./images/product_icon.png"));
-        checkOutButton = new JToggleButton("Checkout", new ImageIcon("./images/checkout_icon.png"));
-        reportButton = new JToggleButton("Reports", new ImageIcon("./images/report_icon.png"));
-        exitButton = new JToggleButton("Exit", new ImageIcon("./images/exit_icon.png"));
+        customerButton = new JToggleButton("Customers", new ImageIcon(getClass().getResource("/res/customer_icon.png")));
+        staffButton = new JToggleButton("Staff", new ImageIcon(getClass().getResource("/res/staff_icon.png")));
+        inventoryButton = new JToggleButton("Products", new ImageIcon(getClass().getResource("/res/product_icon.png")));
+        checkOutButton = new JToggleButton("Checkout", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
+        reportButton = new JToggleButton("Reports", new ImageIcon(getClass().getResource("/res/report_icon.png")));
+        exitButton = new JToggleButton("Exit", new ImageIcon(getClass().getResource("/res/exit_icon.png")));
 
         JToggleButton[] buttons = {customerButton, staffButton, inventoryButton, checkOutButton, reportButton, exitButton};
         ButtonGroup grp = new ButtonGroup();

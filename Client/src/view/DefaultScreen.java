@@ -10,7 +10,7 @@ public class DefaultScreen extends JPanel {
     private JLabel jwrIcon;
 
     DefaultScreen(){
-        jwrIcon = new JLabel(new ImageIcon("./images/JWR_intro.png"));
+        jwrIcon = new JLabel(new ImageIcon(getClass().getResource("/res/JWR_intro.png")));
 
         this.setSize(800, 600);
         this.setBackground(new Color(0, 100, 205));
