@@ -39,7 +39,9 @@ public class Server {
             System.out.println("DB Connection Established");
             createEmployeeTable();
             createCustomerTable();
-            createInventoryTable();
+            createProductTable();
+            createDepartmentTable();
+            createInvoiceTable();
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             boolean isYes;
@@ -85,9 +87,9 @@ public class Server {
 
     public static void createEmployeeTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE employees(empId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
-                    "last_name varchar(25), dob varchar(25), address varchar(40), telephone varchar(25), " +
-                    "email varchar(25), type varchar(25), department varchar(40), PRIMARY KEY(empId))";
+            String query = "CREATE TABLE employee(ID int NOT NULL AUTO_INCREMENT, firstName varchar(25)," +
+                    "lastName varchar(25), dob varchar(25),address varchar(80), telephone varchar(25), " +
+                    "email varchar(25), dept_code varchar(40), employeeType varchar(25), PRIMARY KEY(ID))";
 
             if ((stmt.executeUpdate(query)) == 0) {
                 System.out.println("Employee table created.");
@@ -102,9 +104,10 @@ public class Server {
 
     public static void createCustomerTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE customers(cusId int NOT NULL AUTO_INCREMENT, first_name varchar(25)," +
-                    "last_name varchar(25), dob varchar(25), address varchar(40), telephone varchar(25), " +
-                    "email varchar(25), membershipDate varchar(25), membershipExpDate varchar(40), PRIMARY KEY(cusId))";
+            String query = "CREATE TABLE customer(ID int NOT NULL AUTO_INCREMENT, firstName varchar(25)," +
+                    "lastName varchar(25), dob varchar(25), parish varchar(80), telephone varchar(25)," +
+                    " email varchar(25), membershipDate varchar(25), membershipExpiryDate varchar(40), " +
+                    "PRIMARY KEY(ID))";
 
             if ((stmt.executeUpdate(query)) == 0) {
                 System.out.println("Customer table created.");
@@ -117,13 +120,47 @@ public class Server {
         }
     }
 
-    public static void createInventoryTable() {
+    public static void createProductTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE inventory(product_code varchar(10) NOT NULL, product_name varchar(25)," +
-                    "short_desc varchar(25), long_desc varchar(70), stock int, unit_price float, PRIMARY KEY(product_code))";
+            String query = "CREATE TABLE product(product_code varchar(10) NOT NULL, productName varchar(25)," +
+                    "shortDescription varchar(25), longDescription varchar(70), itemInStock int, unitPrice float, " +
+                    "PRIMARY KEY(product_code))";
 
             if ((stmt.executeUpdate(query)) == 0) {
                 System.out.println("Inventory table created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void createDepartmentTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE department(dept_code varchar(10) NOT NULL, departmentName varchar(25)," +
+                    "PRIMARY KEY(dept_code))";
+
+            if ((stmt.executeUpdate(query)) == 0) {
+                System.out.println("Department table created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void createInvoiceTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE invoice(invoice_number varchar(10) NOT NULL, billing_date varchar(25)," +
+                    "item_name varchar(40), quantity int, employeeID int, customerID int, " +
+                    "PRIMARY KEY(invoice_number))";
+
+            if ((stmt.executeUpdate(query)) == 0) {
+                System.out.println("Invoice table created.");
             }
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
@@ -238,8 +275,8 @@ public class Server {
     }
 
     public void addCustomerToFile(Customer customer) throws IOException {
-        String query = "INSERT INTO jwr.customers(cusId, first_name, last_name, dob, address, " +
-                "telephone, membershipDate, membershipExpDate) " + "VALUES ('" + customer.getId() +
+        String query = "INSERT INTO jwr.customer(ID, firstName, lastName, dob, address, " +
+                "telephone, email, membershipDate, membershipExpiryDate) " + "VALUES ('" + customer.getId() +
                 "', '" + customer.getFirstName() + "', '" + customer.getLastName() + "', '" + customer.getDOB() +
                 "', '" + customer.getAddress() + "', '" + customer.getTelephone() + "', '" + customer.getEmail() +
                 "', '" + customer.getMembershipDate() + "', '" + customer.getMembershipExpiryDate() + "')";
@@ -262,11 +299,11 @@ public class Server {
     }
 
     public void addEmployeeToFile(Employee employee) throws IOException {
-        String query = "INSERT INTO jwr.employees(empId, first_name, last_name, dob, address, telephone, " +
-                "type, department) " + "VALUES ('" + employee.getId() + "', '" + employee.getFirstName() +
+        String query = "INSERT INTO jwr.employee(ID, firstName, lastName, dob, address, telephone, email" +
+                "dept_code, employeeType) " + "VALUES ('" + employee.getId() + "', '" + employee.getFirstName() +
                 "', '" + employee.getLastName() + "', '" + employee.getDOB() + "', '" + employee.getAddress() +
-                "', '" + employee.getTelephone() + "', '" + employee.getType() +
-                "', '" + employee.getDepartment() + "')";
+                "', '" + employee.getTelephone() + "', '" + employee.getEmail() + "', '" + employee.getDepartment() +
+                "', '" + employee.getType() + "')";
         try {
             stmt = dbConn.createStatement();
             if (stmt.executeUpdate(query) == 1) {
@@ -286,7 +323,7 @@ public class Server {
     }
 
     public void addProductToFile(Product product) throws IOException {
-        String query = "INSERT INTO jwr.inventory(product_code, product_name, short_desc, long_desc, stock, unit_price) " +
+        String query = "INSERT INTO jwr.product(product_code, product_name, shortDescription, longDescription, itemInStock, unit_price) " +
                 "VALUES ('" + product.getCode() + "', '" + product.getName() + "', '" + product.getShortDescription() +
                 "', '" + product.getLongDescription() + "', '" + product.getItemInStock() +
                 "', '" + product.getUnitPrice() + "')";
@@ -309,7 +346,7 @@ public class Server {
     }
 
     public void addInvoiceToFile(Invoice invoice) throws IOException {
-        String query = "INSERT INTO jwr.invoices(invoiceNum, billing_date, item_name, quantity, employee, customer) " +
+        String query = "INSERT INTO jwr.invoice(invoice_number, billing_date, item_name, quantity, employeeID, customerID) " +
                 "VALUES ('" + invoice.getInvoiceNumber() + "', '" + invoice.getBillingDate()
                 + "', '" + invoice.getItemName() + "', '" + invoice.getQuantity() + "', '" + invoice.getEmployee() +
                 "', '" + invoice.getCustomer() + "')";
@@ -333,15 +370,15 @@ public class Server {
 
     /* Update queries */
     public void updateEmployeeData(Employee employee) throws IOException {
-        String query = "UPDATE jwr.employees SET first_name = '" + employee.getFirstName() + "', " +
-                "last_name = '" + employee.getLastName() + "', " +
+        String query = "UPDATE jwr.employee SET firstName = '" + employee.getFirstName() + "', " +
+                "lastName = '" + employee.getLastName() + "', " +
                 "address = '" + employee.getAddress() + "', " +
-                "type = '" + employee.getType() + "', " +
-                "department = '" + employee.getDepartment() +
+                "employeeType = '" + employee.getType() + "', " +
+                "dept_code = '" + employee.getDepartment() +
                 "telephone = '" + employee.getTelephone() +
                 "dob = '" + employee.getDOB() +
                 "email = '" + employee.getEmail() +
-                "'WHERE empId = '" + employee.getId() + "'";
+                "'WHERE ID = '" + employee.getId() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
             if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
@@ -360,15 +397,15 @@ public class Server {
     }
 
     public void updateCustomerData(Customer customer) throws IOException {
-        String query = "UPDATE jwr.customers SET first_name = '" + customer.getFirstName() + "', " +
-                "last_name = '" + customer.getLastName() + "', " +
+        String query = "UPDATE jwr.customer SET firstName = '" + customer.getFirstName() + "', " +
+                "lastName = '" + customer.getLastName() + "', " +
                 "address = '" + customer.getAddress() + "', " +
                 "telephone = '" + customer.getTelephone() +
                 "dob = '" + customer.getDOB() +
                 "email = '" + customer.getEmail() +
                 "membershipDate = '" + customer.getMembershipDate() +
-                "membershipExpDate = '" + customer.getMembershipExpiryDate() +
-                "'WHERE cusId = '" + customer.getId() + "'";
+                "membershipExpiryDate = '" + customer.getMembershipExpiryDate() +
+                "'WHERE ID = '" + customer.getId() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
             if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
@@ -387,12 +424,12 @@ public class Server {
     }
 
     public void updateInvoiceData(Invoice invoice) throws IOException {
-        String query = "UPDATE jwr.invoices SET billing_date = '" + invoice.getBillingDate() + "', " +
-                "employee = '" + invoice.getEmployee() + "', " +
-                "customer = '" + invoice.getCustomer() + "', " +
+        String query = "UPDATE jwr.invoice SET billing_date = '" + invoice.getBillingDate() + "', " +
+                "employeeID = '" + invoice.getEmployee() + "', " +
+                "customerID = '" + invoice.getCustomer() + "', " +
                 "item_name = '" + invoice.getItemName() + "', " +
                 "quantity = '" + invoice.getQuantity() +
-                "'WHERE invoiceNum = '" + invoice.getInvoiceNumber() + "'";
+                "'WHERE invoice_number = '" + invoice.getInvoiceNumber() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
             if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
@@ -411,11 +448,11 @@ public class Server {
     }
 
     public void updateProductData(Product product) throws IOException {
-        String query = "UPDATE jwr.inventory SET product_name = '" + product.getName() + "', " +
-                "short_desc = '" + product.getShortDescription() + "', " +
-                "long_desc = '" + product.getLongDescription() + "', " +
-                "stock = '" + product.getItemInStock() + "', " +
-                "unit_price = '" + product.getUnitPrice() +
+        String query = "UPDATE jwr.product SET productName = '" + product.getName() + "', " +
+                "shortDescription = '" + product.getShortDescription() + "', " +
+                "longDescription = '" + product.getLongDescription() + "', " +
+                "itemInStock = '" + product.getItemInStock() + "', " +
+                "unitPrice = '" + product.getUnitPrice() +
                 "'WHERE product_code = '" + product.getCode() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
             if (stmt.executeUpdate(query) == 1) {
@@ -437,17 +474,17 @@ public class Server {
     /* Select queries */
     private Invoice findInvoiceByNumber(String invoiceNum) {
         Invoice invoice = new Invoice();
-        String query = "SELECT * FROM jwr.invoices WHERE invoiceNum = " + invoiceNum;
+        String query = "SELECT * FROM jwr.invoice WHERE invoice_number = " + invoiceNum;
         try {
             stmt = dbConn.createStatement();
             result = stmt.executeQuery(query);
 
             if (result.next()) {
-                invoice.setInvoiceNumber(result.getInt("invoiceNum"));
+                invoice.setInvoiceNumber(result.getInt("invoice_number"));
                 Date billingDate = null;
-                invoice.setItemName(result.getString("itemName"));
-                //invoice.setCustomer(result.getString("customer"));
-                //invoice.setEmployee(result.getString("employee"));
+                invoice.setItemName(result.getString("item_name"));
+                //invoice.setCustomer(result.getString("customerID"));
+                //invoice.setEmployee(result.getString("employeeID"));
                 invoice.setQuantity(result.getInt("quantity"));
                 invoice.setBillingDate(billingDate);
             }
@@ -460,18 +497,18 @@ public class Server {
 
     private List<Employee> getEmployeeList() {
         List<Employee> employeeList = new ArrayList<>();
-        String query = "SELECT * FROM jwr.employees";
+        String query = "SELECT * FROM jwr.employee";
         try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
             while (result.next()) {
-                String id = result.getString("empId");
-                String firstName = result.getString("first_name");
-                String lastName = result.getString("last_name");
+                String id = result.getString("ID");
+                String firstName = result.getString("firstName");
+                String lastName = result.getString("lastName");
                 Date DOB = null;
                 String address = result.getString("address");
                 String telephone = result.getString("telephone");
                 String email = result.getString("email");
-                String type = result.getString("type");
-                String department = result.getString("department");
+                String type = result.getString("employeeType");
+                String department = result.getString("dept_code");
                 employeeList.add(new Employee(id, firstName, lastName, DOB, address, telephone, email,
                         type, department));
             }
@@ -485,12 +522,12 @@ public class Server {
 
     private List<Customer> getCustomerList() {
         List<Customer> customerList = new ArrayList<>();
-        String query = "SELECT * FROM jwr.customers";
+        String query = "SELECT * FROM jwr.customer";
         try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
             while (result.next()) {
-                String id = result.getString("cusId");
-                String firstName = result.getString("first_name");
-                String lastName = result.getString("last_name");
+                String id = result.getString("ID");
+                String firstName = result.getString("firstName");
+                String lastName = result.getString("lastName");
                 Date DOB = null;
                 String address = result.getString("address");
                 String telephone = result.getString("telephone");
@@ -510,12 +547,12 @@ public class Server {
 
     private List<Product> getInventoryList() {
         List<Product> productList = new ArrayList<>();
-        String query = "SELECT * FROM jwr.inventory";
+        String query = "SELECT * FROM jwr.product";
         try (Statement stmt = dbConn.createStatement(); ResultSet result = stmt.executeQuery(query)) {
             while (result.next()) {
-                productList.add(new Product(result.getString("product_code"), result.getString("product_name"),
-                        result.getString("short_desc"), result.getString("long_desc"),
-                        result.getInt("stock"), result.getFloat("unit_price")));
+                productList.add(new Product(result.getString("product_code"), result.getString("productName"),
+                        result.getString("shortDescription"), result.getString("longDescription"),
+                        result.getInt("itemInStock"), result.getFloat("unitPrice")));
             }
             return productList;
         } catch (SQLException e) {
