@@ -1,7 +1,15 @@
+/**
+ * CustomerScreen.java
+ * View for editing and displaying Customer info
+ * Author (s): Shawn Grant
+*/
 package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import view.dialogs.customer.CustomerInsertDialog;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -56,7 +64,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.addButton) {
-
+            new CustomerInsertDialog();
         }
         if (e.getSource() == this.updateButton) {
 
