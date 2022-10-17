@@ -1,5 +1,11 @@
 package models;
-
+//============================================================================
+//Name        : Date.java
+//Author      : Tyrien Gilpin
+//Version     : 1
+//Copyright   : Your copyright notice
+//Description : Date Model Class
+//============================================================================
 import java.io.Serializable;
 
 public class Date implements Serializable {

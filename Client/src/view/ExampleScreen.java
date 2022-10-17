@@ -20,9 +20,10 @@ public class ExampleScreen extends BaseScreen implements ActionListener {
 
     private void initializeComponents(){
         mainContent = new JPanel();
-
     }
 
+    /// set the main content
+    /// typically a table or list of the data
     private void setContentView(){
         this.setMainContent(mainContent);
     }

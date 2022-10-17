@@ -1,5 +1,11 @@
 package models;
-
+//============================================================================
+//Name        : Employee.java
+//Author      : Tyrien Gilpin
+//Version     : 1
+//Copyright   : Your copyright notice
+//Description : Employee Model Class
+//============================================================================
 import java.io.Serializable;
 
 public class Employee implements Serializable {
@@ -12,7 +18,8 @@ public class Employee implements Serializable {
     private String email;
     private String type;
     private String department;
-
+   
+    
     //Default Constructor
     public Employee() {
         this.id = "";
