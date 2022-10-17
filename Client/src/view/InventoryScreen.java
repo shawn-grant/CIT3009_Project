@@ -61,7 +61,7 @@ public class InventoryScreen implements ActionListener {
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
 
         leftPanel = new JPanel();
-        leftPanel.setBackground(new Color(0, 140, 255));
+        //leftPanel.setBackground(new Color(0, 140, 255));
         leftPanel.setBorder(BorderFactory.createEtchedBorder());
         leftPanel.setFocusable(false);
         leftPanel.setPreferredSize(new Dimension(100, 600));

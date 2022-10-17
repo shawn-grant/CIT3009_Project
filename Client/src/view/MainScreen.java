@@ -103,7 +103,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
         //Right Panel Properties
         rightPanel = new JPanel();
-        rightPanel.setBackground(new Color(255, 255, 0));
+        rightPanel.setBackground(new Color(205, 255, 0));
         rightPanel.setBorder(BorderFactory.createEtchedBorder());
         rightPanel.setPreferredSize(new Dimension(900, 600));
         GroupLayout rightPanelLayout = new GroupLayout(rightPanel);
@@ -133,6 +133,7 @@ public class MainScreen extends JFrame implements ActionListener {
                                 //.addComponent(jLabel3)
                                 .addContainerGap())
         );
+        
         rightPanel.setLayout(rightPanelLayout);
         rightPanel.setBounds(350, 0, 900, 600);
     }
