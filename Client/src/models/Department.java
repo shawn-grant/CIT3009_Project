@@ -14,8 +14,8 @@ public class Department implements Serializable {
 
     //Default Constructor
     public Department() {
-        this.name = "N/A";
-        this.code = "N/A";
+        name = "N/A";
+        code = "N/A";
     }
 
     //Primary Constructor

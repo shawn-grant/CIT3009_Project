@@ -18,12 +18,12 @@ public class Product implements Serializable {
 
     //Default Constructor
     public Product() {
-        this.code = "N/A";
-        this.name = "N/A";
-        this.shortDescription = "N/A";
-        this.longDescription = "N/A";
-        this.itemInStock = 0;
-        this.unitPrice = 0f;
+        code = "N/A";
+        name = "N/A";
+        shortDescription = "N/A";
+        longDescription = "N/A";
+        itemInStock = 0;
+        unitPrice = 0f;
     }
 
     //Primary Constructor
