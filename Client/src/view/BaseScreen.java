@@ -43,18 +43,18 @@ public class BaseScreen extends JPanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // initialize buttons
-        addButton = new JButton("Add +");
-        updateButton = new JButton("Update");
-        deleteButton = new JButton("Delete");
-        searchButton = new JButton("Search");
-        refreshButton = new JButton("Refresh");
+        addButton = new JButton("Add", new ImageIcon(getClass().getResource("/res/add_icon.png")));
+        updateButton = new JButton("Update", new ImageIcon(getClass().getResource("/res/update_icon.png")));
+        deleteButton = new JButton("Delete", new ImageIcon(getClass().getResource("/res/delete_icon.png")));
+        searchButton = new JButton("Search", new ImageIcon(getClass().getResource("/res/search_icon.png")));
+        refreshButton = new JButton("Refresh", new ImageIcon(getClass().getResource("/res/reload_icon.png")));
 
         // Set button size
-        addButton.setPreferredSize(new Dimension(100, 30));
-        updateButton.setPreferredSize(new Dimension(100, 30));
-        deleteButton.setPreferredSize(new Dimension(100, 30));
-        searchButton.setPreferredSize(new Dimension(100, 30));
-        refreshButton.setPreferredSize(new Dimension(100, 30));
+        addButton.setPreferredSize(new Dimension(120, 30));
+        updateButton.setPreferredSize(new Dimension(120, 30));
+        deleteButton.setPreferredSize(new Dimension(120, 30));
+        searchButton.setPreferredSize(new Dimension(120, 30));
+        refreshButton.setPreferredSize(new Dimension(120, 30));
 
         // Set button font
         addButton.setFont(new Font("arial", Font.PLAIN, 15));
