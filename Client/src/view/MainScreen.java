@@ -119,27 +119,32 @@ public class MainScreen extends JFrame implements ActionListener {
             rightPanel.add(new BaseScreen("Customers")); //testing
             rightPanel.repaint();
             rightPanel.revalidate();
-        } else if (e.getSource() == staffButton) {
+        }
+        if (e.getSource() == staffButton) {
             rightPanel.removeAll();
             // rightPanel.add(new StaffScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
-        } else if (e.getSource() == inventoryButton) {
+        }
+        if (e.getSource() == inventoryButton) {
             rightPanel.removeAll();
             rightPanel.add(new InventoryScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
-        } else if (e.getSource() == checkOutButton) {
+        }
+        if (e.getSource() == checkOutButton) {
             rightPanel.removeAll();
             // rightPanel.add(new CheckoutScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
-        } else if (e.getSource() == reportButton) {
+        }
+        if (e.getSource() == reportButton) {
             rightPanel.removeAll();
             // rightPanel.add(new ReportScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
-        } else if (e.getSource() == exitButton) {
+        }
+        if (e.getSource() == exitButton) {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception ex) {
