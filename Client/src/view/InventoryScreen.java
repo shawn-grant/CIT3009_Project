@@ -174,13 +174,13 @@ public class InventoryScreen implements ActionListener {
             getInventory();
         }
         if (e.getSource().equals(backButton)) {
-            MainScreen.leftPanel.removeAll();
-            MainScreen.rightPanel.removeAll();
-            MainScreen.addComponentsToPanels();
-            MainScreen.leftPanel.repaint();
-            MainScreen.rightPanel.repaint();
-            MainScreen.leftPanel.revalidate();
-            MainScreen.rightPanel.revalidate();
+            // MainScreen.leftPanel.removeAll();
+            // MainScreen.rightPanel.removeAll();
+            // MainScreen.addComponentsToPanels();
+            // MainScreen.leftPanel.repaint();
+            // MainScreen.rightPanel.repaint();
+            // MainScreen.leftPanel.revalidate();
+            // MainScreen.rightPanel.revalidate();
         }
     }
 }
