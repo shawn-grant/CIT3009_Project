@@ -1,5 +1,11 @@
 package models;
-
+//============================================================================
+//Name        : Employee.java
+//Author      : Tyrien Gilpin
+//Version     : 1
+//Copyright   : Your copyright notice
+//Description : Employee Model Class
+//============================================================================
 import java.io.Serializable;
 
 public class Employee implements Serializable {
