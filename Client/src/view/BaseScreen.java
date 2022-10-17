@@ -70,7 +70,7 @@ public class BaseScreen extends JPanel {
         buttonPanel.add(searchButton);
         buttonPanel.add(refreshButton);
     }
-
+    
     private void addPanelsToWindow() {
         add(Box.createRigidArea(new Dimension(0, 20)));// vertical spacing
         add(titleLabel);
