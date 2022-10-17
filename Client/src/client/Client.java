@@ -30,6 +30,8 @@ public class Client {
             connectionSocket = new Socket("127.0.0.1", 8888);
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failure to Establish Connection with Server", "Connection Status",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

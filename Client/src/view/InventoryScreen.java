@@ -2,8 +2,8 @@ package view;
 
 import client.Client;
 import models.Product;
-import view.dialogs.InventoryInsertDialog;
-import view.dialogs.InventoryUpdateDialog;
+import view.dialogs.inventory.InventoryInsertDialog;
+import view.dialogs.inventory.InventoryUpdateDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -81,6 +81,7 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         if (e.getSource().equals(addButton)) {
             InventoryInsertDialog insertDialog = new InventoryInsertDialog();
             insertDialog.setVisible(true);
+            getInventory();
         }
         /*if (e.getSource().equals(searchButton)) {
             //InventorySearchDialog searchDialog = new InventorySearchDialog();

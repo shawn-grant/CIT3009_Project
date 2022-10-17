@@ -1,27 +1,25 @@
 package view;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 public class CustomerScreen extends BaseScreen implements ActionListener {
     private final String[] tableHeaders = {
-        "ID", 
-        "First Name", 
-        "Last Name",
-        "Email",
-        "Phone",
-        "DOB",
-        "Address",
-        "Signed Up",
+            "ID",
+            "First Name",
+            "Last Name",
+            "Email",
+            "Phone",
+            "DOB",
+            "Address",
+            "Signed Up",
     };
     private JTable table;
     private DefaultTableModel model;
 
-    public CustomerScreen(){
+    public CustomerScreen() {
         super("Customers");
 
         initComponents();
@@ -29,29 +27,29 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         setContentView();
         getData();
     }
-    
-    private void initComponents(){
+
+    private void initComponents() {
         model = new DefaultTableModel(tableHeaders, 0);
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
     }
-    
+
     // setup actions for buttons
     private void setupListeners() {
-        this.addButton.addActionListener(this);
-        this.updateButton.addActionListener(this);
-        this.deleteButton.addActionListener(this);
-        this.searchButton.addActionListener(this);
-        this.refreshButton.addActionListener(this);
+        addButton.addActionListener(this);
+        updateButton.addActionListener(this);
+        deleteButton.addActionListener(this);
+        searchButton.addActionListener(this);
+        refreshButton.addActionListener(this);
     }
 
     // set main content view
     private void setContentView() {
-        this.setMainContent(new JScrollPane(table));
+        setMainContent(new JScrollPane(table));
     }
 
-    private void getData(){
+    private void getData() {
 
     }
 
@@ -60,16 +58,16 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         if (e.getSource() == this.addButton) {
 
         }
-        else if (e.getSource() == this.updateButton) {
+        if (e.getSource() == this.updateButton) {
 
         }
-        else if (e.getSource() == this.searchButton) {
+        if (e.getSource() == this.searchButton) {
 
         }
-        else if (e.getSource() == this.deleteButton) {
+        if (e.getSource() == this.deleteButton) {
 
         }
-        else if (e.getSource() == this.refreshButton) {
+        if (e.getSource() == this.refreshButton) {
             getData();
         }
     }
