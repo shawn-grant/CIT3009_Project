@@ -1,88 +1,85 @@
-/// INCOMPLETE
 package view;
 
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class BaseScreen extends JPanel {
-    private static int FULL_WIDTH = 800;
 
-    private JPanel titleBar;
-    private JLabel titleLabel;
     protected JButton addButton; // add a new item
     protected JButton updateButton; // update existing item
     protected JButton deleteButton; // delete item
     protected JButton refreshButton; // get all items
+    protected JButton searchButton; // find an item
+    private JLabel titleLabel;
     private JPanel buttonPanel;
-    private Component mainContent; // where the content is shown, set it child class
+    private JPanel mainContent; // where the content is shown, set it child class
 
     public BaseScreen(String title) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setBackground(new Color(0, 100, 205));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setSize(800, 600);
+
         initializeComponents(title);
         addComponentsToPanels();
         addPanelsToWindow();
-        setProperties();
     }
-    
+
     private void initializeComponents(String title) {
-        titleBar = new JPanel(new FlowLayout());
-        titleBar.setSize(FULL_WIDTH, 40);
-        titleBar.setBackground(Color.GRAY);
-
+        // titleLabel properties
         titleLabel = new JLabel(title);
-        titleLabel.setSize(FULL_WIDTH, 40);
         titleLabel.setFont(new Font("arial", Font.BOLD, 20));
-        
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // initialize buttons
         addButton = new JButton("Add +");
-        addButton.setSize(FULL_WIDTH/4, 40);
-
         updateButton = new JButton("Update");
-        updateButton.setSize(FULL_WIDTH/4, 40);
-        
         deleteButton = new JButton("Delete");
-        deleteButton.setSize(FULL_WIDTH/4, 40);
-        
+        searchButton = new JButton("Search");
         refreshButton = new JButton("Refresh");
-        refreshButton.setSize(FULL_WIDTH/4, 40);
 
-        buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.setBackground(Color.BLACK);
-        buttonPanel.setSize(FULL_WIDTH, 80);
+        // Set button size
+        addButton.setPreferredSize(new Dimension(100, 30));
+        updateButton.setPreferredSize(new Dimension(100, 30));
+        deleteButton.setPreferredSize(new Dimension(100, 30));
+        searchButton.setPreferredSize(new Dimension(100, 30));
+        refreshButton.setPreferredSize(new Dimension(100, 30));
 
-        mainContent = new JPanel();
+        // Set button font
+        addButton.setFont(new Font("arial", Font.PLAIN, 15));
+        updateButton.setFont(new Font("arial", Font.PLAIN, 15));
+        deleteButton.setFont(new Font("arial", Font.PLAIN, 15));
+        searchButton.setFont(new Font("arial", Font.PLAIN, 15));
+        refreshButton.setFont(new Font("arial", Font.PLAIN, 15));
+
+        // JPanel properties
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        mainContent = new JPanel(new GridLayout(0, 1, 0, 0));
+
+        buttonPanel.setBackground(new Color(0, 100, 205));
     }
-    
+
     private void addComponentsToPanels() {
-        titleBar.add(titleLabel);
         buttonPanel.add(addButton);
         buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
+        buttonPanel.add(searchButton);
         buttonPanel.add(refreshButton);
     }
     
     private void addPanelsToWindow() {
-        this.add(titleBar);
-        this.add(buttonPanel);
-        this.add(mainContent);
-    }
-
-    private void setProperties() {
-        this.setLayout(new GridLayout(3, 1, 0, 0));
-        this.setBackground(Color.YELLOW);
-        this.setSize(FULL_WIDTH, 600);
+        add(Box.createRigidArea(new Dimension(0, 20)));// vertical spacing
+        add(titleLabel);
+        add(Box.createRigidArea(new Dimension(0, 20)));// vertical spacing
+        add(buttonPanel);
+        add(mainContent);
     }
 
     public void setMainContent(Component content) {
-        this.remove(mainContent);
-        this.add(content);
-        this.repaint();
+        mainContent.add(content);
     }
-
 }

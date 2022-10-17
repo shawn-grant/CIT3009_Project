@@ -1,5 +1,11 @@
 package models;
-
+//============================================================================
+//Name        : Product.java
+//Author      : Tyrien Gilpin
+//Version     : 1
+//Copyright   : Your copyright notice
+//Description : Product Model Class
+//============================================================================
 import java.io.Serializable;
 
 public class Product implements Serializable {

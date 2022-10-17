@@ -32,7 +32,7 @@ public class Server {
         try {
             if (dbConn == null) {
                 String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root", "Bo$$2001");
+                dbConn = DriverManager.getConnection(url, "root", "");
             }
             /*JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
                     JOptionPane.INFORMATION_MESSAGE);*/
@@ -43,8 +43,12 @@ public class Server {
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             boolean isYes;
-            int selection = JOptionPane.showConfirmDialog(null, "Could not connect to "  + "database\nRetry?" + e, "Connection Failure",
-                    JOptionPane.YES_NO_OPTION);
+            int selection = JOptionPane.showConfirmDialog(
+                    null,
+                    "Could not connect to " + "database\nRetry?" + e,
+                    "Connection Failure",
+                    JOptionPane.YES_NO_OPTION
+            );
             isYes = (selection == JOptionPane.YES_OPTION);
             if (isYes) {
                 createJWRDatabase();
@@ -62,7 +66,7 @@ public class Server {
         final String JBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost:3306/";
         final String USER = "root";
-        final String PASS = "Bo$$2001";
+        final String PASS = "";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()
         ) {
@@ -169,7 +173,7 @@ public class Server {
         try {
             while (true) {
                 connectionSocket = serverSocket.accept();
-                this.configureStreams();
+                configureStreams();
                 try {
                     action = (String) objIs.readObject();
                     System.out.println("Requested action: " + action);
@@ -177,7 +181,6 @@ public class Server {
                     if (action.equals("Add Employee")) {
                         employee = (Employee) objIs.readObject();
                         addEmployeeToFile(employee);
-                        objOs.writeObject(true);
                     }
                     if (action.equals("View Employees")) {
                         List<Employee> employeeList = getEmployeeList();
@@ -188,7 +191,6 @@ public class Server {
                     if (action.equals("Add Customer")) {
                         customer = (Customer) objIs.readObject();
                         addCustomerToFile(customer);
-                        objOs.writeObject(true);
                     }
                     if (action.equals("View Customers")) {
                         List<Customer> customerList = getCustomerList();
@@ -199,12 +201,10 @@ public class Server {
                     if (action.equals("Add Product")) {
                         product = (Product) objIs.readObject();
                         addProductToFile(product);
-                        objOs.writeObject(true);
                     }
                     if (action.equals("Update Product")) {
                         product = (Product) objIs.readObject();
                         updateProductData(product);
-                        objOs.writeObject(true);
                     }
                     if (action.equals("View Inventory")) {
                         List<Product> productList = getInventoryList();
@@ -215,7 +215,6 @@ public class Server {
                     if (action.equals("Add Invoice")) {
                         invoice = (Invoice) objIs.readObject();
                         addInvoiceToFile(invoice);
-                        objOs.writeObject(true);
                     }
                     if (action.equals("Find Invoice")) {
                         String invoiceNum = (String) objIs.readObject();
@@ -227,7 +226,7 @@ public class Server {
                 } catch (ClassCastException e) {
                     System.err.println("ClassCastException: " + e.getMessage());
                 }
-                this.closeConnections();
+                closeConnections();
             }
         } catch (EOFException e) {
             System.err.println("EOFException: " + e.getMessage());
@@ -238,7 +237,7 @@ public class Server {
         }
     }
 
-    public void addCustomerToFile(Customer customer) {
+    public void addCustomerToFile(Customer customer) throws IOException {
         String query = "INSERT INTO jwr.customers(cusId, first_name, last_name, dob, address, " +
                 "telephone, membershipDate, membershipExpDate) " + "VALUES ('" + customer.getId() +
                 "', '" + customer.getFirstName() + "', '" + customer.getLastName() + "', '" + customer.getDOB() +
@@ -246,7 +245,7 @@ public class Server {
                 "', '" + customer.getMembershipDate() + "', '" + customer.getMembershipExpiryDate() + "')";
         try {
             stmt = dbConn.createStatement();
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -254,13 +253,15 @@ public class Server {
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 
-    public void addEmployeeToFile(Employee employee) {
+    public void addEmployeeToFile(Employee employee) throws IOException {
         String query = "INSERT INTO jwr.employees(empId, first_name, last_name, dob, address, telephone, " +
                 "type, department) " + "VALUES ('" + employee.getId() + "', '" + employee.getFirstName() +
                 "', '" + employee.getLastName() + "', '" + employee.getDOB() + "', '" + employee.getAddress() +
@@ -268,7 +269,7 @@ public class Server {
                 "', '" + employee.getDepartment() + "')";
         try {
             stmt = dbConn.createStatement();
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -276,20 +277,22 @@ public class Server {
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 
-    public void addProductToFile(Product product) {
+    public void addProductToFile(Product product) throws IOException {
         String query = "INSERT INTO jwr.inventory(product_code, product_name, short_desc, long_desc, stock, unit_price) " +
                 "VALUES ('" + product.getCode() + "', '" + product.getName() + "', '" + product.getShortDescription() +
                 "', '" + product.getLongDescription() + "', '" + product.getItemInStock() +
                 "', '" + product.getUnitPrice() + "')";
         try {
             stmt = dbConn.createStatement();
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -297,20 +300,22 @@ public class Server {
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 
-    public void addInvoiceToFile(Invoice invoice) {
+    public void addInvoiceToFile(Invoice invoice) throws IOException {
         String query = "INSERT INTO jwr.invoices(invoiceNum, billing_date, item_name, quantity, employee, customer) " +
                 "VALUES ('" + invoice.getInvoiceNumber() + "', '" + invoice.getBillingDate()
                 + "', '" + invoice.getItemName() + "', '" + invoice.getQuantity() + "', '" + invoice.getEmployee() +
                 "', '" + invoice.getCustomer() + "')";
         try {
             stmt = dbConn.createStatement();
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -318,14 +323,16 @@ public class Server {
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 
     /* Update queries */
-    public void updateEmployeeData(Employee employee) {
+    public void updateEmployeeData(Employee employee) throws IOException {
         String query = "UPDATE jwr.employees SET first_name = '" + employee.getFirstName() + "', " +
                 "last_name = '" + employee.getLastName() + "', " +
                 "address = '" + employee.getAddress() + "', " +
@@ -336,7 +343,7 @@ public class Server {
                 "email = '" + employee.getEmail() +
                 "'WHERE empId = '" + employee.getId() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -344,13 +351,15 @@ public class Server {
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 
-    public void updateCustomerData(Customer customer) {
+    public void updateCustomerData(Customer customer) throws IOException {
         String query = "UPDATE jwr.customers SET first_name = '" + customer.getFirstName() + "', " +
                 "last_name = '" + customer.getLastName() + "', " +
                 "address = '" + customer.getAddress() + "', " +
@@ -361,7 +370,7 @@ public class Server {
                 "membershipExpDate = '" + customer.getMembershipExpiryDate() +
                 "'WHERE cusId = '" + customer.getId() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -369,13 +378,15 @@ public class Server {
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 
-    public void updateInvoiceData(Invoice invoice) {
+    public void updateInvoiceData(Invoice invoice) throws IOException {
         String query = "UPDATE jwr.invoices SET billing_date = '" + invoice.getBillingDate() + "', " +
                 "employee = '" + invoice.getEmployee() + "', " +
                 "customer = '" + invoice.getCustomer() + "', " +
@@ -383,7 +394,7 @@ public class Server {
                 "quantity = '" + invoice.getQuantity() +
                 "'WHERE invoiceNum = '" + invoice.getInvoiceNumber() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -391,13 +402,15 @@ public class Server {
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 
-    public void updateProductData(Product product) {
+    public void updateProductData(Product product) throws IOException {
         String query = "UPDATE jwr.inventory SET product_name = '" + product.getName() + "', " +
                 "short_desc = '" + product.getShortDescription() + "', " +
                 "long_desc = '" + product.getLongDescription() + "', " +
@@ -405,7 +418,7 @@ public class Server {
                 "unit_price = '" + product.getUnitPrice() +
                 "'WHERE product_code = '" + product.getCode() + "'";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
-            if ((stmt.executeUpdate(query) == 1)) {
+            if (stmt.executeUpdate(query) == 1) {
                 objOs.writeObject(true);
             } else {
                 objOs.writeObject(false);
@@ -413,9 +426,11 @@ public class Server {
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
+            objOs.writeObject(false);
         }
     }
 

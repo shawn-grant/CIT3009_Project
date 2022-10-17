@@ -7,121 +7,49 @@ import view.dialogs.InventoryUpdateDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class InventoryScreen implements ActionListener {
+public class InventoryScreen extends BaseScreen implements ActionListener {
 
     private final String[] TableHead = {"Product Code", "Product Name", "Short Description", "Long Description",
             "Items in Stock", "Unit Price"};
-    private JButton refreshButton, addButton, searchButton, updateButton, removeButton, backButton;
-    private JPanel leftPanel, rightPanel;
     private JTable table;
     private DefaultTableModel model;
 
     public InventoryScreen() {
+        super("Inventory");
+
         initializeComponents();
-        addComponentsToPanel();
-        registerListeners();
+        setupListeners();
+        setContentView();
         getInventory();
     }
 
     private void initializeComponents() {
-        //Button properties
-        addButton = new JButton("Add Product");
-        addButton.setFocusPainted(false);
-        addButton.setFont(new Font("times new roman", Font.PLAIN, 18));
-
-        searchButton = new JButton("Search Products");
-        searchButton.setFocusPainted(false);
-        searchButton.setFont(new Font("times new roman", Font.PLAIN, 18));
-
-        updateButton = new JButton("Update Product");
-        updateButton.setFocusPainted(false);
-        updateButton.setFont(new Font("times new roman", Font.PLAIN, 18));
-
-        removeButton = new JButton("Remove Product");
-        removeButton.setFocusPainted(false);
-        removeButton.setFont(new Font("times new roman", Font.PLAIN, 18));
-
-        refreshButton = new JButton("Refresh");
-        refreshButton.setFocusPainted(false);
-        refreshButton.setFont(new Font("times new roman", Font.PLAIN, 18));
-
-        backButton = new JButton("Back");
-        backButton.setFocusPainted(false);
-        backButton.setFont(new Font("times new roman", Font.PLAIN, 18));
-
         //Table properties
         model = new DefaultTableModel(TableHead, 0);
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
-
-        leftPanel = new JPanel();
-        //leftPanel.setBackground(new Color(0, 140, 255));
-        leftPanel.setBorder(BorderFactory.createEtchedBorder());
-        leftPanel.setFocusable(false);
-        leftPanel.setPreferredSize(new Dimension(100, 600));
-        GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
-        leftPanelLayout.setHorizontalGroup(
-                leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
-                                .addContainerGap(100, Short.MAX_VALUE)
-                                .addGroup(leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(addButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(searchButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(updateButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(removeButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(refreshButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-                                .addGap(93, 93, 93)));
-        leftPanelLayout.setVerticalGroup(
-                leftPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(leftPanelLayout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(addButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(searchButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(updateButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(removeButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(refreshButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(106, Short.MAX_VALUE))
-        );
-        leftPanel.setLayout(leftPanelLayout);
-        leftPanel.setBounds(0, 0, 350, 600);
-
-        rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(1, 1, 5, 5));
-        rightPanel.setSize(new Dimension(900, 600));
     }
 
-    private void addComponentsToPanel() {
-        rightPanel.add(new JScrollPane(table));
-        leftPanel.add(addButton);
-        leftPanel.add(searchButton);
-        leftPanel.add(updateButton);
-        leftPanel.add(removeButton);
-        leftPanel.add(refreshButton);
-        leftPanel.add(backButton);
+    // set main content view
+    private void setContentView() {
+        setMainContent(new JScrollPane(table));
     }
 
-    private void registerListeners() {
+    // setup actions for buttons
+    private void setupListeners() {
         addButton.addActionListener(this);
-        searchButton.addActionListener(this);
         updateButton.addActionListener(this);
-        removeButton.addActionListener(this);
+        deleteButton.addActionListener(this);
+        searchButton.addActionListener(this);
         refreshButton.addActionListener(this);
-        backButton.addActionListener(this);
     }
 
+    // retrieve all product information
     private void getInventory() {
         Client client = new Client();
         client.sendAction("View Inventory");
@@ -147,10 +75,6 @@ public class InventoryScreen implements ActionListener {
         }
     }
 
-    public JComponent[] getComponent() {
-        return new JPanel[]{leftPanel, rightPanel};
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -158,29 +82,20 @@ public class InventoryScreen implements ActionListener {
             InventoryInsertDialog insertDialog = new InventoryInsertDialog();
             insertDialog.setVisible(true);
         }
-        if (e.getSource().equals(searchButton)) {
+        /*if (e.getSource().equals(searchButton)) {
             //InventorySearchDialog searchDialog = new InventorySearchDialog();
             //searchDialog.setVisible(true);
-        }
+        }*/
         if (e.getSource().equals(updateButton)) {
             InventoryUpdateDialog updateDialog = new InventoryUpdateDialog();
             updateDialog.setVisible(true);
         }
-        if (e.getSource().equals(removeButton)) {
+        if (e.getSource().equals(deleteButton)) {
             //InventoryRemoveDialog removeDialog = new InventoryRemoveDialog();
             //removeDialog.setVisible(true);
         }
         if (e.getSource().equals(refreshButton)) {
             getInventory();
-        }
-        if (e.getSource().equals(backButton)) {
-            // MainScreen.leftPanel.removeAll();
-            // MainScreen.rightPanel.removeAll();
-            // MainScreen.addComponentsToPanels();
-            // MainScreen.leftPanel.repaint();
-            // MainScreen.rightPanel.repaint();
-            // MainScreen.leftPanel.revalidate();
-            // MainScreen.rightPanel.revalidate();
         }
     }
 }

@@ -1,5 +1,11 @@
 package models;
-
+//============================================================================
+//Name        : Department.java
+//Author      : Tyrien Gilpin
+//Version     : 1
+//Copyright   : Your copyright notice
+//Description : Department Model Class
+//============================================================================
 import java.io.Serializable;
 
 public class Department implements Serializable {

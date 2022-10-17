@@ -1,5 +1,11 @@
 package models;
-
+//============================================================================
+// Name        : Customer.java
+// Author      : Tyrien Gilpin
+// Version     : 1
+// Copyright   : Your copyright notice
+// Description : Customer Model Class
+//============================================================================
 import java.io.Serializable;
 
 public class Customer implements Serializable {

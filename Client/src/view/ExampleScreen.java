@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-public class ExampleScreen extends BaseScreen implements ActionListener{
+public class ExampleScreen extends BaseScreen implements ActionListener {
 
-    // Jpanel or table, however you want to display the data
+    // JPanel or table, however you want to display the data
     private JPanel mainContent;
 
     public ExampleScreen() {
