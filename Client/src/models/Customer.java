@@ -139,4 +139,19 @@ public class Customer implements Serializable {
                 + getTelephone() + "\nEmail: " + getEmail() + "\nDate Joined" + getMembershipDate()
                 + "Membership Expiration Date: " + getMembershipExpiryDate());
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", DOB=" + DOB +
+                ", address='" + address + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", membershipDate=" + membershipDate +
+                ", membershipExpiryDate=" + membershipExpiryDate +
+                '}';
+    }
 }
