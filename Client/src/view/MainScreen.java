@@ -116,7 +116,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
         if (e.getSource() == customerButton) {
             rightPanel.removeAll();
-            rightPanel.add(new BaseScreen("Customers")); //testing
+            rightPanel.add(new CustomerScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
