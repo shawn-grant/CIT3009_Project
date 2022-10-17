@@ -87,7 +87,7 @@ public class Server {
 
     public static void createEmployeeTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE employee(ID int NOT NULL AUTO_INCREMENT, firstName varchar(25)," +
+            String query = "CREATE TABLE employee(ID varchar(10) NOT NULL, firstName varchar(25)," +
                     "lastName varchar(25), dob varchar(25),address varchar(80), telephone varchar(25), " +
                     "email varchar(25), dept_code varchar(40), employeeType varchar(25), PRIMARY KEY(ID))";
 
@@ -104,7 +104,7 @@ public class Server {
 
     public static void createCustomerTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE customer(ID int NOT NULL AUTO_INCREMENT, firstName varchar(25)," +
+            String query = "CREATE TABLE customer(ID varchar(10) NOT NULL, firstName varchar(25)," +
                     "lastName varchar(25), dob varchar(25), parish varchar(80), telephone varchar(25)," +
                     " email varchar(25), membershipDate varchar(25), membershipExpiryDate varchar(40), " +
                     "PRIMARY KEY(ID))";
@@ -219,21 +219,47 @@ public class Server {
                         employee = (Employee) objIs.readObject();
                         addEmployeeData(employee);
                     }
+                    if (action.equals("Update Employee")) {
+                        employee = (Employee) objIs.readObject();
+                        updateEmployeeData(employee);
+                    }
                     if (action.equals("View Employees")) {
                         List<Employee> employeeList = getEmployeeList();
                         for (Employee emp : employeeList) {
                             objOs.writeObject(emp);
                         }
                     }
+                    if (action.equals("Find Employee")) {
+                        String employeeId = (String) objIs.readObject();
+                        employee = getEmployeeData(employeeId);
+                        objOs.writeObject(employee);
+                    }
+                    if (action.equals("Remove Employee")) {
+                        String employeeId = (String) objIs.readObject();
+                        removeEmployeeData(employeeId);
+                    }
                     if (action.equals("Add Customer")) {
                         customer = (Customer) objIs.readObject();
                         addCustomerData(customer);
+                    }
+                    if (action.equals("Update Customer")) {
+                        customer = (Customer) objIs.readObject();
+                        updateCustomerData(customer);
                     }
                     if (action.equals("View Customers")) {
                         List<Customer> customerList = getCustomerList();
                         for (Customer cus : customerList) {
                             objOs.writeObject(cus);
                         }
+                    }
+                    if (action.equals("Find Customer")) {
+                        String customerId = (String) objIs.readObject();
+                        customer = getCustomerData(customerId);
+                        objOs.writeObject(customer);
+                    }
+                    if (action.equals("Remove Customer")) {
+                        String customerId = (String) objIs.readObject();
+                        removeCustomerData(customerId);
                     }
                     if (action.equals("Add Product")) {
                         product = (Product) objIs.readObject();
@@ -242,6 +268,15 @@ public class Server {
                     if (action.equals("Update Product")) {
                         product = (Product) objIs.readObject();
                         updateProductData(product);
+                    }
+                    if (action.equals("Find Product")) {
+                        String productCode = (String) objIs.readObject();
+                        product = getProductData(productCode);
+                        objOs.writeObject(product);
+                    }
+                    if (action.equals("Remove Product")) {
+                        String productCode = (String) objIs.readObject();
+                        removeProductData(productCode);
                     }
                     if (action.equals("View Inventory")) {
                         List<Product> productList = getInventoryList();
@@ -253,10 +288,18 @@ public class Server {
                         invoice = (Invoice) objIs.readObject();
                         addInvoiceData(invoice);
                     }
+                    if (action.equals("Update Invoice")) {
+                        invoice = (Invoice) objIs.readObject();
+                        updateInvoiceData(invoice);
+                    }
                     if (action.equals("Find Invoice")) {
                         String invoiceNum = (String) objIs.readObject();
-                        invoice = findInvoiceByNumber(invoiceNum);
+                        invoice = getInvoiceData(invoiceNum);
                         objOs.writeObject(invoice);
+                    }
+                    if (action.equals("Remove Invoice")) {
+                        String invoiceNum = (String) objIs.readObject();
+                        removeInvoiceData(invoiceNum);
                     }
                 } catch (ClassNotFoundException e) {
                     System.err.println("ClassNotFoundException: " + e.getMessage());
@@ -274,6 +317,7 @@ public class Server {
         }
     }
 
+    /** Insert queries **/
     public void addCustomerData(Customer customer) throws IOException {
         String query = "INSERT INTO jwr.customer(ID, firstName, lastName, dob, address, " +
                 "telephone, email, membershipDate, membershipExpiryDate) " + "VALUES ('" + customer.getId() +
@@ -368,7 +412,7 @@ public class Server {
         }
     }
 
-    /* Update queries */
+    /** Update queries **/
     public void updateEmployeeData(Employee employee) throws IOException {
         String query = "UPDATE jwr.employee SET firstName = '" + employee.getFirstName() + "', " +
                 "lastName = '" + employee.getLastName() + "', " +
@@ -471,10 +515,60 @@ public class Server {
         }
     }
 
-    /* Select queries */
-    private Invoice findInvoiceByNumber(String invoiceNum) {
+    /** Select queries **/
+    private Employee getEmployeeData(String employeeId) {
+        Employee employee = new Employee();
+        String query = "SELECT * FROM jwr.employee WHERE ID = '" + employeeId + "'";
+        try {
+            stmt = dbConn.createStatement();
+            result = stmt.executeQuery(query);
+
+            if (result.next()) {
+                employee.setId(result.getString("ID"));
+                employee.setFirstName(result.getString("firstName"));
+                employee.setLastName(result.getString("lastName"));
+                //employee.setDOB(result.getString("dob"));
+                employee.setEmail(result.getString("email"));
+                employee.setTelephone(result.getString("telephone"));
+                employee.setDepartment(result.getString("department"));
+                employee.setType(result.getString("employeeType"));
+                employee.setAddress(result.getString("address"));
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return employee;
+    }
+
+    private Customer getCustomerData(String customerId) {
+        Customer customer = new Customer();
+        String query = "SELECT * FROM jwr.customer WHERE ID = '" + customerId + "'";
+        try {
+            stmt = dbConn.createStatement();
+            result = stmt.executeQuery(query);
+
+            if (result.next()) {
+                customer.setId(result.getString("ID"));
+                customer.setFirstName(result.getString("firstName"));
+                customer.setLastName(result.getString("lastName"));
+                //customer.setDOB(result.getString("dob"));
+                customer.setEmail(result.getString("email"));
+                customer.setTelephone(result.getString("telephone"));
+                //customer.setMembershipDate(result.getString("membershipDate"));
+                //customer.setMembershipExpiryDate(result.getString("membershipExpiryDate"));
+                customer.setAddress(result.getString("address"));
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return customer;
+    }
+
+    private Invoice getInvoiceData(String invoiceNum) {
         Invoice invoice = new Invoice();
-        String query = "SELECT * FROM jwr.invoice WHERE invoice_number = " + invoiceNum;
+        String query = "SELECT * FROM jwr.invoice WHERE invoice_number = '" + invoiceNum + "'";
         try {
             stmt = dbConn.createStatement();
             result = stmt.executeQuery(query);
@@ -495,6 +589,28 @@ public class Server {
         return invoice;
     }
 
+    private Product getProductData(String productCode) {
+        Product product = new Product();
+        String query = "SELECT * FROM jwr.product WHERE product_code = '" + productCode + "'";
+        try {
+            stmt = dbConn.createStatement();
+            result = stmt.executeQuery(query);
+
+            if (result.next()) {
+                product.setCode(result.getString("product_code"));
+                product.setName(result.getString("productName"));
+                product.setShortDescription(result.getString("shortDescription"));
+                product.setLongDescription(result.getString("longDescription"));
+                product.setItemInStock(result.getInt("itemInStock"));
+                product.setUnitPrice(result.getFloat("unitPrice"));
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return product;
+    }
+
     private List<Employee> getEmployeeList() {
         List<Employee> employeeList = new ArrayList<>();
         String query = "SELECT * FROM jwr.employee";
@@ -508,7 +624,7 @@ public class Server {
                 String telephone = result.getString("telephone");
                 String email = result.getString("email");
                 String type = result.getString("employeeType");
-                String department = result.getString("dept_code");
+                String department = result.getString("department");
                 employeeList.add(new Employee(id, firstName, lastName, DOB, address, telephone, email,
                         type, department));
             }
@@ -560,5 +676,81 @@ public class Server {
             e.printStackTrace();
         }
         return productList;
+    }
+
+    /** Delete queries **/
+    public void removeEmployeeData(String employeeId) throws IOException {
+        String query = "DELETE FROM jwr.employee WHERE ID = '" + employeeId + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if (stmt.executeUpdate(query) == 1) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        }
+    }
+
+    public void removeCustomerData(String customerId) throws IOException {
+        String query = "DELETE FROM jwr.customer WHERE ID = '" + customerId + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if (stmt.executeUpdate(query) == 1) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        }
+    }
+
+    public void removeProductData(String productCode) throws IOException {
+        String query = "DELETE FROM jwr.product WHERE product_code = '" + productCode + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if (stmt.executeUpdate(query) == 1) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        }
+    }
+    public void removeInvoiceData(String invoiceNum) throws IOException {
+        String query = "DELETE FROM jwr.invoice WHERE invoice_number = '" + invoiceNum + "'";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            if (stmt.executeUpdate(query) == 1) {
+                objOs.writeObject(true);
+            } else {
+                objOs.writeObject(false);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        }
     }
 }

@@ -17,12 +17,12 @@ public class Invoice implements Serializable {
     private String customer;
 
     public Invoice() {
-        this.invoiceNumber = 0;
-        this.billingDate = new Date();
-        this.itemName = "";
-        this.quantity = 0;
-        this.employee = "";
-        this.customer = "";
+        invoiceNumber = 0;
+        billingDate = new Date();
+        itemName = "N/A";
+        quantity = 0;
+        employee = "N/A";
+        customer = "N/A";
     }
 
     //Primary Constructor

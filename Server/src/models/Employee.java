@@ -21,15 +21,15 @@ public class Employee implements Serializable {
 
     //Default Constructor
     public Employee() {
-        this.id = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.DOB = new Date();
-        this.address = "";
-        this.telephone = "";
-        this.email = "";
-        this.type = "";
-        this.department = "";
+        id = "N/A";
+        firstName = "N/A";
+        lastName = "N/A";
+        DOB = new Date();
+        address = "N/A";
+        telephone = "N/A";
+        email = "N/A";
+        type = "N/A";
+        department = "N/A";
     }
 
     //Primary Constructor
