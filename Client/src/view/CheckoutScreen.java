@@ -44,7 +44,7 @@ public class CheckoutScreen extends JPanel implements ActionListener{
     private JLabel itemNameLabel;
     private JLabel quantityLabel;
     private JLabel unitPrice;
-    private JTextField codeTxtValue;
+    private JTextField codeTxtValue; 
     private JTextField quantityTxtValue;
     private JTextField itemNameTxtValue;
     private JTextField unitPriceTxtValue;
