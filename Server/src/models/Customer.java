@@ -1,12 +1,11 @@
 package models;
 //============================================================================
-//Name        : Customer.java
-//Author      : Tyrien Gilpin
-//Version     : 1
-//Copyright   : Your copyright notice
-//Description : Customer Model Class
+// Name        : Customer.java
+// Author      : Tyrien Gilpin
+// Version     : 1
+// Copyright   : Your copyright notice
+// Description : Customer Model Class
 //============================================================================
-
 import java.io.Serializable;
 
 public class Customer implements Serializable {
@@ -22,15 +21,15 @@ public class Customer implements Serializable {
 
     //Default Constructor
     public Customer() {
-        this.id = "N/A";
-        this.firstName = "N/A";
-        this.lastName = "N/A";
+        id = "N/A";
+        firstName = "N/A";
+        lastName = "N/A";
         DOB = new Date();
-        this.address = "N/A";
+        address = "N/A";
         telephone = "N/A";
-        this.email = "N/A";
-        this.membershipDate = new Date();
-        this.membershipExpiryDate = new Date();
+        email = "N/A";
+        membershipDate = new Date();
+        membershipExpiryDate = new Date();
     }
 
     //Primary Constructor
@@ -141,5 +140,18 @@ public class Customer implements Serializable {
                 + "Membership Expiration Date: " + getMembershipExpiryDate());
     }
 
-
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", DOB=" + DOB +
+                ", address='" + address + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", membershipDate=" + membershipDate +
+                ", membershipExpiryDate=" + membershipExpiryDate +
+                '}';
+    }
 }

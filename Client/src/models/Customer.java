@@ -21,15 +21,15 @@ public class Customer implements Serializable {
 
     //Default Constructor
     public Customer() {
-        this.id = "N/A";
-        this.firstName = "N/A";
-        this.lastName = "N/A";
+        id = "N/A";
+        firstName = "N/A";
+        lastName = "N/A";
         DOB = new Date();
-        this.address = "N/A";
+        address = "N/A";
         telephone = "N/A";
-        this.email = "N/A";
-        this.membershipDate = new Date();
-        this.membershipExpiryDate = new Date();
+        email = "N/A";
+        membershipDate = new Date();
+        membershipExpiryDate = new Date();
     }
 
     //Primary Constructor
@@ -138,5 +138,20 @@ public class Customer implements Serializable {
                 + getLastName() + "\nDOB: " + getDOB() + "\nAddress: " + getAddress() + "\nTelephone: "
                 + getTelephone() + "\nEmail: " + getEmail() + "\nDate Joined" + getMembershipDate()
                 + "Membership Expiration Date: " + getMembershipExpiryDate());
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", DOB=" + DOB +
+                ", address='" + address + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", membershipDate=" + membershipDate +
+                ", membershipExpiryDate=" + membershipExpiryDate +
+                '}';
     }
 }

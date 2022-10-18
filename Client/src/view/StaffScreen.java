@@ -1,40 +1,35 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import  java.awt.event.ActionListener;
-import java.util.List;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import client.Client;
 import models.Employee;
 import view.dialogs.staff.StaffDeleteDialog;
 import view.dialogs.staff.StaffInsertDialog;
 import view.dialogs.staff.StaffSearchDialog;
 import view.dialogs.staff.StaffUpdateDialog;
- 
 
-public class StaffScreen extends BaseScreen implements ActionListener{
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-    private final String[] tableHead = {"Employee ID", "First Name", "Last Name", "D.O.B",
-            "Address", "Tel", "Emails", "Employee Type","Department"};
+
+public class StaffScreen extends BaseScreen implements ActionListener {
+
+    private final String[] tableHead = {"ID", "First Name", "Last Name", "D.O.B",
+            "Address", "Telephone", "Email", "Employee Type", "Department"};
     private JTable table;
     private DefaultTableModel model;
-    
-    
+
+
     public StaffScreen() {
-        super("Employee");
+        super("Employees");
 
         initializeComponents();
         setupListeners();
         setContentView();
         getStaff();
-      
     }
-
-  
 
     private void initializeComponents() {
 
@@ -51,18 +46,17 @@ public class StaffScreen extends BaseScreen implements ActionListener{
         deleteButton.addActionListener(this);
         searchButton.addActionListener(this);
         refreshButton.addActionListener(this);
-        
     }
+
     //set main content view
     private void setContentView() {
         setMainContent(new JScrollPane(table));
-       
     }
 
     private void getStaff() {
         Client client = new Client();
         client.sendAction("View Staff");
-        List<Employee> empList = client.receiveViewEmployeesResponse();
+        List<Employee> empList = client.receiveViewEmployeeResponse();
         client.closeConnections();
 
         int count = 0;
@@ -78,27 +72,26 @@ public class StaffScreen extends BaseScreen implements ActionListener{
             System.out.println(employee);
 
             model.insertRow(count, new Object[]{
-                employee.getId(), 
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getDOB() ,
-                employee.getAddress(),
-                employee.getTelephone(),
-                employee.getEmail(),
-                employee.getType(),
-                employee.getDepartment()
+                    employee.getId(),
+                    employee.getFirstName(),
+                    employee.getLastName(),
+                    employee.getDOB(),
+                    employee.getAddress(),
+                    employee.getTelephone(),
+                    employee.getEmail(),
+                    employee.getType(),
+                    employee.getDepartment()
             });
             count++;
         }
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         if (e.getSource().equals(addButton)) {
             StaffInsertDialog insertDialog = new StaffInsertDialog();
-           // insertDialog.setVisible(true);
+            // insertDialog.setVisible(true);
             getStaff();
         }
         if (e.getSource().equals(searchButton)) {
@@ -116,8 +109,5 @@ public class StaffScreen extends BaseScreen implements ActionListener{
         if (e.getSource().equals(refreshButton)) {
             getStaff();
         }
-        
     }
-
-    
 }

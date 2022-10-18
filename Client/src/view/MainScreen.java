@@ -1,3 +1,8 @@
+/**
+ * MainScreen.java
+ * A tabbed layout to switch between diffrent sections of the app
+ * Author (s): Shawn Grant, Malik Heron
+ */
 package view;
 
 import javax.swing.*;
@@ -52,7 +57,14 @@ public class MainScreen extends JFrame implements ActionListener {
             }
         };
 
-        JToggleButton[] toggleButtons = {customerButton, staffButton, inventoryButton, checkOutButton, reportButton, exitButton};
+        JToggleButton[] toggleButtons = {
+                customerButton,
+                staffButton,
+                inventoryButton,
+                checkOutButton,
+                reportButton,
+                exitButton
+        };
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(customerButton);
         buttonGroup.add(staffButton);
@@ -116,7 +128,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
         if (e.getSource() == customerButton) {
             rightPanel.removeAll();
-            rightPanel.add(new BaseScreen("Customers")); //testing
+            rightPanel.add(new CustomerScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }

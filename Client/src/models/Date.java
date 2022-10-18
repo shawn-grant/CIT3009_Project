@@ -16,9 +16,9 @@ public class Date implements Serializable {
 
     //Default Constructor
     public Date() {
-        this.day = 0;
-        this.month = 0;
-        this.year = 0;
+        day = 0;
+        month = 0;
+        year = 0;
     }
 
     //Primary Constructor
@@ -33,6 +33,15 @@ public class Date implements Serializable {
         this.day = date.day;
         this.month = date.month;
         this.year = date.year;
+    }
+
+    //String Constructor
+    public Date(String dateString) {
+        String[] segments = dateString.split("/");
+
+        this.day = Integer.parseInt(segments[0]);
+        this.month = Integer.parseInt(segments[1]);
+        this.year = Integer.parseInt(segments[2]);
     }
 
     //Getters and Setters
@@ -62,5 +71,11 @@ public class Date implements Serializable {
 
     public void displayDate() {
         System.out.println("\nDay: " + getDay() + "\nMonth: " + getMonth() + "\nYear: " + getYear());
+    }
+
+    @Override
+    public String toString() {
+        // database friendly format
+        return getDay() + "/" + getMonth() + "/" + getYear();
     }
 }
