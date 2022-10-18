@@ -54,7 +54,9 @@ public class StaffScreen extends BaseScreen implements ActionListener {
     }
 
     private void getStaff() {
-        Client client = new Client();
+
+        try{
+            Client client = new Client();
         client.sendAction("View Staff");
         List<Employee> empList = client.receiveViewEmployeeResponse();
         client.closeConnections();
@@ -84,6 +86,9 @@ public class StaffScreen extends BaseScreen implements ActionListener {
             });
             count++;
         }
+    }catch(Exception e){
+        e.printStackTrace();
+    }
     }
 
     @Override
@@ -91,7 +96,7 @@ public class StaffScreen extends BaseScreen implements ActionListener {
 
         if (e.getSource().equals(addButton)) {
             StaffInsertDialog insertDialog = new StaffInsertDialog();
-            // insertDialog.setVisible(true);
+             //insertDialog.setVisible(true);
             getStaff();
         }
         if (e.getSource().equals(updateButton)) {

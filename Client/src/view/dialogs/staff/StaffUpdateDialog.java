@@ -31,7 +31,7 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
 						addressTextField, telTextField,emailTextField;
 	
 	private JButton saveButton,cancelButton;
-	private JComboBox empTypebox, deptBox;
+	private JComboBox <String> empTypeBox, deptBox;
     private JPanel panTop, panBottom;
     
     public StaffUpdateDialog() {
@@ -84,13 +84,13 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
  	empTypeLabel= new JLabel("Employee Type");
  	empTypeLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
  	String empType[] = {"","Manger", "Supervisor","Line Worker"};
- 	JComboBox<String> empTypeBox = new JComboBox<>(empType);
+ 	empTypeBox = new JComboBox<>(empType);
 	empTypeBox.setSelectedItem(null);
  	
  	deptLabel= new JLabel("Department");
  	deptLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
  	String  dept []= {"","Mangement","Inventory","Accounting & sales"};
- 	JComboBox<String> deptBox = new JComboBox<>(dept);
+ 	deptBox = new JComboBox<>(dept);
 	deptBox.setSelectedItem(null);
  	
  	cancelButton = new JButton("Cancel");
@@ -128,7 +128,7 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
         panTop.add(emailLabel);
         panTop.add(emailTextField);
         panTop.add(empTypeLabel);
-        panTop.add(empTypebox);
+        panTop.add(empTypeBox);
         panTop.add(deptLabel);
         panTop.add(deptBox);
         
@@ -166,7 +166,7 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
         return !(idTextField.getText().isEmpty() || firstNameTextfield.getText().isEmpty()
                 || lastNameTextField.getText().isEmpty() || DOBTextField.getText().isEmpty()
                 || addressTextField.getText().isEmpty() ||telTextField.getText().isEmpty()
-                ||emailTextField.getText().isEmpty()|| empTypebox== null|| deptBox ==null);
+                ||emailTextField.getText().isEmpty()|| empTypeBox== null|| deptBox ==null);
     }
 
     private void resetFields() {
@@ -177,7 +177,7 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
     	DOBTextField.setText("");
     	telTextField.setText("");
     	emailTextField.setText("");
-    	empTypebox.setSelectedItem(null);
+    	empTypeBox.setSelectedItem(null);
     	deptBox.setSelectedItem(null);
     }
     
@@ -196,7 +196,7 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
 		            		lastNameTextField.getText(),new models.Date(),
 		            		addressTextField.getText(),telTextField.getText(),
 		            		emailTextField.getText(),
-		            		empTypebox.getSelectedItem().toString(),
+		            		empTypeBox.getSelectedItem().toString(),
 		            		deptBox.getSelectedItem().toString()
 		            		);
 		            
