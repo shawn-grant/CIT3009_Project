@@ -54,24 +54,26 @@ public class StaffScreen extends BaseScreen implements ActionListener {
     }
 
     private void getStaff() {
-        Client client = new Client();
-        client.sendAction("View Staff");
-        List<Employee> empList = client.receiveViewEmployeeResponse();
-        client.closeConnections();
 
-        int count = 0;
-        int rowCount = model.getRowCount();
-        int counter = 0;
+        try{
+            Client client = new Client();
+            client.sendAction("View Staff");
+            List<Employee> empList = client.receiveViewEmployeeResponse();
+            client.closeConnections();
 
-        while (counter < rowCount) {
-            model.removeRow(count);
-            counter++;
-        }
+			int count = 0;
+			int rowCount = model.getRowCount();
+			int counter = 0;
 
-        for (Employee employee : empList) {
-            System.out.println(employee);
+			while (counter < rowCount) {
+			    model.removeRow(count);
+			    counter++;
+			}
 
-            model.insertRow(count, new Object[]{
+			for (Employee employee : empList) {
+			    System.out.println(employee);
+
+                model.insertRow(count, new Object[]{
                     employee.getId(),
                     employee.getFirstName(),
                     employee.getLastName(),
@@ -81,8 +83,11 @@ public class StaffScreen extends BaseScreen implements ActionListener {
                     employee.getEmail(),
                     employee.getType(),
                     employee.getDepartment()
-            });
-            count++;
+                });
+                count++;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -90,21 +95,20 @@ public class StaffScreen extends BaseScreen implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            StaffInsertDialog insertDialog = new StaffInsertDialog();
-            // insertDialog.setVisible(true);
+            new StaffInsertDialog();
+            getStaff();
+        }
+        if (e.getSource().equals(updateButton)) {
+            new StaffUpdateDialog();
             getStaff();
         }
         if (e.getSource().equals(searchButton)) {
-            StaffSearchDialog searchDialog = new StaffSearchDialog();
-            //searchDialog.setVisible(true);
-        }
-        if (e.getSource().equals(updateButton)) {
-            StaffUpdateDialog updateDialog = new StaffUpdateDialog();
-            //updateDialog.setVisible(true);
+            new  StaffSearchDialog(null);
+            getStaff();
         }
         if (e.getSource().equals(deleteButton)) {
-            StaffDeleteDialog deleteDialog = new StaffDeleteDialog();
-            //deleteDialog.setVisible(true);
+            new StaffDeleteDialog(null);
+            getStaff();
         }
         if (e.getSource().equals(refreshButton)) {
             getStaff();
