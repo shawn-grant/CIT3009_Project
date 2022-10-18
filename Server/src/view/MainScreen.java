@@ -6,21 +6,18 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public class MainScreen extends JFrame implements ActionListener {
 
     private JPanel panel;
     private JTextArea textArea;
     private JLabel statusLabel, requestsLabel;
-    private JTextField statusField, requestsField;
+    private JLabel statusText, requestsText;
     private JButton stopButton, exitButton;
     private JScrollPane scrollPane;
     private final ServerSocket serverSocket;
@@ -46,11 +43,20 @@ public class MainScreen extends JFrame implements ActionListener {
         // label properties
         statusLabel = new JLabel("Server status: ");
         statusLabel.setFont(new Font("arial", Font.BOLD, 15));
-        statusLabel.setPreferredSize(new Dimension(130, 20));
+        statusLabel.setPreferredSize(new Dimension(105, 20));
 
         requestsLabel = new JLabel("Requests received: ");
         requestsLabel.setFont(new Font("arial", Font.BOLD, 15));
-        requestsLabel.setPreferredSize(new Dimension(150, 20));
+        requestsLabel.setPreferredSize(new Dimension(145, 20));
+
+        statusText = new JLabel("Running");
+        statusText.setFont(new Font("arial", Font.PLAIN, 14));
+        statusText.setForeground(new Color(44, 124, 24));
+        statusText.setPreferredSize(new Dimension(70, 30));
+
+        requestsText = new JLabel("0");
+        requestsText.setFont(new Font("arial", Font.PLAIN, 14));
+        requestsText.setPreferredSize(new Dimension(60, 30));
 
         // text area properties
         textArea = new JTextArea();
@@ -58,23 +64,10 @@ public class MainScreen extends JFrame implements ActionListener {
         textArea.setPreferredSize(new Dimension(500, 460));
         textArea.setEditable(false);
 
-        // field properties
-        statusField = new JTextField("Running");
-        statusField.setHorizontalAlignment(JTextField.CENTER);
-        statusField.setFont(new Font("arial", Font.PLAIN, 14));
-        statusField.setPreferredSize(new Dimension(90, 30));
-        statusField.setEditable(false);
-
-        requestsField = new JTextField("0");
-        requestsField.setHorizontalAlignment(JTextField.CENTER);
-        requestsField.setFont(new Font("arial", Font.PLAIN, 14));
-        requestsField.setPreferredSize(new Dimension(60, 30));
-        requestsField.setEditable(false);
-
         // button properties
         stopButton = new JButton("STOP SERVER");
         stopButton.setPreferredSize(new Dimension(140, 30));
-        stopButton.setForeground(Color.BLUE);
+        stopButton.setForeground(Color.RED);
         stopButton.setFont(new Font("arial", Font.BOLD, 12));
         stopButton.setFocusPainted(false);
 
@@ -97,9 +90,9 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void addComponentsToPanels() {
         panel.add(statusLabel);
-        panel.add(statusField);
+        panel.add(statusText);
         panel.add(requestsLabel);
-        panel.add(requestsField);
+        panel.add(requestsText);
         panel.add(stopButton);
         panel.add(exitButton);
         panel.add(scrollPane);
@@ -113,7 +106,7 @@ public class MainScreen extends JFrame implements ActionListener {
         setLayout(null);
         setSize(530, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
     }
 
@@ -122,8 +115,8 @@ public class MainScreen extends JFrame implements ActionListener {
         exitButton.addActionListener(this);
     }
 
-    public void setRequestsField(int requestAmount) {
-        requestsField.setText(String.valueOf(requestAmount));
+    public void setRequestsText(int requestAmount) {
+        requestsText.setText(String.valueOf(requestAmount));
     }
 
     public void setTextArea(String text) {
@@ -144,7 +137,8 @@ public class MainScreen extends JFrame implements ActionListener {
             if (selection == JOptionPane.YES_OPTION) {
                 try {
                     serverSocket.close();
-                    statusField.setText("Stopped");
+                    statusText.setText("Stopped");
+                    statusText.setForeground(Color.RED);
                     exitButton.setVisible(true);
                     stopButton.setEnabled(false);
                 } catch (IOException ex) {
