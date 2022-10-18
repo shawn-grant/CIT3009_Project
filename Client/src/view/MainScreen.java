@@ -146,7 +146,7 @@ public class MainScreen extends JFrame implements ActionListener {
         }
         if (e.getSource() == checkOutButton) {
             rightPanel.removeAll();
-            // rightPanel.add(new CheckoutScreen());
+            rightPanel.add(new CheckoutScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
