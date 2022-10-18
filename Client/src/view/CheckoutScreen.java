@@ -3,7 +3,6 @@ package view;
 //Name        : CheckoutScreen.java
 //Author      : Tyrien Gilpin
 //Version     : 1
-//Copyright   : Your copyright notice
 //Description : GUI Screen class for cashing checkout 
 //============================================================================
 import java.awt.Color;
@@ -50,7 +49,7 @@ public class CheckoutScreen extends JPanel implements ActionListener{
     private JTextField itemNameTxtValue;
     private JTextField unitPriceTxtValue;
     private JPanel centerPanel;
-    private JPanel mainContent; // w
+    private JPanel mainContent; 
 	private final String[] TableColumns = {"Product Code", "Product Name", "Quantity", "Unit Price", "Cost"};
 	private JTable table;
 	private DefaultTableModel model;
@@ -236,12 +235,6 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	 }
 
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-		
 		
 /*****************************Defining Button Actions*****************************/
 		//Method to check if all fields are empty
@@ -309,13 +302,13 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	    }
 	    
 	    
-	  /*  
+	  
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 
-			 /*if (e.getSource().equals(searchButton)) {
+			 if (e.getSource().equals(searchButton)) {
 	            searchInventory();
-	        }*
+	        }
 	        
 	        if (e.getSource().equals(addButton)) {
 	            addItem();
@@ -325,13 +318,13 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	            removeItem();
 	        }
 	        if (e.getSource().equals(clearButton)) {
-	            clearAll()
+	            clearAll();
 	        }
 	        
 	        if (e.getSource().equals(checkoutButton)) {
-	            checkoutItem();
+	           // checkoutItem();
 	        }
-	   */
-	    
+	   
+	    }
 	   
 }
