@@ -1,5 +1,11 @@
 package view;
-
+//============================================================================
+//Name        : CheckoutScreen.java
+//Author      : Tyrien Gilpin
+//Version     : 1
+//Copyright   : Your copyright notice
+//Description : GUI Screen class for cashing checkout 
+//============================================================================
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
