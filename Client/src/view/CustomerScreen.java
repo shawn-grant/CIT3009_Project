@@ -2,14 +2,13 @@
  * CustomerScreen.java
  * View for editing and displaying Customer info
  * Author (s): Shawn Grant
-*/
+ */
 package view;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 import view.dialogs.customer.CustomerInsertDialog;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
