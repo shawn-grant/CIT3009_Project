@@ -118,7 +118,7 @@ public class Server {
             boolean isYes;
             int selection = JOptionPane.showConfirmDialog(
                     null,
-                    "Could not connect to database.\n\n" + e.getMessage() + "\n\nRetry?",
+                    "Could not connect to database jwr.\nCreate it?",
                     "Connection Failure",
                     JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE
             );
@@ -179,7 +179,7 @@ public class Server {
     public static void createCustomerTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE customer(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob varchar(25), parish varchar(80), telephone varchar(25)," +
+                    "lastName varchar(25), dob varchar(25), address varchar(80), telephone varchar(25)," +
                     " email varchar(25), membershipDate varchar(25), membershipExpiryDate varchar(40), " +
                     "PRIMARY KEY(ID))";
 
@@ -577,14 +577,25 @@ public class Server {
                 String id = result.getString("ID");
                 String firstName = result.getString("firstName");
                 String lastName = result.getString("lastName");
-                Date DOB = null;
+                Date DOB = new Date(result.getString("dob"));
                 String address = result.getString("address");
                 String telephone = result.getString("telephone");
                 String email = result.getString("email");
-                Date membershipDate = null;
-                Date membershipExpiryDate = null;
-                customerList.add(new Customer(id, firstName, lastName, DOB, address, telephone, email, membershipDate
-                        , membershipExpiryDate));
+                Date membershipDate = new Date(result.getString("membershipDate"));
+                Date membershipExpiryDate = new Date(result.getString("membershipExpiryDate"));
+
+                customerList.add(new Customer(
+                    id, 
+                    firstName, 
+                    lastName, 
+                    DOB, 
+                    address, 
+                    telephone, 
+                    email, 
+                    membershipDate, 
+                    membershipExpiryDate
+                ));
+                System.out.println(customerList);
             }
             return customerList;
         } catch (SQLException e) {
