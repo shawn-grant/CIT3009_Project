@@ -155,23 +155,18 @@ public class Server {
      * Create queries
      */
     public static void createJWRDatabase() {
-        final String JBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost:3306/";
         final String USER = "root";
         final String PASS = "";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()
         ) {
-            Class.forName(JBC_DRIVER);
             String query = "CREATE DATABASE IF NOT EXISTS jwr";
             if ((stmt.executeUpdate(query)) == 0) {
                 System.out.println("JWR Database created.");
             }
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.err.println("ClassNotFoundException: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
