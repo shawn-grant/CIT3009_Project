@@ -18,7 +18,9 @@ import view.dialogs.staff.StaffUpdateDialog;
 
 public class StaffScreen extends BaseScreen implements ActionListener{
 
-    private final String[] tableHead = {"Employee ID", "First Name", "Last Name", "D.O.B",
+    private static final long serialVersionUID = 1L;
+    
+	private final String[] tableHead = {"Employee ID", "First Name", "Last Name", "D.O.B",
             "Address", "Tel", "Emails", "Employee Type","Department"};
     private JTable table;
     private DefaultTableModel model;
@@ -33,8 +35,6 @@ public class StaffScreen extends BaseScreen implements ActionListener{
         getStaff();
       
     }
-
-  
 
     private void initializeComponents() {
 
@@ -60,36 +60,41 @@ public class StaffScreen extends BaseScreen implements ActionListener{
     }
 
     private void getStaff() {
-        Client client = new Client();
-        client.sendAction("View Staff");
-        List<Employee> empList = client.receiveViewEmployeesResponse();
-        client.closeConnections();
+    	
+        try {
+			Client client = new Client();
+			client.sendAction("View Staff");
+			List<Employee> empList = client.receiveViewEmployeeResponse();
+			client.closeConnections();
 
-        int count = 0;
-        int rowCount = model.getRowCount();
-        int counter = 0;
+			int count = 0;
+			int rowCount = model.getRowCount();
+			int counter = 0;
 
-        while (counter < rowCount) {
-            model.removeRow(count);
-            counter++;
-        }
+			while (counter < rowCount) {
+			    model.removeRow(count);
+			    counter++;
+			}
 
-        for (Employee employee : empList) {
-            System.out.println(employee);
+			for (Employee employee : empList) {
+			    System.out.println(employee);
 
-            model.insertRow(count, new Object[]{
-                employee.getId(), 
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getDOB() ,
-                employee.getAddress(),
-                employee.getTelephone(),
-                employee.getEmail(),
-                employee.getType(),
-                employee.getDepartment()
-            });
-            count++;
-        }
+			    model.insertRow(count, new Object[]{
+			        employee.getId(), 
+			        employee.getFirstName(),
+			        employee.getLastName(),
+			        employee.getDOB() ,
+			        employee.getAddress(),
+			        employee.getTelephone(),
+			        employee.getEmail(),
+			        employee.getType(),
+			        employee.getDepartment()
+			    });
+			    count++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
     }
 
@@ -98,20 +103,22 @@ public class StaffScreen extends BaseScreen implements ActionListener{
         
         if (e.getSource().equals(addButton)) {
             StaffInsertDialog insertDialog = new StaffInsertDialog();
-           // insertDialog.setVisible(true);
+            insertDialog.setVisible(true);
             getStaff();
-        }
-        if (e.getSource().equals(searchButton)) {
-            StaffSearchDialog searchDialog = new StaffSearchDialog();
-            //searchDialog.setVisible(true);
         }
         if (e.getSource().equals(updateButton)) {
             StaffUpdateDialog updateDialog = new StaffUpdateDialog();
-            //updateDialog.setVisible(true);
+            updateDialog.setVisible(true);
+            getStaff();
+        }
+        if (e.getSource().equals(searchButton)) {
+            StaffSearchDialog searchDialog = new  StaffSearchDialog(null);
+            searchDialog.setVisible(true);
         }
         if (e.getSource().equals(deleteButton)) {
-            StaffDeleteDialog deleteDialog = new StaffDeleteDialog();
-            //deleteDialog.setVisible(true);
+            StaffDeleteDialog deleteDialog = new StaffDeleteDialog(null);
+            deleteDialog.setVisible(true);
+            getStaff();
         }
         if (e.getSource().equals(refreshButton)) {
             getStaff();
