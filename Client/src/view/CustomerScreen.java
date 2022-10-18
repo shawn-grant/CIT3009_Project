@@ -55,6 +55,8 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         deleteButton.addActionListener(this);
         searchButton.addActionListener(this);
         refreshButton.addActionListener(this);
+
+        buttonPanel.setVisible(false);
     }
 
     // set main content view
