@@ -64,7 +64,6 @@ public class InventorySearchDialog extends JDialog implements ActionListener {
     }
 
     private void registerListeners() {
-        codeField.addActionListener(this);
         confirmButton.addActionListener(this);
     }
 
