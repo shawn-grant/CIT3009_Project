@@ -6,6 +6,8 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,7 @@ public class MainScreen extends JFrame implements ActionListener {
     private JLabel statusLabel, requestsLabel;
     private JTextField statusField, requestsField;
     private JButton stopButton, exitButton;
+    private JScrollPane scrollPane;
     private final ServerSocket serverSocket;
 
     public MainScreen(ServerSocket serverSocket) {
@@ -52,7 +55,7 @@ public class MainScreen extends JFrame implements ActionListener {
         // text area properties
         textArea = new JTextArea();
         textArea.setFont(new Font("arial", Font.PLAIN, 14));
-        textArea.setPreferredSize(new Dimension(500, 360));
+        textArea.setPreferredSize(new Dimension(500, 460));
         textArea.setEditable(false);
 
         // field properties
@@ -82,9 +85,14 @@ public class MainScreen extends JFrame implements ActionListener {
         exitButton.setFocusPainted(false);
         exitButton.setVisible(false);
 
+        // scrollPane properties
+        scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(522, 460));
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         // Panel properties
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        panel.setSize(530, 500);
+        panel.setSize(530, 600);
     }
 
     private void addComponentsToPanels() {
@@ -94,7 +102,7 @@ public class MainScreen extends JFrame implements ActionListener {
         panel.add(requestsField);
         panel.add(stopButton);
         panel.add(exitButton);
-        panel.add(new JScrollPane(textArea));
+        panel.add(scrollPane);
     }
 
     private void addPanelsToWindow() {
@@ -103,7 +111,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void setWindowProperties() {
         setLayout(null);
-        setSize(530, 500);
+        setSize(530, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);

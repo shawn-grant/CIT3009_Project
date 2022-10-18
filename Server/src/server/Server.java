@@ -83,11 +83,11 @@ public class Server {
                 // socket object to receive incoming clientSocket requests
                 clientSocket = serverSocket.accept();
 
-                String clientConnected = "\nClient connected: " + clientSocket.getInetAddress().getHostAddress() +
+                String clientConnected = "Client connected: " + clientSocket.getInetAddress().getHostAddress() +
                         " @ " + localDateTime.format(dateTimeFormatter);;
 
                 // Displaying that new client is connected to server
-                System.out.println(clientConnected);
+                System.out.println("\n" + clientConnected);
 
                 // Update text area
                 mainScreen.setTextArea(clientConnected);
@@ -728,6 +728,7 @@ public class Server {
                 action = (String) objIs.readObject();
                 System.out.println("Requested action: " + action);
                 mainScreen.setRequestsField(requestsAmount++);
+                mainScreen.setTextArea("\nRequested action: " + action + "\n\n");
 
                 if (action.equals("Add Employee")) {
                     employee = (Employee) objIs.readObject();
