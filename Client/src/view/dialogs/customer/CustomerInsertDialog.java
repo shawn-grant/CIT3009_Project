@@ -2,27 +2,17 @@
  * CustomerInsertDialog.java
  * Popup to add a new customer
  * Author (s): Shawn Grant
-*/
+ */
 package view.dialogs.customer;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.border.MatteBorder;
 
 import client.Client;
 import models.Customer;
 import view.RoundedBorder;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class CustomerInsertDialog extends JDialog implements ActionListener {
@@ -32,7 +22,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private JTextField idField, firstNameField, lastNameField, addressField, telephoneField, emailField;
     private JFormattedTextField dobField;
     private JButton cancelButton, confirmButton;
-    
+
     public CustomerInsertDialog() {
         initComponents();
         addPanelsToWindow();
@@ -52,15 +42,15 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         firstNameLabel = new JLabel("First Name");
         firstNameLabel.setFont(new Font("arial", Font.BOLD, 12));
         firstNameLabel.setPreferredSize(new Dimension(120, 20));
-        
+
         firstNameField = new JTextField();
         firstNameField.setBorder(new RoundedBorder(8));
         firstNameField.setPreferredSize(new Dimension(250, 30));
-        
+
         lastNameLabel = new JLabel("Last Name");
         lastNameLabel.setFont(new Font("arial", Font.BOLD, 12));
         lastNameLabel.setPreferredSize(new Dimension(120, 20));
-        
+
         lastNameField = new JTextField();
         lastNameField.setBorder(new RoundedBorder(8));
         lastNameField.setPreferredSize(new Dimension(250, 30));
@@ -68,35 +58,35 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         dobLabel = new JLabel("Date of Birth");
         dobLabel.setFont(new Font("arial", Font.BOLD, 12));
         dobLabel.setPreferredSize(new Dimension(120, 20));
-        
+
         dobField = new JFormattedTextField(new Date());
         dobField.setBorder(new RoundedBorder(8));
         dobField.setPreferredSize(new Dimension(250, 30));
-        
+
         emailLabel = new JLabel("Email");
         emailLabel.setFont(new Font("arial", Font.BOLD, 12));
         emailLabel.setPreferredSize(new Dimension(120, 20));
-        
+
         emailField = new JTextField();
         emailField.setBorder(new RoundedBorder(8));
         emailField.setPreferredSize(new Dimension(250, 30));
-        
+
         addressLabel = new JLabel("Address");
         addressLabel.setFont(new Font("arial", Font.BOLD, 12));
         addressLabel.setPreferredSize(new Dimension(120, 20));
-        
+
         addressField = new JTextField();
         addressField.setBorder(new RoundedBorder(8));
         addressField.setPreferredSize(new Dimension(250, 30));
-        
+
         telephoneLabel = new JLabel("Phone #");
         telephoneLabel.setFont(new Font("arial", Font.BOLD, 12));
         telephoneLabel.setPreferredSize(new Dimension(120, 20));
-        
+
         telephoneField = new JTextField();
         telephoneField.setBorder(new RoundedBorder(8));
         telephoneField.setPreferredSize(new Dimension(250, 30));
-        
+
         confirmButton = new JButton("ADD CUSTOMER");
         confirmButton.setPreferredSize(new Dimension(200, 30));
         confirmButton.setForeground(Color.BLUE);
@@ -124,7 +114,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         add(confirmButton);
         add(cancelButton);
     }
-    
+
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setTitle("Add New Customer");
@@ -142,20 +132,20 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == confirmButton) {
+        if (e.getSource() == confirmButton) {
             Client client = new Client();
 
             // new models.Date(ERROR, ALLBITS, ABORT);
             Customer customer = new Customer(
-                idField.getText(),
-                firstNameField.getText(),
-                lastNameField.getText(),
-                new models.Date(),
-                addressField.getText(),
-                telephoneField.getText(),
-                emailField.getText(),
-                new models.Date(),
-                new models.Date()
+                    idField.getText(),
+                    firstNameField.getText(),
+                    lastNameField.getText(),
+                    new models.Date(),
+                    addressField.getText(),
+                    telephoneField.getText(),
+                    emailField.getText(),
+                    new models.Date(),
+                    new models.Date()
             );
 
             client.sendAction("Add Customer");
@@ -165,14 +155,14 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
             // resetFields();
             dispose();
         }
-        if(e.getSource() == cancelButton) {
+        if (e.getSource() == cancelButton) {
             dispose();
         }
     }
 
-    private String generateId(){
+    private String generateId() {
         String id = "C";
-        int num = (int)((Math.random() * (4000 - 100)) + 100);
+        int num = (int) ((Math.random() * (4000 - 100)) + 100);
 
         return id + num;
     }

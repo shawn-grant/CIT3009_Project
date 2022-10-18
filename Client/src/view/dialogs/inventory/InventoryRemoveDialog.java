@@ -1,6 +1,7 @@
 package view.dialogs.inventory;
 
 import client.Client;
+import view.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,55 +13,50 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
     private JLabel codeLabel;
     private JTextField codeField;
     private JButton confirmButton;
-    private JPanel panel;
 
     public InventoryRemoveDialog() {
-        setLayout(new FlowLayout(FlowLayout.TRAILING));
         initializeComponents();
-        addComponentsToPanels();
-        addPanelsToWindow();
-        setWindowProperties();
+        addComponentsToWindow();
         registerListeners();
+        setWindowProperties();
     }
 
     private void initializeComponents() {
         //Label properties
         codeLabel = new JLabel("Product Code");
-        codeLabel.setFont(new Font("times new roman", Font.PLAIN, 16));
+        codeLabel.setFont(new Font("arial", Font.BOLD, 12));
+        codeLabel.setPreferredSize(new Dimension(100, 20));
 
         //Field properties
         codeField = new JTextField();
         codeField.setFont(new Font("times new roman", Font.PLAIN, 16));
-        codeField.setPreferredSize(new Dimension(70, 30));
+        codeField.setBorder(new RoundedBorder(8));
+        codeField.setPreferredSize(new Dimension(90, 30));
 
         //Button properties
-        confirmButton = new JButton("Confirm");
-        confirmButton.setFont(new Font("times new roman", Font.PLAIN, 16));
-
-        //Panel properties
-        panel = new JPanel();
+        confirmButton = new JButton("REMOVE");
+        confirmButton.setPreferredSize(new Dimension(100, 30));
+        confirmButton.setForeground(Color.BLUE);
+        confirmButton.setFont(new Font("arial", Font.BOLD, 12));
 
         //Additional properties
-        codeField.setSize(80, 25);
         confirmButton.setFocusPainted(false);
     }
 
-    private void addComponentsToPanels() {
-        panel.add(codeLabel);
-        panel.add(codeField);
-        panel.add(confirmButton);
-    }
-
-    private void addPanelsToWindow() {
-        add(panel);
+    private void addComponentsToWindow() {
+        add(codeLabel);
+        add(codeField);
+        add(confirmButton);
     }
 
     private void setWindowProperties() {
-        setTitle("Remove Product");
-        setSize(270, 80);
+        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        setTitle("Search Inventory");
+        setSize(350, 90);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
+        setVisible(true);
     }
 
     private void registerListeners() {
@@ -69,10 +65,6 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
 
     private boolean validateFields() {
         return !(codeField.getText().isEmpty());
-    }
-
-    private void resetFields() {
-        codeField.setText("");
     }
 
     @Override
@@ -84,7 +76,6 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
                 client.sendProductCode(codeField.getText());
                 client.receiveResponse();
                 client.closeConnections();
-                resetFields();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(

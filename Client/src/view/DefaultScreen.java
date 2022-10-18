@@ -2,19 +2,16 @@
  * DefaultScreen.java
  * A splash screen shown when the app launches
  * Author (s): Shawn Grant
-*/
+ */
 package view;
 
-import java.awt.Color;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class DefaultScreen extends JPanel {
-    private JLabel jwrIcon;
+    private final JLabel jwrIcon;
 
-    DefaultScreen(){
+    DefaultScreen() {
         jwrIcon = new JLabel(new ImageIcon(getClass().getResource("/res/JWR_intro.png")));
 
         this.setSize(800, 600);
