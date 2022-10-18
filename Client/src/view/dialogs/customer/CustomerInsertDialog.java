@@ -10,7 +10,10 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
 
+import client.Client;
+import models.Customer;
 import view.RoundedBorder;
 
 import java.awt.Color;
@@ -19,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CustomerInsertDialog extends JDialog implements ActionListener {
@@ -31,7 +35,6 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     
     public CustomerInsertDialog() {
         initComponents();
-        // addComponentsToPanels();
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
@@ -140,7 +143,27 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == confirmButton) {
+            Client client = new Client();
 
+            // new models.Date(ERROR, ALLBITS, ABORT);
+            Customer customer = new Customer(
+                idField.getText(),
+                firstNameField.getText(),
+                lastNameField.getText(),
+                new models.Date(),
+                addressField.getText(),
+                telephoneField.getText(),
+                emailField.getText(),
+                new models.Date(),
+                new models.Date()
+            );
+
+            client.sendAction("Add Customer");
+            client.sendCustomer(customer);
+            client.receiveResponse();
+            client.closeConnections();
+            // resetFields();
+            dispose();
         }
         if(e.getSource() == cancelButton) {
             dispose();
