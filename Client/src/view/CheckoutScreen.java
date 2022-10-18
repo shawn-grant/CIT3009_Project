@@ -15,7 +15,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -31,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 import client.Client;
 import models.Product;
 import view.dialogs.inventory.InventoryInsertDialog;
+import view.dialogs.inventory.InventorySearchDialog;
 import view.dialogs.inventory.InventoryUpdateDialog;
 
 public class CheckoutScreen extends JPanel implements ActionListener{
@@ -243,23 +243,26 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 		        		|| quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
 		    }
 		 
+		
+		    private void setFields(Product product) {
+		    	quantityTxtValue.setText("1");
+                itemNameTxtValue.setText(product.getName());
+                unitPriceTxtValue.setText(String.valueOf(product.getUnitPrice()));
+		    }
+		 
+		 
 		// search for product entered product information
 	    private void searchInventory() {///NTS: Check
-	        Client client = new Client();
-	        client.sendAction("View Inventory");
-	        List<Product> productList = client.receiveViewInventoryResponse();
-	        client.closeConnections();
-	        
-	        for (Product product : productList) {
-	           
-	        	if(codeTxtValue.getText().trim() == product.getCode()) {
-	        		//System.out.println(product);
-	        		quantityTxtValue.setText("1");
-	                itemNameTxtValue.setText(product.getName());
-	                unitPriceTxtValue.setText(String.valueOf(product.getUnitPrice()));
-	        	}	
-	        }
-	    }
+	    	Client client = new Client();
+            if(!(codeTxtValue.getText().isEmpty())) {
+            	client.sendAction("Find Product");
+            	client.sendProductCode(codeTxtValue.getText().trim());
+	            Product product = client.receiveFindProductResponse();
+	            setFields(product);
+	            client.closeConnections();
+            }    	
+	     }
+	    
 	    
 	    // adding product information to table
 	    private void addItem() {
@@ -303,25 +306,31 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	    
 	    
 	  
+	 
 	    @Override
-	    public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 
-			 if (e.getSource().equals(searchButton)) {
-	            searchInventory();
+	    	if (e.getSource() == searchButton) {
+	    		Client client = new Client();
+	            if(!(codeTxtValue.getText().isEmpty())) {
+	            	client.sendAction("Find Product");
+	            	client.sendProductCode(codeTxtValue.getText().trim());
+		            Product product = client.receiveFindProductResponse();
+		            setFields(product);
+		            client.closeConnections();
+	            }    	
 	        }
 	        
-	        if (e.getSource().equals(addButton)) {
+	    	else if (e.getSource() == addButton) {
 	            addItem();
 	        }
 	       
-	        if (e.getSource().equals(deleteButton)) {
+	    	else if (e.getSource() == deleteButton) {
 	            removeItem();
 	        }
-	        if (e.getSource().equals(clearButton)) {
+	    	else if (e.getSource() == clearButton) {
 	            clearAll();
-	        }
-	        
-	        if (e.getSource().equals(checkoutButton)) {
+	        }else if (e.getSource() == checkoutButton) {
 	           // checkoutItem();
 	        }
 	   
