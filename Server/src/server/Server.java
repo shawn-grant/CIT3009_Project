@@ -31,7 +31,7 @@ public class Server {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private final SplashScreen splashScreen = new SplashScreen();
     private MainScreen mainScreen;
-    int requestsAmount = 1;
+    int requestAmount = 1;
 
     public Server() {
         createConnection();
@@ -78,6 +78,7 @@ public class Server {
         try {
             // running infinite loop for getting client request
             while (true) {
+                // get current local time
                 localDateTime = LocalDateTime.now();
 
                 // socket object to receive incoming clientSocket requests
@@ -131,7 +132,9 @@ public class Server {
             boolean isYes;
             int selection = JOptionPane.showConfirmDialog(
                     null,
-                    "Could not connect to database jwr.\nCreate it?",
+                    "Could not connect to database jwr." +
+                            "\n" + e.getMessage() +
+                            "\nRetry?",
                     "Connection Failure",
                     JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE
             );
@@ -727,7 +730,7 @@ public class Server {
             try {
                 action = (String) objIs.readObject();
                 System.out.println("Requested action: " + action);
-                mainScreen.setRequestsField(requestsAmount++);
+                mainScreen.setRequestsText(requestAmount++);
                 mainScreen.setTextArea("\nRequested action: " + action + "\n\n");
 
                 if (action.equals("Add Employee")) {
