@@ -17,7 +17,7 @@ public class BaseScreen extends JPanel {
     protected JButton refreshButton; // get all items
     protected JButton searchButton; // find an item
     private JLabel titleLabel;
-    private JPanel buttonPanel;
+    protected JPanel buttonPanel;
     private JPanel mainContent; // where the content is shown, set it child class
 
     public BaseScreen(String title) {
