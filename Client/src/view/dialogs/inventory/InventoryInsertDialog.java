@@ -2,6 +2,7 @@ package view.dialogs.inventory;
 
 import client.Client;
 import models.Product;
+import view.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,97 +14,111 @@ public class InventoryInsertDialog extends JDialog implements ActionListener {
     private JLabel nameLabel, codeLabel, shortDescLabel, longDescLabel, inStockLabel, unitPriceLabel;
     private JTextField nameField, codeField, shortDescField, longDescField, inStockField, unitPriceField;
     private JButton cancelButton, confirmButton;
-    private JPanel panTop, panBottom;
 
     public InventoryInsertDialog() {
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
         initializeComponents();
-        addComponentsToPanels();
-        addPanelsToWindow();
-        setWindowProperties();
+        addComponentsToWindow();
         registerListeners();
+        setWindowProperties();
     }
 
     private void initializeComponents() {
         //Label properties
         codeLabel = new JLabel("Product Code");
-        codeLabel.setFont(new Font("times new roman", Font.PLAIN, 16));
+        codeLabel.setFont(new Font("arial", Font.BOLD, 14));
+        codeLabel.setPreferredSize(new Dimension(140, 20));
+
         nameLabel = new JLabel("Product Name");
-        nameLabel.setFont(new Font("times new roman", Font.PLAIN, 16));
+        nameLabel.setFont(new Font("arial", Font.BOLD, 14));
+        nameLabel.setPreferredSize(new Dimension(140, 20));
+
         shortDescLabel = new JLabel("Short Description");
-        shortDescLabel.setFont(new Font("times new roman", Font.PLAIN, 16));
+        shortDescLabel.setFont(new Font("arial", Font.BOLD, 14));
+        shortDescLabel.setPreferredSize(new Dimension(140, 20));
+
         longDescLabel = new JLabel("Long Description");
-        longDescLabel.setFont(new Font("times new roman", Font.PLAIN, 16));
+        longDescLabel.setFont(new Font("arial", Font.BOLD, 14));
+        longDescLabel.setPreferredSize(new Dimension(140, 20));
+
         inStockLabel = new JLabel("Items in Stock");
-        inStockLabel.setFont(new Font("times new roman", Font.PLAIN, 16));
+        inStockLabel.setFont(new Font("arial", Font.BOLD, 14));
+        inStockLabel.setPreferredSize(new Dimension(140, 20));
+
         unitPriceLabel = new JLabel("Unit Price");
-        unitPriceLabel.setFont(new Font("times new roman", Font.PLAIN, 16));
+        unitPriceLabel.setFont(new Font("arial", Font.BOLD, 14));
+        unitPriceLabel.setPreferredSize(new Dimension(140, 20));
 
         //Field properties
         codeField = new JTextField();
-        codeField.setFont(new Font("times new roman", Font.PLAIN, 16));
-        nameField = new JTextField();
-        nameField.setFont(new Font("times new roman", Font.PLAIN, 16));
-        shortDescField = new JTextField();
-        shortDescField.setFont(new Font("times new roman", Font.PLAIN, 16));
-        longDescField = new JTextField();
-        longDescField.setFont(new Font("times new roman", Font.PLAIN, 16));
-        inStockField = new JTextField();
-        inStockField.setFont(new Font("times new roman", Font.PLAIN, 16));
-        unitPriceField = new JTextField();
-        unitPriceField.setFont(new Font("times new roman", Font.PLAIN, 16));
-        cancelButton = new JButton("Cancel");
-        cancelButton.setFont(new Font("times new roman", Font.PLAIN, 16));
-        confirmButton = new JButton("Confirm");
-        confirmButton.setFont(new Font("times new roman", Font.PLAIN, 16));
+        codeField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        codeField.setBorder(new RoundedBorder(8));
+        codeField.setPreferredSize(new Dimension(250, 30));
 
-        //Panel properties
-        panTop = new JPanel();
-        panBottom = new JPanel();
+        nameField = new JTextField();
+        nameField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        nameField.setBorder(new RoundedBorder(8));
+        nameField.setPreferredSize(new Dimension(250, 30));
+
+        shortDescField = new JTextField();
+        shortDescField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        shortDescField.setBorder(new RoundedBorder(8));
+        shortDescField.setPreferredSize(new Dimension(250, 30));
+
+        longDescField = new JTextField();
+        longDescField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        longDescField.setBorder(new RoundedBorder(8));
+        longDescField.setPreferredSize(new Dimension(250, 30));
+
+        inStockField = new JTextField();
+        inStockField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        inStockField.setBorder(new RoundedBorder(8));
+        inStockField.setPreferredSize(new Dimension(250, 30));
+
+        unitPriceField = new JTextField();
+        unitPriceField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        unitPriceField.setBorder(new RoundedBorder(8));
+        unitPriceField.setPreferredSize(new Dimension(250, 30));
+
+        //Button properties
+        confirmButton = new JButton("ADD PRODUCT");
+        confirmButton.setPreferredSize(new Dimension(200, 30));
+        confirmButton.setForeground(Color.BLUE);
+        confirmButton.setFont(new Font("arial", Font.BOLD, 14));
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.setPreferredSize(new Dimension(100, 30));
+        cancelButton.setFont(new Font("arial", Font.BOLD, 14));
 
         //Additional properties
-        codeField.setSize(50, 25);
         confirmButton.setFocusPainted(false);
         cancelButton.setFocusPainted(false);
     }
 
-    private void addComponentsToPanels() {
-        //Add components to Top panel
-        panTop.setMaximumSize(new Dimension(400, 300));
-        panTop.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panTop.setLayout(new BoxLayout(panTop, BoxLayout.Y_AXIS));
-        panTop.add(codeLabel);
-        panTop.add(codeField);
-        panTop.add(nameLabel);
-        panTop.add(nameField);
-        panTop.add(shortDescLabel);
-        panTop.add(shortDescField);
-        panTop.add(longDescLabel);
-        panTop.add(longDescField);
-        panTop.add(inStockLabel);
-        panTop.add(inStockField);
-        panTop.add(unitPriceLabel);
-        panTop.add(unitPriceField);
-
-        //Add components to Bottom panel
-        panBottom.setMaximumSize(new Dimension(400, 100));
-        panBottom.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panBottom.setLayout(new BoxLayout(panBottom, BoxLayout.X_AXIS));
-        panBottom.add(cancelButton);
-        panBottom.add(confirmButton);
-    }
-
-    private void addPanelsToWindow() {
-        add(panTop);
-        add(panBottom);
+    private void addComponentsToWindow() {
+        add(codeLabel);
+        add(codeField);
+        add(nameLabel);
+        add(nameField);
+        add(shortDescLabel);
+        add(shortDescField);
+        add(longDescLabel);
+        add(longDescField);
+        add(inStockLabel);
+        add(inStockField);
+        add(unitPriceLabel);
+        add(unitPriceField);
+        add(confirmButton);
+        add(cancelButton);
     }
 
     private void setWindowProperties() {
+        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setTitle("Add New Product");
-        setSize(500, 400);
+        setSize(430, 330);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
+        setVisible(true);
     }
 
     private void registerListeners() {
@@ -115,15 +130,6 @@ public class InventoryInsertDialog extends JDialog implements ActionListener {
         return !(codeField.getText().isEmpty() || nameField.getText().isEmpty()
                 || shortDescField.getText().isEmpty() || longDescField.getText().isEmpty()
                 || inStockField.getText().isEmpty() || unitPriceField.getText().isEmpty());
-    }
-
-    private void resetFields() {
-        codeField.setText("");
-        nameField.setText("");
-        shortDescField.setText("");
-        longDescField.setText("");
-        inStockField.setText("");
-        unitPriceField.setText("");
     }
 
     @Override
@@ -138,7 +144,6 @@ public class InventoryInsertDialog extends JDialog implements ActionListener {
                 client.sendProduct(product);
                 client.receiveResponse();
                 client.closeConnections();
-                resetFields();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(

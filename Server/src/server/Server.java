@@ -2,6 +2,8 @@ package server;
 
 import models.Date;
 import models.*;
+import view.MainScreen;
+import view.SplashScreen;
 
 import javax.swing.*;
 import java.io.EOFException;
@@ -13,6 +15,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,11 @@ public class Server {
     private ObjectInputStream objIs;
     private Statement stmt;
     private ResultSet result;
+    private static LocalDateTime localDateTime;
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
+    private final SplashScreen splashScreen = new SplashScreen();
+    private MainScreen mainScreen;
+    int requestAmount = 1;
 
     public Server() {
         createConnection();
@@ -63,15 +71,27 @@ public class Server {
     }
 
     private void waitForRequests() {
+        mainScreen = new MainScreen(serverSocket);
+        splashScreen.dispose();
+        mainScreen.setVisible(true);
+        System.out.println("Sever is running...");
         try {
             // running infinite loop for getting client request
             while (true) {
+                // get current local time
+                localDateTime = LocalDateTime.now();
+
                 // socket object to receive incoming clientSocket requests
                 clientSocket = serverSocket.accept();
 
+                String clientConnected = "Client connected: " + clientSocket.getInetAddress().getHostAddress() +
+                        " @ " + localDateTime.format(dateTimeFormatter);;
+
                 // Displaying that new client is connected to server
-                System.out.println("\nClient connected: " + clientSocket.getInetAddress().getHostAddress());
-                System.out.println("Time Connected: " + LocalDateTime.now());
+                System.out.println("\n" + clientConnected);
+
+                // Update text area
+                mainScreen.setTextArea(clientConnected);
 
                 // create a new thread object
                 ClientHandler clientHandler = new ClientHandler();
@@ -92,15 +112,16 @@ public class Server {
         }
     }
 
-    public static void getDatabaseConnection() {
+    public void getDatabaseConnection() {
         try {
             if (dbConn == null) {
                 String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root","");
+                dbConn = DriverManager.getConnection(url, "root", "Bo$$2001");
             }
             /*JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
                     JOptionPane.INFORMATION_MESSAGE);*/
-            System.out.println("DB Connection Established");
+            localDateTime = LocalDateTime.now();
+            System.out.println("DB Connection Established @ " + localDateTime.format(dateTimeFormatter));
             createEmployeeTable();
             createCustomerTable();
             createProductTable();
@@ -111,9 +132,11 @@ public class Server {
             boolean isYes;
             int selection = JOptionPane.showConfirmDialog(
                     null,
-                    "Could not connect to database\nRetry?" + e,
+                    "Could not connect to database jwr." +
+                            "\n" + e.getMessage() +
+                            "\nRetry?",
                     "Connection Failure",
-                    JOptionPane.YES_NO_OPTION
+                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE
             );
             isYes = (selection == JOptionPane.YES_OPTION);
             if (isYes) {
@@ -135,7 +158,7 @@ public class Server {
         final String JBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost:3306/";
         final String USER = "root";
-        final String PASS = "";
+        final String PASS = "Bo$$2001";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()
         ) {
@@ -172,7 +195,7 @@ public class Server {
     public static void createCustomerTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE customer(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob varchar(25), parish varchar(80), telephone varchar(25)," +
+                    "lastName varchar(25), dob varchar(25), address varchar(80), telephone varchar(25)," +
                     " email varchar(25), membershipDate varchar(25), membershipExpiryDate varchar(40), " +
                     "PRIMARY KEY(ID))";
 
@@ -570,14 +593,25 @@ public class Server {
                 String id = result.getString("ID");
                 String firstName = result.getString("firstName");
                 String lastName = result.getString("lastName");
-                Date DOB = null;
+                Date DOB = new Date(result.getString("dob"));
                 String address = result.getString("address");
                 String telephone = result.getString("telephone");
                 String email = result.getString("email");
-                Date membershipDate = null;
-                Date membershipExpiryDate = null;
-                customerList.add(new Customer(id, firstName, lastName, DOB, address, telephone, email, membershipDate
-                        , membershipExpiryDate));
+                Date membershipDate = new Date(result.getString("membershipDate"));
+                Date membershipExpiryDate = new Date(result.getString("membershipExpiryDate"));
+
+                customerList.add(new Customer(
+                    id, 
+                    firstName, 
+                    lastName, 
+                    DOB, 
+                    address, 
+                    telephone, 
+                    email, 
+                    membershipDate, 
+                    membershipExpiryDate
+                ));
+                System.out.println(customerList);
             }
             return customerList;
         } catch (SQLException e) {
@@ -696,6 +730,8 @@ public class Server {
             try {
                 action = (String) objIs.readObject();
                 System.out.println("Requested action: " + action);
+                mainScreen.setRequestsText(requestAmount++);
+                mainScreen.setTextArea("\nRequested action: " + action + "\n\n");
 
                 if (action.equals("Add Employee")) {
                     employee = (Employee) objIs.readObject();

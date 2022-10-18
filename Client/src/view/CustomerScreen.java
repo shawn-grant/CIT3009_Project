@@ -1,9 +1,21 @@
+/**
+ * CustomerScreen.java
+ * View for editing and displaying Customer info
+ * Author (s): Shawn Grant
+ */
 package view;
 
-import javax.swing.*;
+
+import client.Client;
+import models.Customer;
+import view.dialogs.customer.CustomerInsertDialog;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class CustomerScreen extends BaseScreen implements ActionListener {
     private final String[] tableHeaders = {
@@ -14,7 +26,8 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             "Phone",
             "DOB",
             "Address",
-            "Signed Up",
+            "Created",
+            "Expiry",
     };
     private JTable table;
     private DefaultTableModel model;
@@ -50,13 +63,47 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
     }
 
     private void getData() {
+        try {
+            Client client = new Client();
+            client.sendAction("View Customer");
+            List<Customer> customersList = client.receiveViewCustomersResponse();
+            client.closeConnections();
+            
+            int count = 0;
+            int rowCount = model.getRowCount();
+            int counter = 0;
+            
+            while (counter < rowCount) {
+                model.removeRow(count);
+                counter++;
+            }
+            
+            for (Customer customer : customersList) {
+                System.out.println(customer);
 
+                model.insertRow(count, new Object[]{
+                    customer.getId(), 
+                    customer.getFirstName(),
+                    customer.getLastName(), 
+                    customer.getEmail(),
+                    customer.getTelephone(), 
+                    customer.getAddress(),
+                    customer.getMembershipDate(),
+                    customer.getMembershipExpiryDate()
+                });
+                count++;
+            }
+        } catch (Exception e) {
+            // couldnt get data
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.addButton) {
-
+            new CustomerInsertDialog();
+            getData();
         }
         if (e.getSource() == this.updateButton) {
 
