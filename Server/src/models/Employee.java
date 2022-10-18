@@ -140,5 +140,18 @@ public class Employee implements Serializable {
                 + getDepartment());
     }
 
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", DOB=" + DOB +
+                ", address='" + address + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", type='" + type + '\'' +
+                ", department='" + department + '\'' +
+                '}';
+    }
 }

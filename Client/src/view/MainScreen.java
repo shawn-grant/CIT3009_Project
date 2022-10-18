@@ -127,7 +127,7 @@ public class MainScreen extends JFrame implements ActionListener {
         }
         if (e.getSource() == staffButton) {
             rightPanel.removeAll();
-            // rightPanel.add(new StaffScreen());
+            rightPanel.add(new StaffScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }

@@ -57,7 +57,7 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         client.sendAction("View Inventory");
         List<Product> productList = client.receiveViewInventoryResponse();
         client.closeConnections();
-
+        
         int count = 0;
         int rowCount = model.getRowCount();
         int counter = 0;
