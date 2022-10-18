@@ -24,7 +24,7 @@ public class MainScreen extends JFrame implements ActionListener {
     private JToggleButton exitButton;
 
     public MainScreen() {
-        super("Jan's Wholesale and Retail");
+        super("Jan's Wholesale and Retail Management System");
 
         initializeComponents();
         addComponentsToPanels();
