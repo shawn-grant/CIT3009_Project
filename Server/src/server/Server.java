@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class Server {
     private ObjectInputStream objIs;
     private Statement stmt;
     private ResultSet result;
+    private static LocalDateTime localDateTime;
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
 
     public Server() {
         createConnection();
@@ -63,15 +66,18 @@ public class Server {
     }
 
     private void waitForRequests() {
+        System.out.println("Sever is running...");
         try {
             // running infinite loop for getting client request
             while (true) {
+                localDateTime = LocalDateTime.now();
+
                 // socket object to receive incoming clientSocket requests
                 clientSocket = serverSocket.accept();
 
                 // Displaying that new client is connected to server
                 System.out.println("\nClient connected: " + clientSocket.getInetAddress().getHostAddress());
-                System.out.println("Time Connected: " + LocalDateTime.now());
+                System.out.println("Time Connected: " + localDateTime.format(dateTimeFormatter));
 
                 // create a new thread object
                 ClientHandler clientHandler = new ClientHandler();
@@ -96,11 +102,12 @@ public class Server {
         try {
             if (dbConn == null) {
                 String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root", "");
+                dbConn = DriverManager.getConnection(url, "root", "Bo$$2001");
             }
             /*JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
                     JOptionPane.INFORMATION_MESSAGE);*/
-            System.out.println("DB Connection Established");
+            localDateTime = LocalDateTime.now();
+            System.out.println("DB Connection Established @ " + localDateTime.format(dateTimeFormatter));
             createEmployeeTable();
             createCustomerTable();
             createProductTable();
@@ -113,7 +120,7 @@ public class Server {
                     null,
                     "Could not connect to database jwr.\nCreate it?",
                     "Connection Failure",
-                    JOptionPane.YES_NO_OPTION
+                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE
             );
             isYes = (selection == JOptionPane.YES_OPTION);
             if (isYes) {
@@ -135,7 +142,7 @@ public class Server {
         final String JBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost:3306/";
         final String USER = "root";
-        final String PASS = "";
+        final String PASS = "Bo$$2001";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()
         ) {

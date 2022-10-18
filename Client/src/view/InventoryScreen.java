@@ -15,8 +15,14 @@ import java.util.List;
 
 public class InventoryScreen extends BaseScreen implements ActionListener {
 
-    private final String[] tableHeaders = {"Product Code", "Product Name", "Short Description", "Long Description",
-            "Items in Stock", "Unit Price"};
+    private final String[] tableHeaders = {
+            "Product Code",
+            "Product Name",
+            "Short Description",
+            "Long Description",
+            "Items in Stock",
+            "Unit Price"
+    };
     private JTable table;
     private DefaultTableModel model;
 
@@ -57,7 +63,7 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         client.sendAction("View Inventory");
         List<Product> productList = client.receiveViewInventoryResponse();
         client.closeConnections();
-        
+
         int count = 0;
         int rowCount = model.getRowCount();
         int counter = 0;
@@ -70,9 +76,14 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         for (Product product : productList) {
             System.out.println(product);
 
-            model.insertRow(count, new Object[]{product.getCode(), product.getName(),
-                    product.getShortDescription(), product.getLongDescription(),
-                    product.getItemInStock(), product.getUnitPrice()});
+            model.insertRow(count, new Object[]{
+                    product.getCode(),
+                    product.getName(),
+                    product.getShortDescription(),
+                    product.getLongDescription(),
+                    product.getItemInStock(),
+                    product.getUnitPrice()
+            });
             count++;
         }
     }
@@ -87,35 +98,36 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
             counter++;
         }
 
-        model.insertRow(count, new Object[]{product.getCode(), product.getName(),
-                    product.getShortDescription(), product.getLongDescription(),
-                    product.getItemInStock(), product.getUnitPrice()});
+        model.insertRow(count, new Object[]{
+                product.getCode(),
+                product.getName(),
+                product.getShortDescription(),
+                product.getLongDescription(),
+                product.getItemInStock(),
+                product.getUnitPrice()
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            InventoryInsertDialog insertDialog = new InventoryInsertDialog();
-            insertDialog.setVisible(true);
+            new InventoryInsertDialog();
             getInventory();
         }
         if (e.getSource().equals(searchButton)) {
             Client client = new Client();
-            InventorySearchDialog searchDialog = new InventorySearchDialog(client);
-            searchDialog.setVisible(true);
+            new InventorySearchDialog(client);
             Product product = client.receiveFindProductResponse();
             setProduct(product);
             client.closeConnections();
         }
         if (e.getSource().equals(updateButton)) {
-            InventoryUpdateDialog updateDialog = new InventoryUpdateDialog();
-            updateDialog.setVisible(true);
+            new InventoryUpdateDialog();
             getInventory();
         }
         if (e.getSource().equals(deleteButton)) {
-            InventoryRemoveDialog removeDialog = new InventoryRemoveDialog();
-            removeDialog.setVisible(true);
+            new InventoryRemoveDialog();
             getInventory();
         }
         if (e.getSource().equals(refreshButton)) {

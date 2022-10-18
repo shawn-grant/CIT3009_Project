@@ -2,7 +2,7 @@
  * BaseScreen.java
  * To be inherited by other screens, contains a title & buttons for CRUD operations
  * Author (s): Shawn Grant
-*/
+ */
 package view;
 
 import javax.swing.*;
@@ -10,6 +10,7 @@ import java.awt.*;
 
 public class BaseScreen extends JPanel {
 
+    private final Color headerColor = new Color(27, 73, 142);
     protected JButton addButton; // add a new item
     protected JButton updateButton; // update existing item
     protected JButton deleteButton; // delete item
@@ -18,7 +19,6 @@ public class BaseScreen extends JPanel {
     private JLabel titleLabel;
     private JPanel buttonPanel;
     private JPanel mainContent; // where the content is shown, set it child class
-    private Color headerColor = new Color(27, 73, 142);
 
     public BaseScreen(String title) {
         try {
@@ -77,7 +77,7 @@ public class BaseScreen extends JPanel {
         buttonPanel.add(searchButton);
         buttonPanel.add(refreshButton);
     }
-    
+
     private void addPanelsToWindow() {
         this.add(Box.createRigidArea(new Dimension(0, 20)));// vertical spacing
         this.add(titleLabel);
