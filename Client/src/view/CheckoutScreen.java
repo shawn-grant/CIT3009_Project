@@ -248,12 +248,12 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	
 	 private void addComponentsToPanels() {
 		//Adding Labels and fields to label panel
-		gbc.insets = new Insets(10, 10, 20, 10);
+		gbc.insets = new Insets(10, 10, 20, 10);//Sets Padding around values
 		 
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.gridwidth = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 0;//Setting position on x axis
+		gbc.gridy = 0;//Setting position on Y axis
+		gbc.gridwidth = 1; //Setting number of columns occupied by the grid object
+		gbc.fill = GridBagConstraints.HORIZONTAL;//Filling grid object into space specified grid width 
 		centerPanel.add(productCodeLbl, gbc);
 		 
         gbc.gridx = 2;
