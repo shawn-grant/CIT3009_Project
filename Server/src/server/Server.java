@@ -116,7 +116,7 @@ public class Server {
         try {
             if (dbConn == null) {
                 String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root", "Bo$$2001");
+                dbConn = DriverManager.getConnection(url, "root", "");
             }
             /*JOptionPane.showMessageDialog(null, "DB Connection Established", "Connection Status",
                     JOptionPane.INFORMATION_MESSAGE);*/
@@ -157,7 +157,7 @@ public class Server {
     public static void createJWRDatabase() {
         final String DB_URL = "jdbc:mysql://localhost:3306/";
         final String USER = "root";
-        final String PASS = "Bo$$2001";
+        final String PASS = "";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()
         ) {
@@ -727,7 +727,7 @@ public class Server {
                 System.out.println("Requested action: " + action);
                 mainScreen.setRequestsText(requestAmount++);
                 mainScreen.setTextArea("\nRequested action: " + action + "\n\n");
-
+                
                 if (action.equals("Add Employee")) {
                     employee = (Employee) objIs.readObject();
                     addEmployeeData(employee);
