@@ -62,7 +62,7 @@ public class StaffScreen extends BaseScreen implements ActionListener{
     private void getStaff() {
         Client client = new Client();
         client.sendAction("View Staff");
-        List<Employee> empList = client.receiveViewEmployeesResponse();
+        List<Employee> empList = client.receiveViewEmployeeResponse();
         client.closeConnections();
 
         int count = 0;
