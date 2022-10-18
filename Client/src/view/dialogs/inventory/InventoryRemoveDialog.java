@@ -77,12 +77,6 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
                 client.receiveResponse();
                 client.closeConnections();
                 dispose();
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "One or more fields empty",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE);
             }
         }
     }
