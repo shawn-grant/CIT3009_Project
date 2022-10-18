@@ -4,6 +4,8 @@ import client.Client;
 import view.RoundedBorder;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,6 +64,7 @@ public class InventorySearchDialog extends JDialog implements ActionListener {
     }
 
     private void registerListeners() {
+        codeField.addActionListener(this);
         confirmButton.addActionListener(this);
     }
 
@@ -76,13 +79,6 @@ public class InventorySearchDialog extends JDialog implements ActionListener {
                 client.sendAction("Find Product");
                 client.sendProductCode(codeField.getText());
                 dispose();
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "One or more fields empty",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE
-                );
             }
         }
     }
