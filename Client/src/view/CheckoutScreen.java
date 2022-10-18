@@ -68,125 +68,6 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	    }
 	
 	
-	/*Working Version
-	private void initializeComponents() {
-		//Setting titleLabel properties
-        titleLabel = new JLabel("Checkout");
-        titleLabel.setFont(new Font("arial", Font.BOLD, 20));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
-       
-        productCodeLbl = new JLabel("Product Code");
-        itemNameLabel = new JLabel("Item");
-        quantityLabel = new JLabel("Quantity");;
-        unitPrice = new JLabel("Unit Price");;
-        
-        //Initializing Text areas
-        codeTxtValue = new JTextField(20);
-        quantityTxtValue = new JTextField(20);
-        itemNameTxtValue = new JTextField(20);
-        unitPriceTxtValue = new JTextField(20);
-        
-        
-        //initializing buttons
-        addButton = new JButton("Add");
-        deleteButton = new JButton("Delete");
-        clearButton = new JButton("Clear");
-        checkoutButton = new JButton("Checkout");
-        searchButton = new JButton("Search");
-        
-        //Setting button sizes
-    
-        addButton.setPreferredSize(new Dimension(100, 40));
-        deleteButton.setPreferredSize(new Dimension(100, 40));
-        clearButton.setPreferredSize(new Dimension(100, 40));
-        checkoutButton.setPreferredSize(new Dimension(100, 40));
-        searchButton.setPreferredSize(new Dimension(100,20));
-        
-        //Setting button font & Colour
-        addButton.setFont(new Font("arial", Font.PLAIN, 15));
-        addButton.setBackground(new Color(224, 224, 224));
-        deleteButton.setFont(new Font("arial", Font.PLAIN, 15));
-        deleteButton.setBackground(new Color(224, 224, 224));
-        clearButton.setFont(new Font("arial", Font.PLAIN, 15));
-        clearButton.setBackground(new Color(224, 224, 224));
-        checkoutButton.setFont(new Font("arial", Font.PLAIN, 15));
-        checkoutButton.setBackground(new Color(224, 224, 224));
-        searchButton.setFont(new Font("arial", Font.PLAIN, 15));
-        searchButton.setBackground(new Color(224, 224, 224));
-       
-        
-        mainContent = new JPanel(new GridLayout(0, 1, 0, 70));
-        
-        labelPanel = new JPanel(new GridBagLayout());
-        labelPanel.setBackground(new Color(255, 255, 255));
-        mainContent.setBackground(new Color(255, 255, 255));
-       // labelPanel.setBounds(30, 30, 300, 200);////
-        
-		model = new DefaultTableModel(TableColumns, 0);
-        table = new JTable(model);
-        table.setDefaultEditor(Object.class, null); //Set to not editable
-        table.setAutoCreateRowSorter(true); //Enable sorting by columns
-	 }
-	
-	
-	
-	 private void addComponentsToPanels() {
-		//Adding Labels and fields to label panel
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-        labelPanel.add(productCodeLbl, gbc);
-		 
-        gbc.gridx = 4;
-		gbc.gridy = 0;
-		labelPanel.add(codeTxtValue, gbc);
-		 
-		gbc.gridx = 8;
-		gbc.gridy = 0;
-		labelPanel.add(searchButton, gbc);
-		
-		gbc.gridx = 11;
-		gbc.gridy = 0;
-		labelPanel.add(quantityLabel, gbc);
-		
-		gbc.gridx = 13;
-		gbc.gridy = 0;
-		labelPanel.add(quantityTxtValue, gbc);
-		
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		labelPanel.add(itemNameLabel, gbc);
-		 
-		gbc.gridx = 4;
-		gbc.gridy = 4;
-		labelPanel.add(itemNameTxtValue, gbc);
-		
-		gbc.gridx = 11;
-		gbc.gridy = 4;
-		labelPanel.add(unitPrice, gbc);
-		
-		gbc.gridx = 13;
-		gbc.gridy = 4;
-		labelPanel.add( unitPriceTxtValue, gbc);
-		  
-		//adding buttons to button panel
-		gbc.gridx = 0;
-		gbc.gridy = 8;
-		labelPanel.add(addButton, gbc);
-		
-		gbc.gridx = 4;
-		gbc.gridy = 8;
-		labelPanel.add(deleteButton, gbc);
-	    
-	    gbc.gridx = 9;
-		gbc.gridy = 8;
-		labelPanel.add(clearButton, gbc);
-       
-		gbc.gridx = 13;
-		gbc.gridy = 8;
-		labelPanel.add(checkoutButton, gbc);  
-	 }
-	*/
-	
 	private void initializeComponents() {
 		//Setting titleLabel properties
         titleLabel = new JLabel("Checkout");
@@ -403,8 +284,20 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	    	}
 	    }
 	    
-	    private void deleteItem() {
-	    	
+	    private void removeItem() {
+            if(table.getSelectedRow() != -1) { // checking for selected row 
+            	int choice = JOptionPane.showConfirmDialog(
+            			null,
+            			" Are you sure you wish to delete " + itemNameTxtValue.getText()+ "?", "Remove item",
+    	                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            	
+            	if(choice == JOptionPane.YES_OPTION) {
+	              //remove selected row from the model
+	                model.removeRow(table.getSelectedRow());
+	                JOptionPane.showMessageDialog(null, itemNameTxtValue.getText()+ " was deleted successfully.", 
+	                		"Items List", JOptionPane.INFORMATION_MESSAGE);
+            	}
+            }   
 	    }
 
 	    private void clearAll() {
@@ -429,8 +322,7 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	        }
 	       
 	        if (e.getSource().equals(deleteButton)) {
-	            //CheckoutDeleteDialog removeDialog = new CheckoutDeleteDialog();
-	            //removeDialog.setVisible(true);
+	            removeItem();
 	        }
 	        if (e.getSource().equals(clearButton)) {
 	            clearAll()
