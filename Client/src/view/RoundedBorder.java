@@ -1,3 +1,9 @@
+/**
+ * RoundedBorder.java
+ * Allows us to use a border radius on JComponents.
+ * Reference: https://stackoverflow.com/questions/25796572/simplest-code-to-round-corners-of-jlabel-in-java
+ * Author (s): Shawn Grant
+*/
 package view;
 
 import java.awt.Component;
@@ -6,11 +12,11 @@ import java.awt.Insets;
 
 import javax.swing.border.Border;
 
-class RoundedBorder implements Border 
+public class RoundedBorder implements Border 
 {
     private int r;
 
-    RoundedBorder(int r) {
+    public RoundedBorder(int r) {
         this.r = r;
     }
 

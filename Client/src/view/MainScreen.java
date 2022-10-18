@@ -1,3 +1,8 @@
+/**
+ * MainScreen.java
+ * A tabbed layout to switch between diffrent sections of the app
+ * Author (s): Shawn Grant, Malik Heron
+*/
 package view;
 
 import javax.swing.*;

@@ -1,3 +1,8 @@
+/**
+ * DefaultScreen.java
+ * A splash screen shown when the app launches
+ * Author (s): Shawn Grant
+*/
 package view;
 
 import java.awt.Color;
