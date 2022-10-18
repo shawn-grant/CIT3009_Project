@@ -35,6 +35,15 @@ public class Date implements Serializable {
         this.year = date.year;
     }
 
+    //String Constructor
+    public Date(String dateString) {
+        String[] segments = dateString.split("/");
+
+        this.day = Integer.parseInt(segments[0]);
+        this.month = Integer.parseInt(segments[1]);
+        this.year = Integer.parseInt(segments[2]);
+    }
+
     //Getters and Setters
     public int getDay() {
         return day;
@@ -66,10 +75,7 @@ public class Date implements Serializable {
 
     @Override
     public String toString() {
-        return "Date{" +
-                "day=" + day +
-                ", month=" + month +
-                ", year=" + year +
-                '}';
+        // database friendly format
+        return getDay() + "/" + getMonth() + "/" + getYear();
     }
 }
