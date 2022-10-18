@@ -24,12 +24,12 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
     private void initializeComponents() {
         //Label properties
         codeLabel = new JLabel("Product Code");
-        codeLabel.setFont(new Font("arial", Font.BOLD, 12));
+        codeLabel.setFont(new Font("arial", Font.BOLD, 14));
         codeLabel.setPreferredSize(new Dimension(100, 20));
 
         //Field properties
         codeField = new JTextField();
-        codeField.setFont(new Font("times new roman", Font.PLAIN, 16));
+        codeField.setFont(new Font("times new roman", Font.PLAIN, 14));
         codeField.setBorder(new RoundedBorder(8));
         codeField.setPreferredSize(new Dimension(90, 30));
 
@@ -37,7 +37,7 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
         confirmButton = new JButton("REMOVE");
         confirmButton.setPreferredSize(new Dimension(100, 30));
         confirmButton.setForeground(Color.BLUE);
-        confirmButton.setFont(new Font("arial", Font.BOLD, 12));
+        confirmButton.setFont(new Font("arial", Font.BOLD, 14));
 
         //Additional properties
         confirmButton.setFocusPainted(false);
@@ -77,12 +77,6 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
                 client.receiveResponse();
                 client.closeConnections();
                 dispose();
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "One or more fields empty",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE);
             }
         }
     }

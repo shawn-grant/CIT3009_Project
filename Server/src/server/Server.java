@@ -2,6 +2,8 @@ package server;
 
 import models.Date;
 import models.*;
+import view.MainScreen;
+import view.SplashScreen;
 
 import javax.swing.*;
 import java.io.EOFException;
@@ -27,6 +29,9 @@ public class Server {
     private ResultSet result;
     private static LocalDateTime localDateTime;
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
+    private final SplashScreen splashScreen = new SplashScreen();
+    private MainScreen mainScreen;
+    int requestAmount = 1;
 
     public Server() {
         createConnection();
@@ -66,18 +71,27 @@ public class Server {
     }
 
     private void waitForRequests() {
+        mainScreen = new MainScreen(serverSocket);
+        splashScreen.dispose();
+        mainScreen.setVisible(true);
         System.out.println("Sever is running...");
         try {
             // running infinite loop for getting client request
             while (true) {
+                // get current local time
                 localDateTime = LocalDateTime.now();
 
                 // socket object to receive incoming clientSocket requests
                 clientSocket = serverSocket.accept();
 
+                String clientConnected = "Client connected: " + clientSocket.getInetAddress().getHostAddress() +
+                        " @ " + localDateTime.format(dateTimeFormatter);;
+
                 // Displaying that new client is connected to server
-                System.out.println("\nClient connected: " + clientSocket.getInetAddress().getHostAddress());
-                System.out.println("Time Connected: " + localDateTime.format(dateTimeFormatter));
+                System.out.println("\n" + clientConnected);
+
+                // Update text area
+                mainScreen.setTextArea(clientConnected);
 
                 // create a new thread object
                 ClientHandler clientHandler = new ClientHandler();
@@ -98,7 +112,7 @@ public class Server {
         }
     }
 
-    public static void getDatabaseConnection() {
+    public void getDatabaseConnection() {
         try {
             if (dbConn == null) {
                 String url = "jdbc:mysql://localhost:3306/jwr";
@@ -118,7 +132,9 @@ public class Server {
             boolean isYes;
             int selection = JOptionPane.showConfirmDialog(
                     null,
-                    "Could not connect to database jwr.\nCreate it?",
+                    "Could not connect to database jwr." +
+                            "\n" + e.getMessage() +
+                            "\nRetry?",
                     "Connection Failure",
                     JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE
             );
@@ -714,6 +730,8 @@ public class Server {
             try {
                 action = (String) objIs.readObject();
                 System.out.println("Requested action: " + action);
+                mainScreen.setRequestsText(requestAmount++);
+                mainScreen.setTextArea("\nRequested action: " + action + "\n\n");
 
                 if (action.equals("Add Employee")) {
                     employee = (Employee) objIs.readObject();
