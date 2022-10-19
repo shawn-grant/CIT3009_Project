@@ -20,6 +20,7 @@ public class MainScreen extends JFrame implements ActionListener {
     private JToggleButton staffButton;
     private JToggleButton inventoryButton;
     private JToggleButton checkOutButton;
+    private JToggleButton invoiceButton;
     private JToggleButton reportButton;
     private JToggleButton exitButton;
 
@@ -38,6 +39,7 @@ public class MainScreen extends JFrame implements ActionListener {
         staffButton = new JToggleButton(" Staff", new ImageIcon(getClass().getResource("/res/staff_icon.png")));
         inventoryButton = new JToggleButton(" Products", new ImageIcon(getClass().getResource("/res/product_icon.png")));
         checkOutButton = new JToggleButton(" Checkout", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
+        invoiceButton = new JToggleButton(" Invoices", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
         reportButton = new JToggleButton(" Reports", new ImageIcon(getClass().getResource("/res/report_icon.png")));
         exitButton = new JToggleButton(" Exit", new ImageIcon(getClass().getResource("/res/exit_icon.png")));
 
@@ -62,6 +64,7 @@ public class MainScreen extends JFrame implements ActionListener {
                 staffButton,
                 inventoryButton,
                 checkOutButton,
+                invoiceButton,
                 reportButton,
                 exitButton
         };
@@ -70,6 +73,7 @@ public class MainScreen extends JFrame implements ActionListener {
         buttonGroup.add(staffButton);
         buttonGroup.add(inventoryButton);
         buttonGroup.add(checkOutButton);
+        buttonGroup.add(invoiceButton);
         buttonGroup.add(reportButton);
 
         for (JToggleButton button : toggleButtons) {
@@ -92,7 +96,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
         // Right Panel properties
         rightPanel = new JPanel(new GridLayout(1, 1));
-        rightPanel.setBounds(200, 0, 1100, 600);
+        rightPanel.setBounds(200, 0, 800, 600);
     }
 
     private void addComponentsToPanels() {
@@ -101,6 +105,7 @@ public class MainScreen extends JFrame implements ActionListener {
         leftPanel.add(staffButton);
         leftPanel.add(inventoryButton);
         leftPanel.add(checkOutButton);
+        leftPanel.add(invoiceButton);
         leftPanel.add(reportButton);
         leftPanel.add(exitButton);
 
@@ -115,7 +120,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void setWindowProperties() {
         setLayout(null);
-        setSize(1300, 600);
+        setSize(1000, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -147,6 +152,12 @@ public class MainScreen extends JFrame implements ActionListener {
         if (e.getSource() == checkOutButton) {
             rightPanel.removeAll();
             rightPanel.add(new CheckoutScreen());
+            rightPanel.repaint();
+            rightPanel.revalidate();
+        }
+        if (e.getSource() == invoiceButton) {
+            rightPanel.removeAll();
+            rightPanel.add(new InvoiceScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }

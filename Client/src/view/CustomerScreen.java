@@ -43,6 +43,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
     private void initializeComponents() {
         model = new DefaultTableModel(tableHeaders, 0);
         table = new JTable(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
     }
@@ -58,7 +59,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
 
     // set main content view
     private void setContentView() {
-        setMainContent(new JScrollPane(table));
+        setMainContent(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
     }
 
     private void getData() {
