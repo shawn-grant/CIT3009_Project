@@ -7,8 +7,10 @@ package models;
 // Description : Customer Model Class
 //============================================================================
 import java.io.Serializable;
+import java.util.Date;
 
 public class Customer implements Serializable {
+
     private String id;
     private String firstName;
     private String lastName;
@@ -33,12 +35,12 @@ public class Customer implements Serializable {
     }
 
     //Primary Constructor
-    public Customer(String id, String firstName, String lastName, Date dOB, String address, String telephone,
+    public Customer(String id, String firstName, String lastName, Date DOB, String address, String telephone,
                     String email, Date membershipDate, Date membershipExpiryDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        DOB = dOB;
+        this.DOB = DOB;
         this.address = address;
         this.telephone = telephone;
         this.email = email;
@@ -51,7 +53,7 @@ public class Customer implements Serializable {
         this.id = customer.id;
         this.firstName = customer.firstName;
         this.lastName = customer.lastName;
-        DOB = customer.DOB;
+        this.DOB = customer.DOB;
         this.address = customer.address;
         this.telephone = customer.telephone;
         this.email = customer.email;

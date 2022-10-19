@@ -16,8 +16,8 @@ public class BaseScreen extends JPanel {
     protected JButton deleteButton; // delete item
     protected JButton refreshButton; // get all items
     protected JButton searchButton; // find an item
-    private JLabel titleLabel;
     protected JPanel buttonPanel;
+    private JLabel titleLabel;
     private JPanel mainContent; // where the content is shown, set it child class
 
     public BaseScreen(String title) {
@@ -62,6 +62,13 @@ public class BaseScreen extends JPanel {
         deleteButton.setFont(new Font("arial", Font.PLAIN, 15));
         searchButton.setFont(new Font("arial", Font.PLAIN, 15));
         refreshButton.setFont(new Font("arial", Font.PLAIN, 15));
+
+        // Set focus paint
+        addButton.setFocusPainted(false);
+        updateButton.setFocusPainted(false);
+        deleteButton.setFocusPainted(false);
+        searchButton.setFocusPainted(false);
+        refreshButton.setFocusPainted(false);
 
         // JPanel properties
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));

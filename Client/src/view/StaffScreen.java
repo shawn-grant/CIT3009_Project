@@ -55,38 +55,38 @@ public class StaffScreen extends BaseScreen implements ActionListener {
 
     private void getStaff() {
 
-        try{
+        try {
             Client client = new Client();
             client.sendAction("View Staff");
             List<Employee> empList = client.receiveViewEmployeeResponse();
             client.closeConnections();
 
-			int count = 0;
-			int rowCount = model.getRowCount();
-			int counter = 0;
+            int count = 0;
+            int rowCount = model.getRowCount();
+            int counter = 0;
 
-			while (counter < rowCount) {
-			    model.removeRow(count);
-			    counter++;
-			}
+            while (counter < rowCount) {
+                model.removeRow(count);
+                counter++;
+            }
 
-			for (Employee employee : empList) {
-			    System.out.println(employee);
+            for (Employee employee : empList) {
+                System.out.println(employee);
 
                 model.insertRow(count, new Object[]{
-                    employee.getId(),
-                    employee.getFirstName(),
-                    employee.getLastName(),
-                    employee.getDOB(),
-                    employee.getAddress(),
-                    employee.getTelephone(),
-                    employee.getEmail(),
-                    employee.getType(),
-                    employee.getDepartment()
+                        employee.getId(),
+                        employee.getFirstName(),
+                        employee.getLastName(),
+                        employee.getDOB(),
+                        employee.getAddress(),
+                        employee.getTelephone(),
+                        employee.getEmail(),
+                        employee.getType(),
+                        employee.getDepartment()
                 });
                 count++;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -103,7 +103,7 @@ public class StaffScreen extends BaseScreen implements ActionListener {
             getStaff();
         }
         if (e.getSource().equals(searchButton)) {
-            new  StaffSearchDialog(null);
+            new StaffSearchDialog(null);
             getStaff();
         }
         if (e.getSource().equals(deleteButton)) {

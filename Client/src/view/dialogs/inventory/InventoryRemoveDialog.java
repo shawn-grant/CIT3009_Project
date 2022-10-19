@@ -51,7 +51,7 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
 
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        setTitle("Search Inventory");
+        setTitle("Remove Product");
         setSize(350, 90);
         setLocationRelativeTo(null);
         setResizable(false);

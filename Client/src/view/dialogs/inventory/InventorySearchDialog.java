@@ -5,8 +5,6 @@ import models.Product;
 import view.RoundedBorder;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,10 +12,10 @@ import java.awt.event.ActionListener;
 
 public class InventorySearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
+    private final DefaultTableModel model;
     private JLabel codeLabel;
     private JTextField codeField;
     private JButton confirmButton;
-    private final DefaultTableModel model;
 
     public InventorySearchDialog(DefaultTableModel model) {
         this.model = model;

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -193,7 +194,7 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
 		            
 		            Employee emp = new Employee(
 		            		idTextField.getText(),firstNameTextfield.getText(),
-		            		lastNameTextField.getText(),new models.Date(),
+		            		lastNameTextField.getText(), new Date(),
 		            		addressTextField.getText(),telTextField.getText(),
 		            		emailTextField.getText(),
 		            		empTypeBox.getSelectedItem().toString(),

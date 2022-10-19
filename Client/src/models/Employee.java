@@ -7,6 +7,7 @@ package models;
 //Description : Employee Model Class
 //============================================================================
 import java.io.Serializable;
+import java.util.Date;
 
 public class Employee implements Serializable {
     private String id;

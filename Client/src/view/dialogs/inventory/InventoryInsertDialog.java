@@ -84,13 +84,11 @@ public class InventoryInsertDialog extends JDialog implements ActionListener {
         confirmButton.setPreferredSize(new Dimension(200, 30));
         confirmButton.setForeground(Color.BLUE);
         confirmButton.setFont(new Font("arial", Font.BOLD, 14));
+        confirmButton.setFocusPainted(false);
 
         cancelButton = new JButton("Cancel");
         cancelButton.setPreferredSize(new Dimension(100, 30));
         cancelButton.setFont(new Font("arial", Font.BOLD, 14));
-
-        //Additional properties
-        confirmButton.setFocusPainted(false);
         cancelButton.setFocusPainted(false);
     }
 
