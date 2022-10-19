@@ -1,24 +1,26 @@
 package view.dialogs.inventory;
 
 import client.Client;
+import models.Product;
 import view.RoundedBorder;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InventorySearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
-    private final Client client;
     private JLabel codeLabel;
     private JTextField codeField;
     private JButton confirmButton;
+    private final DefaultTableModel model;
 
-    public InventorySearchDialog(Client client) {
-        this.client = client;
+    public InventorySearchDialog(DefaultTableModel model) {
+        this.model = model;
         initializeComponents();
         addComponentsToWindow();
         registerListeners();
@@ -71,13 +73,46 @@ public class InventorySearchDialog extends JDialog implements ActionListener {
         return !(codeField.getText().isEmpty());
     }
 
+    private void setProduct(Product product) {
+        int count = 0;
+        int rowCount = model.getRowCount();
+        int counter = 0;
+
+        while (counter < rowCount) {
+            model.removeRow(count);
+            counter++;
+        }
+
+        model.insertRow(count, new Object[]{
+                product.getCode(),
+                product.getName(),
+                product.getShortDescription(),
+                product.getLongDescription(),
+                product.getItemInStock(),
+                product.getUnitPrice()
+        });
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
+                Client client = new Client();
                 client.sendAction("Find Product");
                 client.sendProductCode(codeField.getText());
-                dispose();
+                Product product = client.receiveFindProductResponse();
+                client.closeConnections();
+                if (product != null) {
+                    setProduct(product);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Product not found",
+                            "Search Result",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                }
             }
         }
     }
