@@ -5,6 +5,7 @@
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\shawn\\Downloads\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30.jar"
+        "c:\\Users\\shawn\\Downloads\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30.jar",
+        "c:\\Users\\shawn\\Downloads\\hibernate-core-5.2.12.Final.jar"
     ]
 }
