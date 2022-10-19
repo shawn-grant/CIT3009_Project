@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- JDBC database connection settings -->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jwr</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Bo$$2001</property>
+
+        <property name="connection.pool_size">1</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="current_session_context_class">thread</property>
+    </session-factory>
+</hibernate-configuration>

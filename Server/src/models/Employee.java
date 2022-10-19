@@ -6,17 +6,35 @@ package models;
 //Copyright   : Your copyright notice
 //Description : Employee Model Class
 //============================================================================
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Entity(name = "employee")
+@Table(name = "employee")
 public class Employee implements Serializable {
+
+    @Id
+    @Column(name = "ID")
     private String id;
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
+    @Column(name = "DOB")
     private Date DOB;
+    @Column(name = "address")
     private String address;
+    @Column(name = "telephone")
     private String telephone;
+    @Column(name = "email")
     private String email;
+    @Column(name = "employeeType")
     private String type;
+    @Column(name = "department")
     private String department;
 
     //Default Constructor
