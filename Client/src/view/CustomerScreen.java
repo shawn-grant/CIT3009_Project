@@ -5,29 +5,28 @@
  */
 package view;
 
-
 import client.Client;
 import models.Customer;
 import view.dialogs.customer.CustomerInsertDialog;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 public class CustomerScreen extends BaseScreen implements ActionListener {
+
     private final String[] tableHeaders = {
             "ID",
             "First Name",
             "Last Name",
+            "DOB",
             "Email",
             "Phone",
-            "DOB",
             "Address",
-            "Created",
-            "Expiry",
+            "Membership Date",
+            "Expiry Date",
     };
     private JTable table;
     private DefaultTableModel model;
@@ -35,13 +34,13 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
     public CustomerScreen() {
         super("Customers");
 
-        initComponents();
+        initializeComponents();
         setupListeners();
         setContentView();
         getData();
     }
 
-    private void initComponents() {
+    private void initializeComponents() {
         model = new DefaultTableModel(tableHeaders, 0);
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
@@ -63,58 +62,54 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
     }
 
     private void getData() {
-        try {
-            Client client = new Client();
-            client.sendAction("View Customer");
-            List<Customer> customersList = client.receiveViewCustomersResponse();
-            client.closeConnections();
-            
-            int count = 0;
-            int rowCount = model.getRowCount();
-            int counter = 0;
-            
-            while (counter < rowCount) {
-                model.removeRow(count);
-                counter++;
-            }
-            
-            for (Customer customer : customersList) {
-                System.out.println(customer);
+        Client client = new Client();
+        client.sendAction("View Customers");
+        List<Customer> customersList = client.receiveViewCustomersResponse();
+        client.closeConnections();
 
-                model.insertRow(count, new Object[]{
-                    customer.getId(), 
+        int count = 0;
+        int rowCount = model.getRowCount();
+        int counter = 0;
+
+        while (counter < rowCount) {
+            model.removeRow(count);
+            counter++;
+        }
+
+        for (Customer customer : customersList) {
+            System.out.println(customer);
+
+            model.insertRow(count, new Object[]{
+                    customer.getId(),
                     customer.getFirstName(),
-                    customer.getLastName(), 
+                    customer.getLastName(),
+                    customer.getDOB(),
                     customer.getEmail(),
-                    customer.getTelephone(), 
+                    customer.getTelephone(),
                     customer.getAddress(),
                     customer.getMembershipDate(),
                     customer.getMembershipExpiryDate()
-                });
-                count++;
-            }
-        } catch (Exception e) {
-            // couldnt get data
-            e.printStackTrace();
+            });
+            count++;
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.addButton) {
+        if (e.getSource().equals(addButton)) {
             new CustomerInsertDialog();
             getData();
         }
-        if (e.getSource() == this.updateButton) {
+        if (e.getSource().equals(updateButton)) {
 
         }
-        if (e.getSource() == this.searchButton) {
+        if (e.getSource().equals(searchButton)) {
 
         }
-        if (e.getSource() == this.deleteButton) {
+        if (e.getSource().equals(deleteButton)) {
 
         }
-        if (e.getSource() == this.refreshButton) {
+        if (e.getSource().equals(refreshButton)) {
             getData();
         }
     }
