@@ -24,7 +24,7 @@ import java.util.List;
 
 public class Server {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private final SplashScreen splashScreen = new SplashScreen();
     int requestAmount = 1;
     private ServerSocket serverSocket;
