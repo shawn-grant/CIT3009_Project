@@ -1,39 +1,41 @@
 package server;
 
+import factories.DBConnectorFactory;
 import factories.SessionFactoryBuilder;
-import models.Date;
-import models.*;
+import models.Customer;
+import models.Employee;
+import models.Invoice;
+import models.Product;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import view.MainScreen;
 import view.SplashScreen;
 
-import javax.swing.*;
-import java.io.*;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-    private static Connection dbConn;
+
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
+    private final SplashScreen splashScreen = new SplashScreen();
+    int requestAmount = 1;
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private ObjectOutputStream objOs;
     private ObjectInputStream objIs;
-    private static LocalDateTime localDateTime;
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
-    private final SplashScreen splashScreen = new SplashScreen();
     private MainScreen mainScreen;
-    int requestAmount = 1;
 
     public Server() {
         createConnection();
-        getDatabaseConnection();
+        DBConnectorFactory.getDatabaseConnection();
         waitForRequests();
     }
 
@@ -77,13 +79,13 @@ public class Server {
             // running infinite loop for getting client request
             while (true) {
                 // get current local time
-                localDateTime = LocalDateTime.now();
+                LocalDateTime localDateTime = LocalDateTime.now();
 
                 // socket object to receive incoming clientSocket requests
                 clientSocket = serverSocket.accept();
 
                 String clientConnected = "Client connected: " + clientSocket.getInetAddress().getHostAddress() +
-                        " @ " + localDateTime.format(dateTimeFormatter);;
+                        " @ " + localDateTime.format(dateTimeFormatter);
 
                 // Displaying that new client is connected to server
                 System.out.println("\n" + clientConnected);
@@ -107,147 +109,6 @@ public class Server {
             } catch (IOException e) {
                 System.err.println("IOException: " + e.getMessage());
             }
-        }
-    }
-
-    public void getDatabaseConnection() {
-        try {
-            if (dbConn == null) {
-                String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root", "");
-            }
-            localDateTime = LocalDateTime.now();
-            System.out.println("DB Connection Established @ " + localDateTime.format(dateTimeFormatter));
-            createEmployeeTable();
-            createCustomerTable();
-            createProductTable();
-            createDepartmentTable();
-            createInvoiceTable();
-        } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
-            boolean isYes;
-            int selection = JOptionPane.showConfirmDialog(
-                    null,
-                    "Could not connect to database jwr." +
-                            "\n" + e.getMessage() +
-                            "\nRetry?",
-                    "Connection Failure",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE
-            );
-            isYes = (selection == JOptionPane.YES_OPTION);
-            if (isYes) {
-                createJWRDatabase();
-                getDatabaseConnection();
-            } else {
-                System.exit(0);
-            }
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Create queries
-     */
-    public static void createJWRDatabase() {
-        final String DB_URL = "jdbc:mysql://localhost:3306/";
-        final String USER = "root";
-        final String PASS = "";
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             Statement stmt = conn.createStatement()
-        ) {
-            String query = "CREATE DATABASE IF NOT EXISTS jwr";
-            if ((stmt.executeUpdate(query)) == 0) {
-                System.out.println("JWR Database created.");
-            }
-        } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
-        }
-    }
-
-    public static void createEmployeeTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE employee(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob varchar(25), address varchar(80), telephone varchar(25), " +
-                    "email varchar(25), dept_code varchar(40), employeeType varchar(25), PRIMARY KEY(ID))";
-
-            if ((stmt.executeUpdate(query)) == 0) {
-                System.out.println("Employee table created.");
-            }
-        } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public static void createCustomerTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE customer(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob varchar(25), address varchar(80), telephone varchar(25)," +
-                    " email varchar(25), membershipDate varchar(25), membershipExpiryDate varchar(40), " +
-                    "PRIMARY KEY(ID))";
-
-            if ((stmt.executeUpdate(query)) == 0) {
-                System.out.println("Customer table created.");
-            }
-        } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public static void createProductTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE product(product_code varchar(10) NOT NULL, productName varchar(25)," +
-                    "shortDescription varchar(25), longDescription varchar(70), itemInStock int, unitPrice float, " +
-                    "PRIMARY KEY(product_code))";
-
-            if ((stmt.executeUpdate(query)) == 0) {
-                System.out.println("Product table created.");
-            }
-        } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public static void createDepartmentTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE department(dept_code varchar(10) NOT NULL, departmentName varchar(25)," +
-                    "PRIMARY KEY(dept_code))";
-
-            if ((stmt.executeUpdate(query)) == 0) {
-                System.out.println("Department table created.");
-            }
-        } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public static void createInvoiceTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE invoice(invoice_number varchar(10) NOT NULL, billing_date varchar(25)," +
-                    "item_name varchar(40), quantity int, employeeID varchar(10), customerID varchar(10), " +
-                    "PRIMARY KEY(invoice_number))";
-
-            if ((stmt.executeUpdate(query)) == 0) {
-                System.out.println("Invoice table created.");
-            }
-        } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -610,6 +471,7 @@ public class Server {
         }
     }
 
+    // Class for handling client requests
     class ClientHandler implements Runnable {
 
         @Override
@@ -625,7 +487,7 @@ public class Server {
                 System.out.println("Requested action: " + action);
                 mainScreen.setRequestsText(requestAmount++);
                 mainScreen.setTextArea("\nRequested action: " + action + "\n\n");
-                
+
                 if (action.equals("Add Employee")) {
                     employee = (Employee) objIs.readObject();
                     addEmployeeData(employee);
