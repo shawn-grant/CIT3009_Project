@@ -105,13 +105,6 @@ public class InventorySearchDialog extends JDialog implements ActionListener {
                 if (product != null) {
                     setProduct(product);
                     dispose();
-                } else {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Product not found",
-                            "Search Result",
-                            JOptionPane.WARNING_MESSAGE
-                    );
                 }
             }
         }
