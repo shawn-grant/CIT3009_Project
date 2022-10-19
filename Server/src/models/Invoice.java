@@ -6,14 +6,29 @@ package models;
 //Copyright   : Your copyright notice
 //Description : Invoice Model Class
 //============================================================================
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Entity(name = "invoice")
+@Table(name = "invoice")
 public class Invoice implements Serializable {
+
+    @Id
+    @Column(name = "invoice_number")
     private int invoiceNumber;
+    @Column(name = "billing_date")
     private Date billingDate;
+    @Column(name = "item_name")
     private String itemName;
+    @Column(name = "quantity")
     private int quantity;
+    @Column(name = "employeeId")
     private String employee;
+    @Column(name = "customerId")
     private String customer;
 
     public Invoice() {

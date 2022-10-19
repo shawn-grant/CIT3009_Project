@@ -5,12 +5,15 @@
  */
 package view;
 
+import factories.SessionFactoryBuilder;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.Objects;
 
 public class MainScreen extends JFrame implements ActionListener {
 
@@ -137,6 +140,7 @@ public class MainScreen extends JFrame implements ActionListener {
             if (selection == JOptionPane.YES_OPTION) {
                 try {
                     serverSocket.close();
+                    SessionFactoryBuilder.closeSessionFactory();
                     statusText.setText("Stopped");
                     statusText.setForeground(Color.RED);
                     exitButton.setVisible(true);

@@ -6,6 +6,7 @@ package models;
 //Copyright   : Your copyright notice
 //Description : Date Model Class
 //============================================================================
+
 import java.io.Serializable;
 
 public class Date implements Serializable {
