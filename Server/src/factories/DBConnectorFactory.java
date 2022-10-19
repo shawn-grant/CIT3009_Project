@@ -11,14 +11,16 @@ import java.time.format.DateTimeFormatter;
 public class DBConnectorFactory {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
+    private static final String URL = "jdbc:mysql://localhost:3306/";
+    private static final String USER = "root";
+    private static final String PASS = "";
     private static Connection dbConn;
 
     // method for getting database connection
     public static void getDatabaseConnection() {
         try {
             if (dbConn == null) {
-                String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root", "");
+                dbConn = DriverManager.getConnection(URL + "jwr", USER, PASS);
             }
             LocalDateTime localDateTime = LocalDateTime.now();
             System.out.println("DB Connection Established @ " + localDateTime.format(dateTimeFormatter));
@@ -55,10 +57,7 @@ public class DBConnectorFactory {
      * Create queries
      */
     private static void createJWRDatabase() {
-        final String DB_URL = "jdbc:mysql://localhost:3306/";
-        final String USER = "root";
-        final String PASS = "";
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
              Statement stmt = conn.createStatement()
         ) {
             String query = "CREATE DATABASE IF NOT EXISTS jwr";
