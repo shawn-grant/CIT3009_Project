@@ -114,7 +114,7 @@ public class Server {
         try {
             if (dbConn == null) {
                 String url = "jdbc:mysql://localhost:3306/jwr";
-                dbConn = DriverManager.getConnection(url, "root", "Bo$$2001");
+                dbConn = DriverManager.getConnection(url, "root", "");
             }
             localDateTime = LocalDateTime.now();
             System.out.println("DB Connection Established @ " + localDateTime.format(dateTimeFormatter));
@@ -153,7 +153,7 @@ public class Server {
     public static void createJWRDatabase() {
         final String DB_URL = "jdbc:mysql://localhost:3306/";
         final String USER = "root";
-        final String PASS = "Bo$$2001";
+        final String PASS = "";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()
         ) {
