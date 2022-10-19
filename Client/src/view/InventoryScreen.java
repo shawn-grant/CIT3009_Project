@@ -88,26 +88,6 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         }
     }
 
-    private void setProduct(Product product) {
-        int count = 0;
-        int rowCount = model.getRowCount();
-        int counter = 0;
-
-        while (counter < rowCount) {
-            model.removeRow(count);
-            counter++;
-        }
-
-        model.insertRow(count, new Object[]{
-                product.getCode(),
-                product.getName(),
-                product.getShortDescription(),
-                product.getLongDescription(),
-                product.getItemInStock(),
-                product.getUnitPrice()
-        });
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -116,11 +96,7 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
             getInventory();
         }
         if (e.getSource().equals(searchButton)) {
-            Client client = new Client();
-            new InventorySearchDialog(client);
-            Product product = client.receiveFindProductResponse();
-            setProduct(product);
-            client.closeConnections();
+            new InventorySearchDialog(model);
         }
         if (e.getSource().equals(updateButton)) {
             new InventoryUpdateDialog();
