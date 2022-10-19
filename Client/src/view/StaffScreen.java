@@ -57,9 +57,9 @@ public class StaffScreen extends BaseScreen implements ActionListener {
 
         try{
             Client client = new Client();
-        client.sendAction("View Staff");
-        List<Employee> empList = client.receiveViewEmployeeResponse();
-        client.closeConnections();
+            client.sendAction("View Staff");
+            List<Employee> empList = client.receiveViewEmployeeResponse();
+            client.closeConnections();
 
 			int count = 0;
 			int rowCount = model.getRowCount();
@@ -73,7 +73,7 @@ public class StaffScreen extends BaseScreen implements ActionListener {
 			for (Employee employee : empList) {
 			    System.out.println(employee);
 
-            model.insertRow(count, new Object[]{
+                model.insertRow(count, new Object[]{
                     employee.getId(),
                     employee.getFirstName(),
                     employee.getLastName(),
@@ -83,34 +83,31 @@ public class StaffScreen extends BaseScreen implements ActionListener {
                     employee.getEmail(),
                     employee.getType(),
                     employee.getDepartment()
-            });
-            count++;
+                });
+                count++;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
-    }catch(Exception e){
-        e.printStackTrace();
-    }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            StaffInsertDialog insertDialog = new StaffInsertDialog();
-             //insertDialog.setVisible(true);
+            new StaffInsertDialog();
             getStaff();
         }
         if (e.getSource().equals(updateButton)) {
-            StaffUpdateDialog updateDialog = new StaffUpdateDialog();
-            updateDialog.setVisible(true);
+            new StaffUpdateDialog();
             getStaff();
         }
         if (e.getSource().equals(searchButton)) {
-            StaffSearchDialog searchDialog = new  StaffSearchDialog(null);
-            searchDialog.setVisible(true);
+            new  StaffSearchDialog(null);
+            getStaff();
         }
         if (e.getSource().equals(deleteButton)) {
-            StaffDeleteDialog deleteDialog = new StaffDeleteDialog(null);
-            deleteDialog.setVisible(true);
+            new StaffDeleteDialog(null);
             getStaff();
         }
         if (e.getSource().equals(refreshButton)) {
