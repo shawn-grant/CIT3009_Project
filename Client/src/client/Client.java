@@ -485,7 +485,7 @@ public class Client {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {
@@ -509,7 +509,7 @@ public class Client {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {

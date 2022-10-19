@@ -62,58 +62,54 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
     }
 
     private void getData() {
-        try {
-            Client client = new Client();
-            client.sendAction("View Customers");
-            List<Customer> customersList = client.receiveViewCustomersResponse();
-            client.closeConnections();
+        Client client = new Client();
+        client.sendAction("View Customers");
+        List<Customer> customersList = client.receiveViewCustomersResponse();
+        client.closeConnections();
 
-            int count = 0;
-            int rowCount = model.getRowCount();
-            int counter = 0;
+        int count = 0;
+        int rowCount = model.getRowCount();
+        int counter = 0;
 
-            while (counter < rowCount) {
-                model.removeRow(count);
-                counter++;
-            }
+        while (counter < rowCount) {
+            model.removeRow(count);
+            counter++;
+        }
 
-            for (Customer customer : customersList) {
-                System.out.println(customer);
+        for (Customer customer : customersList) {
+            System.out.println(customer);
 
-                model.insertRow(count, new Object[]{
-                        customer.getId(),
-                        customer.getFirstName(),
-                        customer.getLastName(),
-                        customer.getDOB(),
-                        customer.getEmail(),
-                        customer.getTelephone(),
-                        customer.getAddress(),
-                        customer.getMembershipDate(),
-                        customer.getMembershipExpiryDate()
-                });
-                count++;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            model.insertRow(count, new Object[]{
+                    customer.getId(),
+                    customer.getFirstName(),
+                    customer.getLastName(),
+                    customer.getDOB(),
+                    customer.getEmail(),
+                    customer.getTelephone(),
+                    customer.getAddress(),
+                    customer.getMembershipDate(),
+                    customer.getMembershipExpiryDate()
+            });
+            count++;
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.addButton) {
+        if (e.getSource().equals(addButton)) {
             new CustomerInsertDialog();
             getData();
         }
-        if (e.getSource() == this.updateButton) {
+        if (e.getSource().equals(updateButton)) {
 
         }
-        if (e.getSource() == this.searchButton) {
+        if (e.getSource().equals(searchButton)) {
 
         }
-        if (e.getSource() == this.deleteButton) {
+        if (e.getSource().equals(deleteButton)) {
 
         }
-        if (e.getSource() == this.refreshButton) {
+        if (e.getSource().equals(refreshButton)) {
             getData();
         }
     }
