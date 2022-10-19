@@ -8,6 +8,7 @@ package view.dialogs.customer;
 import client.Client;
 import models.Customer;
 import view.RoundedBorder;
+import view.components.DatePicker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -127,7 +128,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         add(lastNameLabel);
         add(lastNameField);
         add(dobLabel);
-        add(dobField);
+        add(new DatePicker());
         add(emailLabel);
         add(emailField);
         add(addressLabel);
@@ -135,9 +136,9 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         add(telephoneLabel);
         add(telephoneField);
         add(membershipDateLabel);
-        add(membershipDateField);
+        add(new DatePicker());
         add(membershipExpiryDateLabel);
-        add(membershipExpiryDateField);
+        add(new DatePicker());
         add(confirmButton);
         add(cancelButton);
     }
@@ -145,7 +146,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setTitle("Add New Customer");
-        setSize(450, 400);
+        setSize(450, 440);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
