@@ -64,7 +64,8 @@ public class CheckoutScreen extends JPanel implements ActionListener{
         addComponentsToPanels();
         setContentView();
         addPanelsToWindow();
-	    }
+        registerListeners();
+	   }
 	
 	
 	private void initializeComponents() {
@@ -305,32 +306,29 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	    }
 	    
 	    
-	  
+	    public void registerListeners() {
+	    	searchButton.addActionListener(this);
+	    	addButton.addActionListener(this);
+	    	deleteButton.addActionListener(this);
+	    	clearButton.addActionListener(this);
+	    	checkoutButton.addActionListener(this);
+		}
 	 
 	    @Override
 		public void actionPerformed(ActionEvent e) {
 
 	    	if (e.getSource() == searchButton) {
-	    		Client client = new Client();
-	            if(!(codeTxtValue.getText().isEmpty())) {
-	            	client.sendAction("Find Product");
-	            	client.sendProductCode(codeTxtValue.getText().trim());
-		            Product product = client.receiveFindProductResponse();
-		            setFields(product);
-		            client.closeConnections();
-	            }    	
+	    		searchInventory();
 	        }
-	        
-	    	else if (e.getSource() == addButton) {
+	        if (e.getSource() == addButton) {
 	            addItem();
 	        }
-	       
-	    	else if (e.getSource() == deleteButton) {
+	        if (e.getSource() ==  deleteButton) {
 	            removeItem();
 	        }
-	    	else if (e.getSource() == clearButton) {
+	    	if (e.getSource() == clearButton) {
 	            clearAll();
-	        }else if (e.getSource() == checkoutButton) {
+	        }if (e.getSource() == checkoutButton) {
 	           // checkoutItem();
 	        }
 	   
