@@ -6,6 +6,10 @@ import view.MainScreen;
 import view.SplashScreen;
 
 import javax.swing.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
+	
+	private static final Logger logger = LogManager.getLogger(Server.class);
+	
     private static Connection dbConn;
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -44,6 +51,7 @@ public class Server {
             serverSocket = new ServerSocket(8888);
             serverSocket.setReuseAddress(true);
         } catch (IOException e) {
+        	logger.error("An IOException as occurred in createConnection()method. on Lines 49-59 in the Server class " +e);
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
