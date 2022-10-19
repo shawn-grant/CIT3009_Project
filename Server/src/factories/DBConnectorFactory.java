@@ -72,7 +72,7 @@ public class DBConnectorFactory {
     private static void createEmployeeTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE employee(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob varchar(25), address varchar(80), telephone varchar(25), " +
+                    "lastName varchar(25), dob date, address varchar(80), telephone varchar(25), " +
                     "email varchar(25), dept_code varchar(40), employeeType varchar(25), PRIMARY KEY(ID))";
 
             if ((stmt.executeUpdate(query)) == 0) {
@@ -89,8 +89,8 @@ public class DBConnectorFactory {
     private static void createCustomerTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE customer(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob varchar(25), address varchar(80), telephone varchar(25)," +
-                    " email varchar(25), membershipDate varchar(25), membershipExpiryDate varchar(40), " +
+                    "lastName varchar(25), dob date, address varchar(80), telephone varchar(25)," +
+                    " email varchar(25), membershipDate date, membershipExpiryDate date, " +
                     "PRIMARY KEY(ID))";
 
             if ((stmt.executeUpdate(query)) == 0) {
@@ -139,7 +139,7 @@ public class DBConnectorFactory {
 
     private static void createInvoiceTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE invoice(invoice_number varchar(10) NOT NULL, billing_date varchar(25)," +
+            String query = "CREATE TABLE invoice(invoice_number varchar(10) NOT NULL, billing_date date," +
                     "item_name varchar(40), quantity int, employeeID varchar(10), customerID varchar(10), " +
                     "PRIMARY KEY(invoice_number))";
 

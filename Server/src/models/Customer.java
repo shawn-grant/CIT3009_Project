@@ -7,11 +7,9 @@ package models;
 // Description : Customer Model Class
 //============================================================================
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity(name = "customer")
 @Table(name = "customer")
@@ -23,6 +21,7 @@ public class Customer implements Serializable {
     private String firstName;
     @Column(name = "lastName")
     private String lastName;
+    @Temporal(TemporalType.DATE)
     @Column(name = "DOB")
     private Date DOB;
     @Column(name = "address")
@@ -31,8 +30,10 @@ public class Customer implements Serializable {
     private String telephone;
     @Column(name = "email")
     private String email;
+    @Temporal(TemporalType.DATE)
     @Column(name = "membershipDate")
     private Date membershipDate;
+    @Temporal(TemporalType.DATE)
     @Column(name = "membershipExpiryDate")
     private Date membershipExpiryDate;
 
@@ -50,12 +51,12 @@ public class Customer implements Serializable {
     }
 
     //Primary Constructor
-    public Customer(String id, String firstName, String lastName, Date dOB, String address, String telephone,
-                    String email, Date membershipDate, Date membershipExpiryDate) {
+    public Customer(String id, String firstName, String lastName, Date DOB, String address, String telephone,
+                    String email, java.util.Date membershipDate, Date membershipExpiryDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        DOB = dOB;
+        this.DOB = DOB;
         this.address = address;
         this.telephone = telephone;
         this.email = email;
@@ -68,7 +69,7 @@ public class Customer implements Serializable {
         this.id = customer.id;
         this.firstName = customer.firstName;
         this.lastName = customer.lastName;
-        DOB = customer.DOB;
+        this.DOB = customer.DOB;
         this.address = customer.address;
         this.telephone = customer.telephone;
         this.email = customer.email;
