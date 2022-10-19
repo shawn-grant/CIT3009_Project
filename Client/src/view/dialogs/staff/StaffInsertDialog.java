@@ -22,7 +22,8 @@ import javax.swing.JTextField;
 
 public class StaffInsertDialog extends JDialog implements ActionListener {
 		
-    private JLabel idLabel, firstNameLabel, lastNameLabel, DOBLabel,addressLabel,telLabel,
+	private static final long serialVersionUID = 1L;
+	private JLabel idLabel, firstNameLabel, lastNameLabel, DOBLabel,addressLabel,telLabel,
     emailLabel,empTypeLabel, deptLabel; 
     private JTextField idTextField, firstNameTextfield, lastNameTextField, DOBTextField,
     addressTextField, telTextField,emailTextField;
