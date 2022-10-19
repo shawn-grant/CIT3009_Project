@@ -1,7 +1,7 @@
 /**
  * MainScreen.java
- * A tabbed layout to switch between diffrent sections of the app
- * Author (s): Shawn Grant, Malik Heron
+ * Main Screen for viewing server details
+ * Author (s): Malik Heron
  */
 package view;
 
@@ -16,13 +16,13 @@ import java.net.ServerSocket;
 
 public class MainScreen extends JFrame implements ActionListener {
 
+    private final ServerSocket serverSocket;
     private JPanel panel;
     private JTextArea textArea;
     private JLabel statusLabel, requestsLabel;
     private JLabel statusText, requestsText;
     private JButton stopButton, exitButton;
     private JScrollPane scrollPane;
-    private final ServerSocket serverSocket;
 
     public MainScreen(ServerSocket serverSocket) {
         super("Jan's Wholesale and Retail - Server");
