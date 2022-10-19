@@ -15,6 +15,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -243,13 +245,13 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 		        return !(codeTxtValue.getText().isEmpty() || itemNameTxtValue.getText().isEmpty()
 		        		|| quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
 		    }
-		 
-		
-		    private void setFields(Product product) {
-		    	quantityTxtValue.setText("1");
-                itemNameTxtValue.setText(product.getName());
-                unitPriceTxtValue.setText(String.valueOf(product.getUnitPrice()));
-		    }
+		 		
+		 private void setFields(Product product) {
+	    	quantityTxtValue.setText("1");
+            itemNameTxtValue.setText(product.getName());
+            unitPriceTxtValue.setText(String.valueOf(product.getUnitPrice()));
+			 	
+		 }
 		 
 		 
 		// search for product entered product information
@@ -267,19 +269,36 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	    
 	    // adding product information to table
 	    private void addItem() {
-	    	if(validateFields()){
-	    		
+	    	
+	    	if(validateFields() == true){
 	    		try{
 					int quantity = Integer.parseInt(quantityTxtValue.getText().trim());//getting value from quantity text field
 					String cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim())); //Calculating totals cost based on quantity
-					model.insertRow(model.getRowCount()+1, new Object[]{codeTxtValue.getText().trim(), itemNameTxtValue.getText().trim(),
-							quantityTxtValue.getText().trim(), unitPriceTxtValue.getText().trim(), cost});
-				}catch (NumberFormatException e) {//If exceptions thrown, change value of quantity to 1
+					
+					
+					List<String> data = new ArrayList<String>();
+					data.add(codeTxtValue.getText().trim());
+					data.add(itemNameTxtValue.getText().trim());
+					data.add(quantityTxtValue.getText().trim());
+					data.add(unitPriceTxtValue.getText().trim());
+					data.add(cost);
+					model.addRow(data.toArray());
+					table.setModel(model);
+					
+					//Emptying textfields after adding values to table
+					codeTxtValue.setText(null);
+			    	quantityTxtValue.setText(null);
+			        itemNameTxtValue.setText(null);
+			        unitPriceTxtValue.setText(null);
+					
+	    		}catch (NumberFormatException e) {//If exceptions thrown, change value of quantity to 1
 					JOptionPane.showMessageDialog(null, "Invalid Quantity value", "Invalid input",
 							JOptionPane.ERROR_MESSAGE);		
 				}
 	    	}
 	    }
+	    
+	    
 	    
 	    private void removeItem() {
             if(table.getSelectedRow() != -1) { // checking for selected row 
@@ -305,7 +324,7 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	    	model.setRowCount(0);
 	    }
 	    
-	    
+	    //Registering Button Listeners
 	    public void registerListeners() {
 	    	searchButton.addActionListener(this);
 	    	addButton.addActionListener(this);
