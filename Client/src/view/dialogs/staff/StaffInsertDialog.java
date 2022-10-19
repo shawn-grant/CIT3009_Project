@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import models.Employee;
 
@@ -195,7 +196,7 @@ public class StaffInsertDialog extends JDialog implements ActionListener {
                     
                     Employee emp = new Employee(
                         idTextField.getText(),firstNameTextfield.getText(),
-                        lastNameTextField.getText(),new models.Date(),
+                        lastNameTextField.getText(),new Date(),
                         addressTextField.getText(),telTextField.getText(),
                         emailTextField.getText(),
                         empTypeBox.getSelectedItem().toString(),
