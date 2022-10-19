@@ -92,7 +92,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
         // Right Panel properties
         rightPanel = new JPanel(new GridLayout(1, 1));
-        rightPanel.setBounds(200, 0, 800, 600);
+        rightPanel.setBounds(200, 0, 1100, 600);
     }
 
     private void addComponentsToPanels() {
@@ -115,7 +115,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void setWindowProperties() {
         setLayout(null);
-        setSize(1000, 600);
+        setSize(1300, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
