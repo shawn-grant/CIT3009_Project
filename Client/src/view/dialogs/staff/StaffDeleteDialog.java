@@ -12,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import client.Client;
@@ -62,6 +63,7 @@ public class StaffDeleteDialog extends JDialog implements ActionListener {
         panel.add(idLabel);
         panel.add(idTextField);
         panel.add(saveButton);
+        
     }
 
     private void addPanelsToWindow() {

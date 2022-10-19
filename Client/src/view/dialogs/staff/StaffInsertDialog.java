@@ -18,6 +18,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class StaffInsertDialog extends JDialog implements ActionListener {
@@ -28,6 +29,7 @@ public class StaffInsertDialog extends JDialog implements ActionListener {
     private JTextField idTextField, firstNameTextfield, lastNameTextField, DOBTextField,
     addressTextField, telTextField,emailTextField;
     private JButton saveButton,cancelButton;
+    private JScrollPane scrollPane;
     private JComboBox <String> empTypeBox, deptBox;
     private JPanel panTop, panBottom;
 	    
@@ -95,6 +97,7 @@ public class StaffInsertDialog extends JDialog implements ActionListener {
         saveButton = new JButton("Save");
         saveButton.setFont(new Font("Aharoni", Font.BOLD, 14));
         
+        scrollPane = new JScrollPane();
         //Panel properties
         panTop = new JPanel();
         panBottom = new JPanel();
@@ -147,10 +150,12 @@ public class StaffInsertDialog extends JDialog implements ActionListener {
     private void addPanelsToWindow() {
         add(panTop);
         add(panBottom);
+        //add(scrollPane);
     }
 
     private void setWindowProperties() {
         setTitle("Add New Employee");
+        getContentPane().add(new JScrollPane(), "Center");
         setSize(500, 400);
         setVisible(true);
         setLocationRelativeTo(null);
