@@ -175,12 +175,12 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
                             idField.getText(),
                             firstNameField.getText(),
                             lastNameField.getText(),
-                            new Date(dobPicker.getSelectedDate()),
+                            dobPicker.getSelectedDate(),
                             addressField.getText(),
                             telephoneField.getText(),
                             emailField.getText(),
-                            new Date(membershipDatePicker.getSelectedDate()),
-                            new Date(membershipExpiryDatePicker.getSelectedDate())
+                            membershipDatePicker.getSelectedDate(),
+                            membershipExpiryDatePicker.getSelectedDate()
                     );
                     client.sendAction("Add Customer");
                     client.sendCustomer(customer);
