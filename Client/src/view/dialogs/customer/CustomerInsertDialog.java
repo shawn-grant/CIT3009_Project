@@ -1,7 +1,7 @@
 /**
  * CustomerInsertDialog.java
  * Popup to add a new customer
- * Author (s): Shawn Grant
+ * Author (s): Shawn Grant and Malik Heron
  */
 package view.dialogs.customer;
 
@@ -11,8 +11,15 @@ import view.RoundedBorder;
 import view.components.DatePicker;
 import view.components.EmailVerifier;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;

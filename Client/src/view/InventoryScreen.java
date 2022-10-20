@@ -7,7 +7,9 @@ import view.dialogs.inventory.InventoryRemoveDialog;
 import view.dialogs.inventory.InventorySearchDialog;
 import view.dialogs.inventory.InventoryUpdateDialog;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
