@@ -91,6 +91,29 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         }
     }
 
+    // remove item at selected row
+    private boolean removeItem() {
+        boolean isSelected = false;
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            int choice = JOptionPane.showConfirmDialog(
+                    null,
+                    "Remove this product?",
+                    "Remove prompt",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (choice == JOptionPane.YES_OPTION) {
+                Client client = new Client();
+                client.sendAction("Remove Product");
+                client.sendProductCode((String) model.getValueAt(table.getSelectedRow(), 0));
+                client.receiveResponse();
+                client.closeConnections();
+            }
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -106,7 +129,9 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
             getInventory();
         }
         if (e.getSource().equals(deleteButton)) {
-            new InventoryRemoveDialog();
+            if (!removeItem()) {
+                new InventoryRemoveDialog();
+            }
             getInventory();
         }
         if (e.getSource().equals(refreshButton)) {

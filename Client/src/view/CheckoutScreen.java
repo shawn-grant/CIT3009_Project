@@ -19,6 +19,7 @@ import java.util.List;
 
 public class CheckoutScreen extends JPanel implements ActionListener {
     private final String[] TableColumns = {"Product Code", "Product Name", "Quantity", "Unit Price", "Cost"};
+    private final GridBagConstraints gbc = new GridBagConstraints();
     private JButton addButton; // add a new item
     private JButton deleteButton; // delete an item
     private JButton clearButton; // clear all items in table
@@ -37,7 +38,6 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     private JPanel mainContent;
     private JTable table;
     private DefaultTableModel model;
-    private final GridBagConstraints gbc = new GridBagConstraints();
 
     public CheckoutScreen() {
         setBackground(new Color(0, 100, 205));
@@ -331,7 +331,6 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         if (e.getSource() == checkoutButton) {
             // checkoutItem();
         }
-
     }
 
 }
