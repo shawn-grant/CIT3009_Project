@@ -23,7 +23,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private JLabel membershipDateLabel, membershipExpiryDateLabel;
     private JTextField idField, firstNameField, lastNameField;
     private JTextField addressField, telephoneField, emailField;
-    private JFormattedTextField dobField, membershipDateField, membershipExpiryDateField;
+    private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
 
     public CustomerInsertDialog() {
@@ -84,10 +84,6 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         lastNameField.setBorder(new RoundedBorder(8));
         lastNameField.setPreferredSize(new Dimension(250, 30));
 
-        dobField = new JFormattedTextField(new Date());
-        dobField.setBorder(new RoundedBorder(8));
-        dobField.setPreferredSize(new Dimension(250, 30));
-
         emailField = new JTextField();
         emailField.setBorder(new RoundedBorder(8));
         emailField.setPreferredSize(new Dimension(250, 30));
@@ -100,13 +96,10 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         telephoneField.setBorder(new RoundedBorder(8));
         telephoneField.setPreferredSize(new Dimension(250, 30));
 
-        membershipDateField = new JFormattedTextField(new Date());
-        membershipDateField.setBorder(new RoundedBorder(8));
-        membershipDateField.setPreferredSize(new Dimension(250, 30));
-
-        membershipExpiryDateField = new JFormattedTextField(new Date());
-        membershipExpiryDateField.setBorder(new RoundedBorder(8));
-        membershipExpiryDateField.setPreferredSize(new Dimension(250, 30));
+        //DatePicker properties
+        dobPicker = new DatePicker();
+        membershipDatePicker = new DatePicker();
+        membershipExpiryDatePicker = new DatePicker();
 
         //Button properties
         confirmButton = new JButton("ADD CUSTOMER");
@@ -128,7 +121,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         add(lastNameLabel);
         add(lastNameField);
         add(dobLabel);
-        add(new DatePicker());
+        add(dobPicker);
         add(emailLabel);
         add(emailField);
         add(addressLabel);
@@ -136,9 +129,9 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         add(telephoneLabel);
         add(telephoneField);
         add(membershipDateLabel);
-        add(new DatePicker());
+        add(membershipDatePicker);
         add(membershipExpiryDateLabel);
-        add(new DatePicker());
+        add(membershipExpiryDatePicker);
         add(confirmButton);
         add(cancelButton);
     }
@@ -158,28 +151,43 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         cancelButton.addActionListener(this);
     }
 
+    private boolean validateFields() {
+        return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
+                || lastNameField.getText().isEmpty() || addressField.getText().isEmpty()
+                || telephoneField.getText().isEmpty() || emailField.getText().isEmpty());
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == confirmButton) {
-            Client client = new Client();
-            Customer customer = new Customer(
-                    idField.getText(),
-                    firstNameField.getText(),
-                    lastNameField.getText(),
-                    new Date(dobField.getText()),
-                    addressField.getText(),
-                    telephoneField.getText(),
-                    emailField.getText(),
-                    new Date(membershipDateField.getText()),
-                    new Date(membershipExpiryDateField.getText())
-            );
-            client.sendAction("Add Customer");
-            client.sendCustomer(customer);
-            client.receiveResponse();
-            client.closeConnections();
-            dispose();
+        if (e.getSource().equals(confirmButton)) {
+            if (validateFields()) {
+                Client client = new Client();
+                Customer customer = new Customer(
+                        idField.getText(),
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        new Date(dobPicker.getSelectedDate()),
+                        addressField.getText(),
+                        telephoneField.getText(),
+                        emailField.getText(),
+                        new Date(membershipDatePicker.getSelectedDate()),
+                        new Date(membershipExpiryDatePicker.getSelectedDate())
+                );
+                client.sendAction("Add Customer");
+                client.sendCustomer(customer);
+                client.receiveResponse();
+                client.closeConnections();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "One or more fields empty",
+                        "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         }
-        if (e.getSource() == cancelButton) {
+
+        if (e.getSource().equals(cancelButton)) {
             dispose();
         }
     }
