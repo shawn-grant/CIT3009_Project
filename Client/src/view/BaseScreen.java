@@ -21,7 +21,7 @@ import java.awt.GridLayout;
 
 public class BaseScreen extends JPanel {
 
-    private final Color headerColor = new Color(27, 73, 142);
+    private final Color headerColor = new Color(0, 100, 205);
     protected JButton addButton; // add a new item
     protected JButton updateButton; // update existing item
     protected JButton deleteButton; // delete item
