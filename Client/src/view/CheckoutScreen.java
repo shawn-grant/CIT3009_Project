@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 
 import client.Client;
 import models.Customer;
+import models.Employee;
 import models.Product;
 import view.dialogs.checkout.*;
 //import view.dialogs.customer.InsertDialog;
@@ -248,6 +249,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         setMainContent(new JScrollPane(table));
     }
 
+    //Creating ID number for new customer
     private String generateId() {
         String id = "C";
         int num = (int) ((Math.random() * (4000 - 100)) + 100);
@@ -345,6 +347,15 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         model.setRowCount(0);
         checkoutButton.setEnabled(false);
     }
+    
+    
+    //Clear fields
+    private void clear() {
+        codeTxtValue.setText(null);
+        quantityTxtValue.setText(null);
+        itemNameTxtValue.setText(null);
+        unitPriceTxtValue.setText(null);
+    }
 
     //Registering Button Listeners
     public void registerListeners() {
@@ -383,8 +394,18 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             clearAll();
         }
         if (e.getSource() == checkoutButton) {
-            new checkoutDialog(model);
-           // clearAll();
+        	Client client = new Client();
+            client.sendAction("Find Employee");
+            client.sendEmployeeId(staffTxtValue.getText());
+            Employee employee = client.receiveFindEmployeeResponse();
+            client.closeConnections();
+            if (employee == null) {//if employeeID doesn't exist, show error message
+            	 JOptionPane.showMessageDialog(null, "Missing Information", "Employee ID not found",
+                         JOptionPane.ERROR_MESSAGE);
+            }else{
+            	new checkoutDialog(model);
+            }
+           clear(); 
         }
 
     }
