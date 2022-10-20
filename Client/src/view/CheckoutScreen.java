@@ -32,9 +32,10 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
+import models.Customer;
 import models.Product;
 import view.dialogs.checkout.*;
-import view.dialogs.customer.InsertDialog;
+//import view.dialogs.customer.InsertDialog;
 
 public class CheckoutScreen extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
@@ -85,7 +86,18 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         unitPriceTxtValue.setEditable(false);
         customerTxtValue = new JTextField(20);
         staffTxtValue = new JTextField(20);
-
+        customerTxtValue.setText("C000");
+        
+       /* 
+        quantityTxtValue = new JTextField(20);
+        itemNameTxtValue = new JTextField(20);
+        unitPriceTxtValue = new JTextField(20);
+        itemNameTxtValue.setEditable(false);
+        unitPriceTxtValue.setEditable(false);
+        customerTxtValue = new JTextField(20);
+        staffTxtValue = new JTextField(20);
+        */
+        
         //initializing buttons
         addButton = new JButton("Add");
         deleteButton = new JButton("Delete");
@@ -236,6 +248,13 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         setMainContent(new JScrollPane(table));
     }
 
+    private String generateId() {
+        String id = "C";
+        int num = (int) ((Math.random() * (4000 - 100)) + 100);
+
+        return id + num;
+    }
+    
     /*****************************Defining Button Actions*****************************/
     //Method to check if all fields are empty
     private boolean validateFields() {
@@ -340,7 +359,16 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addCustomerButton) {
-            new InsertDialog();
+        	customerTxtValue.setText(generateId());//Generate An ID value
+            new InsertDialog(customerTxtValue.getText().trim());//Set the id field in the dialog to new ID generated
+            Client client = new Client();
+            client.sendAction("Find Customer");
+            client.sendCustomerId(customerTxtValue.getText());
+            Customer customer = client.receiveFindCustomerResponse();
+            client.closeConnections();
+            if (customer == null) {//If the new ID they tried to add did not process, rest customerID to default value C000
+            	customerTxtValue.setText("C000");
+            }
         }
         if (e.getSource() == searchButton) {
             searchInventory();
