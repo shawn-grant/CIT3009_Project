@@ -40,7 +40,7 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
         codeField = new JTextField();
         codeField.setFont(new Font("times new roman", Font.PLAIN, 14));
         codeField.setBorder(new RoundedBorder(8));
-        codeField.setPreferredSize(new Dimension(90, 30));
+        codeField.setPreferredSize(new Dimension(90, 35));
 
         //Button properties
         confirmButton = new JButton("REMOVE");
