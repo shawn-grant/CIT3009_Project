@@ -102,13 +102,16 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             getData();
         }
         if (e.getSource().equals(updateButton)) {
-
+            new CustomerInsertDialog();
+            getData();   
         }
         if (e.getSource().equals(searchButton)) {
-
+            new CustomerInsertDialog();
+            getData();    
         }
         if (e.getSource().equals(deleteButton)) {
-
+            new CustomerInsertDialog();
+            getData();
         }
         if (e.getSource().equals(refreshButton)) {
             getData();
