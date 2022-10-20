@@ -107,6 +107,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         //Setting button font & Colour
         addButton.setFont(new Font("arial", Font.PLAIN, 15));
         addButton.setBackground(new Color(224, 224, 224));
+        addButton.setForeground(Color.black);
         deleteButton.setFont(new Font("arial", Font.PLAIN, 15));
         deleteButton.setBackground(new Color(224, 224, 224));
         clearButton.setFont(new Font("arial", Font.PLAIN, 15));
@@ -117,6 +118,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         searchButton.setBackground(new Color(224, 224, 224));
         addCustomerButton.setFont(new Font("arial", Font.PLAIN, 15));
         addCustomerButton.setBackground(new Color(224, 224, 224));
+        
+        
 
         //Setting Panel Properties
         mainContent = new JPanel(new GridLayout(0, 1, 0, 70));
@@ -331,6 +334,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         deleteButton.addActionListener(this);
         clearButton.addActionListener(this);
         checkoutButton.addActionListener(this);
+        addCustomerButton.addActionListener(this);
     }
 
     @Override
@@ -352,7 +356,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         }
         if (e.getSource() == checkoutButton) {
             new checkoutDialog(model);
-            clearAll();
+           // clearAll();
         }
 
     }
