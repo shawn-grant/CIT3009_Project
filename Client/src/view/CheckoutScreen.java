@@ -230,7 +230,7 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 		centerPanel.add(checkoutButton, gbc);  
 	 }
 	*/
-	
+	 
 	private void addComponentsToPanels() {
 		//Adding Labels and fields to label panel
 		gbc.insets = new Insets(25, 10, 20, 10);//Sets Padding around values
