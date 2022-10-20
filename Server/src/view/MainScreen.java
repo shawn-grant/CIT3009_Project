@@ -7,22 +7,47 @@ package view;
 
 import factories.SessionFactoryBuilder;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import java.awt.TrayIcon;
+import java.awt.PopupMenu;
+import java.awt.MenuItem;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.Image;
+import java.awt.SystemTray;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.AWTException;
 import java.io.IOException;
 import java.net.ServerSocket;
 
 public class MainScreen extends JFrame implements ActionListener {
 
     private final ServerSocket serverSocket;
+    private final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/serverIcon.png"));
     private JPanel panel;
     private JTextArea textArea;
     private JLabel statusLabel, requestsLabel;
     private JLabel statusText, requestsText;
     private JButton stopButton, exitButton;
     private JScrollPane scrollPane;
+    private MenuItem menuOpen, menuClose;
+    private TrayIcon trayIcon;
+    private PopupMenu popupMenu;
 
     public MainScreen(ServerSocket serverSocket) {
         super("Jan's Wholesale and Retail - Server");
@@ -35,6 +60,7 @@ public class MainScreen extends JFrame implements ActionListener {
         }
 
         initializeComponents();
+        addMenuItemsToPopupMenu();
         addComponentsToPanels();
         addPanelsToWindow();
         registerListeners();
@@ -79,6 +105,18 @@ public class MainScreen extends JFrame implements ActionListener {
         exitButton.setFocusPainted(false);
         exitButton.setVisible(false);
 
+        //menuItem properties
+        menuOpen = new MenuItem("Open");
+        menuOpen.setFont(new Font("system", Font.PLAIN, 14));
+        menuClose = new MenuItem("Close");
+        menuClose.setFont(new Font("system", Font.PLAIN, 14));
+
+        //trayIcon and popupMenu properties
+        popupMenu = new PopupMenu();
+        trayIcon = new TrayIcon(image, "Jan's W&RMS - Server");
+        trayIcon.setPopupMenu(popupMenu);
+        trayIcon.setImageAutoSize(true);
+
         // scrollPane properties
         scrollPane = new JScrollPane(
                 textArea,
@@ -90,6 +128,11 @@ public class MainScreen extends JFrame implements ActionListener {
         // Panel properties
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         panel.setSize(530, 600);
+    }
+
+    private void addMenuItemsToPopupMenu() {
+        popupMenu.add(menuOpen);
+        popupMenu.add(menuClose);
     }
 
     private void addComponentsToPanels() {
@@ -110,13 +153,66 @@ public class MainScreen extends JFrame implements ActionListener {
         setLayout(null);
         setSize(530, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
     }
 
     private void registerListeners() {
+        menuOpen.addActionListener(this);
+        menuClose.addActionListener(this);
         stopButton.addActionListener(this);
         exitButton.addActionListener(this);
+        trayIcon.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if(mouseEvent.getClickCount() >= 2){
+                    SystemTray.getSystemTray().remove(trayIcon);
+                    setVisible(true);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {}
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {}
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {}
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {}
+        });
+
+        this.addWindowListener(new WindowListener() {
+
+            @Override
+            public void windowOpened(WindowEvent e) {}
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    SystemTray.getSystemTray().add(trayIcon);
+                } catch (AWTException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {}
+
+            @Override
+            public void windowIconified(WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+
+            @Override
+            public void windowActivated(WindowEvent e) {}
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
     }
 
     public void setRequestsText(int requestAmount) {
@@ -130,6 +226,14 @@ public class MainScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource().equals(menuOpen)) {
+            SystemTray.getSystemTray().remove(trayIcon);
+            setVisible(true);
+        }
+        if (e.getSource().equals(menuClose)) {
+            SystemTray.getSystemTray().remove(trayIcon);
+            System.exit(0);
+        }
         if (e.getSource().equals(stopButton)) {
             int selection = JOptionPane.showConfirmDialog(
                     null,

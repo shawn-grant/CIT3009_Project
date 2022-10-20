@@ -4,12 +4,21 @@ import client.Client;
 import models.Product;
 import view.RoundedBorder;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Malik Heron
+ */
 public class InventorySearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private final DefaultTableModel model;

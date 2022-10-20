@@ -5,7 +5,7 @@ import models.Employee;
 import models.Invoice;
 import models.Product;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,6 +13,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Malik Heron
+ */
 public class Client {
 
     private Socket connectionSocket;

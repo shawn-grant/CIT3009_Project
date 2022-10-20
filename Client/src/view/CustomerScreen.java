@@ -9,7 +9,8 @@ import client.Client;
 import models.Customer;
 import view.dialogs.customer.CustomerInsertDialog;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,7 +59,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
 
     // set main content view
     private void setContentView() {
-        setMainContent(new JScrollPane(table));
+        setMainContent(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
     }
 
     private void getData() {

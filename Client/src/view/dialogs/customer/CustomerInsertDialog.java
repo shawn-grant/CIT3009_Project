@@ -1,16 +1,25 @@
 /**
  * CustomerInsertDialog.java
  * Popup to add a new customer
- * Author (s): Shawn Grant
+ * Author (s): Shawn Grant and Malik Heron
  */
 package view.dialogs.customer;
 
 import client.Client;
 import models.Customer;
 import view.RoundedBorder;
+import view.components.DatePicker;
+import view.components.EmailVerifier;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -22,17 +31,17 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private JLabel membershipDateLabel, membershipExpiryDateLabel;
     private JTextField idField, firstNameField, lastNameField;
     private JTextField addressField, telephoneField, emailField;
-    private JFormattedTextField dobField, membershipDateField, membershipExpiryDateField;
+    private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
 
     public CustomerInsertDialog() {
-        initComponents();
+        initializeComponents();
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
     }
 
-    private void initComponents() {
+    private void initializeComponents() {
         //Label properties
         idLabel = new JLabel("ID");
         idLabel.setFont(new Font("arial", Font.BOLD, 14));
@@ -83,10 +92,6 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         lastNameField.setBorder(new RoundedBorder(8));
         lastNameField.setPreferredSize(new Dimension(250, 30));
 
-        dobField = new JFormattedTextField(new Date());
-        dobField.setBorder(new RoundedBorder(8));
-        dobField.setPreferredSize(new Dimension(250, 30));
-
         emailField = new JTextField();
         emailField.setBorder(new RoundedBorder(8));
         emailField.setPreferredSize(new Dimension(250, 30));
@@ -99,13 +104,10 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         telephoneField.setBorder(new RoundedBorder(8));
         telephoneField.setPreferredSize(new Dimension(250, 30));
 
-        membershipDateField = new JFormattedTextField(new Date());
-        membershipDateField.setBorder(new RoundedBorder(8));
-        membershipDateField.setPreferredSize(new Dimension(250, 30));
-
-        membershipExpiryDateField = new JFormattedTextField(new Date());
-        membershipExpiryDateField.setBorder(new RoundedBorder(8));
-        membershipExpiryDateField.setPreferredSize(new Dimension(250, 30));
+        //DatePicker properties
+        dobPicker = new DatePicker();
+        membershipDatePicker = new DatePicker();
+        membershipExpiryDatePicker = new DatePicker();
 
         //Button properties
         confirmButton = new JButton("ADD CUSTOMER");
@@ -127,7 +129,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         add(lastNameLabel);
         add(lastNameField);
         add(dobLabel);
-        add(dobField);
+        add(dobPicker);
         add(emailLabel);
         add(emailField);
         add(addressLabel);
@@ -135,9 +137,9 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         add(telephoneLabel);
         add(telephoneField);
         add(membershipDateLabel);
-        add(membershipDateField);
+        add(membershipDatePicker);
         add(membershipExpiryDateLabel);
-        add(membershipExpiryDateField);
+        add(membershipExpiryDatePicker);
         add(confirmButton);
         add(cancelButton);
     }
@@ -145,7 +147,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setTitle("Add New Customer");
-        setSize(450, 400);
+        setSize(450, 440);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
@@ -157,28 +159,52 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
         cancelButton.addActionListener(this);
     }
 
+    private boolean validateFields() {
+        return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
+                || lastNameField.getText().isEmpty() || addressField.getText().isEmpty()
+                || telephoneField.getText().isEmpty() || emailField.getText().isEmpty());
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == confirmButton) {
-            Client client = new Client();
-            Customer customer = new Customer(
-                    idField.getText(),
-                    firstNameField.getText(),
-                    lastNameField.getText(),
-                    new Date(dobField.getText()),
-                    addressField.getText(),
-                    telephoneField.getText(),
-                    emailField.getText(),
-                    new Date(membershipDateField.getText()),
-                    new Date(membershipExpiryDateField.getText())
-            );
-            client.sendAction("Add Customer");
-            client.sendCustomer(customer);
-            client.receiveResponse();
-            client.closeConnections();
-            dispose();
+        if (e.getSource().equals(confirmButton)) {
+            if (validateFields()) {
+                if(EmailVerifier.isValid(emailField.getText())) {
+                    Client client = new Client();
+                    Customer customer = new Customer(
+                            idField.getText(),
+                            firstNameField.getText(),
+                            lastNameField.getText(),
+                            dobPicker.getSelectedDate(),
+                            addressField.getText(),
+                            telephoneField.getText(),
+                            emailField.getText(),
+                            membershipDatePicker.getSelectedDate(),
+                            membershipExpiryDatePicker.getSelectedDate()
+                    );
+                    client.sendAction("Add Customer");
+                    client.sendCustomer(customer);
+                    client.receiveResponse();
+                    client.closeConnections();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Invalid email address",
+                            "Invalid Field",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "One or more fields empty",
+                        "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         }
-        if (e.getSource() == cancelButton) {
+
+        if (e.getSource().equals(cancelButton)) {
             dispose();
         }
     }

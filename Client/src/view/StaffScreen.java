@@ -7,12 +7,12 @@ import view.dialogs.staff.StaffInsertDialog;
 import view.dialogs.staff.StaffSearchDialog;
 import view.dialogs.staff.StaffUpdateDialog;
 
-import javax.swing.*;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 
 public class StaffScreen extends BaseScreen implements ActionListener {
 
@@ -20,7 +20,6 @@ public class StaffScreen extends BaseScreen implements ActionListener {
             "Address", "Telephone", "Email", "Employee Type", "Department"};
     private JTable table;
     private DefaultTableModel model;
-
 
     public StaffScreen() {
         super("Employees");
@@ -54,40 +53,35 @@ public class StaffScreen extends BaseScreen implements ActionListener {
     }
 
     private void getStaff() {
+        Client client = new Client();
+        client.sendAction("View Staff");
+        List<Employee> empList = client.receiveViewEmployeeResponse();
+        client.closeConnections();
 
-        try {
-            Client client = new Client();
-            client.sendAction("View Staff");
-            List<Employee> empList = client.receiveViewEmployeeResponse();
-            client.closeConnections();
+        int count = 0;
+        int rowCount = model.getRowCount();
+        int counter = 0;
 
-            int count = 0;
-            int rowCount = model.getRowCount();
-            int counter = 0;
+        while (counter < rowCount) {
+            model.removeRow(count);
+            counter++;
+        }
 
-            while (counter < rowCount) {
-                model.removeRow(count);
-                counter++;
-            }
+        for (Employee employee : empList) {
+            System.out.println(employee);
 
-            for (Employee employee : empList) {
-                System.out.println(employee);
-
-                model.insertRow(count, new Object[]{
-                        employee.getId(),
-                        employee.getFirstName(),
-                        employee.getLastName(),
-                        employee.getDOB(),
-                        employee.getAddress(),
-                        employee.getTelephone(),
-                        employee.getEmail(),
-                        employee.getType(),
-                        employee.getDepartment()
-                });
-                count++;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            model.insertRow(count, new Object[]{
+                    employee.getId(),
+                    employee.getFirstName(),
+                    employee.getLastName(),
+                    employee.getDOB(),
+                    employee.getAddress(),
+                    employee.getTelephone(),
+                    employee.getEmail(),
+                    employee.getType(),
+                    employee.getDepartment()
+            });
+            count++;
         }
     }
 
