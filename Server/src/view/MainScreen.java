@@ -1,9 +1,11 @@
 /**
  * MainScreen.java
- * A tabbed layout to switch between diffrent sections of the app
- * Author (s): Shawn Grant, Malik Heron
+ * Main Screen for viewing server details
+ * Author (s): Malik Heron
  */
 package view;
+
+import factories.SessionFactoryBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +16,13 @@ import java.net.ServerSocket;
 
 public class MainScreen extends JFrame implements ActionListener {
 
+    private final ServerSocket serverSocket;
     private JPanel panel;
     private JTextArea textArea;
     private JLabel statusLabel, requestsLabel;
     private JLabel statusText, requestsText;
     private JButton stopButton, exitButton;
     private JScrollPane scrollPane;
-    private final ServerSocket serverSocket;
 
     public MainScreen(ServerSocket serverSocket) {
         super("Jan's Wholesale and Retail - Server");
@@ -61,7 +63,6 @@ public class MainScreen extends JFrame implements ActionListener {
         // text area properties
         textArea = new JTextArea();
         textArea.setFont(new Font("arial", Font.PLAIN, 14));
-        textArea.setPreferredSize(new Dimension(500, 460));
         textArea.setEditable(false);
 
         // button properties
@@ -79,9 +80,12 @@ public class MainScreen extends JFrame implements ActionListener {
         exitButton.setVisible(false);
 
         // scrollPane properties
-        scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(522, 460));
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane = new JScrollPane(
+                textArea,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+        );
+        scrollPane.setPreferredSize(new Dimension(505, 460));
 
         // Panel properties
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -137,6 +141,7 @@ public class MainScreen extends JFrame implements ActionListener {
             if (selection == JOptionPane.YES_OPTION) {
                 try {
                     serverSocket.close();
+                    SessionFactoryBuilder.closeSessionFactory();
                     statusText.setText("Stopped");
                     statusText.setForeground(Color.RED);
                     exitButton.setVisible(true);
@@ -159,3 +164,4 @@ public class MainScreen extends JFrame implements ActionListener {
         }
     }
 }
+

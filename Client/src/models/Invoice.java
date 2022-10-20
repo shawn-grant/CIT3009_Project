@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Invoice implements Serializable {
     private int invoiceNumber;
     private Date billingDate;
-    private String itemName;
+    private String totalCost;///Changed name
     private int quantity;
     private String employee;
     private String customer;
@@ -19,18 +19,18 @@ public class Invoice implements Serializable {
     public Invoice() {
         invoiceNumber = 0;
         billingDate = new Date();
-        itemName = "N/A";
+        totalCost = "N/A";
         quantity = 0;
         employee = "N/A";
         customer = "N/A";
     }
 
     //Primary Constructor
-    public Invoice(int invoiceNumber, Date billingDate, String itemName,
+    public Invoice(int invoiceNumber, Date billingDate, String totalCost,
                    int quantity, String employee, String customer) {
         this.invoiceNumber = invoiceNumber;
         this.billingDate = billingDate;
-        this.itemName = itemName;
+        this.totalCost = totalCost;
         this.quantity = quantity;
         this.employee = employee;
         this.customer = customer;
@@ -40,7 +40,7 @@ public class Invoice implements Serializable {
     public Invoice(Invoice invoice) {
         this.invoiceNumber = invoice.invoiceNumber;
         this.billingDate = invoice.billingDate;
-        this.itemName = invoice.itemName;
+        this.totalCost = invoice.totalCost;
         this.quantity = invoice.quantity;
         this.employee = invoice.employee;
         this.customer = invoice.customer;
@@ -63,12 +63,12 @@ public class Invoice implements Serializable {
         this.billingDate = billingDate;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getTotalCost() {
+        return totalCost;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setTotalCost(String totalCost) {
+        this.totalCost = totalCost;
     }
 
     public int getQuantity() {
@@ -97,7 +97,7 @@ public class Invoice implements Serializable {
 
     public void displayInvoice() {
         System.out.println("Invoice Number: " + getInvoiceNumber() + "\nDate" + getBillingDate()
-                + "Items" + getItemName() + "Quantity: " + getQuantity() + "Employee: "
+                + "Items" + getTotalCost() + "Quantity: " + getQuantity() + "Employee: "
                 + getEmployee() + "Customer: " + getCustomer());
     }
 
@@ -106,7 +106,7 @@ public class Invoice implements Serializable {
         return "Invoice{" +
                 "invoiceNumber=" + invoiceNumber +
                 ", billingDate=" + billingDate +
-                ", itemName='" + itemName + '\'' +
+                ", itemName='" + totalCost + '\'' +
                 ", quantity=" + quantity +
                 ", employee='" + employee + '\'' +
                 ", customer='" + customer + '\'' +
