@@ -7,7 +7,9 @@
 package view;
 
 import javax.swing.border.Border;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Insets;
+import java.awt.Graphics;
 
 public class RoundedBorder implements Border {
     private final int r;

@@ -6,6 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * @author Malik Heron
+ */
 public class SessionFactoryBuilder {
 
     private static final Configuration configuration = new Configuration();

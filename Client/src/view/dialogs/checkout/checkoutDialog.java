@@ -131,7 +131,7 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
     private int generateInvoiceNum() {
     	int results[] = {};
     	int value = (int) ((Math.random() * (70000 - 100)) + 100);
-    	results[0] = value * 1; 
+    	results[0] = value * 1;
     	results[1] = value + 2;
     	results[2] = value / 2;
     	results[3] = value - 5;
@@ -194,7 +194,7 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
 			            client.receiveResponse();
 			            client.closeConnections();
 			            */
-			            JOptionPane.showMessageDialog(null,  "Customer should recive $"+ change, 
+			            JOptionPane.showMessageDialog(null,  "Customer should receive $"+ change,
                 		"Customer Change", JOptionPane.INFORMATION_MESSAGE); 
 	            	dispose();
 	            }

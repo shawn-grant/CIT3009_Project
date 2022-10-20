@@ -4,23 +4,29 @@ import client.Client;
 import models.Product;
 import view.RoundedBorder;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * @author Malik Heron
  */
-public class InventorySearchDialog extends JDialog implements ActionListener {
+public class SearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private final DefaultTableModel model;
     private JLabel codeLabel;
     private JTextField codeField;
     private JButton confirmButton;
 
-    public InventorySearchDialog(DefaultTableModel model) {
+    public SearchDialog(DefaultTableModel model) {
         this.model = model;
         initializeComponents();
         addComponentsToWindow();
@@ -38,7 +44,7 @@ public class InventorySearchDialog extends JDialog implements ActionListener {
         codeField = new JTextField();
         codeField.setFont(new Font("times new roman", Font.PLAIN, 14));
         codeField.setBorder(new RoundedBorder(8));
-        codeField.setPreferredSize(new Dimension(90, 30));
+        codeField.setPreferredSize(new Dimension(90, 35));
 
         //Button properties
         confirmButton = new JButton("SEARCH");

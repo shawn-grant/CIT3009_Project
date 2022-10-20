@@ -7,6 +7,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jwr</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">""</property>
+        <property name="hibernate.connection.password"/>
 
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>

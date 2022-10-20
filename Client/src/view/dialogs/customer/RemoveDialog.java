@@ -1,4 +1,4 @@
-package view.dialogs.inventory;
+package view.dialogs.customer;
 
 import client.Client;
 import view.RoundedBorder;
@@ -11,13 +11,13 @@ import java.awt.event.ActionListener;
 /**
  * @author Malik Heron
  */
-public class InventoryRemoveDialog extends JDialog implements ActionListener {
+public class RemoveDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
-    private JLabel codeLabel;
-    private JTextField codeField;
+    private JLabel idLabel;
+    private JTextField idField;
     private JButton confirmButton;
 
-    public InventoryRemoveDialog() {
+    public RemoveDialog() {
         initializeComponents();
         addComponentsToWindow();
         registerListeners();
@@ -26,15 +26,15 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
 
     private void initializeComponents() {
         //Label properties
-        codeLabel = new JLabel("Product Code");
-        codeLabel.setFont(new Font("arial", Font.BOLD, 14));
-        codeLabel.setPreferredSize(new Dimension(100, 20));
+        idLabel = new JLabel("Customer ID");
+        idLabel.setFont(new Font("arial", Font.BOLD, 14));
+        idLabel.setPreferredSize(new Dimension(100, 20));
 
         //Field properties
-        codeField = new JTextField();
-        codeField.setFont(new Font("times new roman", Font.PLAIN, 14));
-        codeField.setBorder(new RoundedBorder(8));
-        codeField.setPreferredSize(new Dimension(90, 30));
+        idField = new JTextField();
+        idField.setFont(new Font("arial", Font.PLAIN, 14));
+        idField.setBorder(new RoundedBorder(8));
+        idField.setPreferredSize(new Dimension(90, 35));
 
         //Button properties
         confirmButton = new JButton("REMOVE");
@@ -47,14 +47,14 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
     }
 
     private void addComponentsToWindow() {
-        add(codeLabel);
-        add(codeField);
+        add(idLabel);
+        add(idField);
         add(confirmButton);
     }
 
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        setTitle("Remove Product");
+        setTitle("Remove Customer");
         setSize(350, 90);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -67,7 +67,7 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
-        return !(codeField.getText().isEmpty());
+        return !(idField.getText().isEmpty());
     }
 
     @Override
@@ -75,8 +75,8 @@ public class InventoryRemoveDialog extends JDialog implements ActionListener {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
                 Client client = new Client();
-                client.sendAction("Remove Product");
-                client.sendProductCode(codeField.getText());
+                client.sendAction("Remove Customer");
+                client.sendCustomerId(idField.getText());
                 client.receiveResponse();
                 client.closeConnections();
                 dispose();

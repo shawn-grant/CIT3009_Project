@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class StaffInsertDialog extends JDialog implements ActionListener {
+public class InsertDialog extends JDialog implements ActionListener {
 		
 	private static final long serialVersionUID = 1L;
 	private JLabel idLabel, firstNameLabel, lastNameLabel, DOBLabel,addressLabel,telLabel,
@@ -32,7 +32,7 @@ public class StaffInsertDialog extends JDialog implements ActionListener {
     private JComboBox <String> empTypeBox, deptBox;
     private JPanel panTop, panBottom;
 	    
-	public StaffInsertDialog() {
+	public InsertDialog() {
         setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 
         initializeComponents();
