@@ -404,8 +404,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
                          JOptionPane.ERROR_MESSAGE);
             }else{
             	new checkoutDialog(model);
-            }
-           clear(); 
+            	clear();
+            }           
         }
 
     }
