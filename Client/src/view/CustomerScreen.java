@@ -7,7 +7,9 @@ package view;
 
 import client.Client;
 import models.Customer;
-import view.dialogs.customer.CustomerInsertDialog;
+import view.dialogs.customer.InsertDialog;
+import view.dialogs.customer.RemoveDialog;
+import view.dialogs.customer.SearchDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -58,7 +60,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
 
     // set main content view
     private void setContentView() {
-        setMainContent(new JScrollPane(table));
+        setMainContent(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
     }
 
     private void getData() {
@@ -94,20 +96,47 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         }
     }
 
+    // remove item at selected row
+    private boolean removeItem() {
+        boolean isSelected = false;
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            int choice = JOptionPane.showConfirmDialog(
+                    null,
+                    "Remove this customer?",
+                    "Remove prompt",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (choice == JOptionPane.YES_OPTION) {
+                Client client = new Client();
+                client.sendAction("Remove Customer");
+                client.sendCustomerId((String) model.getValueAt(table.getSelectedRow(), 0));
+                client.receiveResponse();
+                client.closeConnections();
+            }
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addButton)) {
-            new CustomerInsertDialog();
+            new InsertDialog();
             getData();
         }
         if (e.getSource().equals(updateButton)) {
-
+            //new CustomerInsertDialog();
+            getData();   
         }
         if (e.getSource().equals(searchButton)) {
-
+            new SearchDialog(model);
         }
         if (e.getSource().equals(deleteButton)) {
-
+            if (!removeItem()) {
+                new RemoveDialog();
+            }
+            getData();
         }
         if (e.getSource().equals(refreshButton)) {
             getData();

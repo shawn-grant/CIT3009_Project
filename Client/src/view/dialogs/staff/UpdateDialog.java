@@ -21,7 +21,7 @@ import client.Client;
 import models.Employee;
 
 
-public class StaffUpdateDialog extends JDialog implements ActionListener{
+public class UpdateDialog extends JDialog implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -35,7 +35,7 @@ public class StaffUpdateDialog extends JDialog implements ActionListener{
 	private JComboBox <String> empTypeBox, deptBox;
     private JPanel panTop, panBottom;
     
-    public StaffUpdateDialog() {
+    public UpdateDialog() {
     	
     	setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
         initializeComponents();

@@ -16,8 +16,8 @@ import javax.swing.JTextField;
 
 import client.Client;
 
-public class StaffSearchDialog extends JDialog implements ActionListener{
-	
+public class RemoveDialog extends JDialog implements ActionListener {
+
 	private static final long serialVersionUID = 1L;
 	
     private JLabel idLabel;
@@ -25,11 +25,9 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
     private JButton saveButton;
     private JPanel panel;
     private final Client client;
-    
-    
-    
-    public StaffSearchDialog(Client client) {
-    	
+
+  public RemoveDialog(Client client) {
+	  
         this.client = client;
         setLayout(new FlowLayout(FlowLayout.TRAILING));
         initializeComponents();
@@ -38,8 +36,8 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
         setWindowProperties();
         registerListeners();
     }
-
-    private void initializeComponents() {
+     
+     private void initializeComponents() {
         //Label properties
         idLabel = new JLabel("Employee ID Number:");
         idLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
@@ -50,7 +48,7 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
         idTextField.setPreferredSize(new Dimension(70, 30));
 
         //Button properties
-        saveButton = new JButton("Search");
+        saveButton = new JButton("Save");
         saveButton.setFont(new Font("Aharoni", Font.BOLD, 14));
 
         //Panel properties
@@ -60,7 +58,7 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
         saveButton.setFocusPainted(false);
     }
 
-    private void addComponentsToPanels() {
+	 private void addComponentsToPanels() {
         panel.add(idLabel);
         panel.add(idTextField);
         panel.add(saveButton);
@@ -71,6 +69,7 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
     }
 
     private void setWindowProperties() {
+    	
         setTitle("Search Employee List");
         setSize(270, 80);
         //setVisible(true);
@@ -82,8 +81,9 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
     private void registerListeners() {
         saveButton.addActionListener(this);
     }
-
-    private boolean validateFields() {
+   
+	
+	    private boolean validateFields() {
         return !(idTextField.getText().isEmpty());
     }
 
@@ -96,13 +96,13 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
     	
         try {
 			if (e.getSource().equals(saveButton)) {
-				
 			    if (validateFields()) {
 			    	
-			        client.sendAction("Find Employee");
+			        client.sendAction("Delete Employee");
 			        client.sendEmployeeId(idTextField.getText());
 			        resetFields();
-			        //dispose();
+			        dispose();
+			        
 			    } else {
 			        JOptionPane.showMessageDialog(this,"One or more fields empty",
 			                "Warning",JOptionPane.WARNING_MESSAGE);
@@ -112,5 +112,4 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
 			e1.printStackTrace();
 		}
     }
-    
 }

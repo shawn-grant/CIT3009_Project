@@ -2,12 +2,14 @@ package view;
 
 import client.Client;
 import models.Product;
-import view.dialogs.inventory.InventoryInsertDialog;
-import view.dialogs.inventory.InventoryRemoveDialog;
-import view.dialogs.inventory.InventorySearchDialog;
-import view.dialogs.inventory.InventoryUpdateDialog;
+import view.dialogs.inventory.InsertDialog;
+import view.dialogs.inventory.RemoveDialog;
+import view.dialogs.inventory.SearchDialog;
+import view.dialogs.inventory.UpdateDialog;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -91,22 +93,47 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         }
     }
 
+    // remove item at selected row
+    private boolean removeItem() {
+        boolean isSelected = false;
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            int choice = JOptionPane.showConfirmDialog(
+                    null,
+                    "Remove this product?",
+                    "Remove prompt",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (choice == JOptionPane.YES_OPTION) {
+                Client client = new Client();
+                client.sendAction("Remove Product");
+                client.sendProductCode((String) model.getValueAt(table.getSelectedRow(), 0));
+                client.receiveResponse();
+                client.closeConnections();
+            }
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            new InventoryInsertDialog();
+            new InsertDialog();
             getInventory();
         }
         if (e.getSource().equals(searchButton)) {
-            new InventorySearchDialog(model);
+            new SearchDialog(model);
         }
         if (e.getSource().equals(updateButton)) {
-            new InventoryUpdateDialog();
+            new UpdateDialog();
             getInventory();
         }
         if (e.getSource().equals(deleteButton)) {
-            new InventoryRemoveDialog();
+            if (!removeItem()) {
+                new RemoveDialog();
+            }
             getInventory();
         }
         if (e.getSource().equals(refreshButton)) {

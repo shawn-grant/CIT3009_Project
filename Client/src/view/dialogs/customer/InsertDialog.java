@@ -1,7 +1,7 @@
 /**
  * CustomerInsertDialog.java
  * Popup to add a new customer
- * Author (s): Shawn Grant
+ * Author (s): Shawn Grant and Malik Heron
  */
 package view.dialogs.customer;
 
@@ -11,13 +11,19 @@ import view.RoundedBorder;
 import view.components.DatePicker;
 import view.components.EmailVerifier;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
-public class CustomerInsertDialog extends JDialog implements ActionListener {
+public class InsertDialog extends JDialog implements ActionListener {
 
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
     private JLabel addressLabel, telephoneLabel, emailLabel;
@@ -27,7 +33,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
 
-    public CustomerInsertDialog() {
+    public InsertDialog() {
         initializeComponents();
         addPanelsToWindow();
         registerListeners();
@@ -35,67 +41,78 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     }
 
     private void initializeComponents() {
+        Dimension labelSize = new Dimension(140, 20);
+        Dimension fieldSize = new Dimension(250, 35);
+        Font labelFont = new Font("arial", Font.BOLD, 14);
+        Font fieldFont = new Font("arial", Font.PLAIN, 14);
+
         //Label properties
         idLabel = new JLabel("ID");
-        idLabel.setFont(new Font("arial", Font.BOLD, 14));
-        idLabel.setPreferredSize(new Dimension(130, 20));
+        idLabel.setFont(labelFont);
+        idLabel.setPreferredSize(labelSize);
 
         firstNameLabel = new JLabel("First Name");
-        firstNameLabel.setFont(new Font("arial", Font.BOLD, 14));
-        firstNameLabel.setPreferredSize(new Dimension(130, 20));
+        firstNameLabel.setFont(labelFont);
+        firstNameLabel.setPreferredSize(labelSize);
 
         lastNameLabel = new JLabel("Last Name");
-        lastNameLabel.setFont(new Font("arial", Font.BOLD, 14));
-        lastNameLabel.setPreferredSize(new Dimension(130, 20));
+        lastNameLabel.setFont(labelFont);
+        lastNameLabel.setPreferredSize(labelSize);
 
         dobLabel = new JLabel("Date of Birth");
-        dobLabel.setFont(new Font("arial", Font.BOLD, 14));
-        dobLabel.setPreferredSize(new Dimension(130, 20));
+        dobLabel.setFont(labelFont);
+        dobLabel.setPreferredSize(labelSize);
 
         emailLabel = new JLabel("Email");
-        emailLabel.setFont(new Font("arial", Font.BOLD, 14));
-        emailLabel.setPreferredSize(new Dimension(130, 20));
+        emailLabel.setFont(labelFont);
+        emailLabel.setPreferredSize(labelSize);
 
         addressLabel = new JLabel("Address");
-        addressLabel.setFont(new Font("arial", Font.BOLD, 14));
-        addressLabel.setPreferredSize(new Dimension(130, 20));
+        addressLabel.setFont(labelFont);
+        addressLabel.setPreferredSize(labelSize);
 
         telephoneLabel = new JLabel("Phone #");
-        telephoneLabel.setFont(new Font("arial", Font.BOLD, 14));
-        telephoneLabel.setPreferredSize(new Dimension(130, 20));
+        telephoneLabel.setFont(labelFont);
+        telephoneLabel.setPreferredSize(labelSize);
 
         membershipDateLabel = new JLabel("Membership Date");
-        membershipDateLabel.setFont(new Font("arial", Font.BOLD, 14));
-        membershipDateLabel.setPreferredSize(new Dimension(130, 20));
+        membershipDateLabel.setFont(labelFont);
+        membershipDateLabel.setPreferredSize(labelSize);
 
         membershipExpiryDateLabel = new JLabel("Expiry Date");
-        membershipExpiryDateLabel.setFont(new Font("arial", Font.BOLD, 14));
-        membershipExpiryDateLabel.setPreferredSize(new Dimension(130, 20));
+        membershipExpiryDateLabel.setFont(labelFont);
+        membershipExpiryDateLabel.setPreferredSize(labelSize);
 
         //Field properties
         idField = new JTextField(generateId());
         idField.setBorder(new RoundedBorder(8));
-        idField.setPreferredSize(new Dimension(250, 30));
+        idField.setPreferredSize(fieldSize);
+        idField.setFont(fieldFont);
 
         firstNameField = new JTextField();
         firstNameField.setBorder(new RoundedBorder(8));
-        firstNameField.setPreferredSize(new Dimension(250, 30));
+        firstNameField.setPreferredSize(fieldSize);
+        firstNameField.setFont(fieldFont);
 
         lastNameField = new JTextField();
         lastNameField.setBorder(new RoundedBorder(8));
-        lastNameField.setPreferredSize(new Dimension(250, 30));
+        lastNameField.setPreferredSize(fieldSize);
+        lastNameField.setFont(fieldFont);
 
         emailField = new JTextField();
         emailField.setBorder(new RoundedBorder(8));
-        emailField.setPreferredSize(new Dimension(250, 30));
+        emailField.setPreferredSize(fieldSize);
+        emailField.setFont(fieldFont);
 
         addressField = new JTextField();
         addressField.setBorder(new RoundedBorder(8));
-        addressField.setPreferredSize(new Dimension(250, 30));
+        addressField.setPreferredSize(fieldSize);
+        addressField.setFont(fieldFont);
 
         telephoneField = new JTextField();
         telephoneField.setBorder(new RoundedBorder(8));
-        telephoneField.setPreferredSize(new Dimension(250, 30));
+        telephoneField.setPreferredSize(fieldSize);
+        telephoneField.setFont(fieldFont);
 
         //DatePicker properties
         dobPicker = new DatePicker();
@@ -168,12 +185,12 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
                             idField.getText(),
                             firstNameField.getText(),
                             lastNameField.getText(),
-                            new Date(dobPicker.getSelectedDate()),
+                            dobPicker.getSelectedDate(),
                             addressField.getText(),
                             telephoneField.getText(),
                             emailField.getText(),
-                            new Date(membershipDatePicker.getSelectedDate()),
-                            new Date(membershipExpiryDatePicker.getSelectedDate())
+                            membershipDatePicker.getSelectedDate(),
+                            membershipExpiryDatePicker.getSelectedDate()
                     );
                     client.sendAction("Add Customer");
                     client.sendCustomer(customer);
