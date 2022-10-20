@@ -19,14 +19,14 @@ import java.awt.event.ActionListener;
 /**
  * @author Malik Heron
  */
-public class InventorySearchDialog extends JDialog implements ActionListener {
+public class SearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private final DefaultTableModel model;
     private JLabel codeLabel;
     private JTextField codeField;
     private JButton confirmButton;
 
-    public InventorySearchDialog(DefaultTableModel model) {
+    public SearchDialog(DefaultTableModel model) {
         this.model = model;
         initializeComponents();
         addComponentsToWindow();

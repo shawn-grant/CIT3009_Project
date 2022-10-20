@@ -2,10 +2,10 @@ package view;
 
 import client.Client;
 import models.Employee;
-import view.dialogs.staff.StaffDeleteDialog;
-import view.dialogs.staff.StaffInsertDialog;
-import view.dialogs.staff.StaffSearchDialog;
-import view.dialogs.staff.StaffUpdateDialog;
+import view.dialogs.staff.RemoveDialog;
+import view.dialogs.staff.InsertDialog;
+import view.dialogs.staff.SearchDialog;
+import view.dialogs.staff.UpdateDialog;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -89,19 +89,19 @@ public class StaffScreen extends BaseScreen implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            new StaffInsertDialog();
+            new InsertDialog();
             getStaff();
         }
         if (e.getSource().equals(updateButton)) {
-            new StaffUpdateDialog();
+            new UpdateDialog();
             getStaff();
         }
         if (e.getSource().equals(searchButton)) {
-            new StaffSearchDialog(null);
+            new SearchDialog(null);
             getStaff();
         }
         if (e.getSource().equals(deleteButton)) {
-            new StaffDeleteDialog(null);
+            new RemoveDialog(null);
             getStaff();
         }
         if (e.getSource().equals(refreshButton)) {

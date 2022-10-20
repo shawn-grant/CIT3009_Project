@@ -2,7 +2,6 @@ package view.dialogs.customer;
 
 import client.Client;
 import models.Customer;
-import models.Product;
 import view.RoundedBorder;
 
 import javax.swing.*;
@@ -14,14 +13,14 @@ import java.awt.event.ActionListener;
 /**
  * @author Malik Heron
  */
-public class CustomerSearchDialog extends JDialog implements ActionListener {
+public class SearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private final DefaultTableModel model;
     private JLabel idLabel;
     private JTextField idField;
     private JButton confirmButton;
 
-    public CustomerSearchDialog(DefaultTableModel model) {
+    public SearchDialog(DefaultTableModel model) {
         this.model = model;
         initializeComponents();
         addComponentsToWindow();

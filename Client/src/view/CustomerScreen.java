@@ -7,10 +7,9 @@ package view;
 
 import client.Client;
 import models.Customer;
-import view.dialogs.customer.CustomerInsertDialog;
-import view.dialogs.customer.CustomerRemoveDialog;
-import view.dialogs.customer.CustomerSearchDialog;
-import view.dialogs.inventory.InventoryRemoveDialog;
+import view.dialogs.customer.InsertDialog;
+import view.dialogs.customer.RemoveDialog;
+import view.dialogs.customer.SearchDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -123,7 +122,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addButton)) {
-            new CustomerInsertDialog();
+            new InsertDialog();
             getData();
         }
         if (e.getSource().equals(updateButton)) {
@@ -131,11 +130,11 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             getData();   
         }
         if (e.getSource().equals(searchButton)) {
-            new CustomerSearchDialog(model);
+            new SearchDialog(model);
         }
         if (e.getSource().equals(deleteButton)) {
             if (!removeItem()) {
-                new CustomerRemoveDialog();
+                new RemoveDialog();
             }
             getData();
         }

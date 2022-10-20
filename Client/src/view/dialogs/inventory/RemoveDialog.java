@@ -1,23 +1,29 @@
-package view.dialogs.customer;
+package view.dialogs.inventory;
 
 import client.Client;
 import view.RoundedBorder;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * @author Malik Heron
  */
-public class CustomerRemoveDialog extends JDialog implements ActionListener {
+public class RemoveDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
-    private JLabel idLabel;
-    private JTextField idField;
+    private JLabel codeLabel;
+    private JTextField codeField;
     private JButton confirmButton;
 
-    public CustomerRemoveDialog() {
+    public RemoveDialog() {
         initializeComponents();
         addComponentsToWindow();
         registerListeners();
@@ -26,15 +32,15 @@ public class CustomerRemoveDialog extends JDialog implements ActionListener {
 
     private void initializeComponents() {
         //Label properties
-        idLabel = new JLabel("Customer ID");
-        idLabel.setFont(new Font("arial", Font.BOLD, 14));
-        idLabel.setPreferredSize(new Dimension(100, 20));
+        codeLabel = new JLabel("Product Code");
+        codeLabel.setFont(new Font("arial", Font.BOLD, 14));
+        codeLabel.setPreferredSize(new Dimension(100, 20));
 
         //Field properties
-        idField = new JTextField();
-        idField.setFont(new Font("arial", Font.PLAIN, 14));
-        idField.setBorder(new RoundedBorder(8));
-        idField.setPreferredSize(new Dimension(90, 35));
+        codeField = new JTextField();
+        codeField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        codeField.setBorder(new RoundedBorder(8));
+        codeField.setPreferredSize(new Dimension(90, 35));
 
         //Button properties
         confirmButton = new JButton("REMOVE");
@@ -47,14 +53,14 @@ public class CustomerRemoveDialog extends JDialog implements ActionListener {
     }
 
     private void addComponentsToWindow() {
-        add(idLabel);
-        add(idField);
+        add(codeLabel);
+        add(codeField);
         add(confirmButton);
     }
 
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        setTitle("Remove Customer");
+        setTitle("Remove Product");
         setSize(350, 90);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -67,7 +73,7 @@ public class CustomerRemoveDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
-        return !(idField.getText().isEmpty());
+        return !(codeField.getText().isEmpty());
     }
 
     @Override
@@ -75,8 +81,8 @@ public class CustomerRemoveDialog extends JDialog implements ActionListener {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
                 Client client = new Client();
-                client.sendAction("Remove Customer");
-                client.sendCustomerId(idField.getText());
+                client.sendAction("Remove Product");
+                client.sendProductCode(codeField.getText());
                 client.receiveResponse();
                 client.closeConnections();
                 dispose();
