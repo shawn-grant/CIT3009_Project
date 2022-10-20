@@ -5,6 +5,9 @@ import view.RoundedBorder;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Malik Heron & Shawn Grant
+ */
 public class DatePicker extends JPanel {
 
     private final JComboBox<Integer> dayBox;

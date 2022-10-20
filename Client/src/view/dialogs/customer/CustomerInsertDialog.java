@@ -9,6 +9,7 @@ import client.Client;
 import models.Customer;
 import view.RoundedBorder;
 import view.components.DatePicker;
+import view.components.EmailVerifier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -161,23 +162,32 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                Client client = new Client();
-                Customer customer = new Customer(
-                        idField.getText(),
-                        firstNameField.getText(),
-                        lastNameField.getText(),
-                        new Date(dobPicker.getSelectedDate()),
-                        addressField.getText(),
-                        telephoneField.getText(),
-                        emailField.getText(),
-                        new Date(membershipDatePicker.getSelectedDate()),
-                        new Date(membershipExpiryDatePicker.getSelectedDate())
-                );
-                client.sendAction("Add Customer");
-                client.sendCustomer(customer);
-                client.receiveResponse();
-                client.closeConnections();
-                dispose();
+                if(EmailVerifier.isValid(emailField.getText())) {
+                    Client client = new Client();
+                    Customer customer = new Customer(
+                            idField.getText(),
+                            firstNameField.getText(),
+                            lastNameField.getText(),
+                            new Date(dobPicker.getSelectedDate()),
+                            addressField.getText(),
+                            telephoneField.getText(),
+                            emailField.getText(),
+                            new Date(membershipDatePicker.getSelectedDate()),
+                            new Date(membershipExpiryDatePicker.getSelectedDate())
+                    );
+                    client.sendAction("Add Customer");
+                    client.sendCustomer(customer);
+                    client.receiveResponse();
+                    client.closeConnections();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Invalid email address",
+                            "Invalid Field",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
             } else {
                 JOptionPane.showMessageDialog(
                         this,

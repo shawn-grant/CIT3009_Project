@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Malik Heron
+ */
 public class InventorySearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private final DefaultTableModel model;
