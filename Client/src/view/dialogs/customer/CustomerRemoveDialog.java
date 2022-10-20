@@ -34,7 +34,7 @@ public class CustomerRemoveDialog extends JDialog implements ActionListener {
         idField = new JTextField();
         idField.setFont(new Font("arial", Font.PLAIN, 14));
         idField.setBorder(new RoundedBorder(8));
-        idField.setPreferredSize(new Dimension(90, 30));
+        idField.setPreferredSize(new Dimension(90, 35));
 
         //Button properties
         confirmButton = new JButton("REMOVE");

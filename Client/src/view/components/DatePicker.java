@@ -32,8 +32,10 @@ public class DatePicker extends JPanel {
         }
 
         Dimension boxSize = new Dimension(70, 35);
+        Font boxFont = new Font("arial", Font.PLAIN, 14);
 
         dayBox = new JComboBox<>(days);
+        dayBox.setFont(boxFont);
         dayBox.setPreferredSize(boxSize);
         dayBox.setBorder(new RoundedBorder(7));
         dayBox.setFocusable(false);
@@ -43,11 +45,13 @@ public class DatePicker extends JPanel {
                 "July", "August", "September", "October", "November", "December"
         };
         monthBox = new JComboBox<>(months);
+        monthBox.setFont(boxFont);
         monthBox.setPreferredSize(new Dimension(108, 35));
         monthBox.setBorder(new RoundedBorder(7));
         monthBox.setFocusable(false);
 
         yearBox = new JComboBox<>(years);
+        yearBox.setFont(boxFont);
         yearBox.setPreferredSize(boxSize);
         yearBox.setBorder(new RoundedBorder(7));
         yearBox.setFocusable(false);
