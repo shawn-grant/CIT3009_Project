@@ -1,5 +1,16 @@
 package server;
 
+import factories.DBConnectorFactory;
+import factories.SessionFactoryBuilder;
+import models.Customer;
+import models.Employee;
+import models.Invoice;
+import models.Product;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import view.MainScreen;
+import view.SplashScreen;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,18 +22,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import factories.DBConnectorFactory;
-import factories.SessionFactoryBuilder;
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
-import view.MainnScreen;
-import view.SplashScreen;
-
+/**
+ * @author Malik Heron
+ */
 public class Server {
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
@@ -32,7 +34,7 @@ public class Server {
     private Socket clientSocket;
     private ObjectOutputStream objOs;
     private ObjectInputStream objIs;
-    private MainnScreen mainScreen;
+    private MainScreen mainScreen;
 
     public Server() {
         createConnection();
@@ -72,7 +74,7 @@ public class Server {
     }
 
     private void waitForRequests() {
-        mainScreen = new MainnScreen(serverSocket);
+        mainScreen = new MainScreen(serverSocket);
         splashScreen.dispose();
         mainScreen.setVisible(true);
         System.out.println("Sever is running...");
@@ -347,7 +349,7 @@ public class Server {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                employeeList = session.createQuery("FROM employee").getResultList();
+                employeeList = (List<Employee>) session.createQuery("FROM employee").getResultList();
                 transaction.commit();
                 session.close();
             }
@@ -363,7 +365,7 @@ public class Server {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                customerList = session.createQuery("FROM customer").getResultList();
+                customerList = (List<Customer>) session.createQuery("FROM customer").getResultList();
                 transaction.commit();
                 session.close();
             }
@@ -379,7 +381,7 @@ public class Server {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                productList = session.createQuery("FROM product").getResultList();
+                productList = (List<Product>) session.createQuery("FROM product").getResultList();
                 transaction.commit();
                 session.close();
             }

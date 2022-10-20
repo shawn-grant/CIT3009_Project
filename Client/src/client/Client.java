@@ -1,5 +1,11 @@
 package client;
 
+import models.Customer;
+import models.Employee;
+import models.Invoice;
+import models.Product;
+
+import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,13 +13,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
-
+/**
+ * @author Malik Heron
+ */
 public class Client {
 
     private Socket connectionSocket;
@@ -486,7 +488,7 @@ public class Client {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {
@@ -510,7 +512,7 @@ public class Client {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {

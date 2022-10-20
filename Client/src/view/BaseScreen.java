@@ -5,19 +5,30 @@
  */
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridLayout;
 
 public class BaseScreen extends JPanel {
 
-    private final Color headerColor = new Color(27, 73, 142);
+    private final Color headerColor = new Color(0, 100, 205);
     protected JButton addButton; // add a new item
     protected JButton updateButton; // update existing item
     protected JButton deleteButton; // delete item
     protected JButton refreshButton; // get all items
     protected JButton searchButton; // find an item
-    private JLabel titleLabel;
     protected JPanel buttonPanel;
+    private JLabel titleLabel;
     private JPanel mainContent; // where the content is shown, set it child class
 
     public BaseScreen(String title) {
@@ -62,6 +73,13 @@ public class BaseScreen extends JPanel {
         deleteButton.setFont(new Font("arial", Font.PLAIN, 15));
         searchButton.setFont(new Font("arial", Font.PLAIN, 15));
         refreshButton.setFont(new Font("arial", Font.PLAIN, 15));
+
+        // Set focus paint
+        addButton.setFocusPainted(false);
+        updateButton.setFocusPainted(false);
+        deleteButton.setFocusPainted(false);
+        searchButton.setFocusPainted(false);
+        refreshButton.setFocusPainted(false);
 
         // JPanel properties
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));

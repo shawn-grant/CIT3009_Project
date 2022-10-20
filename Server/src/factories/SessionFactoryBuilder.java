@@ -1,16 +1,14 @@
 package factories;
 
+import models.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import models.Customer;
-import models.Department;
-import models.Employee;
-import models.Invoice;
-import models.Product;
-
+/**
+ * @author Malik Heron
+ */
 public class SessionFactoryBuilder {
 
     private static final Configuration configuration = new Configuration();
