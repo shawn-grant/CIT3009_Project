@@ -32,7 +32,7 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
-    }
+    } 
 
     private void initializeComponents() {
     	staffIDLabel = new JLabel("Staff ID");

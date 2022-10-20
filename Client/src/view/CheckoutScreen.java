@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import client.Client;
 import models.Product;
 import view.dialogs.checkout.*;
-
+ 
 public class CheckoutScreen extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JButton addButton, deleteButton, clearButton, checkoutButton, searchButton; 
