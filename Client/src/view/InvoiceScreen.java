@@ -1,10 +1,5 @@
 package view;
 
-import view.dialogs.inventory.InventoryInsertDialog;
-import view.dialogs.inventory.InventoryRemoveDialog;
-import view.dialogs.inventory.InventorySearchDialog;
-import view.dialogs.inventory.InventoryUpdateDialog;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

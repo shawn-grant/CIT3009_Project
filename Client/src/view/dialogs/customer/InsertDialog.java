@@ -22,9 +22,8 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
-public class CustomerInsertDialog extends JDialog implements ActionListener {
+public class InsertDialog extends JDialog implements ActionListener {
 
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
     private JLabel addressLabel, telephoneLabel, emailLabel;
@@ -34,7 +33,7 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
 
-    public CustomerInsertDialog() {
+    public InsertDialog() {
         initializeComponents();
         addPanelsToWindow();
         registerListeners();

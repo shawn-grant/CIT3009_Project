@@ -19,14 +19,13 @@ import java.awt.event.ActionListener;
 /**
  * @author Malik Heron
  */
-public class InventoryUpdateDialog extends JDialog implements ActionListener {
-
+public class InsertDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private JLabel nameLabel, codeLabel, shortDescLabel, longDescLabel, inStockLabel, unitPriceLabel;
     private JTextField nameField, codeField, shortDescField, longDescField, inStockField, unitPriceField;
     private JButton cancelButton, confirmButton;
 
-    public InventoryUpdateDialog() {
+    public InsertDialog() {
         initializeComponents();
         addComponentsToWindow();
         registerListeners();
@@ -96,7 +95,7 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
         unitPriceField.setPreferredSize(fieldSize);
 
         //Button properties
-        confirmButton = new JButton("UPDATE PRODUCT");
+        confirmButton = new JButton("ADD PRODUCT");
         confirmButton.setPreferredSize(new Dimension(200, 30));
         confirmButton.setForeground(Color.BLUE);
         confirmButton.setFont(labelFont);
@@ -127,7 +126,7 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
 
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        setTitle("Update Product");
+        setTitle("Add New Product");
         setSize(430, 320);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -151,15 +150,10 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
                 Client client = new Client();
-                client.sendAction("Update Product");
-                Product product = new Product(
-                        codeField.getText(),
-                        nameField.getText(),
-                        shortDescField.getText(),
-                        longDescField.getText(),
-                        Integer.parseInt(inStockField.getText()),
-                        Float.parseFloat(unitPriceField.getText())
-                );
+                client.sendAction("Add Product");
+                Product product = new Product(codeField.getText(), nameField.getText(), shortDescField.getText(),
+                        longDescField.getText(), Integer.parseInt(inStockField.getText()),
+                        Float.parseFloat(unitPriceField.getText()));
                 client.sendProduct(product);
                 client.receiveResponse();
                 client.closeConnections();
@@ -169,8 +163,7 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
                         this,
                         "One or more fields empty",
                         "Warning",
-                        JOptionPane.WARNING_MESSAGE
-                );
+                        JOptionPane.WARNING_MESSAGE);
             }
         }
 
@@ -178,5 +171,4 @@ public class InventoryUpdateDialog extends JDialog implements ActionListener {
             dispose();
         }
     }
-
 }

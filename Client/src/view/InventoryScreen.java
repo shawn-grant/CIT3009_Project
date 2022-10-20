@@ -2,10 +2,10 @@ package view;
 
 import client.Client;
 import models.Product;
-import view.dialogs.inventory.InventoryInsertDialog;
-import view.dialogs.inventory.InventoryRemoveDialog;
-import view.dialogs.inventory.InventorySearchDialog;
-import view.dialogs.inventory.InventoryUpdateDialog;
+import view.dialogs.inventory.InsertDialog;
+import view.dialogs.inventory.RemoveDialog;
+import view.dialogs.inventory.SearchDialog;
+import view.dialogs.inventory.UpdateDialog;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -120,19 +120,19 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            new InventoryInsertDialog();
+            new InsertDialog();
             getInventory();
         }
         if (e.getSource().equals(searchButton)) {
-            new InventorySearchDialog(model);
+            new SearchDialog(model);
         }
         if (e.getSource().equals(updateButton)) {
-            new InventoryUpdateDialog();
+            new UpdateDialog();
             getInventory();
         }
         if (e.getSource().equals(deleteButton)) {
             if (!removeItem()) {
-                new InventoryRemoveDialog();
+                new RemoveDialog();
             }
             getInventory();
         }
