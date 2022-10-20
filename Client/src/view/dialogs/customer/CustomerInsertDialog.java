@@ -27,13 +27,13 @@ public class CustomerInsertDialog extends JDialog implements ActionListener {
     private JButton cancelButton, confirmButton;
 
     public CustomerInsertDialog() {
-        initComponents();
+        initializeComponents();
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
     }
 
-    private void initComponents() {
+    private void initializeComponents() {
         //Label properties
         idLabel = new JLabel("ID");
         idLabel.setFont(new Font("arial", Font.BOLD, 14));
