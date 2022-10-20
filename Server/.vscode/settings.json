@@ -6,9 +6,9 @@
     "java.project.referencedLibraries": {
         "include": [
             "lib/**/*.jar",
+            "c:\\Users\\shawn\\Documents\\JAVA_PROJECTS\\AP_LABS\\CIT3009_Project\\Jar_Libraries\\hibernate-core-5.2.12.Final.jar",
             "c:\\Users\\shawn\\Documents\\JAVA_PROJECTS\\AP_LABS\\CIT3009_Project\\Jar_Libraries\\jakarta.persistence-api-2.2.3.jar",
-            "c:\\Users\\shawn\\Documents\\JAVA_PROJECTS\\AP_LABS\\CIT3009_Project\\Jar_Libraries\\mysql-connector-java-8.0.30.jar",
-            "c:\\Users\\shawn\\Documents\\JAVA_PROJECTS\\AP_LABS\\CIT3009_Project\\Jar_Libraries\\hibernate-core-5.2.12.Final.jar"
+            "c:\\Users\\shawn\\Documents\\JAVA_PROJECTS\\AP_LABS\\CIT3009_Project\\Jar_Libraries\\mysql-connector-java-8.0.30.jar"
         ],
         "exclude": [
             "c:\\Users\\shawn\\Downloads\\hibernate-core-5.2.12.Final.jar"
