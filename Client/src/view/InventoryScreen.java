@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * @author Malik Heron
+ */
 public class InventoryScreen extends BaseScreen implements ActionListener {
 
     private final String[] tableHeaders = {

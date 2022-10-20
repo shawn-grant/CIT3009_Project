@@ -13,6 +13,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Malik Heron
+ */
 public class Client {
 
     private Socket connectionSocket;
