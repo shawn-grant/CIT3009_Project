@@ -36,16 +36,16 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
 
     private void initializeComponents() {
     	staffIDLabel = new JLabel("Staff ID");
-        staffIDLabel.setFont(new Font("arial", Font.BOLD, 12));
-        staffIDLabel.setPreferredSize(new Dimension(120, 20));
+        staffIDLabel.setFont(new Font("arial", Font.BOLD, 14));
+        staffIDLabel.setPreferredSize(new Dimension(130, 20));
 
         staffTxtValue = new JTextField();
         staffTxtValue.setBorder(new RoundedBorder(8));
         staffTxtValue.setPreferredSize(new Dimension(250, 30));
         
         customerIDLabel = new JLabel("Customer ID");
-        customerIDLabel.setFont(new Font("arial", Font.BOLD, 12));
-        customerIDLabel.setPreferredSize(new Dimension(120, 20));
+        customerIDLabel.setFont(new Font("arial", Font.BOLD, 14));
+        customerIDLabel.setPreferredSize(new Dimension(130, 20));
 
         customerTxtValue = new JTextField("N/A");
         customerTxtValue.setBorder(new RoundedBorder(8));
@@ -53,8 +53,8 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
         customerTxtValue.setText("C000");
 
         totalItemsLbl = new JLabel("Total Items");
-        totalItemsLbl.setFont(new Font("arial", Font.BOLD, 12));
-        totalItemsLbl.setPreferredSize(new Dimension(120, 20));
+        totalItemsLbl.setFont(new Font("arial", Font.BOLD, 14));
+        totalItemsLbl.setPreferredSize(new Dimension(130, 20));
 
         totalItemsTxtValue = new JTextField();
         totalItemsTxtValue.setBorder(new RoundedBorder(8));
@@ -63,8 +63,8 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
         totalItemsTxtValue.setText(Integer.toString(getTotalQuantity()));
         
         totalCostlbl = new JLabel("Total Cost");
-        totalCostlbl.setFont(new Font("arial", Font.BOLD, 12));
-        totalCostlbl.setPreferredSize(new Dimension(120, 20));
+        totalCostlbl.setFont(new Font("arial", Font.BOLD, 14));
+        totalCostlbl.setPreferredSize(new Dimension(130, 20));
 
         totalCostTxtValue = new JTextField();
         totalCostTxtValue.setBorder(new RoundedBorder(8));
@@ -73,8 +73,8 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
         totalCostTxtValue.setText(Float.toString(getTotalCost()));
         
         tenderedLabel = new JLabel("Tendered");
-        tenderedLabel.setFont(new Font("arial", Font.BOLD, 12));
-        tenderedLabel.setPreferredSize(new Dimension(120, 20));
+        tenderedLabel.setFont(new Font("arial", Font.BOLD, 14));
+        tenderedLabel.setPreferredSize(new Dimension(130, 20));
         
         tenderedTxtValue = new JTextField();
         tenderedTxtValue.setBorder(new RoundedBorder(8));
@@ -87,6 +87,7 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
         
         cancelButton = new JButton("Cancel");
         cancelButton.setPreferredSize(new Dimension(100, 30));
+        cancelButton.setForeground(Color.RED);
     }
 
     private void addPanelsToWindow() {
@@ -106,12 +107,20 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
 
     private void setWindowProperties() {
     	setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        setTitle("Cashout Items");
+        setSize(420, 300);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setModal(true);
+        setVisible(true);
+        /*
+    	setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
     	setTitle("Cashout Items");
     	setSize(420, 330);
     	setLocationRelativeTo(null);
     	setResizable(false);
     	setModal(true);
-    	setVisible(true);
+    	setVisible(true);*/
     }
     
     private boolean validateFields() {

@@ -33,12 +33,15 @@ import javax.swing.table.DefaultTableModel;
 import client.Client;
 import models.Product;
 import view.dialogs.checkout.*;
+import view.dialogs.customer.CustomerInsertDialog;
  
 public class CheckoutScreen extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
-	private JButton addButton, deleteButton, clearButton, checkoutButton, searchButton; 
+	private JButton addButton, deleteButton, clearButton, checkoutButton, searchButton, addCustomerButton; 
     private JLabel titleLabel, productCodeLbl, itemNameLabel, quantityLabel, unitPrice;
+    private JLabel customer, staff;
     private JTextField codeTxtValue, quantityTxtValue, itemNameTxtValue, unitPriceTxtValue;
+    private JTextField customerTxtValue, staffTxtValue;
     private JPanel centerPanel, mainContent; 
 	private final String[] TableColumns = {"Product Code", "Product Name", "Quantity", "Unit Price", "Cost"};
 	private JTable table;
@@ -46,7 +49,7 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	public CheckoutScreen() {
-		setBackground(new Color(0, 100, 205));
+		setBackground(new Color(27, 73, 142));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(800, 600);
 	        
@@ -65,10 +68,13 @@ public class CheckoutScreen extends JPanel implements ActionListener{
         titleLabel.setForeground(Color.WHITE);
        
         productCodeLbl = new JLabel("Product Code");
+       // productCodeLbl.setFont(new Font("arial",Font.CENTER_BASELINE,20));
         itemNameLabel = new JLabel("Item");
-        quantityLabel = new JLabel("Quantity");;
-        unitPrice = new JLabel("Unit Price");;
-        
+        quantityLabel = new JLabel("Quantity");
+        unitPrice = new JLabel("Unit Price");
+        customer = new JLabel("Customer ID");
+        staff = new JLabel("Staff ID");
+       
         //Initializing Text areas
         codeTxtValue = new JTextField(20);
         quantityTxtValue = new JTextField(20);
@@ -76,7 +82,9 @@ public class CheckoutScreen extends JPanel implements ActionListener{
         unitPriceTxtValue = new JTextField(20);
         itemNameTxtValue.setEditable(false);
         unitPriceTxtValue.setEditable(false);
-                
+       customerTxtValue = new JTextField(20);
+        staffTxtValue = new JTextField(20);
+       
         //initializing buttons
         addButton = new JButton("Add");
         deleteButton = new JButton("Delete");
@@ -84,13 +92,16 @@ public class CheckoutScreen extends JPanel implements ActionListener{
         checkoutButton = new JButton("Checkout");
         checkoutButton.setEnabled(false);
         searchButton = new JButton("Search");
+        addCustomerButton = new JButton("Add customer");
         
         //Setting button sizes
         addButton.setPreferredSize(new Dimension(100, 40));
         deleteButton.setPreferredSize(new Dimension(100, 40));
         clearButton.setPreferredSize(new Dimension(100, 40));
         checkoutButton.setPreferredSize(new Dimension(100, 40));
-        searchButton.setPreferredSize(new Dimension(100,20));
+        searchButton.setPreferredSize(new Dimension(90,20));
+        addCustomerButton.setPreferredSize(new Dimension(130,20));
+        
         
         //Setting button font & Colour
         addButton.setFont(new Font("arial", Font.PLAIN, 15));
@@ -103,7 +114,9 @@ public class CheckoutScreen extends JPanel implements ActionListener{
         checkoutButton.setBackground(new Color(224, 224, 224));
         searchButton.setFont(new Font("arial", Font.PLAIN, 15));
         searchButton.setBackground(new Color(224, 224, 224));
-       
+        addCustomerButton.setFont(new Font("arial", Font.PLAIN, 15));
+        addCustomerButton.setBackground(new Color(224, 224, 224));
+        
         //Setting Panel Properties
         mainContent = new JPanel(new GridLayout(0, 1, 0, 70));
         centerPanel = new JPanel(new GridBagLayout());	//NTS: SetBounds??
@@ -120,91 +133,186 @@ public class CheckoutScreen extends JPanel implements ActionListener{
         table.setBackground(Color.white);
         table.setForeground(Color.black);
 	 }
-		
+	
+		/*
 	 private void addComponentsToPanels() {
 		//Adding Labels and fields to label panel
-		gbc.insets = new Insets(10, 10, 20, 10);//Sets Padding around values
-		 
+		gbc.insets = new Insets(25, 10, 20, 10);//Sets Padding around values
+		
+		////////////////First Row//////////////////
+		gbc.weightx = 1;
+		gbc.weighty= 1;
 		gbc.gridx = 0;//Setting position on x axis
 		gbc.gridy = 0;//Setting position on Y axis
 		gbc.gridwidth = 1; //Setting number of columns occupied by the grid object
-		gbc.fill = GridBagConstraints.HORIZONTAL;//Filling grid object into space specified grid width 
+		gbc.fill = GridBagConstraints.NONE;//Filling grid object into space specified grid width
+		//gbc.anchor = GridBagConstraints.LINE_END;
 		centerPanel.add(productCodeLbl, gbc);
-		 
+		  
         gbc.gridx = 2;
 		gbc.gridy = 0;
 		gbc.gridwidth = 4;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
+		//gbc.anchor = GridBagConstraints.LINE_START;
 		centerPanel.add(codeTxtValue, gbc);
 		
 		gbc.gridx = 6;
 		gbc.gridy = 0;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
+		//gbc.anchor = GridBagConstraints.CENTER;
 		centerPanel.add(searchButton, gbc);
 		
 		gbc.gridx = 7;
 		gbc.gridy = 0;
 		gbc.gridwidth = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.fill = GridBagConstraints.NONE;
 		centerPanel.add(quantityLabel, gbc);
 		
-		gbc.gridx = 9;
+		gbc.gridx = 8;
 		gbc.gridy = 0;
-		gbc.gridwidth = 2;
+		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add(quantityTxtValue, gbc);
 		
+		/////////////////////////Second Row//////////////////////////
+		gbc.weightx = 1;
+		gbc.weighty= 1;
 		gbc.gridx = 0;
-		gbc.gridy = 7;
+		gbc.gridy = 1;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add(itemNameLabel, gbc);
 		 
 		gbc.gridx = 2;
-		gbc.gridy = 7;
+		gbc.gridy = 1;
 		gbc.gridwidth = 4;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add(itemNameTxtValue, gbc);
 		
 		gbc.gridx = 7;
-		gbc.gridy = 7;
+		gbc.gridy = 1;
 		gbc.gridwidth = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.fill = GridBagConstraints.NONE;
 		centerPanel.add(unitPrice, gbc);
 		
-		gbc.gridx = 9;
-		gbc.gridy = 7;
-		gbc.gridwidth = 2;
+		gbc.gridx = 8;
+		gbc.gridy = 1;
+		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add( unitPriceTxtValue, gbc);
 	
-		//adding buttons to button panel
+		////////////////////3rd Row////////////////////////
+		gbc.weightx = 1;
+		gbc.weighty= 1;
 		gbc.gridx = 0;
-		gbc.gridy = 10;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add(addButton, gbc);
 		
-		gbc.gridx = 4;
-		gbc.gridy = 10;
+		gbc.gridx = 5;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add(deleteButton, gbc);
 	    
-	    gbc.gridx = 9;
-		gbc.gridy = 10;
+	    gbc.gridx = 7;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add(clearButton, gbc);
        
-		gbc.gridx = 13;
-		gbc.gridy = 10;
+		gbc.gridx = 8;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		centerPanel.add(checkoutButton, gbc);  
 	 }
+	*/
 	
+	private void addComponentsToPanels() {
+		//Adding Labels and fields to label panel
+		gbc.insets = new Insets(25, 10, 20, 10);//Sets Padding around values
+		
+		gbc.gridx = 0;//Setting position on x axis
+		gbc.gridy = 0;//Setting position on Y axis
+		centerPanel.add(customer, gbc);
+		  
+        gbc.gridx = 1;
+		gbc.gridy = 0;
+		centerPanel.add(customerTxtValue, gbc);
+		
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		centerPanel.add(addCustomerButton, gbc);
+		
+		gbc.gridx = 3;
+		gbc.gridy = 0;
+		centerPanel.add(staff, gbc);
+		
+		gbc.gridx = 4;
+		gbc.gridy = 0;
+		centerPanel.add(staffTxtValue, gbc);
+		
+		////////////////First Row//////////////////
+		gbc.gridx = 0;//Setting position on x axis
+		gbc.gridy = 1;//Setting position on Y axis
+		centerPanel.add(productCodeLbl, gbc);
+		  
+        gbc.gridx = 1;
+		gbc.gridy = 1;
+		centerPanel.add(codeTxtValue, gbc);
+		
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		centerPanel.add(searchButton, gbc);
+		
+		gbc.gridx = 3;
+		gbc.gridy = 1;
+		centerPanel.add(quantityLabel, gbc);
+		
+		gbc.gridx = 4;
+		gbc.gridy = 1;
+		centerPanel.add(quantityTxtValue, gbc);
+		
+		/////////////////////////Second Row//////////////////////////
+		gbc.gridx = 0;
+		gbc.gridy= 2;
+		centerPanel.add(itemNameLabel, gbc);
+		 
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		centerPanel.add(itemNameTxtValue, gbc);
+		
+		gbc.gridx = 3;
+		gbc.gridy = 2;
+		centerPanel.add(unitPrice, gbc);
+		
+		gbc.gridx = 4;
+		gbc.gridy = 2;
+		centerPanel.add( unitPriceTxtValue, gbc);
+	
+		////////////////////3rd Row////////////////////////
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		centerPanel.add(addButton, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		centerPanel.add(deleteButton, gbc);
+	    
+	    gbc.gridx = 3;
+	    gbc.gridy = 3;
+		centerPanel.add(clearButton, gbc);
+       
+		gbc.gridx = 4;
+		gbc.gridy = 3;
+		centerPanel.add(checkoutButton, gbc);  
+	 }
+	 
+	 
+	 
 	 private void addPanelsToWindow() {
 	        add(Box.createRigidArea(new Dimension(0, 20)));// vertical spacing
 	        add(titleLabel);
@@ -324,7 +432,9 @@ public class CheckoutScreen extends JPanel implements ActionListener{
 	 
 	    @Override
 		public void actionPerformed(ActionEvent e) {
-
+	    	if (e.getSource() == addCustomerButton) {
+	    		new CustomerInsertDialog();
+	        }
 	    	if (e.getSource() == searchButton) {
 	    		searchInventory();
 	        }
