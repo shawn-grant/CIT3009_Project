@@ -7,12 +7,12 @@ import view.dialogs.staff.StaffInsertDialog;
 import view.dialogs.staff.StaffSearchDialog;
 import view.dialogs.staff.StaffUpdateDialog;
 
-import javax.swing.*;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 
 public class StaffScreen extends BaseScreen implements ActionListener {
 
@@ -20,7 +20,6 @@ public class StaffScreen extends BaseScreen implements ActionListener {
             "Address", "Telephone", "Email", "Employee Type", "Department"};
     private JTable table;
     private DefaultTableModel model;
-
 
     public StaffScreen() {
         super("Employees");
