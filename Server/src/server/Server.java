@@ -9,6 +9,7 @@ import models.Product;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import view.MainScreen;
+import view.MainnScreen;
 import view.SplashScreen;
 
 import java.io.EOFException;
@@ -25,6 +26,7 @@ import java.util.List;
 /**
  * @author Malik Heron
  */
+
 public class Server {
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
@@ -34,7 +36,7 @@ public class Server {
     private Socket clientSocket;
     private ObjectOutputStream objOs;
     private ObjectInputStream objIs;
-    private MainScreen mainScreen;
+    private MainnScreen mainScreen;
 
     public Server() {
         createConnection();
@@ -74,7 +76,7 @@ public class Server {
     }
 
     private void waitForRequests() {
-        mainScreen = new MainScreen(serverSocket);
+        mainScreen = new MainnScreen(serverSocket);
         splashScreen.dispose();
         mainScreen.setVisible(true);
         System.out.println("Sever is running...");
