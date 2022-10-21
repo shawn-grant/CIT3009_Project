@@ -35,7 +35,7 @@ public class Employee implements Serializable {
     private String email;
     @Column(name = "employeeType")
     private String type;
-    @Column(name = "department")
+    @Column(name = "dept_code")
     private String department;
 
     //Default Constructor
