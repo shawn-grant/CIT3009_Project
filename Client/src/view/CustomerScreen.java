@@ -121,7 +121,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         return isSelected;
     }
 
-    // remove item at selected row
+    // update item at selected row
     private boolean updateItem() {
         boolean isSelected = false;
         //auto populate if a row is selected
