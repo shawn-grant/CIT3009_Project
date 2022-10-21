@@ -32,18 +32,26 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private JTextField addressField, telephoneField, emailField;
     private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
+    private String[] dob, membershipDate, membershipExpiryDate;
+    private Customer customer;
 
     public UpdateDialog() {
         initializeComponents();
-        addPanelsToWindow();
+        addComponentsToWindow();
         registerListeners();
         setWindowProperties();
     }
 
     // for selected customer
-    public UpdateDialog(Customer customer) {
+    public UpdateDialog(Customer customer, String[] dob, String[] memDate, String[] memExpDate) {
+        this.customer = customer;
+        this.dob = dob;
+        this.membershipDate = memDate;
+        this.membershipExpiryDate = memExpDate;
+
         initializeComponents();
-        addPanelsToWindow();
+        setComponentValues();
+        addComponentsToWindow();
         registerListeners();
         setWindowProperties();
     }
@@ -128,7 +136,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
         membershipExpiryDatePicker = new DatePicker();
 
         //Button properties
-        confirmButton = new JButton("ADD CUSTOMER");
+        confirmButton = new JButton("UPDATE CUSTOMER");
         confirmButton.setPreferredSize(new Dimension(200, 30));
         confirmButton.setForeground(Color.BLUE);
         confirmButton.setFont(new Font("arial", Font.BOLD, 14));
@@ -139,7 +147,19 @@ public class UpdateDialog extends JDialog implements ActionListener {
         cancelButton.setFocusPainted(false);
     }
 
-    private void addPanelsToWindow() {
+    private void setComponentValues() {
+        idField.setText(customer.getId());
+        firstNameField.setText(customer.getFirstName());
+        lastNameField.setText(customer.getLastName());
+        dobPicker = new DatePicker(dob);
+        emailField.setText(customer.getEmail());
+        addressField.setText(customer.getAddress());
+        telephoneField.setText(customer.getTelephone());
+        membershipDatePicker = new DatePicker(membershipDate);
+        membershipExpiryDatePicker = new DatePicker(membershipExpiryDate);
+    }
+
+    private void addComponentsToWindow() {
         add(idLabel);
         add(idField);
         add(firstNameLabel);
@@ -187,7 +207,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                if(EmailVerifier.isValid(emailField.getText())) {
+                if (EmailVerifier.isValid(emailField.getText())) {
                     Customer customer = new Customer(
                             idField.getText(),
                             firstNameField.getText(),

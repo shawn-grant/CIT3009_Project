@@ -22,6 +22,8 @@ import view.components.DatePicker;
 public class InsertDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
+    private final String[] employeeTypes = {"Manager", "Supervisor", "Line Worker"};
+    private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
     private JLabel addressLabel, telephoneLabel, emailLabel;
     private JLabel typeLabel, departmentLabel;
@@ -30,8 +32,6 @@ public class InsertDialog extends JDialog implements ActionListener {
     private DatePicker dobPicker;
     private JButton cancelButton, confirmButton;
     private JComboBox<String> typeBox, departmentBox;
-    private final String[] employeeTypes = {"Manager", "Supervisor", "Line Worker"};
-    private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
 
     public InsertDialog() {
         initializeComponents();
@@ -120,15 +120,17 @@ public class InsertDialog extends JDialog implements ActionListener {
         //Box properties
         typeBox = new JComboBox<>(employeeTypes);
         typeBox.setSelectedItem(null);
-        typeBox.setFont(labelFont);
+        typeBox.setFont(fieldFont);
         typeBox.setPreferredSize(fieldSize);
         typeBox.setBorder(new RoundedBorder(8));
+        typeBox.setFocusable(false);
 
         departmentBox = new JComboBox<>(departments);
         departmentBox.setSelectedItem(null);
-        departmentBox.setFont(labelFont);
+        departmentBox.setFont(fieldFont);
         departmentBox.setPreferredSize(fieldSize);
         departmentBox.setBorder(new RoundedBorder(8));
+        departmentBox.setFocusable(false);
 
         //Button properties
         confirmButton = new JButton("ADD EMPLOYEE");

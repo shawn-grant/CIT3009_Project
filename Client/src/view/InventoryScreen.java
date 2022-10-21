@@ -1,6 +1,7 @@
 package view;
 
 import client.Client;
+import models.Customer;
 import models.Product;
 import view.dialogs.inventory.InsertDialog;
 import view.dialogs.inventory.RemoveDialog;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -116,6 +118,27 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         return isSelected;
     }
 
+    // remove item at selected row
+    private boolean updateItem() {
+        boolean isSelected = false;
+        //auto populate if a row is selected
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            Product product = new Product(
+                    model.getValueAt(table.getSelectedRow(), 0).toString(),
+                    model.getValueAt(table.getSelectedRow(), 1).toString(),
+                    model.getValueAt(table.getSelectedRow(), 2).toString(),
+                    model.getValueAt(table.getSelectedRow(), 3).toString(),
+                    Integer.parseInt(model.getValueAt(table.getSelectedRow(), 4).toString()),
+                    Float.parseFloat(model.getValueAt(table.getSelectedRow(), 5).toString() + "f")
+            );
+
+            // primary constructor to take a product
+            new UpdateDialog(product);
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -127,7 +150,9 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
             new SearchDialog(model);
         }
         if (e.getSource().equals(updateButton)) {
-            new UpdateDialog();
+            if (!updateItem()) {
+                new UpdateDialog();
+            }
             getInventory();
         }
         if (e.getSource().equals(deleteButton)) {

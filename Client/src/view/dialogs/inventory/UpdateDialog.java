@@ -1,6 +1,7 @@
 package view.dialogs.inventory;
 
 import client.Client;
+import models.Customer;
 import models.Product;
 import view.RoundedBorder;
 
@@ -25,9 +26,21 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private JLabel nameLabel, codeLabel, shortDescLabel, longDescLabel, inStockLabel, unitPriceLabel;
     private JTextField nameField, codeField, shortDescField, longDescField, inStockField, unitPriceField;
     private JButton cancelButton, confirmButton;
+    private Product product;
 
     public UpdateDialog() {
         initializeComponents();
+        addComponentsToWindow();
+        registerListeners();
+        setWindowProperties();
+    }
+
+    // for selected customer
+    public UpdateDialog(Product product) {
+        this.product = product;
+
+        initializeComponents();
+        setComponentValues();
         addComponentsToWindow();
         registerListeners();
         setWindowProperties();
@@ -106,6 +119,15 @@ public class UpdateDialog extends JDialog implements ActionListener {
         cancelButton.setPreferredSize(new Dimension(100, 30));
         cancelButton.setFont(labelFont);
         cancelButton.setFocusPainted(false);
+    }
+
+    private void setComponentValues() {
+        codeField.setText(product.getCode());
+        nameField.setText(product.getName());
+        shortDescField.setText(product.getShortDescription());
+        longDescField.setText(product.getLongDescription());
+        inStockField.setText(String.valueOf(product.getItemInStock()));
+        unitPriceField.setText(String.valueOf(product.getUnitPrice()));
     }
 
     private void addComponentsToWindow() {
