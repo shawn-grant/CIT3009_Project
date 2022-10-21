@@ -10,11 +10,13 @@ import models.Customer;
 import view.dialogs.customer.InsertDialog;
 import view.dialogs.customer.RemoveDialog;
 import view.dialogs.customer.SearchDialog;
+import view.dialogs.customer.UpdateDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 public class CustomerScreen extends BaseScreen implements ActionListener {
@@ -104,7 +106,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             int choice = JOptionPane.showConfirmDialog(
                     null,
                     "Remove this customer?",
-                    "Remove prompt",
+                    "Remove Customer",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
@@ -126,7 +128,32 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             getData();
         }
         if (e.getSource().equals(updateButton)) {
-            //new CustomerInsertDialog();
+            //auto populate if a row is selected
+            if (table.getSelectedRow() != -1) {
+
+                String dob = model.getValueAt(table.getSelectedRow(), 3).toString();
+                String memDate = model.getValueAt(table.getSelectedRow(), 7).toString();
+                String memExpDate = model.getValueAt(table.getSelectedRow(), 8).toString();
+                /// TODO: convert these to Dates
+
+                Customer selectedCustomer = new Customer(
+                    model.getValueAt(table.getSelectedRow(), 0).toString(),
+                    model.getValueAt(table.getSelectedRow(), 1).toString(),
+                    model.getValueAt(table.getSelectedRow(), 2).toString(),
+                    new Date(), // dob
+                    model.getValueAt(table.getSelectedRow(), 4).toString(),
+                    model.getValueAt(table.getSelectedRow(), 5).toString(),
+                    model.getValueAt(table.getSelectedRow(), 6).toString(),
+                    new Date(), // memDate
+                    new Date() // memExpDate
+                );
+
+                // made a constructor to take a customer
+                new UpdateDialog(selectedCustomer);
+            }
+            else{
+                new UpdateDialog();
+            }
             getData();   
         }
         if (e.getSource().equals(searchButton)) {

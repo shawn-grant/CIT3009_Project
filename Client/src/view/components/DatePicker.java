@@ -1,3 +1,8 @@
+/**
+ * DatePicker.java
+ * A standardized way to accept Date input
+ * @author Malik Heron & Shawn Grant
+ */
 package view.components;
 
 import view.RoundedBorder;
@@ -7,9 +12,6 @@ import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * @author Malik Heron & Shawn Grant
- */
 public class DatePicker extends JPanel {
 
     private final JComboBox<Integer> dayBox;
