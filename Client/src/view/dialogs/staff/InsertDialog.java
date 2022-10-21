@@ -1,158 +1,174 @@
 package view.dialogs.staff;
 
-import client.Client;
-
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
-import models.Employee;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class InsertDialog extends JDialog implements ActionListener {
-		
-	private static final long serialVersionUID = 1L;
-	private JLabel idLabel, firstNameLabel, lastNameLabel, DOBLabel,addressLabel,telLabel,
-    emailLabel,empTypeLabel, deptLabel; 
-    private JTextField idTextField, firstNameTextfield, lastNameTextField, DOBTextField,
-    addressTextField, telTextField,emailTextField;
-    private JButton saveButton,cancelButton;
-    private JComboBox <String> empTypeBox, deptBox;
-    private JPanel panTop, panBottom;
-	    
-	public InsertDialog() {
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+import client.Client;
+import models.Employee;
+import view.RoundedBorder;
+import view.components.DatePicker;
 
+public class InsertDialog extends JDialog implements ActionListener {
+
+    private static final long serialVersionUID = 1L;
+    private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
+    private JLabel addressLabel, telephoneLabel, emailLabel;
+    private JLabel typeLabel, departmentLabel;
+    private JTextField idField, firstNameField, lastNameField;
+    private JTextField addressField, telephoneField, emailField;
+    private DatePicker dobPicker;
+    private JButton cancelButton, confirmButton;
+    private JComboBox<String> typeBox, departmentBox;
+    private final String[] employeeTypes = {"Manager", "Supervisor", "Line Worker"};
+    private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
+
+    public InsertDialog() {
         initializeComponents();
         addComponentsToPanels();
-        addPanelsToWindow();
-        setWindowProperties();
         registerListeners();
-	}
-	    
-	private void initializeComponents() {
+        setWindowProperties();
+    }
 
-        idLabel = new JLabel("Employee ID ");
-        idLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        idTextField = new JTextField();
-        idLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        
+    private void initializeComponents() {
+        Dimension labelSize = new Dimension(140, 20);
+        Dimension fieldSize = new Dimension(250, 35);
+        Font labelFont = new Font("arial", Font.BOLD, 14);
+        Font fieldFont = new Font("arial", Font.PLAIN, 14);
+
+        //Label properties
+        idLabel = new JLabel("ID");
+        idLabel.setFont(labelFont);
+        idLabel.setPreferredSize(labelSize);
+
         firstNameLabel = new JLabel("First Name");
-        firstNameLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        firstNameTextfield = new JTextField();
-        firstNameTextfield.setFont(new Font("Aharoni", Font.BOLD, 14));
-        
+        firstNameLabel.setFont(labelFont);
+        firstNameLabel.setPreferredSize(labelSize);
+
         lastNameLabel = new JLabel("Last Name");
-        lastNameLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        lastNameTextField = new JTextField();
-        lastNameTextField.setFont(new Font("Aharoni", Font.BOLD, 14));
-        
-        DOBLabel = new JLabel("Date of Birth ");
-        DOBLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        DOBTextField = new JTextField();
-        DOBTextField.setFont(new Font("Aharoni", Font.BOLD, 14));
-        
-        addressLabel= new JLabel("Address");
-        addressLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        addressTextField = new JTextField();
-        addressTextField.setFont(new Font("Aharoni", Font.BOLD, 14));
-    
-        telLabel= new JLabel("Telephone #");
-        telLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        telTextField = new JTextField();
-        telTextField.setFont(new Font("Aharoni", Font.BOLD, 14));
-        
-        emailLabel= new JLabel("Email Address");
-        emailLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-        emailTextField = new JTextField();
-        emailTextField.setFont(new Font("Aharoni", Font.BOLD, 14));
-		 	
-	 	empTypeLabel= new JLabel("Employee Type");
-	 	empTypeLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-	 	String empType[] = {"","Manger", "Supervisor","Line Worker"};
-	    empTypeBox = new JComboBox<>(empType);
-		empTypeBox.setSelectedItem(null);
-	 	
-	 	deptLabel= new JLabel("Department");
-	 	deptLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
-	 	String  dept []= {"","Mangement","Inventory","Accounting & sales"};
-	 	deptBox = new JComboBox<>(dept);
-	    deptBox.setSelectedItem(null);
-	 	
-	 	cancelButton = new JButton("Cancel");
-        cancelButton.setFont(new Font("Aharoni", Font.BOLD, 14));
-        saveButton = new JButton("Save");
-        saveButton.setFont(new Font("Aharoni", Font.BOLD, 14));
-        
-        //Panel properties
-        panTop = new JPanel();
-        panBottom = new JPanel();
-        
-        saveButton.setFocusPainted(false);
+        lastNameLabel.setFont(labelFont);
+        lastNameLabel.setPreferredSize(labelSize);
+
+        dobLabel = new JLabel("Date of Birth");
+        dobLabel.setFont(labelFont);
+        dobLabel.setPreferredSize(labelSize);
+
+        emailLabel = new JLabel("Email");
+        emailLabel.setFont(labelFont);
+        emailLabel.setPreferredSize(labelSize);
+
+        addressLabel = new JLabel("Address");
+        addressLabel.setFont(labelFont);
+        addressLabel.setPreferredSize(labelSize);
+
+        telephoneLabel = new JLabel("Phone #");
+        telephoneLabel.setFont(labelFont);
+        telephoneLabel.setPreferredSize(labelSize);
+
+        typeLabel = new JLabel("Type");
+        typeLabel.setFont(labelFont);
+        typeLabel.setPreferredSize(labelSize);
+
+        departmentLabel = new JLabel("Department");
+        departmentLabel.setFont(labelFont);
+        departmentLabel.setPreferredSize(labelSize);
+
+        //DatePicker properties
+        dobPicker = new DatePicker();
+
+        //Field properties
+        idField = new JTextField(generateId());
+        idField.setBorder(new RoundedBorder(8));
+        idField.setPreferredSize(fieldSize);
+        idField.setFont(fieldFont);
+
+        firstNameField = new JTextField();
+        firstNameField.setBorder(new RoundedBorder(8));
+        firstNameField.setPreferredSize(fieldSize);
+        firstNameField.setFont(fieldFont);
+
+        lastNameField = new JTextField();
+        lastNameField.setBorder(new RoundedBorder(8));
+        lastNameField.setPreferredSize(fieldSize);
+        lastNameField.setFont(fieldFont);
+
+        emailField = new JTextField();
+        emailField.setBorder(new RoundedBorder(8));
+        emailField.setPreferredSize(fieldSize);
+        emailField.setFont(fieldFont);
+
+        addressField = new JTextField();
+        addressField.setBorder(new RoundedBorder(8));
+        addressField.setPreferredSize(fieldSize);
+        addressField.setFont(fieldFont);
+
+        telephoneField = new JTextField();
+        telephoneField.setBorder(new RoundedBorder(8));
+        telephoneField.setPreferredSize(fieldSize);
+        telephoneField.setFont(fieldFont);
+
+        //Box properties
+        typeBox = new JComboBox<>(employeeTypes);
+        typeBox.setSelectedItem(null);
+        typeBox.setFont(fieldFont);
+        typeBox.setPreferredSize(fieldSize);
+        typeBox.setBorder(new RoundedBorder(8));
+
+        departmentBox = new JComboBox<>(departments);
+        departmentBox.setSelectedItem(null);
+        departmentBox.setFont(fieldFont);
+        departmentBox.setPreferredSize(fieldSize);
+        departmentBox.setBorder(new RoundedBorder(8));
+
+        //Button properties
+        confirmButton = new JButton("ADD EMPLOYEE");
+        confirmButton.setPreferredSize(new Dimension(200, 30));
+        confirmButton.setForeground(Color.BLUE);
+        confirmButton.setFont(new Font("arial", Font.BOLD, 14));
+        confirmButton.setFocusPainted(false);
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.setPreferredSize(new Dimension(100, 30));
         cancelButton.setFocusPainted(false);
-	}
+    }
 
-	private void addComponentsToPanels() {
-	    	
-        panTop.setMaximumSize(new Dimension(400, 400));
-        panTop.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panTop.setLayout(new BoxLayout(panTop, BoxLayout.Y_AXIS));
-
-        panTop.add(idLabel);
-        panTop.add(idTextField);
-
-        panTop.add(firstNameLabel);
-        panTop.add(firstNameTextfield);
-
-        panTop.add(lastNameLabel);
-        panTop.add(lastNameTextField);
-
-        panTop.add(DOBLabel);
-        panTop.add(DOBTextField);
-
-        panTop.add(addressLabel);
-        panTop.add(addressTextField);
-
-        panTop.add(telLabel);
-        panTop.add(telTextField);
-
-        panTop.add(emailLabel);
-        panTop.add(emailTextField);
-
-        panTop.add(empTypeLabel);
-        panTop.add(empTypeBox);
-
-        panTop.add(deptLabel);
-        panTop.add(deptBox);    
-	        
-        //Add components to Bottom panel
-        panBottom.setMaximumSize(new Dimension(400, 100));
-        panBottom.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panBottom.setLayout(new BoxLayout(panBottom, BoxLayout.X_AXIS));
-        panBottom.add(cancelButton);
-        panBottom.add(saveButton);   
-	}
-
-    private void addPanelsToWindow() {
-        add(panTop);
-        add(panBottom);
+    private void addComponentsToPanels() {
+        add(idLabel);
+        add(idField);
+        add(firstNameLabel);
+        add(firstNameField);
+        add(lastNameLabel);
+        add(lastNameField);
+        add(dobLabel);
+        add(dobPicker);
+        add(emailLabel);
+        add(emailField);
+        add(addressLabel);
+        add(addressField);
+        add(telephoneLabel);
+        add(telephoneField);
+        add(typeLabel);
+        add(typeBox);
+        add(departmentLabel);
+        add(departmentBox);
+        add(confirmButton);
+        add(cancelButton);
     }
 
     private void setWindowProperties() {
+        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setTitle("Add New Employee");
-        setSize(500, 400);
+        setSize(450, 485);
         setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -161,68 +177,51 @@ public class InsertDialog extends JDialog implements ActionListener {
 
     private void registerListeners() {
         cancelButton.addActionListener(this);
-        saveButton.addActionListener(this);
-    }
-	    
-	    
-    private boolean validateFields() {
-        return !(idTextField.getText().isEmpty() || firstNameTextfield.getText().isEmpty()
-                || lastNameTextField.getText().isEmpty() || DOBTextField.getText().isEmpty()
-                || addressTextField.getText().isEmpty() ||telTextField.getText().isEmpty()
-                ||emailTextField.getText().isEmpty()|| empTypeBox== null|| deptBox ==null);
+        confirmButton.addActionListener(this);
     }
 
-    private void resetFields() {
-        
-        idTextField.setText("");
-        firstNameTextfield.setText("");
-        lastNameTextField.setText("");
-        DOBTextField.setText("");
-        telTextField.setText("");
-        emailTextField.setText("");
-        empTypeBox.setSelectedItem(null);
-        deptBox.setSelectedItem(null);
+    private boolean validateFields() {
+        return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
+                || lastNameField.getText().isEmpty() || addressField.getText().isEmpty() || emailField.getText().isEmpty()
+                /*|| employeeTypes[typeBox.getSelectedIndex()].isEmpty() || departments[departmentBox.getSelectedIndex()].isEmpty()*/);
+    }
+
+    private String generateId() {
+        String id = "E";
+        int num = (int) ((Math.random() * (2000 - 100)) + 100);
+        return id + num;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        try {
-            if (e.getSource().equals(saveButton)) {
-                if (validateFields()) {
-                    
-                    Client client = new Client();
-                    client.sendAction("Add Employee");
-                    
-                    Employee emp = new Employee(
-                        idTextField.getText(),firstNameTextfield.getText(),
-                        lastNameTextField.getText(),new Date(),
-                        addressTextField.getText(),telTextField.getText(),
-                        emailTextField.getText(),
-                        empTypeBox.getSelectedItem().toString(),
-                        deptBox.getSelectedItem().toString()
-                    );
-                    
-                    client.sendEmployee(emp);
-                    client.receiveResponse();
-                    client.closeConnections();
-                    
-                    resetFields();
-                    //dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this,"One or more fields empty",
-                            "Warning",JOptionPane.WARNING_MESSAGE);
-                }
-            }
-
-            if (e.getSource().equals(cancelButton)) {
+        if (e.getSource().equals(confirmButton)) {
+            if (validateFields()) {
+                Client client = new Client();
+                Employee employee = new Employee(
+                        idField.getText(),
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        dobPicker.getSelectedDate(),
+                        addressField.getText(),
+                        telephoneField.getText(),
+                        emailField.getText(),
+                        employeeTypes[typeBox.getSelectedIndex()],
+                        departments[departmentBox.getSelectedIndex()]
+                );
+                client.sendAction("Add Employee");
+                client.sendEmployee(employee);
+                client.receiveResponse();
+                client.closeConnections();
                 dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "One or more fields empty",
+                        "Warning", JOptionPane.WARNING_MESSAGE);
             }
-
-        } catch(HeadlessException e1){
-            e1.printStackTrace();
         }
-    
+
+        if (e.getSource().equals(cancelButton)) {
+            dispose();
+        }
     }
-    
+
 }
