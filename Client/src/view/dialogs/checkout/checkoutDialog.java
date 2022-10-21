@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -112,15 +111,7 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
-        setVisible(true);
-        /*
-    	setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-    	setTitle("Cashout Items");
-    	setSize(420, 330);
-    	setLocationRelativeTo(null);
-    	setResizable(false);
-    	setModal(true);
-    	setVisible(true);*/
+        setVisible(true);   
     }
     
     private boolean validateFields() {
