@@ -20,6 +20,7 @@ import models.Employee;
 import view.RoundedBorder;
 import view.components.DatePicker;
 import view.components.EmailVerifier;
+import view.components.GenerateID;
 
 /**
  * @author Malik Heron & Tori Horne
@@ -93,7 +94,7 @@ public class InsertDialog extends JDialog implements ActionListener {
         dobPicker = new DatePicker();
 
         //Field properties
-        idField = new JTextField(generateId());
+        idField = new JTextField(new GenerateID().getID("E"));
         idField.setBorder(new RoundedBorder(8));
         idField.setPreferredSize(fieldSize);
         idField.setFont(fieldFont);
@@ -194,12 +195,6 @@ public class InsertDialog extends JDialog implements ActionListener {
         return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty() || addressField.getText().isEmpty() || emailField.getText().isEmpty()
                 || employeeTypes[typeBox.getSelectedIndex()].equals("") || departments[departmentBox.getSelectedIndex()].equals(""));
-    }
-
-    private String generateId() {
-        String id = "E";
-        int num = (int) ((Math.random() * (2000 - 100)) + 100);
-        return id + num;
     }
 
     @Override

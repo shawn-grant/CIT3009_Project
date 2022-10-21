@@ -3,6 +3,7 @@ package view.dialogs.inventory;
 import client.Client;
 import models.Product;
 import view.RoundedBorder;
+import view.components.GenerateID;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -64,7 +65,7 @@ public class InsertDialog extends JDialog implements ActionListener {
         unitPriceLabel.setPreferredSize(labelSize);
 
         //Field properties
-        codeField = new JTextField();
+        codeField = new JTextField(new GenerateID().getID("P"));
         codeField.setFont(fieldFont);
         codeField.setBorder(new RoundedBorder(8));
         codeField.setPreferredSize(fieldSize);
