@@ -29,10 +29,10 @@ public class Invoice implements Serializable {
     //Primary Constructor
     public Invoice(int invoiceNumber, Date billingDate, String itemName,
                    int quantity, String employee, String customer) {
-        this.invoiceNumber = invoiceNumber;
-        this.billingDate = billingDate;
-        this.itemName = itemName;
-        this.quantity = quantity;
+        setInvoiceNumber(invoiceNumber);
+        setBillingDate(billingDate);
+        setItemName(itemName);
+        setQuantity(quantity);
         this.employee = employee;
         this.customer = customer;
     }

@@ -1,7 +1,9 @@
 package view.dialogs.staff;
 
 import client.Client;
+import models.Department;
 import models.Employee;
+import utils.EmailVerifier;
 import utils.GenerateID;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
@@ -17,8 +19,8 @@ import java.awt.event.ActionListener;
 public class UpdateDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private final String[] employeeTypes = {"Manager", "Supervisor", "Line Worker"};
-    private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
+    private final String[] employeeTypes = {"", "Manager", "Supervisor", "Line Worker"};
+    private final String[] departments = {"", "Management", "Inventory", "Accounting & sales"};
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
     private JLabel addressLabel, telephoneLabel, emailLabel;
     private JLabel typeLabel, departmentLabel;
@@ -162,6 +164,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
         emailField.setText(employee.getEmail());
         addressField.setText(employee.getAddress());
         telephoneField.setText(employee.getTelephone());
+        System.out.println(employee);
         getBoxValues();
     }
 
@@ -212,17 +215,20 @@ public class UpdateDialog extends JDialog implements ActionListener {
     // Set box values
     private void getBoxValues() {
         int index = 0;
+        // Set employee type
         while (index < employeeTypes.length) {
-            if (employeeTypes[index].equalsIgnoreCase(employee.getType())) {
+            if (employeeTypes[index].equals(employee.getType())) {
                 typeBox.setSelectedIndex(index);
                 break;
             }
             index++;
         }
 
+        String departmentName = new Department("", employee.getDepartment()).getName();
         index = 0;
-        while (index < employeeTypes.length) {
-            if (departments[index].equalsIgnoreCase(employee.getDepartment())) {
+        // Set department name
+        while (index <= departments.length) {
+            if (departments[index].equals(departmentName)) {
                 departmentBox.setSelectedIndex(index);
                 break;
             }
@@ -234,23 +240,32 @@ public class UpdateDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                Client client = new Client();
-                Employee employee = new Employee(
-                        idField.getText(),
-                        firstNameField.getText(),
-                        lastNameField.getText(),
-                        dobPicker.getSelectedDate(),
-                        addressField.getText(),
-                        telephoneField.getText(),
-                        emailField.getText(),
-                        employeeTypes[typeBox.getSelectedIndex()],
-                        departments[departmentBox.getSelectedIndex()]
-                );
-                client.sendAction("Update Employee");
-                client.sendEmployee(employee);
-                client.receiveResponse();
-                client.closeConnections();
-                dispose();
+                if (EmailVerifier.isValid(emailField.getText())) {
+                    Client client = new Client();
+                    Employee employee = new Employee(
+                            idField.getText(),
+                            firstNameField.getText(),
+                            lastNameField.getText(),
+                            dobPicker.getSelectedDate(),
+                            addressField.getText(),
+                            telephoneField.getText(),
+                            emailField.getText(),
+                            employeeTypes[typeBox.getSelectedIndex()],
+                            departments[departmentBox.getSelectedIndex()]
+                    );
+                    client.sendAction("Update Employee");
+                    client.sendEmployee(employee);
+                    client.receiveResponse();
+                    client.closeConnections();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Invalid email address",
+                            "Invalid Field",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "One or more fields empty",
                         "Warning", JOptionPane.WARNING_MESSAGE);

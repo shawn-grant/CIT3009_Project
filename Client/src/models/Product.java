@@ -29,12 +29,12 @@ public class Product implements Serializable {
     //Primary Constructor
     public Product(String code, String name, String shortDescription, String longDescription, int itemInStock,
                    float unitPrice) {
-        this.code = code;
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.longDescription = longDescription;
-        this.itemInStock = itemInStock;
-        this.unitPrice = unitPrice;
+        setCode(code);
+        setName(name);
+        setShortDescription(shortDescription);
+        setLongDescription(longDescription);
+        setItemInStock(itemInStock);
+        setUnitPrice(unitPrice);
     }
 
     //Copy Constructor

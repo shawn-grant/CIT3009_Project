@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import client.Client;
+import models.Department;
 import models.Employee;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
@@ -211,7 +212,7 @@ public class InsertDialog extends JDialog implements ActionListener {
                             telephoneField.getText(),
                             emailField.getText(),
                             employeeTypes[typeBox.getSelectedIndex()],
-                            departments[departmentBox.getSelectedIndex()]
+                            new Department(departments[departmentBox.getSelectedIndex()]).getCode()
                     );
                     client.sendAction("Add Employee");
                     client.sendEmployee(employee);

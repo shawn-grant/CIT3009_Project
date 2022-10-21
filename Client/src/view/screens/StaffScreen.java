@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
+import models.Department;
 import models.Employee;
 import view.dialogs.staff.RemoveDialog;
 import view.dialogs.staff.InsertDialog;

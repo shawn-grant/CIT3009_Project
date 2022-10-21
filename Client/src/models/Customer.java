@@ -37,15 +37,15 @@ public class Customer implements Serializable {
     //Primary Constructor
     public Customer(String id, String firstName, String lastName, Date DOB, String address, String telephone,
                     String email, Date membershipDate, Date membershipExpiryDate) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.DOB = DOB;
-        this.address = address;
-        this.telephone = telephone;
-        this.email = email;
-        this.membershipDate = membershipDate;
-        this.membershipExpiryDate = membershipExpiryDate;
+        setId(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDOB(DOB);
+        setAddress(address);
+        setTelephone(telephone);
+        setEmail(email);
+        setMembershipDate(membershipDate);
+        setMembershipExpiryDate(membershipExpiryDate);
     }
 
     //Copy Constructor

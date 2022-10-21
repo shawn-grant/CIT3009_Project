@@ -52,15 +52,15 @@ public class Employee implements Serializable {
     //Primary Constructor
     public Employee(String id, String firstName, String lastName, Date DOB, String address,
                     String telephone, String email, String type, String department) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.DOB = DOB;
-        this.address = address;
-        this.telephone = telephone;
-        this.email = email;
-        this.type = type;
-        this.department = department;
+        setId(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDOB(DOB);
+        setAddress(address);
+        setTelephone(telephone);
+        setEmail(email);
+        setType(type);
+        setDepartment(department);
     }
 
     //Copy Constructor
