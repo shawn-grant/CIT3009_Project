@@ -179,7 +179,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                if(EmailVerifier.isValid(emailField.getText())) {
+                if (EmailVerifier.isValid(emailField.getText())) {
                     Client client = new Client();
                     Customer customer = new Customer(
                             idField.getText(),
