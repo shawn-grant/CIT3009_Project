@@ -127,8 +127,8 @@ public class StaffScreen extends BaseScreen implements ActionListener {
                     model.getValueAt(table.getSelectedRow(), 4).toString(),
                     model.getValueAt(table.getSelectedRow(), 5).toString(),
                     model.getValueAt(table.getSelectedRow(), 6).toString(),
-                    model.getValueAt(table.getSelectedRow(), 6).toString(),
-                    model.getValueAt(table.getSelectedRow(), 7).toString()
+                    model.getValueAt(table.getSelectedRow(), 7).toString(),
+                    model.getValueAt(table.getSelectedRow(), 8).toString()
             );
 
             // primary constructor to take a customer

@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,8 +27,8 @@ import view.components.EmailVerifier;
 public class InsertDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private final String[] employeeTypes = {"Manager", "Supervisor", "Line Worker"};
-    private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
+    private final String[] employeeTypes = {"", "Manager", "Supervisor", "Line Worker"};
+    private final String[] departments = {"", "Management", "Inventory", "Accounting & sales"};
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
     private JLabel addressLabel, telephoneLabel, emailLabel;
     private JLabel typeLabel, departmentLabel;
@@ -47,6 +48,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     private void initializeComponents() {
         Dimension labelSize = new Dimension(140, 20);
         Dimension fieldSize = new Dimension(250, 35);
+        Dimension boxSize = new Dimension(250, 40);
         Font labelFont = new Font("arial", Font.BOLD, 14);
         Font fieldFont = new Font("arial", Font.PLAIN, 14);
 
@@ -125,16 +127,18 @@ public class InsertDialog extends JDialog implements ActionListener {
         typeBox = new JComboBox<>(employeeTypes);
         typeBox.setSelectedItem(null);
         typeBox.setFont(fieldFont);
-        typeBox.setPreferredSize(fieldSize);
+        typeBox.setPreferredSize(boxSize);
         typeBox.setBorder(new RoundedBorder(8));
         typeBox.setFocusable(false);
+        typeBox.setSelectedIndex(0);
 
         departmentBox = new JComboBox<>(departments);
         departmentBox.setSelectedItem(null);
         departmentBox.setFont(fieldFont);
-        departmentBox.setPreferredSize(fieldSize);
+        departmentBox.setPreferredSize(boxSize);
         departmentBox.setBorder(new RoundedBorder(8));
         departmentBox.setFocusable(false);
+        departmentBox.setSelectedIndex(0);
 
         //Button properties
         confirmButton = new JButton("ADD EMPLOYEE");
@@ -174,7 +178,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setTitle("Add New Employee");
-        setSize(450, 485);
+        setSize(450, 495);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
@@ -189,7 +193,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     private boolean validateFields() {
         return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty() || addressField.getText().isEmpty() || emailField.getText().isEmpty()
-                /*|| employeeTypes[typeBox.getSelectedIndex()].isEmpty() || departments[departmentBox.getSelectedIndex()].isEmpty()*/);
+                || employeeTypes[typeBox.getSelectedIndex()].equals("") || departments[departmentBox.getSelectedIndex()].equals(""));
     }
 
     private String generateId() {

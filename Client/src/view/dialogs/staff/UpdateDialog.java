@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 public class UpdateDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private final String[] employeeTypes = {"Manger", "Supervisor", "Line Worker"};
+    private final String[] employeeTypes = {"Manager", "Supervisor", "Line Worker"};
     private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
     private JLabel addressLabel, telephoneLabel, emailLabel;
@@ -51,6 +51,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private void initializeComponents() {
         Dimension labelSize = new Dimension(140, 20);
         Dimension fieldSize = new Dimension(250, 35);
+        Dimension boxSize = new Dimension(250, 40);
         Font labelFont = new Font("arial", Font.BOLD, 14);
         Font fieldFont = new Font("arial", Font.PLAIN, 14);
 
@@ -129,14 +130,14 @@ public class UpdateDialog extends JDialog implements ActionListener {
         typeBox = new JComboBox<>(employeeTypes);
         typeBox.setSelectedItem(null);
         typeBox.setFont(fieldFont);
-        typeBox.setPreferredSize(fieldSize);
+        typeBox.setPreferredSize(boxSize);
         typeBox.setBorder(new RoundedBorder(8));
         typeBox.setFocusable(false);
 
         departmentBox = new JComboBox<>(departments);
         departmentBox.setSelectedItem(null);
         departmentBox.setFont(fieldFont);
-        departmentBox.setPreferredSize(fieldSize);
+        departmentBox.setPreferredSize(boxSize);
         departmentBox.setBorder(new RoundedBorder(8));
         departmentBox.setFocusable(false);
 
@@ -189,7 +190,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setTitle("Update Employee");
-        setSize(450, 485);
+        setSize(450, 495);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
@@ -204,14 +205,14 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private boolean validateFields() {
         return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty() || addressField.getText().isEmpty() || emailField.getText().isEmpty()
-                || employeeTypes[typeBox.getSelectedIndex()].isEmpty() || departments[departmentBox.getSelectedIndex()].isEmpty());
+                || employeeTypes[typeBox.getSelectedIndex()].equals("") || departments[departmentBox.getSelectedIndex()].equals(""));
     }
 
     // Set box values
     private void getBoxValues() {
         int index = 0;
         while (index < employeeTypes.length) {
-            if (employeeTypes[index].equals(employee.getType())) {
+            if (employeeTypes[index].equalsIgnoreCase(employee.getType())) {
                 typeBox.setSelectedIndex(index);
                 break;
             }
@@ -220,7 +221,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
 
         index = 0;
         while (index < employeeTypes.length) {
-            if (departments[index].equals(employee.getDepartment())) {
+            if (departments[index].equalsIgnoreCase(employee.getDepartment())) {
                 departmentBox.setSelectedIndex(index);
                 break;
             }
