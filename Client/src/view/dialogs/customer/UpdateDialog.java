@@ -1,7 +1,7 @@
 /**
- * CustomerInsertDialog.java
- * Popup to update existing customer customer
- * Author (s): Shawn Grant
+ * InsertDialog.java
+ * Popup to update existing customer
+ * Author (s): Shawn Grant & Malik Heron
  */
 package view.dialogs.customer;
 

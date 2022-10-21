@@ -19,6 +19,9 @@ import models.Employee;
 import view.RoundedBorder;
 import view.components.DatePicker;
 
+/**
+ * @author Malik Heron & Tori Horne
+ */
 public class InsertDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
