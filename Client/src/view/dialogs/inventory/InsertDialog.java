@@ -3,7 +3,7 @@ package view.dialogs.inventory;
 import client.Client;
 import models.Product;
 import view.RoundedBorder;
-import view.util.GenerateID;
+import utils.GenerateID;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

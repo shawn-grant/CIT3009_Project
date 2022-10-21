@@ -8,9 +8,9 @@ package view.dialogs.customer;
 import client.Client;
 import models.Customer;
 import view.RoundedBorder;
-import view.util.DatePicker;
-import view.util.EmailVerifier;
-import view.util.GenerateID;
+import view.components.DatePicker;
+import utils.EmailVerifier;
+import utils.GenerateID;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

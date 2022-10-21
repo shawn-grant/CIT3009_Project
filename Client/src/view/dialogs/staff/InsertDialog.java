@@ -17,9 +17,9 @@ import javax.swing.JTextField;
 import client.Client;
 import models.Employee;
 import view.RoundedBorder;
-import view.util.DatePicker;
-import view.util.EmailVerifier;
-import view.util.GenerateID;
+import view.components.DatePicker;
+import utils.EmailVerifier;
+import utils.GenerateID;
 
 /**
  * @author Malik Heron & Tori Horne

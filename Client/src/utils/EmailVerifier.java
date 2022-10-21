@@ -1,4 +1,4 @@
-package view.util;
+package utils;
 
 import java.util.regex.Pattern;
 
