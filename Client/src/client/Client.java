@@ -388,6 +388,14 @@ public class Client {
         if (action.equalsIgnoreCase("Find Employee")) {
             try {
                 employee = (Employee) objIs.readObject();
+                if (employee == null) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Record not found",
+                            "Search Result",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
@@ -404,6 +412,14 @@ public class Client {
         if (action.equalsIgnoreCase("Find Customer")) {
             try {
                 customer = (Customer) objIs.readObject();
+                if (customer == null) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Record not found",
+                            "Search Result",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
@@ -420,6 +436,14 @@ public class Client {
         if (action.equalsIgnoreCase("Find Product")) {
             try {
                 product = (Product) objIs.readObject();
+                if (product == null) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Record not found",
+                            "Search Result",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
