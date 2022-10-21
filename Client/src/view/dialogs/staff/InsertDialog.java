@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,9 +17,9 @@ import javax.swing.JTextField;
 import client.Client;
 import models.Employee;
 import view.RoundedBorder;
-import view.components.DatePicker;
-import view.components.EmailVerifier;
-import view.components.GenerateID;
+import view.util.DatePicker;
+import view.util.EmailVerifier;
+import view.util.GenerateID;
 
 /**
  * @author Malik Heron & Tori Horne

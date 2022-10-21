@@ -8,8 +8,8 @@ package view.dialogs.customer;
 import client.Client;
 import models.Customer;
 import view.RoundedBorder;
-import view.components.DatePicker;
-import view.components.EmailVerifier;
+import view.util.DatePicker;
+import view.util.EmailVerifier;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

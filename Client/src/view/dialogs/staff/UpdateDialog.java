@@ -3,7 +3,7 @@ package view.dialogs.staff;
 import client.Client;
 import models.Employee;
 import view.RoundedBorder;
-import view.components.DatePicker;
+import view.util.DatePicker;
 
 import javax.swing.*;
 import java.awt.*;

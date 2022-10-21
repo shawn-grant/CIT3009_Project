@@ -4,7 +4,7 @@
  *
  * @author Malik Heron & Shawn Grant
  */
-package view.components;
+package view.util;
 
 import view.RoundedBorder;
 

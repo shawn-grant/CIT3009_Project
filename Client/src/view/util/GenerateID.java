@@ -1,4 +1,4 @@
-package view.components;
+package view.util;
 
 /**
  * @author Shawn Grant
