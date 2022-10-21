@@ -108,7 +108,7 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
     private void setWindowProperties() {
     	setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setTitle("Cashout Items");
-        setSize(420, 300);
+        setSize(420, 280);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
