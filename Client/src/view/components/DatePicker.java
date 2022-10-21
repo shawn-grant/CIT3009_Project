@@ -6,8 +6,6 @@
  */
 package view.components;
 
-import view.RoundedBorder;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Calendar;

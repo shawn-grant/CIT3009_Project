@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.swing.UIManager;
 
-import view.MainScreen;
+import view.screens.MainScreen;
 
 public class Driver {
     public static void main(String[] args) {

@@ -4,7 +4,7 @@
  * Reference: https://stackoverflow.com/questions/25796572/simplest-code-to-round-corners-of-jlabel-in-java
  * Author (s): Shawn Grant
  */
-package view;
+package view.components;
 
 import javax.swing.border.Border;
 import java.awt.Component;

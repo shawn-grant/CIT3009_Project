@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
-import models.Customer;
 import models.Employee;
 import view.dialogs.staff.RemoveDialog;
 import view.dialogs.staff.InsertDialog;

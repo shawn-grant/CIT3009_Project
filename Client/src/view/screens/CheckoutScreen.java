@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 //============================================================================
 //Name        : CheckoutScreen.java
 //Author      : Tyrien Gilpin

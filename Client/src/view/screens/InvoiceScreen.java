@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;

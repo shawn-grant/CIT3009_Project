@@ -1,54 +1,56 @@
-/**
- * CustomerScreen.java
- * View for editing and displaying Customer info
- * Author (s): Shawn Grant
- */
-package view;
+package view.screens;
 
 import client.Client;
-import models.Customer;
-import view.dialogs.customer.InsertDialog;
-import view.dialogs.customer.RemoveDialog;
-import view.dialogs.customer.SearchDialog;
-import view.dialogs.customer.UpdateDialog;
+import models.Product;
+import view.dialogs.inventory.InsertDialog;
+import view.dialogs.inventory.RemoveDialog;
+import view.dialogs.inventory.SearchDialog;
+import view.dialogs.inventory.UpdateDialog;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.List;
 
-public class CustomerScreen extends BaseScreen implements ActionListener {
+/**
+ * @author Malik Heron
+ */
+public class InventoryScreen extends BaseScreen implements ActionListener {
 
     private final String[] tableHeaders = {
-            "ID",
-            "First Name",
-            "Last Name",
-            "DOB",
-            "Email",
-            "Phone",
-            "Address",
-            "Membership Date",
-            "Expiry Date",
+            "Product Code",
+            "Product Name",
+            "Short Description",
+            "Long Description",
+            "Items in Stock",
+            "Unit Price"
     };
     private JTable table;
     private DefaultTableModel model;
 
-    public CustomerScreen() {
-        super("Customers");
+    public InventoryScreen() {
+        super("Inventory");
 
         initializeComponents();
         setupListeners();
         setContentView();
-        getData();
+        getInventory();
     }
 
     private void initializeComponents() {
+        //Table properties
         model = new DefaultTableModel(tableHeaders, 0);
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
+    }
+
+    // set main content view
+    private void setContentView() {
+        setMainContent(new JScrollPane(table));
     }
 
     // setup actions for buttons
@@ -60,15 +62,11 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         refreshButton.addActionListener(this);
     }
 
-    // set main content view
-    private void setContentView() {
-        setMainContent(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-    }
-
-    private void getData() {
+    // retrieve all product information
+    private void getInventory() {
         Client client = new Client();
-        client.sendAction("View Customers");
-        List<Customer> customersList = client.receiveViewCustomersResponse();
+        client.sendAction("View Inventory");
+        List<Product> productList = client.receiveViewInventoryResponse();
         client.closeConnections();
 
         int count = 0;
@@ -80,19 +78,16 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             counter++;
         }
 
-        for (Customer customer : customersList) {
-            System.out.println(customer);
+        for (Product product : productList) {
+            System.out.println(product);
 
             model.insertRow(count, new Object[]{
-                    customer.getId(),
-                    customer.getFirstName(),
-                    customer.getLastName(),
-                    customer.getDOB(),
-                    customer.getEmail(),
-                    customer.getTelephone(),
-                    customer.getAddress(),
-                    customer.getMembershipDate(),
-                    customer.getMembershipExpiryDate()
+                    product.getCode(),
+                    product.getName(),
+                    product.getShortDescription(),
+                    product.getLongDescription(),
+                    product.getItemInStock(),
+                    product.getUnitPrice()
             });
             count++;
         }
@@ -105,15 +100,15 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             isSelected = true;
             int choice = JOptionPane.showConfirmDialog(
                     null,
-                    "Remove this customer?",
-                    "Remove Customer",
+                    "Remove this product?",
+                    "Remove prompt",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
             if (choice == JOptionPane.YES_OPTION) {
                 Client client = new Client();
-                client.sendAction("Remove Customer");
-                client.sendCustomerId((String) model.getValueAt(table.getSelectedRow(), 0));
+                client.sendAction("Remove Product");
+                client.sendProductCode((String) model.getValueAt(table.getSelectedRow(), 0));
                 client.receiveResponse();
                 client.closeConnections();
             }
@@ -127,52 +122,45 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         //auto populate if a row is selected
         if (table.getSelectedRow() != -1) {
             isSelected = true;
-            // Split values format YYYY-MM-DD
-            String[] dob = model.getValueAt(table.getSelectedRow(), 3).toString().split("-");
-            String[] memDate = model.getValueAt(table.getSelectedRow(), 7).toString().split("-");
-            String[] memExpDate = model.getValueAt(table.getSelectedRow(), 8).toString().split("-");
-
-            Customer customer = new Customer(
+            Product product = new Product(
                     model.getValueAt(table.getSelectedRow(), 0).toString(),
                     model.getValueAt(table.getSelectedRow(), 1).toString(),
                     model.getValueAt(table.getSelectedRow(), 2).toString(),
-                    new Date(),
-                    model.getValueAt(table.getSelectedRow(), 6).toString(),
-                    model.getValueAt(table.getSelectedRow(), 5).toString(),
-                    model.getValueAt(table.getSelectedRow(), 4).toString(),
-                    new Date(),
-                    new Date()
+                    model.getValueAt(table.getSelectedRow(), 3).toString(),
+                    Integer.parseInt(model.getValueAt(table.getSelectedRow(), 4).toString()),
+                    Float.parseFloat(model.getValueAt(table.getSelectedRow(), 5).toString() + "f")
             );
 
-            // primary constructor to take a customer
-            new UpdateDialog(customer, dob, memDate, memExpDate);
+            // primary constructor to take a product
+            new UpdateDialog(product);
         }
         return isSelected;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource().equals(addButton)) {
             new InsertDialog();
-            getData();
+            getInventory();
+        }
+        if (e.getSource().equals(searchButton)) {
+            new SearchDialog(model);
         }
         if (e.getSource().equals(updateButton)) {
             if (!updateItem()) {
                 new UpdateDialog();
             }
-            getData();   
-        }
-        if (e.getSource().equals(searchButton)) {
-            new SearchDialog(model);
+            getInventory();
         }
         if (e.getSource().equals(deleteButton)) {
             if (!removeItem()) {
                 new RemoveDialog();
             }
-            getData();
+            getInventory();
         }
         if (e.getSource().equals(refreshButton)) {
-            getData();
+            getInventory();
         }
     }
 }

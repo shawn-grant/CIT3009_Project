@@ -7,7 +7,7 @@ package view.dialogs.customer;
 
 import client.Client;
 import models.Customer;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 import view.components.DatePicker;
 import utils.EmailVerifier;
 import utils.GenerateID;

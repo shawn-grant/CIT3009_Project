@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 
 public class checkoutDialog extends JDialog implements ActionListener {//NTS: Move class into seperate file
 	private static final long serialVersionUID = 1L;

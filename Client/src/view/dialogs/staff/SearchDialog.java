@@ -2,8 +2,7 @@ package view.dialogs.staff;
 
 import client.Client;
 import models.Employee;
-import models.Product;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

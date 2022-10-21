@@ -1,7 +1,7 @@
 package view.dialogs.customer;
 
 import client.Client;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;

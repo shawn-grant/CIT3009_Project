@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 import client.Client;
 import models.Employee;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 import view.components.DatePicker;
 import utils.EmailVerifier;
 import utils.GenerateID;

@@ -2,7 +2,7 @@ package view.dialogs.inventory;
 
 import client.Client;
 import models.Product;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 import utils.GenerateID;
 
 import javax.swing.JDialog;

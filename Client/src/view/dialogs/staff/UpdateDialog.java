@@ -2,7 +2,7 @@ package view.dialogs.staff;
 
 import client.Client;
 import models.Employee;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 import view.components.DatePicker;
 
 import javax.swing.*;

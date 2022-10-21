@@ -3,7 +3,7 @@
  * A tabbed layout to switch between diffrent sections of the app
  * Author (s): Shawn Grant, Malik Heron
  */
-package view;
+package view.screens;
 
 import javax.swing.JPanel;
 import javax.swing.JFrame;
