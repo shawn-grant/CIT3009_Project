@@ -11,6 +11,8 @@ import java.io.Serializable;
 public class Department implements Serializable {
     private String name;
     private String code;
+    private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
+    private final String[] codes = {"MAN", "INV", "ACS"};
 
     //Default Constructor
     public Department() {
@@ -19,9 +21,8 @@ public class Department implements Serializable {
     }
 
     //Primary Constructor
-    public Department(String name, String code) {
+    public Department(String name) {
         this.name = name;
-        this.code = code;
     }
 
     //Copy Constructor
@@ -40,7 +41,14 @@ public class Department implements Serializable {
     }
 
     public String getCode() {
-        return code;
+        int index = 0;
+        while(index < departments.length) {
+            if (departments[index].equals(name)) {
+                return codes[index];
+            }
+            index++;
+        }
+        return null;
     }
 
     public void setCode(String code) {

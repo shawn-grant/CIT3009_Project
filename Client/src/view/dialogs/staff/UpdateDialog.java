@@ -2,6 +2,7 @@ package view.dialogs.staff;
 
 import client.Client;
 import models.Employee;
+import utils.GenerateID;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
 
@@ -96,7 +97,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
         dobPicker = new DatePicker();
 
         //Field properties
-        idField = new JTextField(generateId());
+        idField = new JTextField();
         idField.setBorder(new RoundedBorder(8));
         idField.setPreferredSize(fieldSize);
         idField.setFont(fieldFont);
@@ -227,12 +228,6 @@ public class UpdateDialog extends JDialog implements ActionListener {
             }
             index++;
         }
-    }
-
-    private String generateId() {
-        String id = "E";
-        int num = (int) ((Math.random() * (2000 - 100)) + 100);
-        return id + num;
     }
 
     @Override

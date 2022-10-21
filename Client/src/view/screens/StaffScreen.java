@@ -18,7 +18,7 @@ import view.dialogs.staff.UpdateDialog;
 public class StaffScreen extends BaseScreen implements ActionListener {
 
     private final String[] tableHead = {"ID", "First Name", "Last Name", "D.O.B",
-            "Address", "Telephone", "Email", "Employee Type", "Department"};
+            "Address", "Telephone", "Email", "Employee Type", "Department Code"};
     private JTable table;
     private DefaultTableModel model;
 

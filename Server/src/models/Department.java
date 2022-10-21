@@ -7,10 +7,7 @@ package models;
 //Description : Department Model Class
 //============================================================================
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "department")
@@ -22,6 +19,14 @@ public class Department implements Serializable {
     private String code;
     @Column(name = "departmentName")
     private String name;
+    @Transient
+    private final String[] departments = {"Management", "Inventory", "Accounting & sales"};
+    @Transient
+    private final String[] codes = {"MAN", "INV", "ACS"};
+
+    public String[] getDepartments() {
+        return departments;
+    }
 
     //Default Constructor
     public Department() {
@@ -30,9 +35,8 @@ public class Department implements Serializable {
     }
 
     //Primary Constructor
-    public Department(String name, String code) {
+    public Department(String name) {
         this.name = name;
-        this.code = code;
     }
 
     //Copy Constructor
@@ -51,7 +55,13 @@ public class Department implements Serializable {
     }
 
     public String getCode() {
-        return code;
+        int index = 0;
+        while(index < departments.length) {
+            if (departments[index].equals(name)) {
+                return codes[index];
+            }
+        }
+        return null;
     }
 
     public void setCode(String code) {

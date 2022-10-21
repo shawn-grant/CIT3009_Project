@@ -53,16 +53,16 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            //new InventoryInsertDialog();
+            //new InsertDialog();
         }
         if (e.getSource().equals(searchButton)) {
-            //new InventorySearchDialog(model);
+            //new SearchDialog(model);
         }
         if (e.getSource().equals(updateButton)) {
-            //new InventoryUpdateDialog();
+            //new UpdateDialog();
         }
         if (e.getSource().equals(deleteButton)) {
-           // new InventoryRemoveDialog();
+           // new RemoveDialog();
         }
         if (e.getSource().equals(refreshButton)) {
         }

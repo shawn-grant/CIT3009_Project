@@ -64,7 +64,7 @@ public class DBConnectorFactory {
              Statement stmt = conn.createStatement()
         ) {
             String query = "CREATE DATABASE IF NOT EXISTS jwr";
-            if ((stmt.executeUpdate(query)) == 0) {
+            if (stmt.executeUpdate(query) == 0) {
                 System.out.println("JWR Database created.");
             }
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class DBConnectorFactory {
                     "lastName varchar(25), dob date, address varchar(80), telephone varchar(25), " +
                     "email varchar(25), dept_code varchar(40), employeeType varchar(25), PRIMARY KEY(ID))";
 
-            if ((stmt.executeUpdate(query)) == 0) {
+            if (stmt.executeUpdate(query) == 0) {
                 System.out.println("Employee table created.");
             }
         } catch (SQLException e) {
@@ -96,7 +96,7 @@ public class DBConnectorFactory {
                     " email varchar(25), membershipDate date, membershipExpiryDate date, " +
                     "PRIMARY KEY(ID))";
 
-            if ((stmt.executeUpdate(query)) == 0) {
+            if (stmt.executeUpdate(query) == 0) {
                 System.out.println("Customer table created.");
             }
         } catch (SQLException e) {
@@ -113,7 +113,7 @@ public class DBConnectorFactory {
                     "shortDescription varchar(25), longDescription varchar(70), itemInStock int, unitPrice float, " +
                     "PRIMARY KEY(product_code))";
 
-            if ((stmt.executeUpdate(query)) == 0) {
+            if (stmt.executeUpdate(query) == 0) {
                 System.out.println("Product table created.");
             }
         } catch (SQLException e) {
@@ -129,8 +129,15 @@ public class DBConnectorFactory {
             String query = "CREATE TABLE department(dept_code varchar(10) NOT NULL, departmentName varchar(25)," +
                     "PRIMARY KEY(dept_code))";
 
-            if ((stmt.executeUpdate(query)) == 0) {
+            if (stmt.executeUpdate(query) == 0) {
                 System.out.println("Department table created.");
+                String query1 = "INSERT INTO department(dept_code, departmentName) VALUES ('MAN', 'Management')";
+                String query2 = "INSERT INTO department(dept_code, departmentName) VALUES ('INV', 'Inventory')";
+                String query3 = "INSERT INTO department(dept_code, departmentName) VALUES ('ACS', 'Accounting & sales')";
+
+                stmt.executeUpdate(query1);
+                stmt.executeUpdate(query2);
+                stmt.executeUpdate(query3);
             }
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
@@ -146,7 +153,7 @@ public class DBConnectorFactory {
                     "item_name varchar(40), quantity int, employeeID varchar(10), customerID varchar(10), " +
                     "PRIMARY KEY(invoice_number))";
 
-            if ((stmt.executeUpdate(query)) == 0) {
+            if (stmt.executeUpdate(query) == 0) {
                 System.out.println("Invoice table created.");
             }
         } catch (SQLException e) {

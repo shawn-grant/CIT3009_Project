@@ -126,7 +126,7 @@ public class Employee implements Serializable {
     }
 
     public String getDepartment() {
-        return department;
+        return new Department(department).getCode();
     }
 
     public void setDepartment(String department) {
