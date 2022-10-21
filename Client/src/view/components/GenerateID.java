@@ -1,5 +1,8 @@
 package view.components;
 
+/**
+ * @author Shawn Grant
+ */
 public class GenerateID {
 
     public String getID(String letter) {
