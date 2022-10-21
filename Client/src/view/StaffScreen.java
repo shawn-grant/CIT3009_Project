@@ -2,12 +2,14 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
+import models.Customer;
 import models.Employee;
 import view.dialogs.staff.RemoveDialog;
 import view.dialogs.staff.InsertDialog;
@@ -53,26 +55,24 @@ public class StaffScreen extends BaseScreen implements ActionListener {
     }
 
     private void getStaff() {
+        Client client = new Client();
+        client.sendAction("View Employees");
+        List<Employee> empList = client.receiveViewEmployeeResponse();
+        client.closeConnections();
 
-        try{
-            Client client = new Client();
-            client.sendAction("View Staff");
-            List<Employee> empList = client.receiveViewEmployeeResponse();
-            client.closeConnections();
+        int count = 0;
+        int rowCount = model.getRowCount();
+        int counter = 0;
 
-			int count = 0;
-			int rowCount = model.getRowCount();
-			int counter = 0;
+        while (counter < rowCount) {
+            model.removeRow(count);
+            counter++;
+        }
 
-			while (counter < rowCount) {
-			    model.removeRow(count);
-			    counter++;
-			}
+        for (Employee employee : empList) {
+            System.out.println(employee);
 
-			for (Employee employee : empList) {
-			    System.out.println(employee);
-
-                model.insertRow(count, new Object[]{
+            model.insertRow(count, new Object[]{
                     employee.getId(),
                     employee.getFirstName(),
                     employee.getLastName(),
@@ -82,11 +82,8 @@ public class StaffScreen extends BaseScreen implements ActionListener {
                     employee.getEmail(),
                     employee.getType(),
                     employee.getDepartment()
-                });
-                count++;
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+            });
+            count++;
         }
     }
 
@@ -113,6 +110,33 @@ public class StaffScreen extends BaseScreen implements ActionListener {
         return isSelected;
     }
 
+    // update item at selected row
+    private boolean updateItem() {
+        boolean isSelected = false;
+        //auto populate if a row is selected
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            // Split values format YYYY-MM-DD
+            String[] dob = model.getValueAt(table.getSelectedRow(), 3).toString().split("-");
+
+            Employee employee = new Employee(
+                    model.getValueAt(table.getSelectedRow(), 0).toString(),
+                    model.getValueAt(table.getSelectedRow(), 1).toString(),
+                    model.getValueAt(table.getSelectedRow(), 2).toString(),
+                    new Date(),
+                    model.getValueAt(table.getSelectedRow(), 4).toString(),
+                    model.getValueAt(table.getSelectedRow(), 5).toString(),
+                    model.getValueAt(table.getSelectedRow(), 6).toString(),
+                    model.getValueAt(table.getSelectedRow(), 6).toString(),
+                    model.getValueAt(table.getSelectedRow(), 7).toString()
+            );
+
+            // primary constructor to take a customer
+            new UpdateDialog(employee, dob);
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -121,7 +145,9 @@ public class StaffScreen extends BaseScreen implements ActionListener {
             getStaff();
         }
         if (e.getSource().equals(updateButton)) {
-            new UpdateDialog();
+            if (!updateItem()) {
+                new UpdateDialog();
+            }
             getStaff();
         }
         if (e.getSource().equals(searchButton)) {

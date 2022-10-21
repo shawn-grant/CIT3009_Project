@@ -23,10 +23,24 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private DatePicker dobPicker;
     private JButton cancelButton, confirmButton;
     private JComboBox<String> typeBox, departmentBox;
+    private String[] dob;
+    private Employee employee;
 
     public UpdateDialog() {
         initializeComponents();
-        addComponentsToPanels();
+        addComponentsToWindow();
+        registerListeners();
+        setWindowProperties();
+    }
+
+    // for selected employee
+    public UpdateDialog(Employee employee, String[] dob) {
+        this.employee = employee;
+        this.dob = dob;
+
+        initializeComponents();
+        setComponentValues();
+        addComponentsToWindow();
         registerListeners();
         setWindowProperties();
     }
@@ -135,7 +149,18 @@ public class UpdateDialog extends JDialog implements ActionListener {
         cancelButton.setFocusPainted(false);
     }
 
-    private void addComponentsToPanels() {
+    private void setComponentValues() {
+        idField.setText(employee.getId());
+        firstNameField.setText(employee.getFirstName());
+        lastNameField.setText(employee.getLastName());
+        dobPicker = new DatePicker(dob);
+        emailField.setText(employee.getEmail());
+        addressField.setText(employee.getAddress());
+        telephoneField.setText(employee.getTelephone());
+        getBoxValues();
+    }
+
+    private void addComponentsToWindow() {
         add(idLabel);
         add(idField);
         add(firstNameLabel);
@@ -162,10 +187,10 @@ public class UpdateDialog extends JDialog implements ActionListener {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setTitle("Update Employee");
         setSize(450, 485);
-        setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
+        setVisible(true);
     }
 
     private void registerListeners() {
@@ -177,6 +202,27 @@ public class UpdateDialog extends JDialog implements ActionListener {
         return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty() || addressField.getText().isEmpty() || emailField.getText().isEmpty()
                 || employeeTypes[typeBox.getSelectedIndex()].isEmpty() || departments[departmentBox.getSelectedIndex()].isEmpty());
+    }
+
+    // Set box values
+    private void getBoxValues() {
+        int index = 0;
+        while (index < employeeTypes.length) {
+            if (employeeTypes[index].equals(employee.getType())) {
+                typeBox.setSelectedIndex(index);
+                break;
+            }
+            index++;
+        }
+
+        index = 0;
+        while (index < employeeTypes.length) {
+            if (departments[index].equals(employee.getDepartment())) {
+                departmentBox.setSelectedIndex(index);
+                break;
+            }
+            index++;
+        }
     }
 
     private String generateId() {

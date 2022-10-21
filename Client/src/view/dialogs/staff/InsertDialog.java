@@ -171,10 +171,10 @@ public class InsertDialog extends JDialog implements ActionListener {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setTitle("Add New Employee");
         setSize(450, 485);
-        setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
+        setVisible(true);
     }
 
     private void registerListeners() {

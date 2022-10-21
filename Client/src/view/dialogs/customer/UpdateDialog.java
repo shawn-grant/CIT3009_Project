@@ -43,11 +43,11 @@ public class UpdateDialog extends JDialog implements ActionListener {
     }
 
     // for selected customer
-    public UpdateDialog(Customer customer, String[] dob, String[] memDate, String[] memExpDate) {
+    public UpdateDialog(Customer customer, String[] dob, String[] membershipDate, String[] membershipExpiryDate) {
         this.customer = customer;
         this.dob = dob;
-        this.membershipDate = memDate;
-        this.membershipExpiryDate = memExpDate;
+        this.membershipDate = membershipDate;
+        this.membershipExpiryDate = membershipExpiryDate;
 
         initializeComponents();
         setComponentValues();
