@@ -1,115 +1,86 @@
 package view.dialogs.staff;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.HeadlessException;
+import client.Client;
+import view.RoundedBorder;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import client.Client;
-
+/**
+ * @author Malik Heron & Tori Horne
+ */
 public class RemoveDialog extends JDialog implements ActionListener {
-
-	private static final long serialVersionUID = 1L;
-	
+    private static final long serialVersionUID = 1L;
     private JLabel idLabel;
-    private JTextField idTextField;
-    private JButton saveButton;
-    private JPanel panel;
-    private final Client client;
+    private JTextField idField;
+    private JButton confirmButton;
 
-  public RemoveDialog(Client client) {
-	  
-        this.client = client;
-        setLayout(new FlowLayout(FlowLayout.TRAILING));
+    public RemoveDialog() {
         initializeComponents();
-        addComponentsToPanels();
-        addPanelsToWindow();
-        setWindowProperties();
+        addComponentsToWindow();
         registerListeners();
+        setWindowProperties();
     }
-     
-     private void initializeComponents() {
+
+    private void initializeComponents() {
         //Label properties
-        idLabel = new JLabel("Employee ID Number:");
-        idLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
+        idLabel = new JLabel("Employee ID");
+        idLabel.setFont(new Font("arial", Font.BOLD, 14));
+        idLabel.setPreferredSize(new Dimension(100, 20));
 
         //Field properties
-        idTextField = new JTextField();
-        idTextField.setFont(new Font("Aharoni", Font.BOLD, 14));
-        idTextField.setPreferredSize(new Dimension(70, 30));
+        idField = new JTextField();
+        idField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        idField.setBorder(new RoundedBorder(8));
+        idField.setPreferredSize(new Dimension(90, 35));
 
         //Button properties
-        saveButton = new JButton("Save");
-        saveButton.setFont(new Font("Aharoni", Font.BOLD, 14));
-
-        //Panel properties
-        panel = new JPanel();
+        confirmButton = new JButton("REMOVE");
+        confirmButton.setPreferredSize(new Dimension(100, 30));
+        confirmButton.setForeground(Color.BLUE);
+        confirmButton.setFont(new Font("arial", Font.BOLD, 14));
 
         //Additional properties
-        saveButton.setFocusPainted(false);
+        confirmButton.setFocusPainted(false);
     }
 
-	 private void addComponentsToPanels() {
-        panel.add(idLabel);
-        panel.add(idTextField);
-        panel.add(saveButton);
-    }
-
-    private void addPanelsToWindow() {
-        add(panel);
+    private void addComponentsToWindow() {
+        add(idLabel);
+        add(idField);
+        add(confirmButton);
     }
 
     private void setWindowProperties() {
-    	
-        setTitle("Search Employee List");
-        setSize(270, 80);
-        //setVisible(true);
+        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        setTitle("Remove Employee");
+        setSize(350, 90);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
+        setVisible(true);
     }
 
     private void registerListeners() {
-        saveButton.addActionListener(this);
-    }
-   
-	
-	    private boolean validateFields() {
-        return !(idTextField.getText().isEmpty());
+        confirmButton.addActionListener(this);
     }
 
-    private void resetFields() {
-        idTextField.setText("");
+    private boolean validateFields() {
+        return !(idField.getText().isEmpty());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
-        try {
-			if (e.getSource().equals(saveButton)) {
-			    if (validateFields()) {
-			    	
-			        client.sendAction("Delete Employee");
-			        client.sendEmployeeId(idTextField.getText());
-			        resetFields();
-			        dispose();
-			        
-			    } else {
-			        JOptionPane.showMessageDialog(this,"One or more fields empty",
-			                "Warning",JOptionPane.WARNING_MESSAGE);
-			    }
-			}
-		} catch (HeadlessException e1) {
-			e1.printStackTrace();
-		}
+        if (e.getSource().equals(confirmButton)) {
+            if (validateFields()) {
+                Client client = new Client();
+                client.sendAction("Remove Employee");
+                client.sendEmployeeId(idField.getText());
+                client.receiveResponse();
+                client.closeConnections();
+                dispose();
+            }
+        }
     }
 }

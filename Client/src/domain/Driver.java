@@ -1,9 +1,10 @@
 package domain;
 
-import view.MainScreen;
+import java.awt.Color;
 
 import javax.swing.UIManager;
-import java.awt.Color;
+
+import view.MainScreen;
 
 public class Driver {
     public static void main(String[] args) {
