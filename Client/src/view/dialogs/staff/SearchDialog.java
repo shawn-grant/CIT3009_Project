@@ -1,116 +1,118 @@
 package view.dialogs.staff;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.HeadlessException;
+import client.Client;
+import models.Employee;
+import models.Product;
+import view.RoundedBorder;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+/**
+ * @author Malik Heron & Tori Horne
+ */
+public class SearchDialog extends JDialog implements ActionListener {
 
-import client.Client;
-
-public class StaffSearchDialog extends JDialog implements ActionListener{
-
-	private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1L;
+    private final DefaultTableModel model;
     private JLabel idLabel;
-    private JTextField idTextField;
-    private JButton saveButton;
-    private JPanel panel;
-    private final Client client;
+    private JTextField idField;
+    private JButton confirmButton;
 
-
-
-    public StaffSearchDialog(Client client) {
-
-        this.client = client;
-        setLayout(new FlowLayout(FlowLayout.TRAILING));
+    public SearchDialog(DefaultTableModel model) {
+        this.model = model;
         initializeComponents();
-        addComponentsToPanels();
-        addPanelsToWindow();
-        setWindowProperties();
+        addComponentsToWindow();
         registerListeners();
+        setWindowProperties();
     }
 
     private void initializeComponents() {
         //Label properties
-        idLabel = new JLabel("Employee ID Number:");
-        idLabel.setFont(new Font("Aharoni", Font.BOLD, 14));
+        idLabel = new JLabel("Employee ID");
+        idLabel.setFont(new Font("arial", Font.BOLD, 14));
+        idLabel.setPreferredSize(new Dimension(100, 20));
 
         //Field properties
-        idTextField = new JTextField();
-        idTextField.setFont(new Font("Aharoni", Font.BOLD, 14));
-        idTextField.setPreferredSize(new Dimension(70, 30));
+        idField = new JTextField();
+        idField.setFont(new Font("times new roman", Font.PLAIN, 14));
+        idField.setBorder(new RoundedBorder(8));
+        idField.setPreferredSize(new Dimension(90, 35));
 
         //Button properties
-        saveButton = new JButton("Search");
-        saveButton.setFont(new Font("Aharoni", Font.BOLD, 14));
-
-        //Panel properties
-        panel = new JPanel();
+        confirmButton = new JButton("SEARCH");
+        confirmButton.setPreferredSize(new Dimension(100, 30));
+        confirmButton.setForeground(Color.BLUE);
+        confirmButton.setFont(new Font("arial", Font.BOLD, 14));
 
         //Additional properties
-        saveButton.setFocusPainted(false);
+        confirmButton.setFocusPainted(false);
     }
 
-    private void addComponentsToPanels() {
-        panel.add(idLabel);
-        panel.add(idTextField);
-        panel.add(saveButton);
-    }
-
-    private void addPanelsToWindow() {
-        add(panel);
+    private void addComponentsToWindow() {
+        add(idLabel);
+        add(idField);
+        add(confirmButton);
     }
 
     private void setWindowProperties() {
-        setTitle("Search Employee List");
-        setSize(375, 100);
-        setVisible(true);
+        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        setTitle("Search Employees");
+        setSize(350, 90);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
+        setVisible(true);
     }
 
     private void registerListeners() {
-        saveButton.addActionListener(this);
+        confirmButton.addActionListener(this);
     }
 
     private boolean validateFields() {
-        return !(idTextField.getText().isEmpty());
+        return !(idField.getText().isEmpty());
     }
 
-    private void resetFields() {
-        idTextField.setText("");
+    private void setEmployee(Employee employee) {
+        int count = 0;
+        int rowCount = model.getRowCount();
+        int counter = 0;
+
+        while (counter < rowCount) {
+            model.removeRow(count);
+            counter++;
+        }
+
+        model.insertRow(count, new Object[]{
+                employee.getId(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getDOB(),
+                employee.getAddress(),
+                employee.getTelephone(),
+                employee.getEmail(),
+                employee.getType(),
+                employee.getDepartment()
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        try {
-			if (e.getSource().equals(saveButton)) {
-
-			    if (validateFields()) {
-
-			        client.sendAction("Find Employee");
-			        client.sendEmployeeId(idTextField.getText());
-			        resetFields();
-			        //dispose();
-			    } else {
-			        JOptionPane.showMessageDialog(this,"One or more fields empty",
-			                "Warning",JOptionPane.WARNING_MESSAGE);
-			    }
-			}
-		} catch (HeadlessException e1) {
-			e1.printStackTrace();
-		}
+        if (e.getSource().equals(confirmButton)) {
+            if (validateFields()) {
+                Client client = new Client();
+                client.sendAction("Find Employee");
+                client.sendEmployeeId(idField.getText());
+                Employee employee = client.receiveFindEmployeeResponse();
+                client.closeConnections();
+                if (employee != null) {
+                    setEmployee(employee);
+                    dispose();
+                }
+            }
+        }
     }
-
 }

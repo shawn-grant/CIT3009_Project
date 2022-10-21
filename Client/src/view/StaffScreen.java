@@ -4,17 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
 import models.Employee;
-import view.dialogs.staff.StaffDeleteDialog;
-import view.dialogs.staff.StaffInsertDialog;
-import view.dialogs.staff.StaffSearchDialog;
-import view.dialogs.staff.StaffUpdateDialog;
-
+import view.dialogs.staff.RemoveDialog;
+import view.dialogs.staff.InsertDialog;
+import view.dialogs.staff.SearchDialog;
+import view.dialogs.staff.UpdateDialog;
 
 public class StaffScreen extends BaseScreen implements ActionListener {
 
@@ -22,7 +20,6 @@ public class StaffScreen extends BaseScreen implements ActionListener {
             "Address", "Telephone", "Email", "Employee Type", "Department"};
     private JTable table;
     private DefaultTableModel model;
-
 
     public StaffScreen() {
         super("Employees");
@@ -93,23 +90,47 @@ public class StaffScreen extends BaseScreen implements ActionListener {
         }
     }
 
+    // remove item at selected row
+    private boolean removeItem() {
+        boolean isSelected = false;
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            int choice = JOptionPane.showConfirmDialog(
+                    null,
+                    "Remove this employee?",
+                    "Remove prompt",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (choice == JOptionPane.YES_OPTION) {
+                Client client = new Client();
+                client.sendAction("Remove Employee");
+                client.sendEmployeeId((String) model.getValueAt(table.getSelectedRow(), 0));
+                client.receiveResponse();
+                client.closeConnections();
+            }
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(addButton)) {
-            new StaffInsertDialog();
+            new InsertDialog();
             getStaff();
         }
         if (e.getSource().equals(updateButton)) {
-            new StaffUpdateDialog();
+            new UpdateDialog();
             getStaff();
         }
         if (e.getSource().equals(searchButton)) {
-            new  StaffSearchDialog(null);
-            getStaff();
+            new SearchDialog(model);
         }
         if (e.getSource().equals(deleteButton)) {
-            new StaffDeleteDialog(null);
+            if (!removeItem()) {
+                new RemoveDialog();
+            }
             getStaff();
         }
         if (e.getSource().equals(refreshButton)) {

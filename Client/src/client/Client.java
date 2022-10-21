@@ -147,8 +147,8 @@ public class Client {
                 } else {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Failed to remove record",
-                            "Remove Record Status",
+                            "Failed to add record",
+                            "Add Record Status",
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
