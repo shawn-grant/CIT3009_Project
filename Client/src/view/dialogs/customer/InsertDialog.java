@@ -204,7 +204,6 @@ public class InsertDialog extends JDialog implements ActionListener {
                             "Invalid Field",
                             JOptionPane.WARNING_MESSAGE);
                 }
-
             } else {
                 JOptionPane.showMessageDialog(
                         this,

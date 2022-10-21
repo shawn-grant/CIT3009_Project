@@ -18,6 +18,7 @@ import client.Client;
 import models.Employee;
 import view.RoundedBorder;
 import view.components.DatePicker;
+import view.components.EmailVerifier;
 
 /**
  * @author Malik Heron & Tori Horne
@@ -201,23 +202,31 @@ public class InsertDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                Client client = new Client();
-                Employee employee = new Employee(
-                        idField.getText(),
-                        firstNameField.getText(),
-                        lastNameField.getText(),
-                        dobPicker.getSelectedDate(),
-                        addressField.getText(),
-                        telephoneField.getText(),
-                        emailField.getText(),
-                        employeeTypes[typeBox.getSelectedIndex()],
-                        departments[departmentBox.getSelectedIndex()]
-                );
-                client.sendAction("Add Employee");
-                client.sendEmployee(employee);
-                client.receiveResponse();
-                client.closeConnections();
-                dispose();
+                if (EmailVerifier.isValid(emailField.getText())) {
+                    Client client = new Client();
+                    Employee employee = new Employee(
+                            idField.getText(),
+                            firstNameField.getText(),
+                            lastNameField.getText(),
+                            dobPicker.getSelectedDate(),
+                            addressField.getText(),
+                            telephoneField.getText(),
+                            emailField.getText(),
+                            employeeTypes[typeBox.getSelectedIndex()],
+                            departments[departmentBox.getSelectedIndex()]
+                    );
+                    client.sendAction("Add Employee");
+                    client.sendEmployee(employee);
+                    client.receiveResponse();
+                    client.closeConnections();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Invalid email address",
+                            "Invalid Field",
+                            JOptionPane.WARNING_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "One or more fields empty",
                         "Warning", JOptionPane.WARNING_MESSAGE);
@@ -228,5 +237,4 @@ public class InsertDialog extends JDialog implements ActionListener {
             dispose();
         }
     }
-
 }
