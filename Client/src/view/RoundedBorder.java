@@ -6,8 +6,11 @@
  */
 package view;
 
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+
 import javax.swing.border.Border;
-import java.awt.*;
 
 public class RoundedBorder implements Border {
     private final int r;
@@ -21,7 +24,8 @@ public class RoundedBorder implements Border {
         return new Insets(this.r + 1, this.r + 1, this.r + 2, this.r);
     }
 
-    public boolean isBorderOpaque() {
+    @Override
+	public boolean isBorderOpaque() {
         return true;
     }
 

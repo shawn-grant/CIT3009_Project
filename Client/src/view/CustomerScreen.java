@@ -6,16 +6,17 @@
 package view;
 
 
-import client.Client;
-import models.Customer;
-import view.dialogs.customer.CustomerInsertDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
+
+import client.Client;
+import models.Customer;
+import view.dialogs.customer.CustomerInsertDialog;
 
 public class CustomerScreen extends BaseScreen implements ActionListener {
     private final String[] tableHeaders = {
@@ -68,25 +69,25 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             client.sendAction("View Customer");
             List<Customer> customersList = client.receiveViewCustomersResponse();
             client.closeConnections();
-            
+
             int count = 0;
             int rowCount = model.getRowCount();
             int counter = 0;
-            
+
             while (counter < rowCount) {
                 model.removeRow(count);
                 counter++;
             }
-            
+
             for (Customer customer : customersList) {
                 System.out.println(customer);
 
                 model.insertRow(count, new Object[]{
-                    customer.getId(), 
+                    customer.getId(),
                     customer.getFirstName(),
-                    customer.getLastName(), 
+                    customer.getLastName(),
                     customer.getEmail(),
-                    customer.getTelephone(), 
+                    customer.getTelephone(),
                     customer.getAddress(),
                     customer.getMembershipDate(),
                     customer.getMembershipExpiryDate()

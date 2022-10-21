@@ -1,12 +1,13 @@
 package factories;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import javax.swing.JOptionPane;
 
 public class DBConnectorFactory {
 

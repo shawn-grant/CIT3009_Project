@@ -5,15 +5,23 @@
  */
 package view.dialogs.customer;
 
-import client.Client;
-import models.Customer;
-import view.RoundedBorder;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import client.Client;
+import models.Customer;
+import view.RoundedBorder;
 
 public class CustomerInsertDialog extends JDialog implements ActionListener {
 

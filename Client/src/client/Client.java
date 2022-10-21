@@ -1,17 +1,18 @@
 package client;
 
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import models.Customer;
+import models.Employee;
+import models.Invoice;
+import models.Product;
 
 public class Client {
 

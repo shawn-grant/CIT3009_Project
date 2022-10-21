@@ -1,12 +1,19 @@
 package view.dialogs.inventory;
 
-import client.Client;
-import view.RoundedBorder;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import client.Client;
+import view.RoundedBorder;
 
 public class InventoryRemoveDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;

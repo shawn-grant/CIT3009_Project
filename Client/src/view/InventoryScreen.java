@@ -1,17 +1,19 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import client.Client;
 import models.Product;
 import view.dialogs.inventory.InventoryInsertDialog;
 import view.dialogs.inventory.InventoryRemoveDialog;
 import view.dialogs.inventory.InventorySearchDialog;
 import view.dialogs.inventory.InventoryUpdateDialog;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 
 public class InventoryScreen extends BaseScreen implements ActionListener {
 

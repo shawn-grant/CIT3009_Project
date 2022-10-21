@@ -5,14 +5,27 @@
  */
 package view;
 
-import factories.SessionFactoryBuilder;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+
+import factories.SessionFactoryBuilder;
 
 public class MainScreen extends JFrame implements ActionListener {
 
@@ -82,8 +95,8 @@ public class MainScreen extends JFrame implements ActionListener {
         // scrollPane properties
         scrollPane = new JScrollPane(
                 textArea,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
         );
         scrollPane.setPreferredSize(new Dimension(505, 460));
 
@@ -110,7 +123,7 @@ public class MainScreen extends JFrame implements ActionListener {
         setLayout(null);
         setSize(530, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
     }
 

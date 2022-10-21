@@ -1,17 +1,19 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import client.Client;
 import models.Employee;
 import view.dialogs.staff.StaffDeleteDialog;
 import view.dialogs.staff.StaffInsertDialog;
 import view.dialogs.staff.StaffSearchDialog;
 import view.dialogs.staff.StaffUpdateDialog;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 
 
 public class StaffScreen extends BaseScreen implements ActionListener {
@@ -37,7 +39,7 @@ public class StaffScreen extends BaseScreen implements ActionListener {
         model = new DefaultTableModel(tableHead, 0);
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
-        table.setAutoCreateRowSorter(true); //Enable sorting by columns 
+        table.setAutoCreateRowSorter(true); //Enable sorting by columns
     }
 
     private void setupListeners() {

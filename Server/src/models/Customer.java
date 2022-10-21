@@ -1,4 +1,4 @@
-package models;
+mpackage models;
 //============================================================================
 // Name        : Customer.java
 // Author      : Tyrien Gilpin
@@ -7,11 +7,12 @@ package models;
 // Description : Customer Model Class
 //============================================================================
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity(name = "customer")
 @Table(name = "customer")

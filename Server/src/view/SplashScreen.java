@@ -5,8 +5,14 @@
  */
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JWindow;
 
 public class SplashScreen extends JWindow {
 

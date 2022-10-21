@@ -17,19 +17,19 @@ import javax.swing.JTextField;
 import client.Client;
 
 public class StaffSearchDialog extends JDialog implements ActionListener{
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
     private JLabel idLabel;
     private JTextField idTextField;
     private JButton saveButton;
     private JPanel panel;
     private final Client client;
-    
-    
-    
+
+
+
     public StaffSearchDialog(Client client) {
-    	
+
         this.client = client;
         setLayout(new FlowLayout(FlowLayout.TRAILING));
         initializeComponents();
@@ -72,8 +72,8 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
 
     private void setWindowProperties() {
         setTitle("Search Employee List");
-        setSize(270, 80);
-        //setVisible(true);
+        setSize(375, 100);
+        setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
@@ -93,12 +93,12 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
+
         try {
 			if (e.getSource().equals(saveButton)) {
-				
+
 			    if (validateFields()) {
-			    	
+
 			        client.sendAction("Find Employee");
 			        client.sendEmployeeId(idTextField.getText());
 			        resetFields();
@@ -112,5 +112,5 @@ public class StaffSearchDialog extends JDialog implements ActionListener{
 			e1.printStackTrace();
 		}
     }
-    
+
 }

@@ -5,8 +5,11 @@
  */
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class DefaultScreen extends JPanel {
     private final JLabel jwrIcon;
