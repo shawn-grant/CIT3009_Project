@@ -1,5 +1,5 @@
 /**
- * CustomerInsertDialog.java
+ * InsertDialog.java
  * Popup to add a new customer
  * Author (s): Shawn Grant and Malik Heron
  */
