@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.ServerSocket;
 
 public class MainScreen extends JFrame implements ActionListener {
 
@@ -36,7 +37,7 @@ public class MainScreen extends JFrame implements ActionListener {
     private JToggleButton reportButton;
     private JToggleButton exitButton;
 
-    public MainScreen() {
+    public MainScreen(ServerSocket serverSocket) {
         super("Jan's Wholesale and Retail Management System");
 
         initializeComponents();

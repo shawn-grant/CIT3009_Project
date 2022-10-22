@@ -9,7 +9,6 @@ import models.Product;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import view.MainScreen;
-import view.MainnScreen;
 import view.SplashScreen;
 
 import java.io.EOFException;
@@ -36,7 +35,7 @@ public class Server {
     private Socket clientSocket;
     private ObjectOutputStream objOs;
     private ObjectInputStream objIs;
-    private MainnScreen mainScreen;
+    private MainScreen mainScreen;
 
     public Server() {
         createConnection();
@@ -76,7 +75,7 @@ public class Server {
     }
 
     private void waitForRequests() {
-        mainScreen = new MainnScreen(serverSocket);
+        mainScreen = new MainScreen(serverSocket);
         splashScreen.dispose();
         mainScreen.setVisible(true);
         System.out.println("Sever is running...");
