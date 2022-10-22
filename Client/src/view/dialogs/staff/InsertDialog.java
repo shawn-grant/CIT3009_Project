@@ -18,6 +18,7 @@ import client.Client;
 import models.Department;
 import models.Employee;
 import utils.PhoneNumberValidator;
+import utils.StringValidator;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
 import utils.EmailValidator;
@@ -193,56 +194,44 @@ public class InsertDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
-        return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
-                || lastNameField.getText().isEmpty() || addressField.getText().isEmpty() || emailField.getText().isEmpty()
-                || employeeTypes[typeBox.getSelectedIndex()].equals("") || departments[departmentBox.getSelectedIndex()].equals(""));
+        if (idField.getText().isEmpty() || firstNameField.getText().isEmpty()
+                || lastNameField.getText().isEmpty() || addressField.getText().isEmpty()
+                || telephoneField.getText().isEmpty() || emailField.getText().isEmpty()
+                || employeeTypes[typeBox.getSelectedIndex()].equals("")
+                || departments[departmentBox.getSelectedIndex()].equals("")) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "One or more fields empty",
+                    "Warning", JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        } else return StringValidator.isValid(firstNameField.getText(), this)
+                && StringValidator.isValid(lastNameField.getText(), this)
+                && PhoneNumberValidator.isValid(telephoneField.getText(), this)
+                && EmailValidator.isValid(emailField.getText(), this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                if (EmailValidator.isValid(emailField.getText())) {
-                    if (PhoneNumberValidator.isValid(telephoneField.getText())) {
-                        Client client = new Client();
-                        Employee employee = new Employee(
-                                idField.getText(),
-                                firstNameField.getText(),
-                                lastNameField.getText(),
-                                dobPicker.getSelectedDate(),
-                                addressField.getText(),
-                                telephoneField.getText(),
-                                emailField.getText(),
-                                employeeTypes[typeBox.getSelectedIndex()],
-                                new Department(departments[departmentBox.getSelectedIndex()]).getCode()
-                        );
-                        client.sendAction("Add Employee");
-                        client.sendEmployee(employee);
-                        client.receiveResponse();
-                        client.closeConnections();
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Invalid telephone number",
-                                "Invalid Field",
-                                JOptionPane.WARNING_MESSAGE
-                        );
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Invalid email address",
-                            "Invalid Field",
-                            JOptionPane.WARNING_MESSAGE
-                    );
-                }
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "One or more fields empty",
-                        "Warning", JOptionPane.WARNING_MESSAGE
+                Client client = new Client();
+                Employee employee = new Employee(
+                        idField.getText(),
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        dobPicker.getSelectedDate(),
+                        addressField.getText(),
+                        telephoneField.getText(),
+                        emailField.getText(),
+                        employeeTypes[typeBox.getSelectedIndex()],
+                        new Department(departments[departmentBox.getSelectedIndex()]).getCode()
                 );
+                client.sendAction("Add Employee");
+                client.sendEmployee(employee);
+                client.receiveResponse();
+                client.closeConnections();
+                dispose();
             }
         }
 
