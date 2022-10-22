@@ -22,7 +22,7 @@ import utils.StringValidator;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
 import utils.EmailValidator;
-import utils.GenerateID;
+import utils.IDGenerator;
 
 /**
  * @author Malik Heron & Tori Horne
@@ -96,7 +96,7 @@ public class InsertDialog extends JDialog implements ActionListener {
         dobPicker = new DatePicker();
 
         //Field properties
-        idField = new JTextField(new GenerateID().getID("E"));
+        idField = new JTextField(new IDGenerator().getID("E"));
         idField.setBorder(new RoundedBorder(8));
         idField.setPreferredSize(fieldSize);
         idField.setFont(fieldFont);

@@ -65,7 +65,7 @@ public class InsertDialog extends JDialog implements ActionListener {
         unitPriceLabel.setPreferredSize(labelSize);
 
         //Field properties
-        codeField = new JTextField(new GenerateID().getID("P"));
+        codeField = new JTextField(new IDGenerator().getID("P"));
         codeField.setFont(fieldFont);
         codeField.setBorder(new RoundedBorder(8));
         codeField.setPreferredSize(fieldSize);
