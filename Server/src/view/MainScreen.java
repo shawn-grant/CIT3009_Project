@@ -38,7 +38,7 @@ import java.net.ServerSocket;
 public class MainScreen extends JFrame implements ActionListener {
 
     private final ServerSocket serverSocket;
-    private final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/serverIcon.png"));
+    private final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/tray_icon.png"));
     private JPanel panel;
     private JTextArea textArea;
     private JLabel statusLabel, requestsLabel;

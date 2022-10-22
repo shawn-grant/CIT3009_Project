@@ -30,7 +30,7 @@ public class Server {
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private final SplashScreen splashScreen = new SplashScreen();
-    int requestAmount = 1;
+    private int requestAmount = 1;
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private ObjectOutputStream objOs;

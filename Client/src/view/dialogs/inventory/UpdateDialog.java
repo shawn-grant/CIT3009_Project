@@ -2,7 +2,7 @@ package view.dialogs.inventory;
 
 import client.Client;
 import models.Product;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -25,9 +25,21 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private JLabel nameLabel, codeLabel, shortDescLabel, longDescLabel, inStockLabel, unitPriceLabel;
     private JTextField nameField, codeField, shortDescField, longDescField, inStockField, unitPriceField;
     private JButton cancelButton, confirmButton;
+    private Product product;
 
     public UpdateDialog() {
         initializeComponents();
+        addComponentsToWindow();
+        registerListeners();
+        setWindowProperties();
+    }
+
+    // for selected customer
+    public UpdateDialog(Product product) {
+        this.product = product;
+
+        initializeComponents();
+        setComponentValues();
         addComponentsToWindow();
         registerListeners();
         setWindowProperties();
@@ -108,6 +120,15 @@ public class UpdateDialog extends JDialog implements ActionListener {
         cancelButton.setFocusPainted(false);
     }
 
+    private void setComponentValues() {
+        codeField.setText(product.getCode());
+        nameField.setText(product.getName());
+        shortDescField.setText(product.getShortDescription());
+        longDescField.setText(product.getLongDescription());
+        inStockField.setText(String.valueOf(product.getItemInStock()));
+        unitPriceField.setText(String.valueOf(product.getUnitPrice()));
+    }
+
     private void addComponentsToWindow() {
         add(codeLabel);
         add(codeField);
@@ -148,6 +169,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
                 Client client = new Client();

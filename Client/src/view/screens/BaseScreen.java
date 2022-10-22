@@ -3,7 +3,7 @@
  * To be inherited by other screens, contains a title & buttons for CRUD operations
  * Author (s): Shawn Grant
  */
-package view;
+package view.screens;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;

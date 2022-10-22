@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class Department implements Serializable {
     private String name;
     private String code;
+    private final String[][] departments = {{"Management", "Inventory", "Accounting & sales"}, {"MAN", "INV", "ACS"}};
 
     //Default Constructor
     public Department() {
@@ -20,8 +21,12 @@ public class Department implements Serializable {
 
     //Primary Constructor
     public Department(String name, String code) {
+        setName(name);
+        setCode(code);
+    }
+
+    public Department(String name) {
         this.name = name;
-        this.code = code;
     }
 
     //Copy Constructor
@@ -32,7 +37,13 @@ public class Department implements Serializable {
 
     //Getters and Setters
     public String getName() {
-        return name;
+        System.out.println(code);
+        for(int index = 0; index <= departments.length; index++) {
+            if (departments[1][index].equals(code)) {
+                return departments[0][index];
+            }
+        }
+        return null;
     }
 
     public void setName(String name) {
@@ -40,7 +51,14 @@ public class Department implements Serializable {
     }
 
     public String getCode() {
-        return code;
+        int index = 0;
+        while(index <= departments.length) {
+            if (departments[0][index].equals(name)) {
+                return departments[1][index];
+            }
+            index++;
+        }
+        return null;
     }
 
     public void setCode(String code) {

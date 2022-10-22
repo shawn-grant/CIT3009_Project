@@ -2,7 +2,7 @@ package view.dialogs.customer;
 
 import client.Client;
 import models.Customer;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

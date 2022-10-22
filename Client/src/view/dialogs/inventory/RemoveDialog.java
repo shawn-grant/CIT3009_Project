@@ -1,7 +1,7 @@
 package view.dialogs.inventory;
 
 import client.Client;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

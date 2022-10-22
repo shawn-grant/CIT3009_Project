@@ -7,10 +7,7 @@ package models;
 //Description : Employee Model Class
 //============================================================================
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,6 +22,7 @@ public class Employee implements Serializable {
     private String firstName;
     @Column(name = "lastName")
     private String lastName;
+    @Temporal(TemporalType.DATE)
     @Column(name = "DOB")
     private Date DOB;
     @Column(name = "address")
@@ -35,7 +33,7 @@ public class Employee implements Serializable {
     private String email;
     @Column(name = "employeeType")
     private String type;
-    @Column(name = "department")
+    @Column(name = "dept_code")
     private String department;
 
     //Default Constructor
@@ -54,15 +52,15 @@ public class Employee implements Serializable {
     //Primary Constructor
     public Employee(String id, String firstName, String lastName, Date DOB, String address,
                     String telephone, String email, String type, String department) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.DOB = DOB;
-        this.address = address;
-        this.telephone = telephone;
-        this.email = email;
-        this.type = type;
-        this.department = department;
+        setId(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDOB(DOB);
+        setAddress(address);
+        setTelephone(telephone);
+        setEmail(email);
+        setType(type);
+        setDepartment(department);
     }
 
     //Copy Constructor
@@ -144,7 +142,7 @@ public class Employee implements Serializable {
     }
 
     public String getDepartment() {
-        return department;
+        return new Department(department).getCode();
     }
 
     public void setDepartment(String department) {

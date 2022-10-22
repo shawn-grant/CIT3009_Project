@@ -3,18 +3,20 @@
  * View for editing and displaying Customer info
  * Author (s): Shawn Grant
  */
-package view;
+package view.screens;
 
 import client.Client;
 import models.Customer;
 import view.dialogs.customer.InsertDialog;
 import view.dialogs.customer.RemoveDialog;
 import view.dialogs.customer.SearchDialog;
+import view.dialogs.customer.UpdateDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 public class CustomerScreen extends BaseScreen implements ActionListener {
@@ -104,7 +106,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             int choice = JOptionPane.showConfirmDialog(
                     null,
                     "Remove this customer?",
-                    "Remove prompt",
+                    "Remove Customer",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
@@ -119,6 +121,35 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
         return isSelected;
     }
 
+    // update item at selected row
+    private boolean updateItem() {
+        boolean isSelected = false;
+        //auto populate if a row is selected
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            // Split values format YYYY-MM-DD
+            String[] dob = model.getValueAt(table.getSelectedRow(), 3).toString().split("-");
+            String[] memDate = model.getValueAt(table.getSelectedRow(), 7).toString().split("-");
+            String[] memExpDate = model.getValueAt(table.getSelectedRow(), 8).toString().split("-");
+
+            Customer customer = new Customer(
+                    model.getValueAt(table.getSelectedRow(), 0).toString(),
+                    model.getValueAt(table.getSelectedRow(), 1).toString(),
+                    model.getValueAt(table.getSelectedRow(), 2).toString(),
+                    new Date(),
+                    model.getValueAt(table.getSelectedRow(), 6).toString(),
+                    model.getValueAt(table.getSelectedRow(), 5).toString(),
+                    model.getValueAt(table.getSelectedRow(), 4).toString(),
+                    new Date(),
+                    new Date()
+            );
+
+            // primary constructor to take a customer
+            new UpdateDialog(customer, dob, memDate, memExpDate);
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addButton)) {
@@ -126,7 +157,9 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             getData();
         }
         if (e.getSource().equals(updateButton)) {
-            //new CustomerInsertDialog();
+            if (!updateItem()) {
+                new UpdateDialog();
+            }
             getData();   
         }
         if (e.getSource().equals(searchButton)) {

@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import client.Client;
 import models.Product;
-import view.RoundedBorder;
+import view.components.RoundedBorder;
 
 public class checkoutDialog extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;

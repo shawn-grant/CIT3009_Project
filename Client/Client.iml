@@ -8,5 +8,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="log4j-api-2.18.0" level="project" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="library" name="mysql-connector-java-8.0.30" level="project" />
+    <orderEntry type="library" name="hibernate.core" level="project" />
+>>>>>>> branch 'main' of https://github.com/shawn-grant/CIT3009_Project.git
   </component>
 </module>

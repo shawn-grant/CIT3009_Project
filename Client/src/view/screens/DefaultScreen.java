@@ -3,7 +3,7 @@
  * A splash screen shown when the app launches
  * Author (s): Shawn Grant
  */
-package view;
+package view.screens;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

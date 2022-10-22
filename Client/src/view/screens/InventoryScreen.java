@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 import client.Client;
 import models.Product;
@@ -116,6 +116,27 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         return isSelected;
     }
 
+    // update item at selected row
+    private boolean updateItem() {
+        boolean isSelected = false;
+        //auto populate if a row is selected
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            Product product = new Product(
+                    model.getValueAt(table.getSelectedRow(), 0).toString(),
+                    model.getValueAt(table.getSelectedRow(), 1).toString(),
+                    model.getValueAt(table.getSelectedRow(), 2).toString(),
+                    model.getValueAt(table.getSelectedRow(), 3).toString(),
+                    Integer.parseInt(model.getValueAt(table.getSelectedRow(), 4).toString()),
+                    Float.parseFloat(model.getValueAt(table.getSelectedRow(), 5).toString() + "f")
+            );
+
+            // primary constructor to take a product
+            new UpdateDialog(product);
+        }
+        return isSelected;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -127,7 +148,9 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
             new SearchDialog(model);
         }
         if (e.getSource().equals(updateButton)) {
-            new UpdateDialog();
+            if (!updateItem()) {
+                new UpdateDialog();
+            }
             getInventory();
         }
         if (e.getSource().equals(deleteButton)) {
