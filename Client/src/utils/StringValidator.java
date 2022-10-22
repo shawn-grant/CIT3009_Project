@@ -12,7 +12,7 @@ public class StringValidator {
         JOptionPane.showMessageDialog(
                 component,
                 "One or more fields contains invalid characters",
-                "Warning", JOptionPane.WARNING_MESSAGE
+                "Invalid Field", JOptionPane.WARNING_MESSAGE
         );
         return false;
     }

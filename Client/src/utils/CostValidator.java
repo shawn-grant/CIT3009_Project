@@ -20,7 +20,7 @@ public class CostValidator {
             JOptionPane.showMessageDialog(
                     component,
                     "Field for cost contains invalid character/s",
-                    "Warning", JOptionPane.WARNING_MESSAGE
+                    "Invalid Field", JOptionPane.WARNING_MESSAGE
             );
             return false;
         }

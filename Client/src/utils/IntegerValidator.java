@@ -12,13 +12,13 @@ public class IntegerValidator {
         JOptionPane.showMessageDialog(
                 component,
                 "One or more fields contains invalid characters",
-                "Warning", JOptionPane.WARNING_MESSAGE
+                "Invalid Field", JOptionPane.WARNING_MESSAGE
         );
         return false;
     }
 
     private static boolean checkString(String str) {
-        //Check if string is only Letters
+        //Check if string is only digits
         for (int i = 0; i < str.length(); i++) {
             boolean flag = Character.isDigit(str.charAt(i));
 
