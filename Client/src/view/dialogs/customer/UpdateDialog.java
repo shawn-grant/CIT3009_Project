@@ -8,9 +8,10 @@ package view.dialogs.customer;
 import client.Client;
 import models.Customer;
 import utils.GenerateID;
+import utils.PhoneNumberValidator;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
-import utils.EmailVerifier;
+import utils.EmailValidator;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -208,24 +209,33 @@ public class UpdateDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                if (EmailVerifier.isValid(emailField.getText())) {
-                    Customer customer = new Customer(
-                            idField.getText(),
-                            firstNameField.getText(),
-                            lastNameField.getText(),
-                            dobPicker.getSelectedDate(),
-                            addressField.getText(),
-                            telephoneField.getText(),
-                            emailField.getText(),
-                            membershipDatePicker.getSelectedDate(),
-                            membershipExpiryDatePicker.getSelectedDate()
-                    );
-                    Client client = new Client();
-                    client.sendAction("Update Customer");
-                    client.sendCustomer(customer);
-                    client.receiveResponse();
-                    client.closeConnections();
-                    dispose();
+                if (EmailValidator.isValid(emailField.getText())) {
+                    if (PhoneNumberValidator.isValid(telephoneField.getText())) {
+                        Client client = new Client();
+                        Customer customer = new Customer(
+                                idField.getText(),
+                                firstNameField.getText(),
+                                lastNameField.getText(),
+                                dobPicker.getSelectedDate(),
+                                addressField.getText(),
+                                telephoneField.getText(),
+                                emailField.getText(),
+                                membershipDatePicker.getSelectedDate(),
+                                membershipExpiryDatePicker.getSelectedDate()
+                        );
+                        client.sendAction("Update Customer");
+                        client.sendCustomer(customer);
+                        client.receiveResponse();
+                        client.closeConnections();
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                this,
+                                "Invalid telephone number",
+                                "Invalid Field",
+                                JOptionPane.WARNING_MESSAGE
+                        );
+                    }
                 } else {
                     JOptionPane.showMessageDialog(
                             this,
@@ -234,13 +244,13 @@ public class UpdateDialog extends JDialog implements ActionListener {
                             JOptionPane.WARNING_MESSAGE
                     );
                 }
-
             } else {
                 JOptionPane.showMessageDialog(
                         this,
                         "One or more fields empty",
                         "Warning",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE
+                );
             }
         }
 

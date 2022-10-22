@@ -3,8 +3,8 @@ package view.dialogs.staff;
 import client.Client;
 import models.Department;
 import models.Employee;
-import utils.EmailVerifier;
-import utils.GenerateID;
+import utils.EmailValidator;
+import utils.PhoneNumberValidator;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
 
@@ -194,7 +194,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setTitle("Update Employee");
-        setSize(450, 495);
+        setSize(450, 500);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
@@ -240,24 +240,33 @@ public class UpdateDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                if (EmailVerifier.isValid(emailField.getText())) {
-                    Client client = new Client();
-                    Employee employee = new Employee(
-                            idField.getText(),
-                            firstNameField.getText(),
-                            lastNameField.getText(),
-                            dobPicker.getSelectedDate(),
-                            addressField.getText(),
-                            telephoneField.getText(),
-                            emailField.getText(),
-                            employeeTypes[typeBox.getSelectedIndex()],
-                            departments[departmentBox.getSelectedIndex()]
-                    );
-                    client.sendAction("Update Employee");
-                    client.sendEmployee(employee);
-                    client.receiveResponse();
-                    client.closeConnections();
-                    dispose();
+                if (EmailValidator.isValid(emailField.getText())) {
+                    if (PhoneNumberValidator.isValid(telephoneField.getText())) {
+                        Client client = new Client();
+                        Employee employee = new Employee(
+                                idField.getText(),
+                                firstNameField.getText(),
+                                lastNameField.getText(),
+                                dobPicker.getSelectedDate(),
+                                addressField.getText(),
+                                telephoneField.getText(),
+                                emailField.getText(),
+                                employeeTypes[typeBox.getSelectedIndex()],
+                                new Department(departments[departmentBox.getSelectedIndex()]).getCode()
+                        );
+                        client.sendAction("Update Employee");
+                        client.sendEmployee(employee);
+                        client.receiveResponse();
+                        client.closeConnections();
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                this,
+                                "Invalid telephone number",
+                                "Invalid Field",
+                                JOptionPane.WARNING_MESSAGE
+                        );
+                    }
                 } else {
                     JOptionPane.showMessageDialog(
                             this,
@@ -267,8 +276,11 @@ public class UpdateDialog extends JDialog implements ActionListener {
                     );
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "One or more fields empty",
-                        "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        this,
+                        "One or more fields empty",
+                        "Warning", JOptionPane.WARNING_MESSAGE
+                );
             }
         }
 

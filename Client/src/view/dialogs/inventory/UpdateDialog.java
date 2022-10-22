@@ -169,6 +169,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
                 Client client = new Client();

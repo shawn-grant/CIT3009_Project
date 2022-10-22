@@ -164,7 +164,8 @@ public class InsertDialog extends JDialog implements ActionListener {
                         this,
                         "One or more fields empty",
                         "Warning",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE
+                );
             }
         }
 
