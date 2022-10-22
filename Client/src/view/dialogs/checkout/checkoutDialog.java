@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -15,18 +17,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import client.Client;
+import models.Product;
 import view.RoundedBorder;
 
-public class checkoutDialog extends JDialog implements ActionListener {//NTS: Move class into seperate file
+public class checkoutDialog extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JLabel totalItemsLbl, totalCostlbl, staffIDLabel, customerIDLabel, tenderedLabel;
     private JTextField totalItemsTxtValue, totalCostTxtValue, staffTxtValue, customerTxtValue;
     private JTextField tenderedTxtValue;
     private JButton cashoutButton, cancelButton;
 	private DefaultTableModel model;
+	private List<Product> productList = new ArrayList<>();
+	private String products;
     
-    public checkoutDialog(DefaultTableModel model) {
+    public checkoutDialog(DefaultTableModel model, List<Product> productList) {
     	this.model = model;
+    	this.productList = productList;
         initializeComponents();
         addPanelsToWindow();
         registerListeners();
@@ -157,6 +164,26 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
     	return sum;
     }
     
+    public void updateInventory() {	//NTS: Test this Method
+    	 for (Product product : productList) {//For each product being checked out
+             Client client = new Client();
+             client.sendAction("Update Product"); //update all fields to update the product quantity in inventory
+             Product prod = new Product(
+                     product.getCode(),
+                     product.getName(),
+                     product.getShortDescription(),
+                     product.getLongDescription(),
+                     product.getItemInStock(),
+                     product.getUnitPrice()
+             );
+             products = product.getCode() + "\n";//Add product code to string
+             client.sendProduct(prod);
+             client.receiveResponse();
+             client.closeConnections();
+             System.out.println(prod);
+         } 	
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cashoutButton) {
@@ -166,7 +193,9 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
 	            	JOptionPane.showMessageDialog(null,  "Insufficient amount tendered", 
 	                		"Customer Change", JOptionPane.INFORMATION_MESSAGE);
 	            }else {
-	            	/*String date = String.valueOf(java.time.LocalDate.now());
+	            	/*
+	            	updateInventory();
+	            	String date = String.valueOf(java.time.LocalDate.now());
 		        	LocalDate currentDate = LocalDate.parse(date);
 		        	int invoiceNumber = generateInvoiceNum();
 		        	Client client = new Client();
@@ -176,7 +205,8 @@ public class checkoutDialog extends JDialog implements ActionListener {//NTS: Mo
 			            		new Date(currentDate.getDayOfMonth(), 
 			            				 currentDate.getMonthValue(), 
 			            				 currentDate.getYear()),
-			            		totalCostTxtValue.getText(),
+			            		products,					
+			            		totalCostTxtValue.getText(),	//NTS: update invoice model to add this field
 			            		Integer.parseInt(totalItemsTxtValue.getText()),
 			            		staffTxtValue.getText().trim(),
 			                    customerTxtValue.getText().trim()

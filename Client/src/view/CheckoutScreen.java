@@ -50,6 +50,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     private JTable table;
     private DefaultTableModel model;
     private final GridBagConstraints gbc = new GridBagConstraints();
+    private List<Product> productList = new ArrayList<>();	//NTS: ADD data to this list when you get back
 
     public CheckoutScreen() {
         setBackground(new Color(27, 73, 142));
@@ -249,7 +250,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         setMainContent(new JScrollPane(table));
     }
 
-    //Creating ID number for new customer
+    /*****************************Defining Button Actions*****************************/
+  //Creating ID number for new customer
     private String generateId() {
         String id = "C";
         int num = (int) ((Math.random() * (4000 - 100)) + 100);
@@ -257,13 +259,32 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         return id + num;
     }
     
-    /*****************************Defining Button Actions*****************************/
     //Method to check if all fields are empty
     private boolean validateFields() {
         return !(codeTxtValue.getText().isEmpty() || itemNameTxtValue.getText().isEmpty()
                 || quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
     }
-
+    
+    //Method to check if items in stock is less than quantity being sold
+    public boolean stockCheck(){
+            Client client = new Client();
+            client.sendAction("Find Product");
+            client.sendProductCode(codeTxtValue.getText());
+            Product product = client.receiveFindProductResponse();
+            client.closeConnections();
+            if (product != null) {
+            	int stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText().trim()); 
+                if(stock < 0) {
+                	 JOptionPane.showMessageDialog(null, "Items in stock are less than quantity entered.",
+                             "Items List", JOptionPane.WARNING_MESSAGE);
+                	 clearInput();
+                	 return false;
+                }
+            }
+            return true;
+    }
+    
+    //Auto fill empty fields with necessary product data if found
     private void setFields(Product product) {
         if (codeTxtValue.getText().trim().equalsIgnoreCase(product.getCode())) {
             if (quantityTxtValue.getText().equals("") || quantityTxtValue.getText().equals(" ")) {//NTS: Doesn't work with null
@@ -279,8 +300,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         }
     }
 
-    // search for product entered product information
-    private void searchInventory() {///NTS: Check
+    // search for product using product code entered
+    private void searchInventory() {///NTS: Test this method
         Client client = new Client();
         if (!(codeTxtValue.getText().isEmpty())) {
             client.sendAction("Find Product");
@@ -290,34 +311,77 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             client.closeConnections();
         }
     }
-
+    
+    //update the product list which is used during checkout process
+    public void updateList() {//NTS: Test this method
+    	for(int i = 0; i< model.getRowCount(); i++) {//for each row in the table do....	
+    		int remaining = 0;
+    		Client client = new Client();
+            client.sendAction("Find Product");
+            client.sendProductCode(model.getValueAt(i, 0).toString());//searching for product with code corresponding to product code in table
+            Product product = client.receiveFindProductResponse();
+            remaining = product.getItemInStock() - Integer.parseInt(model.getValueAt(i, 2).toString()); 
+            product.setItemInStock(remaining); //updating number of items remaining in stock for a product
+            productList.add(product); 
+            client.closeConnections();      			
+    	}
+    }
+    
+    //This method prevents an item from being added to the table twice, 
+    //instead it just updates the quantity and total cost of the item in the table
+    public boolean itemInTable() {//NTS: Check if this method works
+    	if(model.getRowCount()> 0) {
+	    	for(int i = 0; i< model.getRowCount(); i++) {//for each row in the check....	
+	    		String code = "", cost = "";
+	    		int quantity = 0;
+	    		double total = 0;
+	    		code = model.getValueAt(i, 0).toString();//searching for product with code corresponding to product code in table
+	            if(codeTxtValue.getText().equals(code)) {
+	            	try {
+						quantity = Integer.parseInt(quantityTxtValue.getText().trim());
+						cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim()));
+						quantity = quantity + Integer.parseInt(model.getValueAt(i, 2).toString());
+						total = Double.parseDouble(cost) + Double.parseDouble(model.getValueAt(i, 4).toString());
+						model.setValueAt(total, i, 4);
+						model.setValueAt(quantity, i, 2);
+						return true;
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Invalid Quantity value", "Invalid input",
+		                        JOptionPane.ERROR_MESSAGE);
+					}
+	            }
+	    	}
+    	}
+    	return false;
+    }
+    
     // adding product information to table
     private void addItem() {
-
         if (validateFields()) {
-            try {
-                int quantity = Integer.parseInt(quantityTxtValue.getText().trim());//getting value from quantity text field
-                String cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim())); //Calculating totals cost based on quantity
-
-                List<String> data = new ArrayList<String>();//Storing entire row in list object
-                data.add(codeTxtValue.getText().trim());
-                data.add(itemNameTxtValue.getText().trim());
-                data.add(quantityTxtValue.getText().trim());
-                data.add(unitPriceTxtValue.getText().trim());
-                data.add(cost);
-                model.addRow(data.toArray());
-                table.setModel(model);
-
-                //Emptying text fields after adding values to table
-                codeTxtValue.setText(null);
-                quantityTxtValue.setText(null);
-                itemNameTxtValue.setText(null);
-                unitPriceTxtValue.setText(null);
-                checkoutButton.setEnabled(true);
-            } catch (NumberFormatException e) {//If exceptions thrown, change value of quantity to 1
-                JOptionPane.showMessageDialog(null, "Invalid Quantity value", "Invalid input",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+        	if(stockCheck() == true) {///NTS: Check if this method does it's job correctly
+	            try {
+	            	if(itemInTable() == false) {
+		                int quantity = Integer.parseInt(quantityTxtValue.getText().trim());//getting value from quantity text field
+		                String cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim())); //Calculating totals cost based on quantity
+		
+		                List<String> data = new ArrayList<String>();//Storing entire row in list object
+		                data.add(codeTxtValue.getText().trim());
+		                data.add(itemNameTxtValue.getText().trim());
+		                data.add(quantityTxtValue.getText().trim());
+		                data.add(unitPriceTxtValue.getText().trim());
+		                data.add(cost);
+		                model.addRow(data.toArray());
+		                table.setModel(model);
+		
+		                //Emptying text fields after adding values to table
+		                clearInput();
+		                checkoutButton.setEnabled(true);
+	            	}
+		         } catch (NumberFormatException e) {//If exceptions thrown, change value of quantity to 1
+	                JOptionPane.showMessageDialog(null, "Invalid Quantity value", "Invalid input",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
         }
     }
 
@@ -347,10 +411,9 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         model.setRowCount(0);
         checkoutButton.setEnabled(false);
     }
-    
-    
+      
     //Clear fields
-    private void clear() {
+    private void clearInput() {
         codeTxtValue.setText(null);
         quantityTxtValue.setText(null);
         itemNameTxtValue.setText(null);
@@ -403,8 +466,10 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             	 JOptionPane.showMessageDialog(null, "Missing Information", "Employee ID not found",
                          JOptionPane.ERROR_MESSAGE);
             }else{
-            	new checkoutDialog(model);
-            	clear();
+            	updateList();//updating list before it is passed t the checkout dialog
+            	new checkoutDialog(model, productList);
+            	clearInput();
+            	productList.clear(); //Empty product list after checkout dialog is closed
             }           
         }
 
