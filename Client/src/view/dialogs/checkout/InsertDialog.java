@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 
 import client.Client;
 import models.Customer;
+import utils.PhoneNumberValidator;
+import utils.StringValidator;
 import view.components.DatePicker;
 import utils.EmailValidator;
 import view.components.RoundedBorder;
@@ -36,15 +38,14 @@ public class InsertDialog extends JDialog implements ActionListener {
     private JTextField addressField, telephoneField, emailField;
     private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
-    private EmailValidator EmailVerifier;
-    
+
     public InsertDialog(String idNum) {
         initializeComponents(idNum);
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
     }
-    
+
     private void initializeComponents(String idNum) {
         Dimension labelSize = new Dimension(140, 20);
         Dimension fieldSize = new Dimension(250, 35);
@@ -175,54 +176,48 @@ public class InsertDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
-        return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
+        if (idField.getText().isEmpty() || firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty() || addressField.getText().isEmpty()
-                || telephoneField.getText().isEmpty() || emailField.getText().isEmpty());
+                || telephoneField.getText().isEmpty() || emailField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "One or more fields empty",
+                    "Warning", JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        } else return StringValidator.isValid(firstNameField.getText(), this)
+                && StringValidator.isValid(lastNameField.getText(), this)
+                && PhoneNumberValidator.isValid(telephoneField.getText(), this)
+                && EmailValidator.isValid(emailField.getText(), this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-				if(EmailVerifier.isValid(emailField.getText())) {
-                    Client client = new Client();
-                    Customer customer = new Customer(
-                            idField.getText(),
-                            firstNameField.getText(),
-                            lastNameField.getText(),
-                            dobPicker.getSelectedDate(),
-                            addressField.getText(),
-                            telephoneField.getText(),
-                            emailField.getText(),
-                            membershipDatePicker.getSelectedDate(),
-                            membershipExpiryDatePicker.getSelectedDate()
-                    );
-                    client.sendAction("Add Customer");
-                    client.sendCustomer(customer);
-                    client.receiveResponse();
-                    client.closeConnections();
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Invalid email address",
-                            "Invalid Field",
-                            JOptionPane.WARNING_MESSAGE);
-                }
+                Client client = new Client();
+                Customer customer = new Customer(
+                        idField.getText(),
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        dobPicker.getSelectedDate(),
+                        addressField.getText(),
+                        telephoneField.getText(),
+                        emailField.getText(),
+                        membershipDatePicker.getSelectedDate(),
+                        membershipExpiryDatePicker.getSelectedDate()
+                );
+                client.sendAction("Add Customer");
+                client.sendCustomer(customer);
+                client.receiveResponse();
+                client.closeConnections();
+                dispose();
+            }
 
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "One or more fields empty",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE);
+            if (e.getSource().equals(cancelButton)) {
+                dispose();
             }
         }
-
-        if (e.getSource().equals(cancelButton)) {
-            dispose();
-        }
     }
-    
 }
 
