@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.regex.*;
-
 /**
  * Source: "<a href="https://www.javatpoint.com/mobile-number-validation-in-java">...</a>"
  */
