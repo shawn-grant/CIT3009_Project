@@ -13,7 +13,7 @@ import java.awt.Color;
 public class DefaultScreen extends JPanel {
     private final JLabel jwrIcon;
 
-    DefaultScreen() {
+    public DefaultScreen() {
         jwrIcon = new JLabel(new ImageIcon(getClass().getResource("/res/JWR_intro.png")));
 
         this.setSize(800, 600);

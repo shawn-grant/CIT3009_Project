@@ -8,23 +8,24 @@ Description : GUI Screen class for cashing checkout
 ============================================================================
 */
 
-import client.Client;
-import models.Customer;
-import view.RoundedBorder;
-import view.components.DatePicker;
-import view.components.EmailVerifier;
-
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import client.Client;
+import models.Customer;
+import view.components.DatePicker;
+import utils.EmailValidator;
+import view.components.RoundedBorder;
 
 public class InsertDialog extends JDialog implements ActionListener {
 
@@ -35,7 +36,8 @@ public class InsertDialog extends JDialog implements ActionListener {
     private JTextField addressField, telephoneField, emailField;
     private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
-
+    private EmailValidator EmailVerifier;
+    
     public InsertDialog(String idNum) {
         initializeComponents(idNum);
         addPanelsToWindow();
@@ -182,7 +184,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                if(EmailVerifier.isValid(emailField.getText())) {
+				if(EmailVerifier.isValid(emailField.getText())) {
                     Client client = new Client();
                     Customer customer = new Customer(
                             idField.getText(),

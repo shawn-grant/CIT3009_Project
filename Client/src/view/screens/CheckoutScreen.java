@@ -6,19 +6,6 @@ package view.screens;
 //Description : GUI Screen class for cashing checkout 
 //============================================================================
 
-import client.Client;
-import models.Product;
-
-import javax.swing.table.DefaultTableModel;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,24 +20,40 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 import client.Client;
+import models.Customer;
+import models.Employee;
 import models.Product;
 import view.dialogs.checkout.*;
+//import view.dialogs.customer.InsertDialog;
 
 public class CheckoutScreen extends JPanel implements ActionListener {
-
     private static final long serialVersionUID = 1L;
     private final String[] TableColumns = {"Product Code", "Product Name", "Quantity", "Unit Price", "Cost"};
-    private JButton addButton, deleteButton, clearButton, checkoutButton, searchButton;
+    private JButton addButton, deleteButton, clearButton, checkoutButton, searchButton, addCustomerButton;
     private JLabel titleLabel, productCodeLbl, itemNameLabel, quantityLabel, unitPrice;
+    private JLabel customer, staff;
     private JTextField codeTxtValue, quantityTxtValue, itemNameTxtValue, unitPriceTxtValue;
+    private JTextField customerTxtValue, staffTxtValue;
     private JPanel centerPanel, mainContent;
     private JTable table;
     private DefaultTableModel model;
     private final GridBagConstraints gbc = new GridBagConstraints();
+    private List<Product> productList = new ArrayList<>();	//NTS: ADD data to this list when you get back
 
     public CheckoutScreen() {
-        setBackground(new Color(0, 100, 205));
+        setBackground(new Color(27, 73, 142));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(800, 600);
 
@@ -69,18 +72,34 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         titleLabel.setForeground(Color.WHITE);
 
         productCodeLbl = new JLabel("Product Code");
+        // productCodeLbl.setFont(new Font("arial",Font.CENTER_BASELINE,20));
         itemNameLabel = new JLabel("Item");
         quantityLabel = new JLabel("Quantity");
-		unitPrice = new JLabel("Unit Price");
+        unitPrice = new JLabel("Unit Price");
+        customer = new JLabel("Customer ID");
+        staff = new JLabel("Staff ID");
 
-		//Initializing Text areas
+        //Initializing Text areas
         codeTxtValue = new JTextField(20);
         quantityTxtValue = new JTextField(20);
         itemNameTxtValue = new JTextField(20);
         unitPriceTxtValue = new JTextField(20);
         itemNameTxtValue.setEditable(false);
         unitPriceTxtValue.setEditable(false);
-
+        customerTxtValue = new JTextField(20);
+        staffTxtValue = new JTextField(20);
+        customerTxtValue.setText("C000");
+        
+       /* 
+        quantityTxtValue = new JTextField(20);
+        itemNameTxtValue = new JTextField(20);
+        unitPriceTxtValue = new JTextField(20);
+        itemNameTxtValue.setEditable(false);
+        unitPriceTxtValue.setEditable(false);
+        customerTxtValue = new JTextField(20);
+        staffTxtValue = new JTextField(20);
+        */
+        
         //initializing buttons
         addButton = new JButton("Add");
         deleteButton = new JButton("Delete");
@@ -88,17 +107,21 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         checkoutButton = new JButton("Checkout");
         checkoutButton.setEnabled(false);
         searchButton = new JButton("Search");
+        addCustomerButton = new JButton("Add customer");
 
         //Setting button sizes
         addButton.setPreferredSize(new Dimension(100, 40));
         deleteButton.setPreferredSize(new Dimension(100, 40));
         clearButton.setPreferredSize(new Dimension(100, 40));
         checkoutButton.setPreferredSize(new Dimension(100, 40));
-        searchButton.setPreferredSize(new Dimension(100, 20));
+        searchButton.setPreferredSize(new Dimension(90, 20));
+        addCustomerButton.setPreferredSize(new Dimension(130, 20));
+
 
         //Setting button font & Colour
         addButton.setFont(new Font("arial", Font.PLAIN, 15));
         addButton.setBackground(new Color(224, 224, 224));
+        addButton.setForeground(Color.black);
         deleteButton.setFont(new Font("arial", Font.PLAIN, 15));
         deleteButton.setBackground(new Color(224, 224, 224));
         clearButton.setFont(new Font("arial", Font.PLAIN, 15));
@@ -107,6 +130,10 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         checkoutButton.setBackground(new Color(224, 224, 224));
         searchButton.setFont(new Font("arial", Font.PLAIN, 15));
         searchButton.setBackground(new Color(224, 224, 224));
+        addCustomerButton.setFont(new Font("arial", Font.PLAIN, 15));
+        addCustomerButton.setBackground(new Color(224, 224, 224));
+        
+        
 
         //Setting Panel Properties
         mainContent = new JPanel(new GridLayout(0, 1, 0, 70));
@@ -127,87 +154,84 @@ public class CheckoutScreen extends JPanel implements ActionListener {
 
     private void addComponentsToPanels() {
         //Adding Labels and fields to label panel
-        gbc.insets = new Insets(10, 10, 20, 10);//Sets Padding around values
+        gbc.insets = new Insets(25, 10, 20, 10);//Sets Padding around values
 
-        gbc.gridx = 0;//Setting position on x axis
-        gbc.gridy = 0;//Setting position on Y axis
-        gbc.gridwidth = 1; //Setting number of columns occupied by the grid object
-        gbc.fill = GridBagConstraints.HORIZONTAL;//Filling grid object into space specified grid width
-        centerPanel.add(productCodeLbl, gbc);
+        gbc.gridx = 0;//Setting position on x-axis
+        gbc.gridy = 0;//Setting position on y-axis
+        centerPanel.add(customer, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        centerPanel.add(customerTxtValue, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(codeTxtValue, gbc);
+        centerPanel.add(addCustomerButton, gbc);
 
-        gbc.gridx = 6;
+        gbc.gridx = 3;
         gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(searchButton, gbc);
-
-        gbc.gridx = 7;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(quantityLabel, gbc);
-
-        gbc.gridx = 9;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(quantityTxtValue, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(itemNameLabel, gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 7;
-        gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(itemNameTxtValue, gbc);
-
-        gbc.gridx = 7;
-        gbc.gridy = 7;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(unitPrice, gbc);
-
-        gbc.gridx = 9;
-        gbc.gridy = 7;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(unitPriceTxtValue, gbc);
-
-        //adding buttons to button panel
-        gbc.gridx = 0;
-        gbc.gridy = 10;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        centerPanel.add(addButton, gbc);
+        centerPanel.add(staff, gbc);
 
         gbc.gridx = 4;
-        gbc.gridy = 10;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridy = 0;
+        centerPanel.add(staffTxtValue, gbc);
+
+        ////////////////First Row//////////////////
+        gbc.gridx = 0;//Setting position on x axis
+        gbc.gridy = 1;//Setting position on Y axis
+        centerPanel.add(productCodeLbl, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        centerPanel.add(codeTxtValue, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        centerPanel.add(searchButton, gbc);
+
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        centerPanel.add(quantityLabel, gbc);
+
+        gbc.gridx = 4;
+        gbc.gridy = 1;
+        centerPanel.add(quantityTxtValue, gbc);
+
+        /////////////////////////Second Row//////////////////////////
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        centerPanel.add(itemNameLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        centerPanel.add(itemNameTxtValue, gbc);
+
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        centerPanel.add(unitPrice, gbc);
+
+        gbc.gridx = 4;
+        gbc.gridy = 2;
+        centerPanel.add(unitPriceTxtValue, gbc);
+
+        ////////////////////3rd Row////////////////////////
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        centerPanel.add(addButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         centerPanel.add(deleteButton, gbc);
 
-        gbc.gridx = 9;
-        gbc.gridy = 10;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 3;
+        gbc.gridy = 3;
         centerPanel.add(clearButton, gbc);
 
-        gbc.gridx = 13;
-        gbc.gridy = 10;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 4;
+        gbc.gridy = 3;
         centerPanel.add(checkoutButton, gbc);
     }
+
 
     private void addPanelsToWindow() {
         add(Box.createRigidArea(new Dimension(0, 20)));// vertical spacing
@@ -227,12 +251,40 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     }
 
     /*****************************Defining Button Actions*****************************/
+  //Creating ID number for new customer
+    private String generateId() {
+        String id = "C";
+        int num = (int) ((Math.random() * (4000 - 100)) + 100);
+
+        return id + num;
+    }
+    
     //Method to check if all fields are empty
     private boolean validateFields() {
         return !(codeTxtValue.getText().isEmpty() || itemNameTxtValue.getText().isEmpty()
                 || quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
     }
-
+    
+    //Method to check if items in stock is less than quantity being sold
+    public boolean stockCheck(){
+            Client client = new Client();
+            client.sendAction("Find Product");
+            client.sendProductCode(codeTxtValue.getText());
+            Product product = client.receiveFindProductResponse();
+            client.closeConnections();
+            if (product != null) {
+            	int stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText().trim()); 
+                if(stock < 0) {
+                	 JOptionPane.showMessageDialog(null, "Items in stock are less than quantity entered.",
+                             "Items List", JOptionPane.WARNING_MESSAGE);
+                	 clearInput();
+                	 return false;
+                }
+            }
+            return true;
+    }
+    
+    //Auto fill empty fields with necessary product data if found
     private void setFields(Product product) {
         if (codeTxtValue.getText().trim().equalsIgnoreCase(product.getCode())) {
             if (quantityTxtValue.getText().equals("") || quantityTxtValue.getText().equals(" ")) {//NTS: Doesn't work with null
@@ -248,8 +300,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         }
     }
 
-    // search for product entered product information
-    private void searchInventory() {///NTS: Check
+    // search for product using product code entered
+    private void searchInventory() {///NTS: Test this method
         Client client = new Client();
         if (!(codeTxtValue.getText().isEmpty())) {
             client.sendAction("Find Product");
@@ -259,34 +311,77 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             client.closeConnections();
         }
     }
-
+    
+    //update the product list which is used during checkout process
+    public void updateList() {//NTS: Test this method
+    	for(int i = 0; i< model.getRowCount(); i++) {//for each row in the table do....	
+    		int remaining = 0;
+    		Client client = new Client();
+            client.sendAction("Find Product");
+            client.sendProductCode(model.getValueAt(i, 0).toString());//searching for product with code corresponding to product code in table
+            Product product = client.receiveFindProductResponse();
+            remaining = product.getItemInStock() - Integer.parseInt(model.getValueAt(i, 2).toString()); 
+            product.setItemInStock(remaining); //updating number of items remaining in stock for a product
+            productList.add(product); 
+            client.closeConnections();      			
+    	}
+    }
+    
+    //This method prevents an item from being added to the table twice, 
+    //instead it just updates the quantity and total cost of the item in the table
+    public boolean itemInTable() {//NTS: Check if this method works
+    	if(model.getRowCount()> 0) {
+	    	for(int i = 0; i< model.getRowCount(); i++) {//for each row in the check....	
+	    		String code = "", cost = "";
+	    		int quantity = 0;
+	    		double total = 0;
+	    		code = model.getValueAt(i, 0).toString();//searching for product with code corresponding to product code in table
+	            if(codeTxtValue.getText().equals(code)) {
+	            	try {
+						quantity = Integer.parseInt(quantityTxtValue.getText().trim());
+						cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim()));
+						quantity = quantity + Integer.parseInt(model.getValueAt(i, 2).toString());
+						total = Double.parseDouble(cost) + Double.parseDouble(model.getValueAt(i, 4).toString());
+						model.setValueAt(total, i, 4);
+						model.setValueAt(quantity, i, 2);
+						return true;
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Invalid Quantity value", "Invalid input",
+		                        JOptionPane.ERROR_MESSAGE);
+					}
+	            }
+	    	}
+    	}
+    	return false;
+    }
+    
     // adding product information to table
     private void addItem() {
-
         if (validateFields()) {
-            try {
-                int quantity = Integer.parseInt(quantityTxtValue.getText().trim());//getting value from quantity text field
-                String cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim())); //Calculating totals cost based on quantity
-
-                List<String> data = new ArrayList<String>();//Storing entire row in list object
-                data.add(codeTxtValue.getText().trim());
-                data.add(itemNameTxtValue.getText().trim());
-                data.add(quantityTxtValue.getText().trim());
-                data.add(unitPriceTxtValue.getText().trim());
-                data.add(cost);
-                model.addRow(data.toArray());
-                table.setModel(model);
-
-                //Emptying text fields after adding values to table
-                codeTxtValue.setText(null);
-                quantityTxtValue.setText(null);
-                itemNameTxtValue.setText(null);
-                unitPriceTxtValue.setText(null);
-                checkoutButton.setEnabled(true);
-            } catch (NumberFormatException e) {//If exceptions thrown, change value of quantity to 1
-                JOptionPane.showMessageDialog(null, "Invalid Quantity value", "Invalid input",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+        	if(stockCheck() == true) {///NTS: Check if this method does it's job correctly
+	            try {
+	            	if(itemInTable() == false) {
+		                int quantity = Integer.parseInt(quantityTxtValue.getText().trim());//getting value from quantity text field
+		                String cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim())); //Calculating totals cost based on quantity
+		
+		                List<String> data = new ArrayList<String>();//Storing entire row in list object
+		                data.add(codeTxtValue.getText().trim());
+		                data.add(itemNameTxtValue.getText().trim());
+		                data.add(quantityTxtValue.getText().trim());
+		                data.add(unitPriceTxtValue.getText().trim());
+		                data.add(cost);
+		                model.addRow(data.toArray());
+		                table.setModel(model);
+		
+		                //Emptying text fields after adding values to table
+		                clearInput();
+		                checkoutButton.setEnabled(true);
+	            	}
+		         } catch (NumberFormatException e) {//If exceptions thrown, change value of quantity to 1
+	                JOptionPane.showMessageDialog(null, "Invalid Quantity value", "Invalid input",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
         }
     }
 
@@ -316,6 +411,14 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         model.setRowCount(0);
         checkoutButton.setEnabled(false);
     }
+      
+    //Clear fields
+    private void clearInput() {
+        codeTxtValue.setText(null);
+        quantityTxtValue.setText(null);
+        itemNameTxtValue.setText(null);
+        unitPriceTxtValue.setText(null);
+    }
 
     //Registering Button Listeners
     public void registerListeners() {
@@ -324,11 +427,23 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         deleteButton.addActionListener(this);
         clearButton.addActionListener(this);
         checkoutButton.addActionListener(this);
+        addCustomerButton.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == addCustomerButton) {
+        	customerTxtValue.setText(generateId());//Generate An ID value
+            new InsertDialog(customerTxtValue.getText().trim());//Set the id field in the dialog to new ID generated
+            Client client = new Client();
+            client.sendAction("Find Customer");
+            client.sendCustomerId(customerTxtValue.getText());
+            Customer customer = client.receiveFindCustomerResponse();
+            client.closeConnections();
+            if (customer == null) {//If the new ID they tried to add did not process, rest customerID to default value C000
+            	customerTxtValue.setText("C000");
+            }
+        }
         if (e.getSource() == searchButton) {
             searchInventory();
         }
@@ -342,9 +457,22 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             clearAll();
         }
         if (e.getSource() == checkoutButton) {
-            new checkoutDialog(model);
-            clearAll();
+        	Client client = new Client();
+            client.sendAction("Find Employee");
+            client.sendEmployeeId(staffTxtValue.getText());
+            Employee employee = client.receiveFindEmployeeResponse();
+            client.closeConnections();
+            if (employee == null) {//if employeeID doesn't exist, show error message
+            	 JOptionPane.showMessageDialog(null, "Missing Information", "Employee ID not found",
+                         JOptionPane.ERROR_MESSAGE);
+            }else{
+            	updateList();//updating list before it is passed t the checkout dialog
+            	new checkoutDialog(model, productList);
+            	clearInput();
+            	productList.clear(); //Empty product list after checkout dialog is closed
+            }           
         }
+
     }
 
 }
