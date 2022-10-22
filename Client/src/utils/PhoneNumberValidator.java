@@ -1,12 +1,28 @@
 package utils;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Source: "<a href="https://www.javatpoint.com/mobile-number-validation-in-java">...</a>"
  */
 public class PhoneNumberValidator {
 
     //function to check if the mobile number is valid or not
-    public static boolean isValid(String number) {
+    public static boolean isValid(String number, Dialog component) {
+        if (checkPhone(number)) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(
+                component,
+                "Invalid telephone number",
+                "Invalid Field",
+                JOptionPane.WARNING_MESSAGE
+        );
+        return false;
+    }
+
+    private static boolean checkPhone(String number) {
         //validates phone numbers having 10 digits (9998887776)
         if (number.matches("\\d{10}"))
             return true;

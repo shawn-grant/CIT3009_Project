@@ -2,8 +2,8 @@ package view.dialogs.inventory;
 
 import client.Client;
 import models.Product;
+import utils.*;
 import view.components.RoundedBorder;
-import utils.GenerateID;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -141,9 +141,17 @@ public class InsertDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
-        return !(codeField.getText().isEmpty() || nameField.getText().isEmpty()
+        if (codeField.getText().isEmpty() || nameField.getText().isEmpty()
                 || shortDescField.getText().isEmpty() || longDescField.getText().isEmpty()
-                || inStockField.getText().isEmpty() || unitPriceField.getText().isEmpty());
+                || inStockField.getText().isEmpty() || unitPriceField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "One or more fields empty",
+                    "Warning", JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        } else return IntegerValidator.isValid(inStockField.getText(), this)
+                && CostValidator.isValid(unitPriceField.getText(), this);
     }
 
     @Override
@@ -159,13 +167,6 @@ public class InsertDialog extends JDialog implements ActionListener {
                 client.receiveResponse();
                 client.closeConnections();
                 dispose();
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "One or more fields empty",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE
-                );
             }
         }
 

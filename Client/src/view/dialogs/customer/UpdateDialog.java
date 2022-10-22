@@ -9,6 +9,7 @@ import client.Client;
 import models.Customer;
 import utils.GenerateID;
 import utils.PhoneNumberValidator;
+import utils.StringValidator;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
 import utils.EmailValidator;
@@ -200,57 +201,42 @@ public class UpdateDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
-        return !(idField.getText().isEmpty() || firstNameField.getText().isEmpty()
+        if (idField.getText().isEmpty() || firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty() || addressField.getText().isEmpty()
-                || telephoneField.getText().isEmpty() || emailField.getText().isEmpty());
+                || telephoneField.getText().isEmpty() || emailField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "One or more fields empty",
+                    "Warning", JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        } else return StringValidator.isValid(firstNameField.getText(), this)
+                && StringValidator.isValid(lastNameField.getText(), this)
+                && PhoneNumberValidator.isValid(telephoneField.getText(), this)
+                && EmailValidator.isValid(emailField.getText(), this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
-                if (EmailValidator.isValid(emailField.getText())) {
-                    if (PhoneNumberValidator.isValid(telephoneField.getText())) {
-                        Client client = new Client();
-                        Customer customer = new Customer(
-                                idField.getText(),
-                                firstNameField.getText(),
-                                lastNameField.getText(),
-                                dobPicker.getSelectedDate(),
-                                addressField.getText(),
-                                telephoneField.getText(),
-                                emailField.getText(),
-                                membershipDatePicker.getSelectedDate(),
-                                membershipExpiryDatePicker.getSelectedDate()
-                        );
-                        client.sendAction("Update Customer");
-                        client.sendCustomer(customer);
-                        client.receiveResponse();
-                        client.closeConnections();
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Invalid telephone number",
-                                "Invalid Field",
-                                JOptionPane.WARNING_MESSAGE
-                        );
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Invalid email address",
-                            "Invalid Field",
-                            JOptionPane.WARNING_MESSAGE
-                    );
-                }
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "One or more fields empty",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE
+                Client client = new Client();
+                Customer customer = new Customer(
+                        idField.getText(),
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        dobPicker.getSelectedDate(),
+                        addressField.getText(),
+                        telephoneField.getText(),
+                        emailField.getText(),
+                        membershipDatePicker.getSelectedDate(),
+                        membershipExpiryDatePicker.getSelectedDate()
                 );
+                client.sendAction("Update Customer");
+                client.sendCustomer(customer);
+                client.receiveResponse();
+                client.closeConnections();
+                dispose();
             }
         }
 
