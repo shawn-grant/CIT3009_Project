@@ -333,26 +333,6 @@ public class CheckoutScreen extends JPanel implements ActionListener {
                 || quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
     }
     
-    /*Searching productList for product
-    private boolean productNotInList() {
-    	int stock = 0;
-    	if(!(productList.isEmpty())) {
-	    	for(Product product: productList) {
-	    		if(product.getCode().equals(codeTxtValue.getText().trim())) {
-	    			stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText());
-					product.setItemInStock(stock);
-					if(stock < 0) {
-	               	 JOptionPane.showMessageDialog(null, "Items in stock are less than quantity entered.",
-	                            "Inventory Shortage", JOptionPane.WARNING_MESSAGE);
-	               	 return false;
-					}
-				}
-	    	}
-    	}
-    	return true;//return true if list empty
-    }
-    */
-    
     //Method to check if items in stock is less than quantity being sold
     private boolean stockCheck(){
     		int stock = 0;
