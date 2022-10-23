@@ -35,8 +35,9 @@ import client.Client;
 import models.Customer;
 import models.Employee;
 import models.Product;
+import view.components.RoundedBorder;
 import view.dialogs.checkout.*;
-//import view.dialogs.customer.InsertDialog;
+;
 
 public class CheckoutScreen extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
@@ -65,40 +66,78 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     }
 
     private void initializeComponents() {
+    	
+    	Dimension labelSize = new Dimension(140, 30);
+        Dimension fieldSize = new Dimension(20, 35);
+        Font labelFont = new Font("arial", Font.BOLD, 15);
+        Font fieldFont = new Font("arial", Font.PLAIN, 14);
+        Color btnColour = new Color(224, 224, 224);
+        
         //Setting titleLabel properties
         titleLabel = new JLabel("Checkout");
         titleLabel.setFont(new Font("arial", Font.BOLD, 20));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setForeground(Color.WHITE);
 
+        //Setting Label Properties
         productCodeLbl = new JLabel("Product Code");
-        // productCodeLbl.setFont(new Font("arial",Font.CENTER_BASELINE,20));
-        itemNameLabel = new JLabel("Item");
-        quantityLabel = new JLabel("Quantity");
-        unitPrice = new JLabel("Unit Price");
-        customer = new JLabel("Customer ID");
-        staff = new JLabel("Staff ID");
-
-        //Initializing Text areas
-        codeTxtValue = new JTextField(20);
-        quantityTxtValue = new JTextField(20);
-        itemNameTxtValue = new JTextField(20);
-        unitPriceTxtValue = new JTextField(20);
-        itemNameTxtValue.setEditable(false);
-        unitPriceTxtValue.setEditable(false);
-        customerTxtValue = new JTextField(20);
-        staffTxtValue = new JTextField(20);
-        customerTxtValue.setText("C000");
+        productCodeLbl.setFont(labelFont);
+        productCodeLbl.setPreferredSize(labelSize);
         
-       /* 
-        quantityTxtValue = new JTextField(20);
-        itemNameTxtValue = new JTextField(20);
-        unitPriceTxtValue = new JTextField(20);
+        itemNameLabel = new JLabel("Item");
+        itemNameLabel.setFont(labelFont);
+        itemNameLabel.setPreferredSize(labelSize);
+        
+        quantityLabel = new JLabel("Quantity");
+        quantityLabel.setFont(labelFont);
+        quantityLabel.setPreferredSize(labelSize);
+        
+        unitPrice = new JLabel("Unit Price");
+        unitPrice.setFont(labelFont);
+        unitPrice.setPreferredSize(labelSize);
+        
+        customer = new JLabel("Customer ID");
+        customer.setFont(labelFont);
+        customer.setPreferredSize(labelSize);
+        
+        staff = new JLabel("Staff ID");
+        staff.setFont(labelFont);
+        staff.setPreferredSize(labelSize);
+        
+        //Initializing Text areas
+        codeTxtValue = new JTextField();
+        quantityTxtValue = new JTextField();
+        itemNameTxtValue = new JTextField();
+        unitPriceTxtValue = new JTextField();
         itemNameTxtValue.setEditable(false);
         unitPriceTxtValue.setEditable(false);
-        customerTxtValue = new JTextField(20);
-        staffTxtValue = new JTextField(20);
-        */
+        customerTxtValue = new JTextField("C000");
+        staffTxtValue = new JTextField();
+        
+        //Setting text field properties
+        codeTxtValue.setFont(fieldFont);
+        codeTxtValue.setBorder(new RoundedBorder(8));
+        codeTxtValue.setPreferredSize(fieldSize);
+        
+        quantityTxtValue.setFont(fieldFont);
+        quantityTxtValue.setBorder(new RoundedBorder(8));
+        quantityTxtValue.setPreferredSize(fieldSize);
+        
+        itemNameTxtValue.setFont(fieldFont);
+        itemNameTxtValue.setBorder(new RoundedBorder(8));
+        itemNameTxtValue.setPreferredSize(fieldSize);
+        
+        unitPriceTxtValue.setFont(fieldFont);
+        unitPriceTxtValue.setBorder(new RoundedBorder(8));
+        unitPriceTxtValue.setPreferredSize(fieldSize);
+        
+        customerTxtValue.setFont(fieldFont);
+        customerTxtValue.setBorder(new RoundedBorder(8));
+        customerTxtValue.setPreferredSize(fieldSize);
+        
+        staffTxtValue.setFont(fieldFont);
+        staffTxtValue.setBorder(new RoundedBorder(8));
+        staffTxtValue.setPreferredSize(fieldSize);
         
         //initializing buttons
         addButton = new JButton("Add");
@@ -109,35 +148,55 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         searchButton = new JButton("Search");
         addCustomerButton = new JButton("Add customer");
 
-        //Setting button sizes
-        addButton.setPreferredSize(new Dimension(100, 40));
-        deleteButton.setPreferredSize(new Dimension(100, 40));
-        clearButton.setPreferredSize(new Dimension(100, 40));
-        checkoutButton.setPreferredSize(new Dimension(100, 40));
-        searchButton.setPreferredSize(new Dimension(90, 20));
-        addCustomerButton.setPreferredSize(new Dimension(130, 20));
-
-
-        //Setting button font & Colour
-        addButton.setFont(new Font("arial", Font.PLAIN, 15));
-        addButton.setBackground(new Color(224, 224, 224));
-        addButton.setForeground(Color.black);
-        deleteButton.setFont(new Font("arial", Font.PLAIN, 15));
-        deleteButton.setBackground(new Color(224, 224, 224));
-        clearButton.setFont(new Font("arial", Font.PLAIN, 15));
-        clearButton.setBackground(new Color(224, 224, 224));
-        checkoutButton.setFont(new Font("arial", Font.PLAIN, 15));
-        checkoutButton.setBackground(new Color(224, 224, 224));
-        searchButton.setFont(new Font("arial", Font.PLAIN, 15));
-        searchButton.setBackground(new Color(224, 224, 224));
-        addCustomerButton.setFont(new Font("arial", Font.PLAIN, 15));
-        addCustomerButton.setBackground(new Color(224, 224, 224));
+        //Setting Properties
+        addButton.setPreferredSize(labelSize);
+        deleteButton.setPreferredSize(labelSize);
+        clearButton.setPreferredSize(labelSize);
+        checkoutButton.setPreferredSize(labelSize);
+        searchButton.setPreferredSize(labelSize);
+        addCustomerButton.setPreferredSize(labelSize);
         
         
-
-        //Setting Panel Properties
+        addButton.setFont(labelFont);
+        addButton.setOpaque(true);
+        addButton.setBorderPainted(false);
+        addButton.setBackground(btnColour);
+        
+        deleteButton.setFont(labelFont);
+        deleteButton.setOpaque(true);
+        deleteButton.setBorderPainted(false);
+        deleteButton.setBackground(btnColour);
+        
+        clearButton.setFont(labelFont);       
+        clearButton.setOpaque(true);
+        clearButton.setBorderPainted(false);
+        clearButton.setBackground(btnColour);
+        
+        checkoutButton.setFont(labelFont);
+        checkoutButton.setOpaque(true);
+        checkoutButton.setBorderPainted(false);
+        checkoutButton.setBackground(btnColour);
+        
+        searchButton.setFont(labelFont);        
+        searchButton.setOpaque(true);
+        searchButton.setBorderPainted(false);
+        searchButton.setBackground(btnColour);
+        
+        addCustomerButton.setFont(labelFont);
+        addCustomerButton.setOpaque(true);
+        addCustomerButton.setBorderPainted(false);
+        addCustomerButton.setBackground(btnColour);
+       
+         //Set focus paint
+        addButton.setFocusPainted(false);
+        checkoutButton.setFocusPainted(false);
+        deleteButton.setFocusPainted(false);
+        searchButton.setFocusPainted(false);
+        addCustomerButton.setFocusPainted(false);
+      	
+       //Setting Panel Properties
         mainContent = new JPanel(new GridLayout(0, 1, 0, 70));
-        centerPanel = new JPanel(new GridBagLayout());    //NTS: SetBounds??
+        centerPanel = new JPanel(new GridBagLayout());    //NTS: SetBounds?? 
         centerPanel.setBackground(new Color(255, 255, 255));
         mainContent.setBackground(new Color(255, 255, 255));
 
@@ -152,18 +211,26 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         table.setForeground(Color.black);
     }
 
-    private void addComponentsToPanels() {
-        //Adding Labels and fields to label panel
-        gbc.insets = new Insets(25, 10, 20, 10);//Sets Padding around values
-
+    private void addComponentsToPanels() {//Adding Labels and fields to label panel       
+        gbc.insets = new Insets(20, 10, 20, 10);//Sets Padding around values        
+        gbc.gridwidth = 1;
+        gbc.weightx = -0.2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+		
+		//////////////////////////First Row////////////////////
         gbc.gridx = 0;//Setting position on x-axis
         gbc.gridy = 0;//Setting position on y-axis
         centerPanel.add(customer, gbc);
-
+        
+        gbc.gridwidth = 1;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 0;
         centerPanel.add(customerTxtValue, gbc);
+        
 
+        gbc.gridwidth = 1;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
         gbc.gridy = 0;
         centerPanel.add(addCustomerButton, gbc);
@@ -171,12 +238,13 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         gbc.gridx = 3;
         gbc.gridy = 0;
         centerPanel.add(staff, gbc);
-
+        
+        
         gbc.gridx = 4;
         gbc.gridy = 0;
         centerPanel.add(staffTxtValue, gbc);
 
-        ////////////////First Row//////////////////
+        ////////////////Second Row//////////////////
         gbc.gridx = 0;//Setting position on x axis
         gbc.gridy = 1;//Setting position on Y axis
         centerPanel.add(productCodeLbl, gbc);
@@ -197,7 +265,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         gbc.gridy = 1;
         centerPanel.add(quantityTxtValue, gbc);
 
-        /////////////////////////Second Row//////////////////////////
+        /////////////////////////Third Row/////////////////////
         gbc.gridx = 0;
         gbc.gridy = 2;
         centerPanel.add(itemNameLabel, gbc);
@@ -214,7 +282,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         gbc.gridy = 2;
         centerPanel.add(unitPriceTxtValue, gbc);
 
-        ////////////////////3rd Row////////////////////////
+        ////////////////////Fourth Row////////////////////////
         gbc.gridx = 0;
         gbc.gridy = 3;
         centerPanel.add(addButton, gbc);
