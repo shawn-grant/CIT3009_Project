@@ -1,14 +1,15 @@
 package view.screens;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import client.Client;
 import models.Product;
+import view.components.DatePicker;
 import view.components.RoundedBorder;
 
 import java.awt.Dimension;
@@ -17,8 +18,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ReportScreen extends BaseScreen implements ActionListener {
 
@@ -28,9 +27,9 @@ public class ReportScreen extends BaseScreen implements ActionListener {
     private JLabel endDateLabel;
     private JTextArea reportTextArea;
     private JComboBox<String> productSelect;
-    private JTextField startDateField;
-    private JTextField endDateField;
-    private JButton generateButton;
+    private DatePicker startDateField;
+    private DatePicker endDateField;
+    private JButton generateButton, printButton;
 
     public ReportScreen(){
         super("Generate Reports");
@@ -50,7 +49,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         Font fieldFont = new Font("arial", Font.PLAIN, 14);
 
         container = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        leftPanel = new JPanel();
+        leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         leftPanel.setPreferredSize(new Dimension(300, 450));
         leftPanel.setBorder(new RoundedBorder(8));
         leftPanel.setBackground(Color.WHITE);
@@ -72,28 +71,30 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         endDateLabel.setFont(labelFont);
         endDateLabel.setPreferredSize(labelSize);
 
-        reportTextArea = new JTextArea("Report will show here");
+        reportTextArea = new JTextArea("Your Report will show here...");
+        reportTextArea.setEditable(false);
+        reportTextArea.setPreferredSize(new Dimension(390, 400));
 
         productSelect = new JComboBox<>(getProducts());
         productSelect.setBorder(new RoundedBorder(8));
         productSelect.setPreferredSize(fieldSize);
         productSelect.setFont(fieldFont);
         
-        startDateField = new JTextField();
-        startDateField.setBorder(new RoundedBorder(8));
-        startDateField.setPreferredSize(fieldSize);
-        startDateField.setFont(fieldFont);
-
-        endDateField = new JTextField();
-        endDateField.setBorder(new RoundedBorder(8));
-        endDateField.setPreferredSize(fieldSize);
-        endDateField.setFont(fieldFont);
+        startDateField = new DatePicker();
+        endDateField = new DatePicker();
 
         generateButton = new JButton("GENERATE REPORT");
         generateButton.setPreferredSize(new Dimension(250, 40));
         generateButton.setFont(new Font("arial", Font.BOLD, 14));
-        generateButton.setForeground(Color.BLUE);
+        generateButton.setForeground(Color.WHITE);
         generateButton.setBackground(Color.BLUE);
+        generateButton.setOpaque(true);
+        generateButton.setBorderPainted(false);
+
+        printButton = new JButton("Print");
+        printButton.setPreferredSize(new Dimension(250, 40));
+        printButton.setFont(new Font("arial", Font.BOLD, 14));
+        printButton.setEnabled(false);
     }
     
     private void addComponentsToPanels(){
@@ -105,7 +106,10 @@ public class ReportScreen extends BaseScreen implements ActionListener {
 
         leftPanel.add(endDateLabel);
         leftPanel.add(endDateField);
+        leftPanel.add(Box.createRigidArea(new Dimension(250, 50))); // vertical spacing
+        
         leftPanel.add(generateButton);
+        leftPanel.add(printButton);
 
         rightPanel.add(reportTextArea);
 
@@ -116,6 +120,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
     // setup actions for buttons
     private void setupListeners() {
         generateButton.addActionListener(this);
+        printButton.addActionListener(this);
     }
 
     // set main content view
@@ -124,30 +129,42 @@ public class ReportScreen extends BaseScreen implements ActionListener {
     }
 
     private String[] getProducts(){
-        List<String> list = new ArrayList<String>();
-        list.add("select");
+        String[] list = {"P0028 - Test"};
 
-        Client client = new Client();
-        client.sendAction("View Inventory");
-        List<Product> products = client.receiveViewInventoryResponse();
-        client.closeConnections();
+        // Client client = new Client();
+        // client.sendAction("View Inventory");
+        // List<Product> products = client.receiveViewInventoryResponse();
+        // client.closeConnections();
 
-        for(Product prod : products){
-            list.add(prod.getCode() + " - " + prod.getName());
-        }
+        // list = new String[products.size()];
 
-        return (String[]) list.toArray();
+        // for(int i = 0; i < products.size(); i++){
+        //     list[i] = products.get(i).getCode() + " - " + products.get(i).getName();
+        // }
+
+        return list;
     }
 
     private void generateReport(){
-        
+        // TODO: pull the data and display the report in the textArea
+
+        // set printButton to enabled once a report has been generated
+        // printButton.setEnabled(true);
+    }
+
+    private void printReport(){
+        // Save the text from the textArea to a .txt file
+        // trigger system print dialog if possible
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(generateButton)) {
-
+            generateReport();
+        }
+        if (e.getSource().equals(printButton)) {
+            printReport();
         }
     }
 }
