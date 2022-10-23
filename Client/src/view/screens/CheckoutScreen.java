@@ -111,7 +111,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         unitPriceTxtValue = new JTextField();
         itemNameTxtValue.setEditable(false);
         unitPriceTxtValue.setEditable(false);
-        customerTxtValue = new JTextField("C000");
+        customerTxtValue = new JTextField("C0000");
         staffTxtValue = new JTextField();
         
         //Setting text field properties
@@ -333,23 +333,60 @@ public class CheckoutScreen extends JPanel implements ActionListener {
                 || quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
     }
     
+    /*Searching productList for product
+    private boolean productNotInList() {
+    	int stock = 0;
+    	if(!(productList.isEmpty())) {
+	    	for(Product product: productList) {
+	    		if(product.getCode().equals(codeTxtValue.getText().trim())) {
+	    			stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText());
+					product.setItemInStock(stock);
+					if(stock < 0) {
+	               	 JOptionPane.showMessageDialog(null, "Items in stock are less than quantity entered.",
+	                            "Inventory Shortage", JOptionPane.WARNING_MESSAGE);
+	               	 return false;
+					}
+				}
+	    	}
+    	}
+    	return true;//return true if list empty
+    }
+    */
+    
     //Method to check if items in stock is less than quantity being sold
-    public boolean stockCheck(){
-            Client client = new Client();
-            client.sendAction("Find Product");
-            client.sendProductCode(codeTxtValue.getText());
-            Product product = client.receiveFindProductResponse();
-            client.closeConnections();
-            if (product != null) {
-            	int stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText().trim()); 
-                if(stock < 0) {
-                	 JOptionPane.showMessageDialog(null, "Items in stock are less than quantity entered.",
-                             "Items List", JOptionPane.WARNING_MESSAGE);
-                	 clearInput();
-                	 return false;
-                }
-            }
-            return true;
+    private boolean stockCheck(){
+    		int stock = 0;
+    		if(productList.isEmpty()) {
+	            Client client = new Client();
+	            client.sendAction("Find Product");
+	            client.sendProductCode(codeTxtValue.getText());
+	            Product product = client.receiveFindProductResponse();
+	            client.closeConnections();
+	            if (product != null) {
+	            	stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText());
+	                if(stock >= 0) {
+	                	product.setItemInStock(stock);
+		            	productList.add(product);
+	                }else{
+	                	 JOptionPane.showMessageDialog(null, "Items in stock are less than quantity entered.",
+	                             "Iventory Shortage", JOptionPane.WARNING_MESSAGE);	                	 
+	                	 return false;
+	                }
+	            }
+    		}else {
+    			for(Product product: productList) {
+    	    		if(product.getCode().equals(codeTxtValue.getText().trim())) {
+    	    			stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText());
+    					product.setItemInStock(stock);
+    					if(stock < 0) {
+    	               	 JOptionPane.showMessageDialog(null, "Items in stock are less than quantity entered.",
+    	                            "Inventory Shortage", JOptionPane.WARNING_MESSAGE);
+    	               	 return false;
+    					}
+    				}
+    	    	}
+        	}
+    		return true;		
     }
     
     //Auto fill empty fields with necessary product data if found
@@ -382,6 +419,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     
     //update the product list which is used during checkout process
     public void updateList() {//NTS: Test this method
+    	productList.clear();
     	for(int i = 0; i< model.getRowCount(); i++) {//for each row in the table do....	
     		int remaining = 0;
     		Client client = new Client();
@@ -397,7 +435,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     
     //This method prevents an item from being added to the table twice, 
     //instead it just updates the quantity and total cost of the item in the table
-    public boolean itemInTable() {//NTS: Check if this method works
+    public boolean itemInTable() {
     	if(model.getRowCount()> 0) {
 	    	for(int i = 0; i< model.getRowCount(); i++) {//for each row in the check....	
 	    		String code = "", cost = "";
@@ -426,7 +464,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     // adding product information to table
     private void addItem() {
         if (validateFields()) {
-        	if(stockCheck() == true) {///NTS: Check if this method does it's job correctly
+        	if(stockCheck() == true) {
 	            try {
 	            	if(itemInTable() == false) {
 		                int quantity = Integer.parseInt(quantityTxtValue.getText().trim());//getting value from quantity text field
@@ -509,7 +547,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             Customer customer = client.receiveFindCustomerResponse();
             client.closeConnections();
             if (customer == null) {//If the new ID they tried to add did not process, rest customerID to default value C000
-            	customerTxtValue.setText("C000");
+            	customerTxtValue.setText("C0000");
             }
         }
         if (e.getSource() == searchButton) {
@@ -525,20 +563,26 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             clearAll();
         }
         if (e.getSource() == checkoutButton) {
-        	Client client = new Client();
-            client.sendAction("Find Employee");
-            client.sendEmployeeId(staffTxtValue.getText());
-            Employee employee = client.receiveFindEmployeeResponse();
-            client.closeConnections();
-            if (employee == null) {//if employeeID doesn't exist, show error message
-            	 JOptionPane.showMessageDialog(null, "Missing Information", "Employee ID not found",
-                         JOptionPane.ERROR_MESSAGE);
-            }else{
-            	updateList();//updating list before it is passed t the checkout dialog
-            	new checkoutDialog(model, productList);
-            	clearInput();
-            	productList.clear(); //Empty product list after checkout dialog is closed
-            }           
+        	if(!(staffTxtValue.getText().isEmpty() || customerTxtValue.getText().isEmpty())) {
+	        	Client client = new Client();
+	            client.sendAction("Find Employee");
+	            client.sendEmployeeId(staffTxtValue.getText());
+	            Employee employee = client.receiveFindEmployeeResponse();
+	            client.closeConnections();
+	            if (employee == null) {//if employeeID doesn't exist, show error message
+	            	 JOptionPane.showMessageDialog(null, "Employee does not exist", "Missing Information", 
+	                         JOptionPane.ERROR_MESSAGE);
+	            }else{
+	            	updateList();//updating list before it is passed t the checkout dialog
+	            	new checkoutDialog(model, productList, customerTxtValue.getText().trim(), 
+	            			staffTxtValue.getText().trim());
+	            	clearInput();
+	            	productList.clear(); //Empty product list after checkout dialog is closed
+	            }
+        	}else {
+        		JOptionPane.showMessageDialog(null, "Missing Customer or Employee ID",  "Missing Information", 
+                        JOptionPane.ERROR_MESSAGE);
+        	}
         }
 
     }

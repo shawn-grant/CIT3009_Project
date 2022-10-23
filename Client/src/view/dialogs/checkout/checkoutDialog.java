@@ -31,16 +31,16 @@ public class checkoutDialog extends JDialog implements ActionListener {
 	private List<Product> productList = new ArrayList<>();
 	private String products;
     
-    public checkoutDialog(DefaultTableModel model, List<Product> productList) {
+    public checkoutDialog(DefaultTableModel model, List<Product> productList, String customer, String staff) {
     	this.model = model;
     	this.productList = productList;
-        initializeComponents();
+        initializeComponents(customer, staff);
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
     } 
 
-    private void initializeComponents() {
+    private void initializeComponents(String customer, String staff) {
     	staffIDLabel = new JLabel("Staff ID");
         staffIDLabel.setFont(new Font("arial", Font.BOLD, 14));
         staffIDLabel.setPreferredSize(new Dimension(130, 20));
@@ -48,6 +48,8 @@ public class checkoutDialog extends JDialog implements ActionListener {
         staffTxtValue = new JTextField();
         staffTxtValue.setBorder(new RoundedBorder(8));
         staffTxtValue.setPreferredSize(new Dimension(250, 30));
+        staffTxtValue.setText(staff);
+        staffTxtValue.setEditable(false);
         
         customerIDLabel = new JLabel("Customer ID");
         customerIDLabel.setFont(new Font("arial", Font.BOLD, 14));
@@ -56,8 +58,9 @@ public class checkoutDialog extends JDialog implements ActionListener {
         customerTxtValue = new JTextField("N/A");
         customerTxtValue.setBorder(new RoundedBorder(8));
         customerTxtValue.setPreferredSize(new Dimension(250, 30));
-        customerTxtValue.setText("C000");
-
+        customerTxtValue.setText(customer);
+        customerTxtValue.setEditable(false);
+        
         totalItemsLbl = new JLabel("Total Items");
         totalItemsLbl.setFont(new Font("arial", Font.BOLD, 14));
         totalItemsLbl.setPreferredSize(new Dimension(130, 20));
