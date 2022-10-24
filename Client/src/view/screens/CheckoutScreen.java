@@ -35,7 +35,7 @@ import client.Client;
 import models.Customer;
 import models.Employee;
 import models.Product;
-import utils.GenerateID;
+import utils.IDGenerator;
 import view.components.RoundedBorder;
 import view.dialogs.checkout.*;
 
@@ -503,7 +503,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addCustomerButton) {
-            customerTxtValue.setText(new GenerateID().getID("C"));//Generate An ID value
+            customerTxtValue.setText(new IDGenerator().getID("C"));//Generate An ID value
             new InsertDialog(customerTxtValue.getText().trim());//Set the id field in the dialog to new ID generated
             Client client = new Client();
             client.sendAction("Find Customer");
