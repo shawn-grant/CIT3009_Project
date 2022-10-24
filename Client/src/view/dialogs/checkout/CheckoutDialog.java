@@ -204,17 +204,12 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     updateInventory();
-
-                    String date = String.valueOf(java.time.LocalDate.now());
-                    LocalDate currentDate = LocalDate.parse(date);
                     int invoiceNumber = generateInvoiceNum();
                     Client client = new Client();
                     client.sendAction("Add Invoice");
                     Invoice invoice = new Invoice(
                             invoiceNumber,
-                            new Date(currentDate.getDayOfMonth(),
-                                    currentDate.getMonthValue(),
-                                    currentDate.getYear()),
+                            new Date(),
                             products,
                             Integer.parseInt(totalItemsTxtValue.getText()),
                             Float.parseFloat(totalCostTxtValue.getText().trim()),    //NTS: update invoice model to add this field
