@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import client.Client;
@@ -16,14 +14,11 @@ public class GenerateCodeList {
         List<Product> productList = client.receiveViewInventoryResponse();
         client.closeConnections();
         String codes = " ";
-        
+        String[] list = {""};
         for (Product product : productList) {
         	codes += (product.getCode() + " ");
-        }
-        
-        String[] list = {""}; 
+        }  
         list = codes.split(" ");
-        System.out.println("Values in list: "+ Arrays.toString(list));
         return list;
         
     }

@@ -222,6 +222,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
 
                     JOptionPane.showMessageDialog(null, "Customer should receive $" + change + " in change.",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
+                    model.setRowCount(0);
                     dispose();
                 }
             } else {
