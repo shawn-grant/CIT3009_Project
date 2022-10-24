@@ -32,7 +32,7 @@ public class Client {
         try {
             connectionSocket = new Socket("127.0.0.1", 8888);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e.getMessage());
             JOptionPane.showMessageDialog(null,
                     "Failure to Establish Connection with Server",
                     "Connection Status",
@@ -46,6 +46,7 @@ public class Client {
             objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
             objIs = new ObjectInputStream(connectionSocket.getInputStream());
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -56,7 +57,7 @@ public class Client {
             objIs.close();
             connectionSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -65,7 +66,7 @@ public class Client {
         try {
             objOs.writeObject(action);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -73,7 +74,7 @@ public class Client {
         try {
             objOs.writeObject(employee);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -81,7 +82,7 @@ public class Client {
         try {
             objOs.writeObject(employeeId);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -89,7 +90,7 @@ public class Client {
         try {
             objOs.writeObject(customer);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -97,7 +98,7 @@ public class Client {
         try {
             objOs.writeObject(customerId);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -105,7 +106,7 @@ public class Client {
         try {
             objOs.writeObject(product);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -113,7 +114,7 @@ public class Client {
         try {
             objOs.writeObject(productCode);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -121,7 +122,7 @@ public class Client {
         try {
             objOs.writeObject(invoice);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -129,7 +130,7 @@ public class Client {
         try {
             objOs.writeObject(invoiceNum);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -377,12 +378,12 @@ public class Client {
                     );
                 }
             }
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
+        } catch (ClassNotFoundException e) {
+            System.err.println("ClassNotFoundException: " + e);
+        } catch (ClassCastException e) {
+            System.err.println("ClassCastException: " + e);
         }
     }
 
@@ -402,9 +403,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return employee;
@@ -426,9 +427,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return customer;
@@ -450,9 +451,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return product;
@@ -466,9 +467,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return invoice;
@@ -490,9 +491,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return employeeList;
@@ -514,9 +515,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return customerList;
@@ -538,9 +539,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return productList;

@@ -8,18 +8,18 @@ import java.awt.event.ActionListener;
 
 public class InvoiceScreen extends BaseScreen implements ActionListener {
     private final String[] tableHeaders = {
-        "Invoice Number",
-        "Billing Date",
-        "Item Name",
-        "Quantity",
-        "Total Billing",
-        "Employee ID",
-        "Customer ID"
+            "Invoice Number",
+            "Billing Date",
+            "Item Name",
+            "Quantity",
+            "Total Billing",
+            "Employee ID",
+            "Customer ID"
     };
     private JTable table;
     private DefaultTableModel model;
 
-    public InvoiceScreen(){
+    public InvoiceScreen() {
         super("Invoices");
         buttonPanel.setVisible(false);
 
@@ -28,7 +28,7 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         setContentView();
         // getData();
     }
-    
+
     private void initializeComponents() {
         model = new DefaultTableModel(tableHeaders, 0);
         table = new JTable(model);
@@ -63,7 +63,7 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
             //new UpdateDialog();
         }
         if (e.getSource().equals(deleteButton)) {
-           // new RemoveDialog();
+            // new RemoveDialog();
         }
         if (e.getSource().equals(refreshButton)) {
         }

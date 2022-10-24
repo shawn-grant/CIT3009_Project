@@ -15,8 +15,7 @@ import java.util.Date;
 @Table(name = "employee")
 public class Employee implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
+    @Id
     @Column(name = "ID")
     private String id;
     @Column(name = "firstName")

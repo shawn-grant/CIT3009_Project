@@ -14,13 +14,13 @@ import java.io.Serializable;
 @Table(name = "department")
 public class Department implements Serializable {
 
+    @Transient
+    private final String[][] departments = {{"Management", "Inventory", "Accounting & sales"}, {"MAN", "INV", "ACS"}};
     @Id
     @Column(name = "dept_code")
     private String code;
     @Column(name = "departmentName")
     private String name;
-    @Transient
-    private final String[][] departments = {{"Management", "Inventory", "Accounting & sales"}, {"MAN", "INV", "ACS"}};
 
     //Default Constructor
     public Department() {
@@ -47,7 +47,7 @@ public class Department implements Serializable {
     //Getters and Setters
     public String getName() {
         System.out.println(code);
-        for(int index = 0; index <= departments.length; index++) {
+        for (int index = 0; index <= departments.length; index++) {
             if (departments[1][index].equals(code)) {
                 return departments[0][index];
             }
@@ -61,7 +61,7 @@ public class Department implements Serializable {
 
     public String getCode() {
         int index = 0;
-        while(index <= departments.length) {
+        while (index <= departments.length) {
             if (departments[0][index].equals(name)) {
                 return departments[1][index];
             }

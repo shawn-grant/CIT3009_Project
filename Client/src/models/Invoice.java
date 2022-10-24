@@ -15,8 +15,7 @@ import java.util.Date;
 @Table(name = "invoice")
 public class Invoice implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
+    @Id
     @Column(name = "invoice_number")
     private int invoiceNumber;
     @Temporal(TemporalType.DATE)
@@ -97,21 +96,21 @@ public class Invoice implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
+
     public float getTotalCost() {
-		return totalCost;
-	}
+        return totalCost;
+    }
 
-	public void setTotalCost(float totalCost) {
-		this.totalCost = totalCost;
-	}
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
+    }
 
-	public String getEmployee() {
+    public String getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee.getFirstName() + " (" + employee.getId()+ ")";
+        this.employee = employee.getFirstName() + " (" + employee.getId() + ")";
     }
 
     public String getCustomer() {
@@ -124,7 +123,7 @@ public class Invoice implements Serializable {
 
     public void displayInvoice() {
         System.out.println("Invoice Number: " + getInvoiceNumber() + "\nDate" + getBillingDate()
-                + "Items" + getItemName() + "Quantity: " + getQuantity() +"Total Billing: " + getTotalCost()+ "Employee: "
+                + "Items" + getItemName() + "Quantity: " + getQuantity() + "Total Billing: " + getTotalCost() + "Employee: "
                 + getEmployee() + "Customer: " + getCustomer());
     }
 
@@ -135,7 +134,7 @@ public class Invoice implements Serializable {
                 ", billingDate=" + billingDate +
                 ", itemName='" + itemName + '\'' +
                 ", quantity=" + quantity +
-                 ", totalCost=" + totalCost +
+                ", totalCost=" + totalCost +
                 ", employee='" + employee + '\'' +
                 ", customer='" + customer + '\'' +
                 '}';

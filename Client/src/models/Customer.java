@@ -14,9 +14,8 @@ import java.util.Date;
 @Entity(name = "customer")
 @Table(name = "customer")
 public class Customer implements Serializable {
-    
-	private static final long serialVersionUID = 1L;
-	@Id
+
+    @Id
     @Column(name = "ID")
     private String id;
     @Column(name = "firstName")

@@ -160,7 +160,7 @@ public class CustomerScreen extends BaseScreen implements ActionListener {
             if (!updateItem()) {
                 new UpdateDialog();
             }
-            getData();   
+            getData();
         }
         if (e.getSource().equals(searchButton)) {
             new SearchDialog(model);
