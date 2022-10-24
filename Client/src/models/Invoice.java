@@ -6,15 +6,31 @@ package models;
 //Copyright   : Your copyright notice
 //Description : Invoice Model Class
 //============================================================================
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(name = "invoice")
+@Table(name = "invoice")
 public class Invoice implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	@Id
+    @Column(name = "invoice_number")
     private int invoiceNumber;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "billing_date")
     private Date billingDate;
+    @Column(name = "item_name")
     private String itemName;
+    @Column(name = "quantity")
     private int quantity;
+    @Column(name = "total_cost")
+    private float totalCost;
+    @Column(name = "employeeId")
     private String employee;
+    @Column(name = "customerId")
     private String customer;
 
     public Invoice() {
@@ -22,17 +38,19 @@ public class Invoice implements Serializable {
         billingDate = new Date();
         itemName = "N/A";
         quantity = 0;
+        totalCost = (float) 0.00;
         employee = "N/A";
         customer = "N/A";
     }
 
     //Primary Constructor
     public Invoice(int invoiceNumber, Date billingDate, String itemName,
-                   int quantity, String employee, String customer) {
+                   int quantity, float totalCost, String employee, String customer) {
         setInvoiceNumber(invoiceNumber);
         setBillingDate(billingDate);
         setItemName(itemName);
         setQuantity(quantity);
+        setTotalCost(totalCost);
         this.employee = employee;
         this.customer = customer;
     }
@@ -79,13 +97,21 @@ public class Invoice implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
+    public float getTotalCost() {
+		return totalCost;
+	}
 
-    public String getEmployee() {
+	public void setTotalCost(float totalCost) {
+		this.totalCost = totalCost;
+	}
+
+	public String getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee.getFirstName() + " " + employee.getLastName();
+        this.employee = employee.getFirstName() + " (" + employee.getId()+ ")";
     }
 
     public String getCustomer() {
@@ -93,12 +119,12 @@ public class Invoice implements Serializable {
     }
 
     public void setCustomer(Customer customer) {
-        this.customer = customer.getFirstName() + " " + customer.getLastName();
+        this.customer = customer.getFirstName() + " (" + customer.getId() + ")";
     }
 
     public void displayInvoice() {
         System.out.println("Invoice Number: " + getInvoiceNumber() + "\nDate" + getBillingDate()
-                + "Items" + getItemName() + "Quantity: " + getQuantity() + "Employee: "
+                + "Items" + getItemName() + "Quantity: " + getQuantity() +"Total Billing: " + getTotalCost()+ "Employee: "
                 + getEmployee() + "Customer: " + getCustomer());
     }
 
@@ -109,6 +135,7 @@ public class Invoice implements Serializable {
                 ", billingDate=" + billingDate +
                 ", itemName='" + itemName + '\'' +
                 ", quantity=" + quantity +
+                 ", totalCost=" + totalCost +
                 ", employee='" + employee + '\'' +
                 ", customer='" + customer + '\'' +
                 '}';

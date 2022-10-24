@@ -6,11 +6,20 @@ package models;
 //Copyright   : Your copyright notice
 //Description : Department Model Class
 //============================================================================
+
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity(name = "department")
+@Table(name = "department")
 public class Department implements Serializable {
-    private String name;
+
+    @Id
+    @Column(name = "dept_code")
     private String code;
+    @Column(name = "departmentName")
+    private String name;
+    @Transient
     private final String[][] departments = {{"Management", "Inventory", "Accounting & sales"}, {"MAN", "INV", "ACS"}};
 
     //Default Constructor

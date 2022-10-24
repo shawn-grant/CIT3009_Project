@@ -6,7 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
+import models.Invoice;
 import models.Product;
+import utils.CostValidator;
+import utils.GenerateID;
+import utils.IntegerValidator;
 import view.components.RoundedBorder;
 
 public class checkoutDialog extends JDialog implements ActionListener {
@@ -99,7 +105,7 @@ public class checkoutDialog extends JDialog implements ActionListener {
         cancelButton.setForeground(Color.RED);
     }
 
-    private void addPanelsToWindow() {
+    private void addPanelsToWindow() {//Adding Labels and textfields to window
     	add(staffIDLabel);
     	add(staffTxtValue);
     	add(customerIDLabel);
@@ -114,7 +120,7 @@ public class checkoutDialog extends JDialog implements ActionListener {
     	add(cancelButton);
     }
 
-    private void setWindowProperties() {
+    private void setWindowProperties() {//Setting properties of dialog window
     	setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setTitle("Cashout Items");
         setSize(420, 280);
@@ -124,23 +130,28 @@ public class checkoutDialog extends JDialog implements ActionListener {
         setVisible(true);   
     }
     
-    private boolean validateFields() {
-        return !(staffTxtValue.getText().isEmpty() || customerTxtValue.getText().isEmpty()
-        		|| tenderedTxtValue.getText().isEmpty());
+    private boolean validateFields() {//method to check if ant fields is empty
+        if(staffTxtValue.getText().isEmpty() || customerTxtValue.getText().isEmpty()
+        		|| tenderedTxtValue.getText().isEmpty()) {
+        	JOptionPane.showMessageDialog(
+                    this,
+                    "One or more fields empty",
+                    "Warning", JOptionPane.WARNING_MESSAGE
+            );
+        	return false;
+        }else { 
+        	return CostValidator.isValid(tenderedTxtValue.getText(), this);
+        }
+        
     }
     
-    private int generateInvoiceNum() {
-    	int results[] = {};
-    	int value = (int) ((Math.random() * (70000 - 100)) + 100);
-    	results[0] = value * 1;
-    	results[1] = value + 2;
-    	results[2] = value / 2;
-    	results[3] = value - 5;
-    	
-    	return results[new Random().nextInt(results.length)];
+    private int generateInvoiceNum() {//randomizing the generation of invoice numbers
+    	int value = 0;
+    	value = (int) ((Math.random() * (70000 - 100)) + 100);
+    	return value;
     }
    
-    public float calculateChange() {
+    public float calculateChange() {//calculating how much change customer will receive
     	float tendered = Float.parseFloat(tenderedTxtValue.getText());
     	float cost = getTotalCost();
     	return tendered - cost;
@@ -151,7 +162,7 @@ public class checkoutDialog extends JDialog implements ActionListener {
         cancelButton.addActionListener(this);
     }
     
-    public int getTotalQuantity() {
+    public int getTotalQuantity() {//Retrieving total number of items being purchased by customer
     	int sum = 0;
     	for(int i = 0; i< model.getRowCount(); i++) {
     		sum = sum + Integer.parseInt(model.getValueAt(i, 2).toString());
@@ -159,7 +170,7 @@ public class checkoutDialog extends JDialog implements ActionListener {
     	return sum;
     }
     
-    public float getTotalCost(){
+    public float getTotalCost(){//calculating the totall billing fro the invoice using data in table
     	float sum = 0;
     	for(int i = 0; i< model.getRowCount(); i++) {
     		sum = sum + Float.parseFloat(model.getValueAt(i, 4).toString());
@@ -167,7 +178,7 @@ public class checkoutDialog extends JDialog implements ActionListener {
     	return sum;
     }
     
-    public void updateInventory() {	//NTS: Test this Method
+    public void updateInventory() {//Updates the inventory items after customer is cashed out
     	 for (Product product : productList) {//For each product being checked out
              Client client = new Client();
              client.sendAction("Update Product"); //update all fields to update the product quantity in inventory
@@ -196,8 +207,8 @@ public class checkoutDialog extends JDialog implements ActionListener {
 	            	JOptionPane.showMessageDialog(null,  "Insufficient amount tendered", 
 	                		"Customer Change", JOptionPane.INFORMATION_MESSAGE);
 	            }else {
-	            	/*
 	            	updateInventory();
+	            	
 	            	String date = String.valueOf(java.time.LocalDate.now());
 		        	LocalDate currentDate = LocalDate.parse(date);
 		        	int invoiceNumber = generateInvoiceNum();
@@ -209,16 +220,16 @@ public class checkoutDialog extends JDialog implements ActionListener {
 			            				 currentDate.getMonthValue(), 
 			            				 currentDate.getYear()),
 			            		products,					
-			            		totalCostTxtValue.getText(),	//NTS: update invoice model to add this field
 			            		Integer.parseInt(totalItemsTxtValue.getText()),
+			            		Float.parseFloat(totalCostTxtValue.getText().trim()),	//NTS: update invoice model to add this field
 			            		staffTxtValue.getText().trim(),
 			                    customerTxtValue.getText().trim()
 			            );
 			        	client.sendInvoice(invoice);
 			            client.receiveResponse();
 			            client.closeConnections();
-			            */
-			            JOptionPane.showMessageDialog(null,  "Customer should receive $"+ change,
+			            
+			            JOptionPane.showMessageDialog(null,  "Customer should receive $"+ change +" in change.",
                 		"Customer Change", JOptionPane.INFORMATION_MESSAGE); 
 	            	dispose();
 	            }

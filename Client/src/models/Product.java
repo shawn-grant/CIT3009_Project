@@ -6,14 +6,30 @@ package models;
 //Copyright   : Your copyright notice
 //Description : Product Model Class
 //============================================================================
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Entity(name = "product")
+@Table(name = "product")
 public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	@Id
+    @Column(name = "product_code")
     private String code;
+    @Column(name = "productName")
     private String name;
+    @Column(name = "shortDescription")
     private String shortDescription;
+    @Column(name = "longDescription")
     private String longDescription;
+    @Column(name = "itemInStock")
     private int itemInStock;
+    @Column(name = "unitPrice")
     private float unitPrice;
 
     //Default Constructor

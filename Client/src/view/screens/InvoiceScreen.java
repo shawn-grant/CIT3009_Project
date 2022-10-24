@@ -12,6 +12,7 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         "Billing Date",
         "Item Name",
         "Quantity",
+        "Total Billing",
         "Employee ID",
         "Customer ID"
     };

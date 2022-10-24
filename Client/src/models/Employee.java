@@ -6,18 +6,35 @@ package models;
 //Copyright   : Your copyright notice
 //Description : Employee Model Class
 //============================================================================
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(name = "employee")
+@Table(name = "employee")
 public class Employee implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	@Id
+    @Column(name = "ID")
     private String id;
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DOB")
     private Date DOB;
+    @Column(name = "address")
     private String address;
+    @Column(name = "telephone")
     private String telephone;
+    @Column(name = "email")
     private String email;
+    @Column(name = "employeeType")
     private String type;
+    @Column(name = "dept_code")
     private String department;
 
     //Default Constructor
@@ -126,7 +143,7 @@ public class Employee implements Serializable {
     }
 
     public String getDepartment() {
-        return department;
+        return new Department(department).getCode();
     }
 
     public void setDepartment(String department) {

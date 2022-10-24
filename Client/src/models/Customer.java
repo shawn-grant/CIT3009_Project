@@ -6,19 +6,37 @@ package models;
 // Copyright   : Your copyright notice
 // Description : Customer Model Class
 //============================================================================
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(name = "customer")
+@Table(name = "customer")
 public class Customer implements Serializable {
-
+    
+	private static final long serialVersionUID = 1L;
+	@Id
+    @Column(name = "ID")
     private String id;
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DOB")
     private Date DOB;
+    @Column(name = "address")
     private String address;
+    @Column(name = "telephone")
     private String telephone;
+    @Column(name = "email")
     private String email;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "membershipDate")
     private Date membershipDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "membershipExpiryDate")
     private Date membershipExpiryDate;
 
     //Default Constructor

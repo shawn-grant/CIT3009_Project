@@ -35,6 +35,7 @@ import client.Client;
 import models.Customer;
 import models.Employee;
 import models.Product;
+import utils.GenerateID;
 import view.components.RoundedBorder;
 import view.dialogs.checkout.*;
 ;
@@ -318,23 +319,13 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         setMainContent(new JScrollPane(table));
     }
 
-    /*****************************Defining Button Actions*****************************/
-  //Creating ID number for new customer
-    private String generateId() {
-        String id = "C";
-        int num = (int) ((Math.random() * (4000 - 100)) + 100);
-
-        return id + num;
-    }
-    
-    //Method to check if all fields are empty
-    private boolean validateFields() {
+    /*****************************Defining Button Actions*****************************/  
+    private boolean validateFields() { //Method to check if all fields are empty
         return !(codeTxtValue.getText().isEmpty() || itemNameTxtValue.getText().isEmpty()
                 || quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
     }
     
-    //Method to check if items in stock is less than quantity being sold
-    private boolean stockCheck(){
+    private boolean stockCheck(){//Method to check if items in stock is less than quantity being sold
     		int stock = 0;
     		if(productList.isEmpty()) {
 	            Client client = new Client();
@@ -369,8 +360,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     		return true;		
     }
     
-    //Auto fill empty fields with necessary product data if found
-    private void setFields(Product product) {
+    private void setFields(Product product) {//Auto fill empty fields with necessary product data if found
         if (codeTxtValue.getText().trim().equalsIgnoreCase(product.getCode())) {
             if (quantityTxtValue.getText().equals("") || quantityTxtValue.getText().equals(" ")) {//NTS: Doesn't work with null
                 quantityTxtValue.setText("1");
@@ -385,8 +375,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         }
     }
 
-    // search for product using product code entered
-    private void searchInventory() {///NTS: Test this method
+    private void searchInventory() {// search for product using product code entered
         Client client = new Client();
         if (!(codeTxtValue.getText().isEmpty())) {
             client.sendAction("Find Product");
@@ -397,8 +386,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         }
     }
     
-    //update the product list which is used during checkout process
-    public void updateList() {//NTS: Test this method
+    public void updateList() {//update the product list which is used during checkout process
     	productList.clear();
     	for(int i = 0; i< model.getRowCount(); i++) {//for each row in the table do....	
     		int remaining = 0;
@@ -441,12 +429,12 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     	return false;
     }
     
-    // adding product information to table
-    private void addItem() {
-        if (validateFields()) {
-        	if(stockCheck() == true) {
+   
+    private void addItem() { //adding product information to table
+        if (validateFields()) {//if all necessary fields are filled
+        	if(stockCheck() == true) {//If quantity being requested for purchase is available in inventory
 	            try {
-	            	if(itemInTable() == false) {
+	            	if(itemInTable() == false) {//If the item is not already added to the display table
 		                int quantity = Integer.parseInt(quantityTxtValue.getText().trim());//getting value from quantity text field
 		                String cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim())); //Calculating totals cost based on quantity
 		
@@ -480,16 +468,15 @@ public class CheckoutScreen extends JPanel implements ActionListener {
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (choice == JOptionPane.YES_OPTION) {
-                //remove selected row from the model
-                model.removeRow(table.getSelectedRow());
+                model.removeRow(table.getSelectedRow());//remove selected row from the model
                 JOptionPane.showMessageDialog(null, itemNameTxtValue.getText().trim() + " was deleted successfully.",
                         "Items List", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
 
-    //Emptying all text fields and table
-    private void clearAll() {
+    
+    private void clearAll() {//Emptying all text fields and table
         codeTxtValue.setText(null);
         quantityTxtValue.setText(null);
         itemNameTxtValue.setText(null);
@@ -498,16 +485,14 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         checkoutButton.setEnabled(false);
     }
       
-    //Clear fields
-    private void clearInput() {
+    private void clearInput() { //Clear text fields
         codeTxtValue.setText(null);
         quantityTxtValue.setText(null);
         itemNameTxtValue.setText(null);
         unitPriceTxtValue.setText(null);
     }
-
-    //Registering Button Listeners
-    public void registerListeners() {
+  
+    public void registerListeners() {//Registering Button Listeners
         searchButton.addActionListener(this);
         addButton.addActionListener(this);
         deleteButton.addActionListener(this);
@@ -519,7 +504,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addCustomerButton) {
-        	customerTxtValue.setText(generateId());//Generate An ID value
+        	customerTxtValue.setText(new GenerateID().getID("C"));//Generate An ID value
             new InsertDialog(customerTxtValue.getText().trim());//Set the id field in the dialog to new ID generated
             Client client = new Client();
             client.sendAction("Find Customer");
