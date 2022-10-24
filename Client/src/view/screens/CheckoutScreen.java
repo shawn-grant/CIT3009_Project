@@ -18,11 +18,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,6 +37,7 @@ import client.Client;
 import models.Customer;
 import models.Employee;
 import models.Product;
+import utils.GenerateCodeList;
 import utils.IDGenerator;
 import view.components.RoundedBorder;
 import view.dialogs.checkout.*;
@@ -49,6 +52,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     private JLabel customer, staff;
     private JTextField codeTxtValue, quantityTxtValue, itemNameTxtValue, unitPriceTxtValue;
     private JTextField customerTxtValue, staffTxtValue;
+    private JComboBox<String> codeList;
     private JPanel centerPanel, mainContent;
     private JTable table;
     private DefaultTableModel model;
@@ -118,7 +122,14 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         codeTxtValue.setFont(fieldFont);
         codeTxtValue.setBorder(new RoundedBorder(8));
         codeTxtValue.setPreferredSize(fieldSize);
-
+        
+        //String codes = Arrays.toString( new GenerateCodeList().getCodes());
+        codeList = new JComboBox<String>(new GenerateCodeList().getCodes());
+        codeList.setFont(fieldFont);
+        codeList.setBorder(new RoundedBorder(8));
+        codeList.setPreferredSize(new Dimension(20, 40));
+        
+        
         quantityTxtValue.setFont(fieldFont);
         quantityTxtValue.setBorder(new RoundedBorder(8));
         quantityTxtValue.setPreferredSize(fieldSize);
@@ -252,7 +263,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         gbc.gridx = 1;
         gbc.gridy = 1;
         centerPanel.add(codeTxtValue, gbc);
-
+        //centerPanel.add(codeList, gbc);
+        
         gbc.gridx = 2;
         gbc.gridy = 1;
         centerPanel.add(searchButton, gbc);
