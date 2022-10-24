@@ -7,7 +7,7 @@ package view.dialogs.customer;
 
 import client.Client;
 import models.Customer;
-import utils.GenerateID;
+import utils.IDGenerator;
 import utils.PhoneNumberValidator;
 import utils.StringValidator;
 import view.components.RoundedBorder;
@@ -103,7 +103,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
         membershipExpiryDateLabel.setPreferredSize(labelSize);
 
         //Field properties
-        idField = new JTextField(new GenerateID().getID("C"));
+        idField = new JTextField(new IDGenerator().getID("C"));
         idField.setBorder(new RoundedBorder(8));
         idField.setPreferredSize(fieldSize);
         idField.setFont(fieldFont);

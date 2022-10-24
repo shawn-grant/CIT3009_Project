@@ -12,7 +12,7 @@ import utils.StringValidator;
 import view.components.RoundedBorder;
 import view.components.DatePicker;
 import utils.EmailValidator;
-import utils.GenerateID;
+import utils.IDGenerator;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -87,7 +87,7 @@ public class InsertDialog extends JDialog implements ActionListener {
         membershipExpiryDateLabel.setPreferredSize(labelSize);
 
         //Field properties
-        idField = new JTextField(new GenerateID().getID("C"));
+        idField = new JTextField(new IDGenerator().getID("C"));
         idField.setBorder(new RoundedBorder(8));
         idField.setPreferredSize(fieldSize);
         idField.setFont(fieldFont);

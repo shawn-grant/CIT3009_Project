@@ -3,7 +3,7 @@ package utils;
 /**
  * @author Shawn Grant
  */
-public class GenerateID {
+public class IDGenerator {
 
     public String getID(String letter) {
         int num = (int) ((Math.random() * (2000 - 100)) + 100);
