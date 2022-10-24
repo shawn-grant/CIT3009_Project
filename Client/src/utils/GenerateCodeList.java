@@ -22,5 +22,5 @@ public class GenerateCodeList {
         return list;
         
     }
-        
+         
 }

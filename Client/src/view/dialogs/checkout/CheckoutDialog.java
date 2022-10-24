@@ -33,7 +33,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     private final DefaultTableModel model;
     private final List<Product> productList;
     private String products;
-
+ 
     public CheckoutDialog(DefaultTableModel model, List<Product> productList, String customer, String staff) {
         this.model = model;
         this.productList = productList;

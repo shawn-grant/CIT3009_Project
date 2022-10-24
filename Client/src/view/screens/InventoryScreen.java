@@ -29,7 +29,7 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
             "Unit Price"
     };
     private JTable table;
-    private DefaultTableModel model;
+    private DefaultTableModel model; 
 
     public InventoryScreen() {
         super("Inventory");
