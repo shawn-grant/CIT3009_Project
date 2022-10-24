@@ -150,7 +150,7 @@ public class DBConnectorFactory {
     private static void createInvoiceTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE invoice(invoice_number varchar(10) NOT NULL, billing_date date," +
-                    "item_name varchar(40), quantity int, employeeID varchar(10), customerID varchar(10), " +
+                    "item_name varchar(40), quantity int, total_cost varchar(20), employeeID varchar(10), customerID varchar(10), " +
                     "PRIMARY KEY(invoice_number))";
 
             if (stmt.executeUpdate(query) == 0) {

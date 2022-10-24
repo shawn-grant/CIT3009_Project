@@ -25,6 +25,8 @@ public class Invoice implements Serializable {
     private String itemName;
     @Column(name = "quantity")
     private int quantity;
+    @Column(name = "total_cost")
+    private float totalCost;
     @Column(name = "employeeId")
     private String employee;
     @Column(name = "customerId")
@@ -35,17 +37,19 @@ public class Invoice implements Serializable {
         billingDate = new Date();
         itemName = "N/A";
         quantity = 0;
+        totalCost = (float) 0.00;
         employee = "N/A";
         customer = "N/A";
     }
 
     //Primary Constructor
     public Invoice(int invoiceNumber, Date billingDate, String itemName,
-                   int quantity, String employee, String customer) {
+                   int quantity, float totalCost, String employee, String customer) {
         setInvoiceNumber(invoiceNumber);
         setBillingDate(billingDate);
         setItemName(itemName);
         setQuantity(quantity);
+        setTotalCost(totalCost);
         this.employee = employee;
         this.customer = customer;
     }
@@ -93,12 +97,20 @@ public class Invoice implements Serializable {
         this.quantity = quantity;
     }
 
+    public float getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
+    }
+
     public String getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee.getFirstName() + " " + employee.getLastName();
+        this.employee = employee.getFirstName() + " (" + employee.getId() + ")";
     }
 
     public String getCustomer() {
@@ -106,12 +118,12 @@ public class Invoice implements Serializable {
     }
 
     public void setCustomer(Customer customer) {
-        this.customer = customer.getFirstName() + " " + customer.getLastName();
+        this.customer = customer.getFirstName() + " (" + customer.getId() + ")";
     }
 
     public void displayInvoice() {
         System.out.println("Invoice Number: " + getInvoiceNumber() + "\nDate" + getBillingDate()
-                + "Items" + getItemName() + "Quantity: " + getQuantity() + "Employee: "
+                + "Items" + getItemName() + "Quantity: " + getQuantity() + "Total Billing: " + getTotalCost() + "Employee: "
                 + getEmployee() + "Customer: " + getCustomer());
     }
 
@@ -122,6 +134,7 @@ public class Invoice implements Serializable {
                 ", billingDate=" + billingDate +
                 ", itemName='" + itemName + '\'' +
                 ", quantity=" + quantity +
+                ", totalCost=" + totalCost +
                 ", employee='" + employee + '\'' +
                 ", customer='" + customer + '\'' +
                 '}';

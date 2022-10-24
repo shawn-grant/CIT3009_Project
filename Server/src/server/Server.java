@@ -6,6 +6,8 @@ import models.Customer;
 import models.Employee;
 import models.Invoice;
 import models.Product;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import view.MainScreen;
@@ -25,8 +27,10 @@ import java.util.List;
 /**
  * @author Malik Heron
  */
+
 public class Server {
 
+    private static final Logger logger = LogManager.getLogger(Server.class);
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private final SplashScreen splashScreen = new SplashScreen();
     private int requestAmount = 1;
@@ -48,6 +52,7 @@ public class Server {
             serverSocket.setReuseAddress(true);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
