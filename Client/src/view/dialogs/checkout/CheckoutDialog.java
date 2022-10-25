@@ -31,7 +31,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     private JTextField tenderedField;
     private JButton cashOutButton, cancelButton;
     private final List<Integer> quantityList;
-
+ 
     public CheckoutDialog(DefaultTableModel model, List<Product> productList,
                           List<Integer> quantityList, String customer, String staff) {
         this.model = model;
