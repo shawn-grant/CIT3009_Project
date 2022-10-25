@@ -187,6 +187,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
+        //Check if fields are empty
         if (idField.getText().isEmpty() || firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty() || addressField.getText().isEmpty()
                 || telephoneField.getText().isEmpty() || emailField.getText().isEmpty()) {
@@ -196,6 +197,7 @@ public class InsertDialog extends JDialog implements ActionListener {
                     "Warning", JOptionPane.WARNING_MESSAGE
             );
             return false;
+            //Check if fields are of valid values
         } else return StringValidator.isValid(firstNameField.getText(), this)
                 && StringValidator.isValid(lastNameField.getText(), this)
                 && PhoneNumberValidator.isValid(telephoneField.getText(), this)
@@ -206,6 +208,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
+                //Request to add customer record
                 Client client = new Client();
                 Customer customer = new Customer(
                         idField.getText(),

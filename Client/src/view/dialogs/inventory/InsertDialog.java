@@ -146,6 +146,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
+        //Check if any fields are empty
         if (codeField.getText().isEmpty() || nameField.getText().isEmpty()
                 || shortDescField.getText().isEmpty() || longDescField.getText().isEmpty()
                 || inStockField.getText().isEmpty() || unitPriceField.getText().isEmpty()) {
@@ -155,6 +156,7 @@ public class InsertDialog extends JDialog implements ActionListener {
                     "Warning", JOptionPane.WARNING_MESSAGE
             );
             return false;
+            //Check if fields are of valid values
         } else return IntegerValidator.isValid(inStockField.getText(), this)
                 && CostValidator.isValid(unitPriceField.getText(), this);
     }
@@ -163,6 +165,7 @@ public class InsertDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
+                //Request to add product to database
                 Client client = new Client();
                 client.sendAction("Add Product");
                 Product product = new Product(codeField.getText(), nameField.getText(), shortDescField.getText(),
@@ -180,6 +183,7 @@ public class InsertDialog extends JDialog implements ActionListener {
                         0
                 ));
 
+                //Request an update of the inventory
                 Client client2 = new Client();
                 client2.sendAction("Update Inventory");
                 client2.sendInventory(inventory);

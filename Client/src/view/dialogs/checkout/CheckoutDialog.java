@@ -144,17 +144,14 @@ public class CheckoutDialog extends JDialog implements ActionListener {
 
     //method to check if ant fields is empty
     private boolean validateFields() {
-        if (employeeIdField.getText().isEmpty() || customerIdField.getText().isEmpty()
-                || tenderedField.getText().isEmpty()) {
+        if (tenderedField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(
                     this,
-                    "One or more fields empty",
+                    "Cash tendered cannot be empty",
                     "Warning", JOptionPane.WARNING_MESSAGE
             );
             return false;
-        } else {
-            return CostValidator.isValid(tenderedField.getText(), this);
-        }
+        } else return CostValidator.isValid(tenderedField.getText(), this);
     }
 
     //randomizing the generation of invoice numbers
@@ -227,6 +224,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                 } else {
                     updateInventory();
                     int invoiceNumber = generateInvoiceNum();
+                    //Request to add an invoice
                     Client client = new Client();
                     client.sendAction("Add Invoice");
                     List<Invoice> invoiceList = new ArrayList<>();
@@ -253,6 +251,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     client.receiveResponse();
                     client.closeConnections();
 
+                    //Request to update inventory
                     Client client2 = new Client();
                     client2.sendAction("Update Inventory");
                     client2.sendInventory(inventoryList);
@@ -264,9 +263,6 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     model.setRowCount(0);
                     dispose();
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "One or more fields empty",
-                        "Missing information", JOptionPane.WARNING_MESSAGE);
             }
         }
         if (e.getSource().equals(cancelButton)) {

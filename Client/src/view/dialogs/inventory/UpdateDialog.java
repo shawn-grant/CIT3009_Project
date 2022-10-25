@@ -168,6 +168,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
+        //Check if any fields are empty
         if (codeField.getText().isEmpty() || nameField.getText().isEmpty()
                 || shortDescField.getText().isEmpty() || longDescField.getText().isEmpty()
                 || inStockField.getText().isEmpty() || unitPriceField.getText().isEmpty()) {
@@ -177,6 +178,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
                     "Warning", JOptionPane.WARNING_MESSAGE
             );
             return false;
+            //Check if fields are of valid values
         } else return IntegerValidator.isValid(inStockField.getText(), this)
                 && CostValidator.isValid(unitPriceField.getText(), this);
     }
@@ -186,6 +188,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
 
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
+                //Request an update of a product
                 Client client = new Client();
                 client.sendAction("Update Product");
                 Product product = new Product(
@@ -208,6 +211,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
                         0
                 ));
 
+                //Request an update of the inventory
                 Client client2 = new Client();
                 client2.sendAction("Update Inventory");
                 client2.sendInventory(inventory);
