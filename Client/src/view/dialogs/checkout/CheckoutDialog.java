@@ -135,7 +135,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setTitle("Cash Out Items");
-        setSize(420, 280);
+        setSize(400, 420);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
