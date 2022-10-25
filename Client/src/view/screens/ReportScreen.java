@@ -73,7 +73,9 @@ public class ReportScreen extends BaseScreen implements ActionListener {
 
         reportTextArea = new JTextArea("Your Report will show here...");
         reportTextArea.setEditable(false);
-        reportTextArea.setPreferredSize(new Dimension(390, 400));
+        reportTextArea.setPreferredSize(new Dimension(490, 400));
+        reportTextArea.setLineWrap(true);
+        reportTextArea.setFont(fieldFont);
 
         productSelect = new JComboBox<>(getProducts());
         productSelect.setBorder(new RoundedBorder(8));
@@ -188,16 +190,17 @@ public class ReportScreen extends BaseScreen implements ActionListener {
             // Get product details
             product = getProductInfo(inventoryStart);
             // Add information to text area
+            reportTextArea.setText("");
             reportTextArea.append("Product name: " + product.getName());
-            reportTextArea.append("\nStock as at " + inventoryStart.getId().getDateModified() +
+            reportTextArea.append("\n\nStock as at " + inventoryStart.getId().getDateModified() +
                     ": " + inventoryStart.getStock());
-            reportTextArea.append("\nStock as at " + inventoryEnd.getId().getDateModified() +
+            reportTextArea.append("\n\nStock as at " + inventoryEnd.getId().getDateModified() +
                     ": " + inventoryEnd.getStock());
-            reportTextArea.append("\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
-                    ": " + inventoryStart.getUnitPrice());
-            reportTextArea.append("\nUni Cost as at " + inventoryEnd.getId().getDateModified() +
-                    ": " + inventoryEnd.getUnitPrice());
-            reportTextArea.append("\nAmount Purchased: " +
+            reportTextArea.append("\n\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
+                    ": $" + inventoryStart.getUnitPrice());
+            reportTextArea.append("\n\nUnit Cost as at " + inventoryEnd.getId().getDateModified() +
+                    ": $" + inventoryEnd.getUnitPrice());
+            reportTextArea.append("\n\nAmount Purchased: " +
                     (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
         } else {
             JOptionPane.showMessageDialog(
