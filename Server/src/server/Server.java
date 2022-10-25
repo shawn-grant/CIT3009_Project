@@ -2,12 +2,9 @@ package server;
 
 import factories.DBConnectorFactory;
 import factories.SessionFactoryBuilder;
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import models.*;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import view.MainScreen;
@@ -27,10 +24,9 @@ import java.util.List;
 /**
  * @author Malik Heron
  */
-
 public class Server {
 
-    private static final Logger logger = LogManager.getLogger(Server.class);
+    //private static final Logger logger = LogManager.getLogger(Server.class);
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private final SplashScreen splashScreen = new SplashScreen();
     private int requestAmount = 1;
@@ -52,7 +48,7 @@ public class Server {
             serverSocket.setReuseAddress(true);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
-            logger.error("IOException: " + e.getMessage());
+            //logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -180,12 +176,14 @@ public class Server {
         }
     }
 
-    public void addInvoiceData(Invoice invoice) throws IOException {
+    public void addInvoiceData(List<Invoice> invoiceList) throws IOException {
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                session.save(invoice);
+                for (Invoice invoice: invoiceList) {
+                    session.save(invoice);
+                }
                 transaction.commit();
                 objOs.writeObject(true);
             }
@@ -278,6 +276,42 @@ public class Server {
         }
     }
 
+    public void updateInventoryData(List<Inventory> inventoryList) throws IOException {
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                for (Inventory inv: inventoryList) {
+                    //Get current item from inventory
+                    Inventory inv2 = getInventoryItem(inv.getId());
+                    //Update new details and add amount purchased before to amount purchased after
+                    if (inv2 != null) {
+                        Inventory inventory = new Inventory(
+                                inv.getId(),
+                                inv.getStock(),
+                                inv.getUnitPrice(),
+                                inv.getAmountPurchased() + inv2.getAmountPurchased()
+                        );
+                        //Save if it is a new record, update otherwise
+                        session.saveOrUpdate(inventory);
+                    } else {
+                        //Save if it is a new record, update otherwise
+                        session.saveOrUpdate(inv);
+                    }
+                }
+                transaction.commit();
+                objOs.writeObject(true);
+            }
+        } catch (IOException e) {
+            System.err.println("IOException: " + e);
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            objOs.writeObject(false);
+        }
+    }
+
     /**
      * Select queries
      **/
@@ -345,6 +379,22 @@ public class Server {
         return product;
     }
 
+    private Inventory getInventoryItem(InventoryId inventoryId) {
+        Inventory inventory = null;
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                inventory = session.get(Inventory.class, inventoryId);
+                transaction.commit();
+                session.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inventory;
+    }
+
     /**
      * Select queries for all
      **/
@@ -380,7 +430,7 @@ public class Server {
         return customerList;
     }
 
-    private List<Product> getInventoryList() {
+    private List<Product> getProductList() {
         List<Product> productList = null;
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
@@ -489,6 +539,7 @@ public class Server {
             Product product;
             Customer customer;
             Invoice invoice;
+            Inventory inventory;
             configureStreams();
             try {
                 action = (String) objIs.readObject();
@@ -559,15 +610,15 @@ public class Server {
                     String productCode = (String) objIs.readObject();
                     removeProductData(productCode);
                 }
-                if (action.equals("View Inventory")) {
-                    List<Product> productList = getInventoryList();
+                if (action.equals("View Products")) {
+                    List<Product> productList = getProductList();
                     for (Product prod : productList) {
                         objOs.writeObject(prod);
                     }
                 }
                 if (action.equals("Add Invoice")) {
-                    invoice = (Invoice) objIs.readObject();
-                    addInvoiceData(invoice);
+                    List<Invoice> invoiceList = (List<Invoice>) objIs.readObject();
+                    addInvoiceData(invoiceList);
                 }
                 if (action.equals("Update Invoice")) {
                     invoice = (Invoice) objIs.readObject();
@@ -582,16 +633,27 @@ public class Server {
                     String invoiceNum = (String) objIs.readObject();
                     removeInvoiceData(invoiceNum);
                 }
+                if (action.equals("Update Inventory")) {
+                    List<Inventory> inventoryList = (List<Inventory>) objIs.readObject();
+                    updateInventoryData(inventoryList);
+                }
+                if (action.equals("View Inventory Item")) {
+                    InventoryId inventoryId = (InventoryId) objIs.readObject();
+                    inventory = getInventoryItem(inventoryId);
+                    objOs.writeObject(inventory);
+                }
             } catch (EOFException e) {
-                System.err.println("EOFException: " + e.getMessage());
+                System.err.println("EOFException: " + e);
                 e.printStackTrace();
             } catch (IOException e) {
-                System.err.println("IOException: " + e.getMessage());
+                System.err.println("IOException: " + e);
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
-                System.err.println("ClassNotFoundException: " + e.getMessage());
+                System.err.println("ClassNotFoundException: " + e);
+                e.printStackTrace();
             } catch (ClassCastException e) {
-                System.err.println("ClassCastException: " + e.getMessage());
+                System.err.println("ClassCastException: " + e);
+                e.printStackTrace();
             } finally {
                 closeConnections();
             }

@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,24 +18,25 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
-import models.Invoice;
-import models.Product;
+import models.*;
 import utils.CostValidator;
 import view.components.RoundedBorder;
 
 public class CheckoutDialog extends JDialog implements ActionListener {
-    private static final long serialVersionUID = 1L;
-    private JLabel totalItemsLbl, totalCostlbl, staffIDLabel, customerIDLabel, tenderedLabel;
-    private JTextField totalItemsTxtValue, totalCostTxtValue, staffTxtValue, customerTxtValue;
-    private JTextField tenderedTxtValue;
-    private JButton cashoutButton, cancelButton;
+
     private final DefaultTableModel model;
     private final List<Product> productList;
-    private String products;
+    private JLabel totalItemsLabel, totalCostLabel, staffIDLabel, customerIDLabel, tenderedLabel;
+    private JTextField totalItemsField, totalCostField, employeeIdField, customerIdField;
+    private JTextField tenderedField;
+    private JButton cashOutButton, cancelButton;
+    private final List<Integer> quantityList;
 
-    public CheckoutDialog(DefaultTableModel model, List<Product> productList, String customer, String staff) {
+    public CheckoutDialog(DefaultTableModel model, List<Product> productList,
+                          List<Integer> quantityList, String customer, String staff) {
         this.model = model;
         this.productList = productList;
+        this.quantityList = quantityList;
         initializeComponents(customer, staff);
         addPanelsToWindow();
         registerListeners();
@@ -44,82 +44,97 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     }
 
     private void initializeComponents(String customer, String staff) {
-        staffIDLabel = new JLabel("Staff ID");
-        staffIDLabel.setFont(new Font("arial", Font.BOLD, 14));
-        staffIDLabel.setPreferredSize(new Dimension(130, 20));
+        Dimension labelSize = new Dimension(140, 20);
+        Dimension fieldSize = new Dimension(250, 35);
+        Font labelFont = new Font("arial", Font.BOLD, 14);
+        Font fieldFont = new Font("arial", Font.PLAIN, 14);
 
-        staffTxtValue = new JTextField();
-        staffTxtValue.setBorder(new RoundedBorder(8));
-        staffTxtValue.setPreferredSize(new Dimension(250, 30));
-        staffTxtValue.setText(staff);
-        staffTxtValue.setEditable(false);
+        //Label properties
+        staffIDLabel = new JLabel("Staff ID");
+        staffIDLabel.setFont(labelFont);
+        staffIDLabel.setPreferredSize(labelSize);
 
         customerIDLabel = new JLabel("Customer ID");
-        customerIDLabel.setFont(new Font("arial", Font.BOLD, 14));
-        customerIDLabel.setPreferredSize(new Dimension(130, 20));
+        customerIDLabel.setFont(labelFont);
+        customerIDLabel.setPreferredSize(labelSize);
 
-        customerTxtValue = new JTextField("N/A");
-        customerTxtValue.setBorder(new RoundedBorder(8));
-        customerTxtValue.setPreferredSize(new Dimension(250, 30));
-        customerTxtValue.setText(customer);
-        customerTxtValue.setEditable(false);
+        totalItemsLabel = new JLabel("Total Items");
+        totalItemsLabel.setFont(labelFont);
+        totalItemsLabel.setPreferredSize(labelSize);
 
-        totalItemsLbl = new JLabel("Total Items");
-        totalItemsLbl.setFont(new Font("arial", Font.BOLD, 14));
-        totalItemsLbl.setPreferredSize(new Dimension(130, 20));
-
-        totalItemsTxtValue = new JTextField();
-        totalItemsTxtValue.setBorder(new RoundedBorder(8));
-        totalItemsTxtValue.setPreferredSize(new Dimension(250, 30));
-        totalItemsTxtValue.setEditable(false);
-        totalItemsTxtValue.setText(Integer.toString(getTotalQuantity()));
-
-        totalCostlbl = new JLabel("Total Cost");
-        totalCostlbl.setFont(new Font("arial", Font.BOLD, 14));
-        totalCostlbl.setPreferredSize(new Dimension(130, 20));
-
-        totalCostTxtValue = new JTextField();
-        totalCostTxtValue.setBorder(new RoundedBorder(8));
-        totalCostTxtValue.setPreferredSize(new Dimension(250, 30));
-        totalCostTxtValue.setEditable(false);
-        totalCostTxtValue.setText(Float.toString(getTotalCost()));
+        totalCostLabel = new JLabel("Total Cost");
+        totalCostLabel.setFont(labelFont);
+        totalCostLabel.setPreferredSize(labelSize);
 
         tenderedLabel = new JLabel("Tendered");
-        tenderedLabel.setFont(new Font("arial", Font.BOLD, 14));
-        tenderedLabel.setPreferredSize(new Dimension(130, 20));
+        tenderedLabel.setFont(labelFont);
+        tenderedLabel.setPreferredSize(labelSize);
 
-        tenderedTxtValue = new JTextField();
-        tenderedTxtValue.setBorder(new RoundedBorder(8));
-        tenderedTxtValue.setPreferredSize(new Dimension(250, 30));
+        //Field properties
+        employeeIdField = new JTextField();
+        employeeIdField.setBorder(new RoundedBorder(8));
+        employeeIdField.setFont(fieldFont);
+        employeeIdField.setPreferredSize(fieldSize);
+        employeeIdField.setText(staff);
+        employeeIdField.setEditable(false);
 
-        cashoutButton = new JButton("Cash Out");
-        cashoutButton.setPreferredSize(new Dimension(150, 30));
-        cashoutButton.setForeground(Color.BLUE);
-        cashoutButton.setFont(new Font("arial", Font.BOLD, 12));
+        customerIdField = new JTextField("N/A");
+        customerIdField.setBorder(new RoundedBorder(8));
+        customerIdField.setPreferredSize(fieldSize);
+        customerIdField.setFont(fieldFont);
+        customerIdField.setText(customer);
+        customerIdField.setEditable(false);
+
+        totalItemsField = new JTextField();
+        totalItemsField.setBorder(new RoundedBorder(8));
+        totalItemsField.setPreferredSize(fieldSize);
+        totalItemsField.setEditable(false);
+        totalItemsField.setText(Integer.toString(getTotalQuantity()));
+        totalItemsField.setFont(fieldFont);
+
+        totalCostField = new JTextField();
+        totalCostField.setBorder(new RoundedBorder(8));
+        totalCostField.setPreferredSize(fieldSize);
+        totalCostField.setEditable(false);
+        totalCostField.setText(Float.toString(getTotalCost()));
+        totalCostField.setFont(fieldFont);
+
+        tenderedField = new JTextField();
+        tenderedField.setBorder(new RoundedBorder(8));
+        tenderedField.setPreferredSize(fieldSize);
+        tenderedField.setFont(fieldFont);
+
+        cashOutButton = new JButton("CASH OUT");
+        cashOutButton.setPreferredSize(new Dimension(200, 30));
+        cashOutButton.setForeground(Color.BLUE);
+        cashOutButton.setFont(labelFont);
 
         cancelButton = new JButton("Cancel");
         cancelButton.setPreferredSize(new Dimension(100, 30));
         cancelButton.setForeground(Color.RED);
+        cancelButton.setFont(labelFont);
     }
 
-    private void addPanelsToWindow() {//Adding Labels and textfields to window
+    //Adding Labels and text-fields to window
+    private void addPanelsToWindow() {
         add(staffIDLabel);
-        add(staffTxtValue);
+        add(employeeIdField);
         add(customerIDLabel);
-        add(customerTxtValue);
-        add(totalItemsLbl);
-        add(totalItemsTxtValue);
-        add(totalCostlbl);
-        add(totalCostTxtValue);
+        add(customerIdField);
+        add(totalItemsLabel);
+        add(totalItemsField);
+        add(totalCostLabel);
+        add(totalCostField);
         add(tenderedLabel);
-        add(tenderedTxtValue);
-        add(cashoutButton);
+        add(tenderedField);
+        add(cashOutButton);
         add(cancelButton);
     }
 
-    private void setWindowProperties() {//Setting properties of dialog window
+    //Setting properties of dialog window
+    private void setWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        setTitle("Cashout Items");
+        setTitle("Cash Out Items");
         setSize(420, 280);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -127,9 +142,10 @@ public class CheckoutDialog extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-    private boolean validateFields() {//method to check if ant fields is empty
-        if (staffTxtValue.getText().isEmpty() || customerTxtValue.getText().isEmpty()
-                || tenderedTxtValue.getText().isEmpty()) {
+    //method to check if ant fields is empty
+    private boolean validateFields() {
+        if (employeeIdField.getText().isEmpty() || customerIdField.getText().isEmpty()
+                || tenderedField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(
                     this,
                     "One or more fields empty",
@@ -137,28 +153,31 @@ public class CheckoutDialog extends JDialog implements ActionListener {
             );
             return false;
         } else {
-            return CostValidator.isValid(tenderedTxtValue.getText(), this);
+            return CostValidator.isValid(tenderedField.getText(), this);
         }
     }
 
-    private int generateInvoiceNum() {//randomizing the generation of invoice numbers
-        int value = 0;
+    //randomizing the generation of invoice numbers
+    private int generateInvoiceNum() {
+        int value;
         value = (int) ((Math.random() * (70000 - 100)) + 100);
         return value;
     }
 
-    public float calculateChange() {//calculating how much change customer will receive
-        float tendered = Float.parseFloat(tenderedTxtValue.getText());
+    //calculating how much change customer will receive
+    public float calculateChange() {
+        float tendered = Float.parseFloat(tenderedField.getText());
         float cost = getTotalCost();
         return tendered - cost;
     }
 
     public void registerListeners() {
-        cashoutButton.addActionListener(this);
+        cashOutButton.addActionListener(this);
         cancelButton.addActionListener(this);
     }
 
-    public int getTotalQuantity() {//Retrieving total number of items being purchased by customer
+    //Retrieving total number of items being purchased by customer
+    public int getTotalQuantity() {
         int sum = 0;
         for (int i = 0; i < model.getRowCount(); i++) {
             sum = sum + Integer.parseInt(model.getValueAt(i, 2).toString());
@@ -166,7 +185,8 @@ public class CheckoutDialog extends JDialog implements ActionListener {
         return sum;
     }
 
-    public float getTotalCost() {//calculating the totall billing fro the invoice using data in table
+    //calculating the total billing from the invoice using data in table
+    public float getTotalCost() {
         float sum = 0;
         for (int i = 0; i < model.getRowCount(); i++) {
             sum = sum + Float.parseFloat(model.getValueAt(i, 4).toString());
@@ -174,10 +194,13 @@ public class CheckoutDialog extends JDialog implements ActionListener {
         return sum;
     }
 
-    public void updateInventory() {//Updates the inventory items after customer is cashed out
-        for (Product product : productList) {//For each product being checked out
+    //Updates the inventory items after customer is cashed out
+    public void updateInventory() {
+        //For each product being checked out
+        for (Product product : productList) {
             Client client = new Client();
-            client.sendAction("Update Product"); //update all fields to update the product quantity in inventory
+            //update all fields to update the product quantity in inventory
+            client.sendAction("Update Product");
             Product prod = new Product(
                     product.getCode(),
                     product.getName(),
@@ -186,7 +209,6 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     product.getItemInStock(),
                     product.getUnitPrice()
             );
-            products = product.getCode() + "\n";//Add product code to string
             client.sendProduct(prod);
             client.receiveResponse();
             client.closeConnections();
@@ -196,7 +218,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == cashoutButton) {
+        if (e.getSource().equals(cashOutButton)) {
             if (validateFields()) {
                 float change = calculateChange();
                 if (change < 0.0) {
@@ -204,38 +226,50 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     updateInventory();
-
-                    String date = String.valueOf(java.time.LocalDate.now());
-                    LocalDate currentDate = LocalDate.parse(date);
                     int invoiceNumber = generateInvoiceNum();
                     Client client = new Client();
                     client.sendAction("Add Invoice");
-                    Invoice invoice = new Invoice(
-                            invoiceNumber,
-                            new Date(currentDate.getDayOfMonth(),
-                                    currentDate.getMonthValue(),
-                                    currentDate.getYear()),
-                            products,
-                            Integer.parseInt(totalItemsTxtValue.getText()),
-                            Float.parseFloat(totalCostTxtValue.getText().trim()),    //NTS: update invoice model to add this field
-                            staffTxtValue.getText().trim(),
-                            customerTxtValue.getText().trim()
-                    );
-                    client.sendInvoice(invoice);
+                    List<Invoice> invoiceList = new ArrayList<>();
+                    List<Inventory> inventoryList = new ArrayList<>();
+                    int index = 0;
+                    for (Product product: productList) {
+                        invoiceList.add(new Invoice(
+                                new InvoiceId(invoiceNumber, new Date(), product.getName()),
+                                quantityList.get(index),
+                                product.getUnitPrice(),
+                                Float.parseFloat(totalCostField.getText().trim()),
+                                Float.parseFloat(tenderedField.getText().trim()),
+                                employeeIdField.getText().trim(),
+                                customerIdField.getText().trim()
+                        ));
+                        inventoryList.add(new Inventory(
+                                new InventoryId(product.getCode(), new Date()),
+                                product.getItemInStock(),
+                                product.getUnitPrice(),
+                                quantityList.get(index++))
+                        );
+                    }
+                    client.sendInvoice(invoiceList);
                     client.receiveResponse();
                     client.closeConnections();
 
+                    Client client2 = new Client();
+                    client2.sendAction("Update Inventory");
+                    client2.sendInventory(inventoryList);
+                    client2.receiveResponse();
+                    client2.closeConnections();
+
                     JOptionPane.showMessageDialog(null, "Customer should receive $" + change + " in change.",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
+                    model.setRowCount(0);
                     dispose();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "One or more fields empty",
                         "Missing information", JOptionPane.WARNING_MESSAGE);
             }
-
         }
-        if (e.getSource() == cancelButton) {
+        if (e.getSource().equals(cancelButton)) {
             dispose();
         }
     }

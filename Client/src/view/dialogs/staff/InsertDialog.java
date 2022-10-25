@@ -29,7 +29,6 @@ import utils.IDGenerator;
  */
 public class InsertDialog extends JDialog implements ActionListener {
 
-    private static final long serialVersionUID = 1L;
     private final String[] employeeTypes = {"", "Manager", "Supervisor", "Line Worker"};
     private final String[] departments = {"", "Management", "Inventory", "Accounting & sales"};
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;
