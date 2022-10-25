@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     private final DefaultTableModel model;
     private final List<Product> productList;
     private String products;
-
+ 
     public CheckoutDialog(DefaultTableModel model, List<Product> productList, String customer, String staff) {
         this.model = model;
         this.productList = productList;
@@ -173,7 +174,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
         return sum;
     }
 
-    public void updateProduct() {//Updates the inventory items after customer is cashed out
+    public void updateInventory() {//Updates the inventory items after customer is cashed out
         for (Product product : productList) {//For each product being checked out
             Client client = new Client();
             client.sendAction("Update Product"); //update all fields to update the product quantity in inventory
@@ -202,18 +203,13 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Insufficient amount tendered",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    updateProduct();
-
-                    String date = String.valueOf(java.time.LocalDate.now());
-                    LocalDate currentDate = LocalDate.parse(date);
+                    updateInventory();
                     int invoiceNumber = generateInvoiceNum();
                     Client client = new Client();
                     client.sendAction("Add Invoice");
                     Invoice invoice = new Invoice(
                             invoiceNumber,
-                            new Date(currentDate.getDayOfMonth(),
-                                    currentDate.getMonthValue(),
-                                    currentDate.getYear()),
+                            new Date(),
                             products,
                             Integer.parseInt(totalItemsTxtValue.getText()),
                             Float.parseFloat(totalCostTxtValue.getText().trim()),    //NTS: update invoice model to add this field
@@ -226,6 +222,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
 
                     JOptionPane.showMessageDialog(null, "Customer should receive $" + change + " in change.",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
+                    model.setRowCount(0);
                     dispose();
                 }
             } else {

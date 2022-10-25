@@ -18,12 +18,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -35,6 +40,7 @@ import client.Client;
 import models.Customer;
 import models.Employee;
 import models.Product;
+import utils.GenerateCodeList;
 import utils.IDGenerator;
 import view.components.RoundedBorder;
 import view.dialogs.checkout.*;
@@ -43,12 +49,14 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
     private final String[] TableColumns = {"Product Code", "Product Name", "Quantity", "Unit Price", "Cost"};
     private final GridBagConstraints gbc = new GridBagConstraints();
-    private final List<Product> productList = new ArrayList<>();    //NTS: ADD data to this list when you get back
+    private final List<Product> productList = new ArrayList<>();  
     private JButton addButton, deleteButton, clearButton, checkoutButton, searchButton, addCustomerButton;
     private JLabel titleLabel, productCodeLbl, itemNameLabel, quantityLabel, unitPrice;
     private JLabel customer, staff;
-    private JTextField codeTxtValue, quantityTxtValue, itemNameTxtValue, unitPriceTxtValue;
+    private JTextField quantityTxtValue, itemNameTxtValue, unitPriceTxtValue;
+    private String codeTxtValue = "";
     private JTextField customerTxtValue, staffTxtValue;
+    private JComboBox<String> codeList;
     private JPanel centerPanel, mainContent;
     private JTable table;
     private DefaultTableModel model;
@@ -105,7 +113,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         staff.setPreferredSize(labelSize);
 
         //Initializing Text areas
-        codeTxtValue = new JTextField();
+        //codeTxtValue = new JTextField();
         quantityTxtValue = new JTextField();
         itemNameTxtValue = new JTextField();
         unitPriceTxtValue = new JTextField();
@@ -113,12 +121,15 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         unitPriceTxtValue.setEditable(false);
         customerTxtValue = new JTextField("C0000");
         staffTxtValue = new JTextField();
-
-        //Setting text field properties
-        codeTxtValue.setFont(fieldFont);
-        codeTxtValue.setBorder(new RoundedBorder(8));
-        codeTxtValue.setPreferredSize(fieldSize);
-
+        
+        //String codes = Arrays.toString( new GenerateCodeList().getCodes());
+        codeList = new JComboBox<String>(new GenerateCodeList().getCodes());
+        codeList.setFont(fieldFont);
+        codeList.setBorder(new RoundedBorder(8));
+        codeList.setPreferredSize(new Dimension(20, 40));
+        codeList.setOpaque(false);
+        codeList.setFocusable(false);
+        
         quantityTxtValue.setFont(fieldFont);
         quantityTxtValue.setBorder(new RoundedBorder(8));
         quantityTxtValue.setPreferredSize(fieldSize);
@@ -251,8 +262,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        centerPanel.add(codeTxtValue, gbc);
-
+        centerPanel.add(codeList, gbc);
+        
         gbc.gridx = 2;
         gbc.gridy = 1;
         centerPanel.add(searchButton, gbc);
@@ -320,7 +331,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
 
     /*****************************Defining Button Actions*****************************/
     private boolean validateFields() { //Method to check if all fields are empty
-        return !(codeTxtValue.getText().isEmpty() || itemNameTxtValue.getText().isEmpty()
+        return !(codeTxtValue == "" || itemNameTxtValue.getText().isEmpty()
                 || quantityTxtValue.getText().isEmpty() || unitPriceTxtValue.getText().isEmpty());
     }
 
@@ -329,7 +340,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         if (productList.isEmpty()) {
             Client client = new Client();
             client.sendAction("Find Product");
-            client.sendProductCode(codeTxtValue.getText());
+            client.sendProductCode(codeTxtValue);
             Product product = client.receiveFindProductResponse();
             client.closeConnections();
             if (product != null) {
@@ -345,7 +356,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
             }
         } else {
             for (Product product : productList) {
-                if (product.getCode().equals(codeTxtValue.getText().trim())) {
+                if (product.getCode().equals(codeTxtValue)) {
                     stock = product.getItemInStock() - Integer.parseInt(quantityTxtValue.getText());
                     product.setItemInStock(stock);
                     if (stock < 0) {
@@ -360,7 +371,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     }
 
     private void setFields(Product product) {//Auto fill empty fields with necessary product data if found
-        if (codeTxtValue.getText().trim().equalsIgnoreCase(product.getCode())) {
+        if (codeTxtValue.equalsIgnoreCase(product.getCode())) {
             if (quantityTxtValue.getText().equals("") || quantityTxtValue.getText().equals(" ")) {//NTS: Doesn't work with null
                 quantityTxtValue.setText("1");
             }
@@ -376,16 +387,16 @@ public class CheckoutScreen extends JPanel implements ActionListener {
 
     private void searchInventory() {// search for product using product code entered
         Client client = new Client();
-        if (!(codeTxtValue.getText().isEmpty())) {
+        if (!(codeTxtValue == "")) {
             client.sendAction("Find Product");
-            client.sendProductCode(codeTxtValue.getText().trim());
+            client.sendProductCode(codeTxtValue);
             Product product = client.receiveFindProductResponse();
             setFields(product);
             client.closeConnections();
         }
     }
 
-    public void updateList() {//update the product list which is used during checkout process
+    private void updateList() {//update the product list which is used during checkout process
         productList.clear();
         for (int i = 0; i < model.getRowCount(); i++) {//for each row in the table do....
             int remaining = 0;
@@ -402,14 +413,14 @@ public class CheckoutScreen extends JPanel implements ActionListener {
 
     //This method prevents an item from being added to the table twice, 
     //instead it just updates the quantity and total cost of the item in the table
-    public boolean itemInTable() {
+    private boolean itemInTable() {
         if (model.getRowCount() > 0) {
             for (int i = 0; i < model.getRowCount(); i++) {//for each row in the check....
                 String code = "", cost = "";
                 int quantity = 0;
                 double total = 0;
                 code = model.getValueAt(i, 0).toString();//searching for product with code corresponding to product code in table
-                if (codeTxtValue.getText().equals(code)) {
+                if (codeTxtValue.equals(code)) {
                     try {
                         quantity = Integer.parseInt(quantityTxtValue.getText().trim());
                         cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim()));
@@ -438,7 +449,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
                         String cost = String.valueOf(Math.floor(quantity) * Double.parseDouble(unitPriceTxtValue.getText().trim())); //Calculating totals cost based on quantity
 
                         List<String> data = new ArrayList<String>();//Storing entire row in list object
-                        data.add(codeTxtValue.getText().trim());
+                        data.add(codeTxtValue);
                         data.add(itemNameTxtValue.getText().trim());
                         data.add(quantityTxtValue.getText().trim());
                         data.add(unitPriceTxtValue.getText().trim());
@@ -476,7 +487,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
 
 
     private void clearAll() {//Emptying all text fields and table
-        codeTxtValue.setText(null);
+    	codeTxtValue = "";
+    	codeList.setSelectedIndex(0);
         quantityTxtValue.setText(null);
         itemNameTxtValue.setText(null);
         unitPriceTxtValue.setText(null);
@@ -485,7 +497,8 @@ public class CheckoutScreen extends JPanel implements ActionListener {
     }
 
     private void clearInput() { //Clear text fields
-        codeTxtValue.setText(null);
+        codeTxtValue = "";
+        codeList.setSelectedIndex(0);
         quantityTxtValue.setText(null);
         itemNameTxtValue.setText(null);
         unitPriceTxtValue.setText(null);
@@ -498,6 +511,7 @@ public class CheckoutScreen extends JPanel implements ActionListener {
         clearButton.addActionListener(this);
         checkoutButton.addActionListener(this);
         addCustomerButton.addActionListener(this);
+        codeList.addActionListener(this);
     }
 
     @Override
@@ -514,9 +528,13 @@ public class CheckoutScreen extends JPanel implements ActionListener {
                 customerTxtValue.setText("C0000");
             }
         }
+        if (e.getSource() == codeList) {
+        	codeTxtValue = (String) codeList.getSelectedItem();
+        }
         if (e.getSource() == searchButton) {
             searchInventory();
         }
+              
         if (e.getSource() == addButton) {
             addItem();
         }
