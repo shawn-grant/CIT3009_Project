@@ -1,6 +1,8 @@
 package view.dialogs.inventory;
 
 import client.Client;
+import models.Inventory;
+import models.InventoryId;
 import models.Product;
 import utils.CostValidator;
 import utils.IntegerValidator;
@@ -17,6 +19,9 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Malik Heron
@@ -163,6 +168,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
     }
 
     private boolean validateFields() {
+        //Check if any fields are empty
         if (codeField.getText().isEmpty() || nameField.getText().isEmpty()
                 || shortDescField.getText().isEmpty() || longDescField.getText().isEmpty()
                 || inStockField.getText().isEmpty() || unitPriceField.getText().isEmpty()) {
@@ -172,6 +178,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
                     "Warning", JOptionPane.WARNING_MESSAGE
             );
             return false;
+            //Check if fields are of valid values
         } else return IntegerValidator.isValid(inStockField.getText(), this)
                 && CostValidator.isValid(unitPriceField.getText(), this);
     }
@@ -181,6 +188,7 @@ public class UpdateDialog extends JDialog implements ActionListener {
 
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
+                //Request an update of a product
                 Client client = new Client();
                 client.sendAction("Update Product");
                 Product product = new Product(
@@ -194,6 +202,21 @@ public class UpdateDialog extends JDialog implements ActionListener {
                 client.sendProduct(product);
                 client.receiveResponse();
                 client.closeConnections();
+
+                List<Inventory> inventory = new ArrayList<>();
+                inventory.add(new Inventory(
+                        new InventoryId(product.getCode(), new Date()),
+                        product.getItemInStock(),
+                        product.getUnitPrice(),
+                        0
+                ));
+
+                //Request an update of the inventory
+                Client client2 = new Client();
+                client2.sendAction("Update Inventory");
+                client2.sendInventory(inventory);
+                client2.receiveResponse();
+                client2.closeConnections();
                 dispose();
             }
         }

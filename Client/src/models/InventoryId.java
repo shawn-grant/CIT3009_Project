@@ -7,6 +7,9 @@ import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author Malik Heron
+ */
 @Embeddable
 public class InventoryId implements Serializable {
 

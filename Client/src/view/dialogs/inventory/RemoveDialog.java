@@ -80,6 +80,7 @@ public class RemoveDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
+                //Request to remove a product
                 Client client = new Client();
                 client.sendAction("Remove Product");
                 client.sendProductCode(codeField.getText());

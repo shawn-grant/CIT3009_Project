@@ -74,6 +74,7 @@ public class RemoveDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)) {
             if (validateFields()) {
+                //Request to remove employee record
                 Client client = new Client();
                 client.sendAction("Remove Employee");
                 client.sendEmployeeId(idField.getText());

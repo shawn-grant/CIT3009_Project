@@ -31,7 +31,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import models.Customer;
 import models.Employee;
 import models.Product;
@@ -343,7 +342,6 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
                 }
             }
         } else {
-            int index = 0;
             for (Product product : productList) {
                 if (product.getCode().equals(productCode)) {
                     stock = product.getItemInStock() - Integer.parseInt(quantityField.getText());
@@ -389,14 +387,17 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
     //update the product list which is used during checkout process
     private void updateList() {
         productList.clear();
-        for (int i = 0; i < model.getRowCount(); i++) {//for each row in the table do....
+        //for each row in the table do....
+        for (int i = 0; i < model.getRowCount(); i++) {
             int remaining;
             Client client = new Client();
             client.sendAction("Find Product");
-            client.sendProductCode(model.getValueAt(i, 0).toString());//searching for product with code corresponding to product code in table
+            //searching for product with code corresponding to product code in table
+            client.sendProductCode(model.getValueAt(i, 0).toString());
             Product product = client.receiveFindProductResponse();
             remaining = product.getItemInStock() - Integer.parseInt(model.getValueAt(i, 2).toString());
-            product.setItemInStock(remaining); //updating number of items remaining in stock for a product
+            //updating number of items remaining in stock for a product
+            product.setItemInStock(remaining);
             productList.add(product);
             quantityList.add(Integer.valueOf(model.getValueAt(i, 2).toString()));
             client.closeConnections();

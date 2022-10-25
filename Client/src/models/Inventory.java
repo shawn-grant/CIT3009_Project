@@ -1,16 +1,14 @@
 package models;
-//============================================================================
-//Name        : Inventory.java
-//Author      : Tyrien Gilpin
-//Version     : 1
-//Copyright   : Your copyright notice
-//Description : Inventory Model Class
-//============================================================================
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
+/**
+ * @author Malik Heron
+ */
 @Entity(name = "inventory")
 @Table(name = "inventory")
 public class Inventory implements Serializable {

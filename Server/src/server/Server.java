@@ -281,8 +281,23 @@ public class Server {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                for (Inventory inventory: inventoryList) {
-                    session.saveOrUpdate(inventory);
+                for (Inventory inv: inventoryList) {
+                    //Get current item from inventory
+                    Inventory inv2 = getInventoryItem(inv.getId());
+                    //Update new details and add amount purchased before to amount purchased after
+                    if (inv2 != null) {
+                        Inventory inventory = new Inventory(
+                                inv.getId(),
+                                inv.getStock(),
+                                inv.getUnitPrice(),
+                                inv.getAmountPurchased() + inv2.getAmountPurchased()
+                        );
+                        //Update record
+                        session.saveOrUpdate(inventory);
+                    } else {
+                        //Save as new record
+                        session.saveOrUpdate(inv);
+                    }
                 }
                 transaction.commit();
                 objOs.writeObject(true);
@@ -332,20 +347,21 @@ public class Server {
         return customer;
     }
 
-    private Invoice getInvoiceData(String invoiceNum) {
-        Invoice invoice = null;
+    private List<Invoice> getInvoiceData(String invoiceNum) {
+        List<Invoice> invoiceList = null;
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                invoice = session.get(Invoice.class, invoiceNum);
+                String hql = "FROM invoice WHERE invoice_number = " + invoiceNum;
+                invoiceList = (List<Invoice>) session.createQuery(hql).getResultList();
                 transaction.commit();
                 session.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return invoice;
+        return invoiceList;
     }
 
     private Product getProductData(String productCode) {
@@ -609,10 +625,12 @@ public class Server {
                     invoice = (Invoice) objIs.readObject();
                     updateInvoiceData(invoice);
                 }
-                if (action.equals("Find Invoice")) {
+                if (action.equals("View Invoice")) {
                     String invoiceNum = (String) objIs.readObject();
-                    invoice = getInvoiceData(invoiceNum);
-                    objOs.writeObject(invoice);
+                    List<Invoice> invoiceList = getInvoiceData(invoiceNum);
+                    for (Invoice inv : invoiceList) {
+                        objOs.writeObject(inv);
+                    }
                 }
                 if (action.equals("Remove Invoice")) {
                     String invoiceNum = (String) objIs.readObject();

@@ -325,24 +325,6 @@ public class Client {
                     );
                 }
             }
-            if (action.equalsIgnoreCase("Update Invoice")) {
-                Boolean flag = (Boolean) objIs.readObject();
-                if (flag) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Invoice updated successfully",
-                            "Update Invoice Status",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                } else {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Failed to update record",
-                            "Update Invoice Status",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            }
             if (action.equalsIgnoreCase("Remove Invoice")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
@@ -576,5 +558,29 @@ public class Client {
             }
         }
         return productList;
+    }
+
+    public List<Invoice> receiveViewInvoiceResponse() {
+        List<Invoice> invoiceList = new ArrayList<>();
+        Invoice invoice;
+        if (action.equalsIgnoreCase("View Invoice")) {
+            try {
+                while (true) {
+                    invoice = (Invoice) objIs.readObject();
+                    if (invoice != null) {
+                        invoiceList.add(invoice);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
+            }
+        }
+        return invoiceList;
     }
 }
