@@ -15,11 +15,15 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ReportScreen extends BaseScreen implements ActionListener {
 
+    private final Locale locale = new Locale("en", "EN");
+    private final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
     private JPanel container, leftPanel, rightPanel;
     private JLabel productLabel;
     private JLabel startDateLabel;
@@ -74,7 +78,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         reportTextArea.setEditable(false);
         reportTextArea.setPreferredSize(new Dimension(490, 400));
         reportTextArea.setLineWrap(true);
-        reportTextArea.setFont(fieldFont);
+        reportTextArea.setFont(new Font("arial", Font.PLAIN, 16));
 
         productSelect = new JComboBox<>(getProducts());
         productSelect.setBorder(new RoundedBorder(8));
@@ -87,12 +91,12 @@ public class ReportScreen extends BaseScreen implements ActionListener {
 
         generateButton = new JButton("GENERATE REPORT");
         generateButton.setPreferredSize(new Dimension(250, 40));
-        generateButton.setFont(new Font("arial", Font.BOLD, 14));
+        generateButton.setFont(labelFont);
         generateButton.setFocusPainted(false);
 
         printButton = new JButton("Print");
         printButton.setPreferredSize(new Dimension(250, 40));
-        printButton.setFont(new Font("arial", Font.BOLD, 14));
+        printButton.setFont(labelFont);
         printButton.setEnabled(false);
     }
 
@@ -193,22 +197,20 @@ public class ReportScreen extends BaseScreen implements ActionListener {
             reportTextArea.setText("");
             reportTextArea.append("Product name: " + product.getName());
 
+            //Start and end date formatted (DD, MMM,  YYYY)
+            String startDate = dateFormat.format(inventoryStart.getId().getDateModified());
+            String endDate = dateFormat.format(inventoryEnd.getId().getDateModified());
+
             //Check if start and end dates are the same
             if (startDateField.getSelectedDate().compareTo(endDateField.getSelectedDate()) == 0) {
-                reportTextArea.append("\n\nStock as at " + inventoryStart.getId().getDateModified() +
-                        ": " + inventoryStart.getStock());
-                reportTextArea.append("\n\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
-                        ": $" + inventoryStart.getUnitPrice());
+                reportTextArea.append("\n\nStock as at " + startDate + ": " + inventoryStart.getStock());
+                reportTextArea.append("\n\nUnit Cost as at " + startDate + ": $" + inventoryStart.getUnitPrice());
                 reportTextArea.append("\n\nAmount Purchased: " + inventoryStart.getAmountPurchased());
             } else {
-                reportTextArea.append("\n\nStock as at " + inventoryStart.getId().getDateModified() +
-                        ": " + inventoryStart.getStock());
-                reportTextArea.append("\n\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
-                        ": $" + inventoryStart.getUnitPrice());
-                reportTextArea.append("\n\nStock as at " + inventoryEnd.getId().getDateModified() +
-                        ": " + inventoryStart.getStock());
-                reportTextArea.append("\n\nUnit Cost as at " + inventoryEnd.getId().getDateModified() +
-                        ": $" + inventoryStart.getUnitPrice());
+                reportTextArea.append("\n\nStock as at " + startDate + ": " + inventoryStart.getStock());
+                reportTextArea.append("\n\nUnit Cost as at " + startDate + ": $" + inventoryStart.getUnitPrice());
+                reportTextArea.append("\n\nStock as at " + endDate + ": " + inventoryEnd.getStock());
+                reportTextArea.append("\n\nUnit Cost as at " + endDate + ": $" + inventoryEnd.getUnitPrice());
                 reportTextArea.append("\n\nAmount Purchased: " +
                         (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
             }

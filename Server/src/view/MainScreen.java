@@ -108,6 +108,7 @@ public class MainScreen extends JFrame implements ActionListener {
         //menuItem properties
         menuOpen = new MenuItem("Open");
         menuOpen.setFont(new Font("system", Font.PLAIN, 14));
+
         menuClose = new MenuItem("Close");
         menuClose.setFont(new Font("system", Font.PLAIN, 14));
 
@@ -132,6 +133,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void addMenuItemsToPopupMenu() {
         popupMenu.add(menuOpen);
+        popupMenu.addSeparator();
         popupMenu.add(menuClose);
     }
 
