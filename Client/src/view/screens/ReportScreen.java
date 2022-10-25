@@ -35,7 +35,6 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         super("Generate Reports");
 
         buttonPanel.setVisible(false);
-
         initializeComponents();
         addComponentsToPanels();
         setupListeners();
@@ -193,18 +192,23 @@ public class ReportScreen extends BaseScreen implements ActionListener {
             // Add information to text area
             reportTextArea.setText("");
             reportTextArea.append("Product name: " + product.getName());
-            reportTextArea.append("\n\nStock as at " + inventoryStart.getId().getDateModified() +
-                    ": " + inventoryStart.getStock());
-            reportTextArea.append("\n\nStock as at " + inventoryEnd.getId().getDateModified() +
-                    ": " + inventoryEnd.getStock());
-            reportTextArea.append("\n\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
-                    ": $" + inventoryStart.getUnitPrice());
-            reportTextArea.append("\n\nUnit Cost as at " + inventoryEnd.getId().getDateModified() +
-                    ": $" + inventoryEnd.getUnitPrice());
+
             //Check if start and end dates are the same
             if (startDateField.getSelectedDate().compareTo(endDateField.getSelectedDate()) == 0) {
-                reportTextArea.append("\n\nAmount Purchased: " + inventoryEnd.getAmountPurchased());
+                reportTextArea.append("\n\nStock as at " + inventoryStart.getId().getDateModified() +
+                        ": " + inventoryStart.getStock());
+                reportTextArea.append("\n\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
+                        ": $" + inventoryStart.getUnitPrice());
+                reportTextArea.append("\n\nAmount Purchased: " + inventoryStart.getAmountPurchased());
             } else {
+                reportTextArea.append("\n\nStock as at " + inventoryStart.getId().getDateModified() +
+                        ": " + inventoryStart.getStock());
+                reportTextArea.append("\n\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
+                        ": $" + inventoryStart.getUnitPrice());
+                reportTextArea.append("\n\nStock as at " + inventoryEnd.getId().getDateModified() +
+                        ": " + inventoryStart.getStock());
+                reportTextArea.append("\n\nUnit Cost as at " + inventoryEnd.getId().getDateModified() +
+                        ": $" + inventoryStart.getUnitPrice());
                 reportTextArea.append("\n\nAmount Purchased: " +
                         (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
             }

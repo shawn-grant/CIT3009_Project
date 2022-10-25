@@ -292,10 +292,10 @@ public class Server {
                                 inv.getUnitPrice(),
                                 inv.getAmountPurchased() + inv2.getAmountPurchased()
                         );
-                        //Save if it is a new record, update otherwise
+                        //Update record
                         session.saveOrUpdate(inventory);
                     } else {
-                        //Save if it is a new record, update otherwise
+                        //Save as new record
                         session.saveOrUpdate(inv);
                     }
                 }

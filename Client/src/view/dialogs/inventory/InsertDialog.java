@@ -1,6 +1,8 @@
 package view.dialogs.inventory;
 
 import client.Client;
+import models.Inventory;
+import models.InventoryId;
 import models.Product;
 import utils.*;
 import view.components.RoundedBorder;
@@ -16,6 +18,9 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Malik Heron
@@ -166,6 +171,20 @@ public class InsertDialog extends JDialog implements ActionListener {
                 client.sendProduct(product);
                 client.receiveResponse();
                 client.closeConnections();
+
+                List<Inventory> inventory = new ArrayList<>();
+                inventory.add(new Inventory(
+                        new InventoryId(product.getCode(), new Date()),
+                        product.getItemInStock(),
+                        product.getUnitPrice(),
+                        0
+                ));
+
+                Client client2 = new Client();
+                client2.sendAction("Update Inventory");
+                client2.sendInventory(inventory);
+                client2.receiveResponse();
+                client2.closeConnections();
                 dispose();
             }
         }
