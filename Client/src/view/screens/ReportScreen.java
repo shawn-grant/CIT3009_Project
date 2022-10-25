@@ -152,6 +152,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         client.sendAction("View Inventory Item");
         client.sendInventoryInfo(new InventoryId(productCode, startDate));
         Inventory inventory = client.receiveViewInventoryItemResponse();
+        System.out.println(inventory);
         client.closeConnections();
         return inventory;
     }
@@ -200,8 +201,13 @@ public class ReportScreen extends BaseScreen implements ActionListener {
                     ": $" + inventoryStart.getUnitPrice());
             reportTextArea.append("\n\nUnit Cost as at " + inventoryEnd.getId().getDateModified() +
                     ": $" + inventoryEnd.getUnitPrice());
-            reportTextArea.append("\n\nAmount Purchased: " +
-                    (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
+            //Check if start and end dates are the same
+            if (startDateField.getSelectedDate().compareTo(endDateField.getSelectedDate()) == 0) {
+                reportTextArea.append("\n\nAmount Purchased: " + inventoryEnd.getAmountPurchased());
+            } else {
+                reportTextArea.append("\n\nAmount Purchased: " +
+                        (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
+            }
         } else {
             JOptionPane.showMessageDialog(
                     null,

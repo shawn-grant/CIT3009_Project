@@ -281,8 +281,23 @@ public class Server {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                for (Inventory inventory: inventoryList) {
-                    session.saveOrUpdate(inventory);
+                for (Inventory inv: inventoryList) {
+                    //Get current item from inventory
+                    Inventory inv2 = getInventoryItem(inv.getId());
+                    //Update new details and add amount purchased before to amount purchased after
+                    if (inv2 != null) {
+                        Inventory inventory = new Inventory(
+                                inv.getId(),
+                                inv.getStock(),
+                                inv.getUnitPrice(),
+                                inv.getAmountPurchased() + inv2.getAmountPurchased()
+                        );
+                        //Save if it is a new record, update otherwise
+                        session.saveOrUpdate(inventory);
+                    } else {
+                        //Save if it is a new record, update otherwise
+                        session.saveOrUpdate(inv);
+                    }
                 }
                 transaction.commit();
                 objOs.writeObject(true);
