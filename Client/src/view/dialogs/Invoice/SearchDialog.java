@@ -8,13 +8,16 @@ package view.dialogs.Invoice;
 
 import client.Client;
 import models.Invoice;
-import models.Product;
 import view.components.RoundedBorder;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,18 +25,22 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.PatternSyntaxException;
 
 public class SearchDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
-    private final DefaultTableModel model;
+    private JTable table;
     private JLabel searchLabel;
     private JTextField searchTxtValue;
     private String searchBy;
     private JButton confirmButton;
-
-    public SearchDialog(DefaultTableModel model, String searchBy) {
-        this.model = model;
+    private TableRowSorter<TableModel> rowSorter;
+    private DefaultTableModel model;
+    
+    public SearchDialog(JTable table, String searchBy) {
+        this.table = table;
         this.searchBy = searchBy;
+        this.model = (DefaultTableModel) table.getModel();
         initializeComponents();
         addComponentsToWindow();
         registerListeners();
@@ -68,6 +75,8 @@ public class SearchDialog extends JDialog implements ActionListener {
 
         //Additional properties
         confirmButton.setFocusPainted(false);
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(rowSorter);
     }
 
     private void addComponentsToWindow() {
@@ -129,8 +138,17 @@ public class SearchDialog extends JDialog implements ActionListener {
 	                    setInvoice(invoice);
 	                    dispose();
 	                }
-               }else {
+               }else if(searchBy.equalsIgnoreCase("Product Code")){
             	   //search invoice table for rows containing search values
+            	   if(searchTxtValue.getText().trim().length() == 0) {
+            		  rowSorter.setRowFilter(null); 
+            	   }else {
+            		   try {
+						rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" +searchTxtValue.getText().trim()));
+            		   } catch (PatternSyntaxException e1) {
+            			   System.out.println("Faults in regex pattern");
+            		   }
+            	   }
                }
             }
         }
