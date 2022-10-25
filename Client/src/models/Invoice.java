@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * @author Malik Heron
+ */
 @Entity(name = "invoice")
 @Table(name = "invoice")
 public class Invoice implements Serializable {

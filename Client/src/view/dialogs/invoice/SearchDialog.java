@@ -1,4 +1,4 @@
-package view.dialogs.Invoice;
+package view.dialogs.invoice;
 //============================================================================
 //Name        : CheckoutScreen.java
 //Author      : Tyrien Gilpin
