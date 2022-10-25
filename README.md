@@ -23,3 +23,4 @@ UML Diagrams: https://drive.google.com/file/d/1nw7RqZm-k8h3IO4vLzLOyIuLJ322Bvsv/
     - log4j-core-2.18.0
 - on Client:
     - commons-validator-1.7
+    - hibernate-core-5.2.12.Final
