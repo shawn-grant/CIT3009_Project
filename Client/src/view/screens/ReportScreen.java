@@ -1,3 +1,8 @@
+/**
+ * ReportScreen.java
+ * Report Screen to display reports
+ * Author (s): Shawn Grant and Malik Heron
+ */
 package view.screens;
 
 import javax.swing.*;
