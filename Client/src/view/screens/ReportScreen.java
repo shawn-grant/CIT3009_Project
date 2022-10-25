@@ -1,13 +1,10 @@
 package view.screens;
 
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import client.Client;
+import models.Inventory;
+import models.InventoryId;
 import models.Product;
 import view.components.DatePicker;
 import view.components.RoundedBorder;
@@ -18,6 +15,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.List;
 
 public class ReportScreen extends BaseScreen implements ActionListener {
 
@@ -30,8 +29,9 @@ public class ReportScreen extends BaseScreen implements ActionListener {
     private DatePicker startDateField;
     private DatePicker endDateField;
     private JButton generateButton, printButton;
+    private List<Product> productList;
 
-    public ReportScreen(){
+    public ReportScreen() {
         super("Generate Reports");
 
         buttonPanel.setVisible(false);
@@ -53,16 +53,16 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         leftPanel.setPreferredSize(new Dimension(300, 450));
         leftPanel.setBorder(new RoundedBorder(8));
         leftPanel.setBackground(Color.WHITE);
-        
+
         rightPanel = new JPanel();
-        rightPanel.setPreferredSize(new Dimension(400, 450));
+        rightPanel.setPreferredSize(new Dimension(500, 450));
         rightPanel.setBorder(new RoundedBorder(8));
         rightPanel.setBackground(Color.WHITE);
 
         productLabel = new JLabel("Product");
         productLabel.setFont(labelFont);
         productLabel.setPreferredSize(labelSize);
-        
+
         startDateLabel = new JLabel("Start Date");
         startDateLabel.setFont(labelFont);
         startDateLabel.setPreferredSize(labelSize);
@@ -79,25 +79,23 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         productSelect.setBorder(new RoundedBorder(8));
         productSelect.setPreferredSize(fieldSize);
         productSelect.setFont(fieldFont);
-        
+        productSelect.setFocusable(false);
+
         startDateField = new DatePicker();
         endDateField = new DatePicker();
 
         generateButton = new JButton("GENERATE REPORT");
         generateButton.setPreferredSize(new Dimension(250, 40));
         generateButton.setFont(new Font("arial", Font.BOLD, 14));
-        generateButton.setForeground(Color.WHITE);
-        generateButton.setBackground(Color.BLUE);
-        generateButton.setOpaque(true);
-        generateButton.setBorderPainted(false);
+        generateButton.setFocusPainted(false);
 
         printButton = new JButton("Print");
         printButton.setPreferredSize(new Dimension(250, 40));
         printButton.setFont(new Font("arial", Font.BOLD, 14));
         printButton.setEnabled(false);
     }
-    
-    private void addComponentsToPanels(){
+
+    private void addComponentsToPanels() {
         leftPanel.add(productLabel);
         leftPanel.add(productSelect);
 
@@ -107,7 +105,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         leftPanel.add(endDateLabel);
         leftPanel.add(endDateField);
         leftPanel.add(Box.createRigidArea(new Dimension(250, 50))); // vertical spacing
-        
+
         leftPanel.add(generateButton);
         leftPanel.add(printButton);
 
@@ -128,31 +126,84 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         setMainContent(container);
     }
 
-    private String[] getProducts(){
-        String[] list = {"P0028 - Test"};
+    private String[] getProducts() {
+        Client client = new Client();
+        client.sendAction("View Products");
+        productList = client.receiveViewProductsResponse();
+        client.closeConnections();
 
-        // Client client = new Client();
-        // client.sendAction("View Inventory");
-        // List<Product> products = client.receiveViewInventoryResponse();
-        // client.closeConnections();
+        String[] products = new String[productList.size()];
 
-        // list = new String[products.size()];
-
-        // for(int i = 0; i < products.size(); i++){
-        //     list[i] = products.get(i).getCode() + " - " + products.get(i).getName();
-        // }
-
-        return list;
+        for (int i = 0; i < productList.size(); i++) {
+            products[i] = productList.get(i).getCode() + " - " + productList.get(i).getName();
+        }
+        return products;
     }
 
-    private void generateReport(){
-        // TODO: pull the data and display the report in the textArea
-
-        // set printButton to enabled once a report has been generated
-        // printButton.setEnabled(true);
+    private Inventory getInventoryItemByStartDate() {
+        String productCode = productList.get(productSelect.getSelectedIndex()).getCode();
+        Date startDate = startDateField.getSelectedDate();
+        Client client = new Client();
+        client.sendAction("View Inventory Item");
+        client.sendInventoryInfo(new InventoryId(productCode, startDate));
+        Inventory inventory = client.receiveViewInventoryItemResponse();
+        client.closeConnections();
+        return inventory;
     }
 
-    private void printReport(){
+    private Inventory getInventoryItemByEndDate() {
+        String productCode = productList.get(productSelect.getSelectedIndex()).getCode();
+        Date endDate = endDateField.getSelectedDate();
+        Client client = new Client();
+        client.sendAction("View Inventory Item");
+        client.sendInventoryInfo(new InventoryId(productCode, endDate));
+        Inventory inventory = client.receiveViewInventoryItemResponse();
+        client.closeConnections();
+        return inventory;
+    }
+
+    private Product getProductInfo(Inventory inventory) {
+        Client client = new Client();
+        client.sendAction("Find Product");
+        client.sendProductCode(inventory.getId().getCode());
+        Product product = client.receiveFindProductResponse();
+        client.closeConnections();
+        return product;
+    }
+
+    private void generateReport() {
+        Product product;
+        Inventory inventoryStart = getInventoryItemByStartDate();
+        Inventory inventoryEnd = getInventoryItemByEndDate();
+
+        if (inventoryStart != null && inventoryEnd != null) {
+            // set printButton to enabled once a report has been generated
+            printButton.setEnabled(true);
+            // Get product details
+            product = getProductInfo(inventoryStart);
+            // Add information to text area
+            reportTextArea.append("Product name: " + product.getName());
+            reportTextArea.append("\nStock as at " + inventoryStart.getId().getDateModified() +
+                    ": " + inventoryStart.getStock());
+            reportTextArea.append("\nStock as at " + inventoryEnd.getId().getDateModified() +
+                    ": " + inventoryEnd.getStock());
+            reportTextArea.append("\nUnit Cost as at " + inventoryStart.getId().getDateModified() +
+                    ": " + inventoryStart.getUnitPrice());
+            reportTextArea.append("\nUni Cost as at " + inventoryEnd.getId().getDateModified() +
+                    ": " + inventoryEnd.getUnitPrice());
+            reportTextArea.append("\nAmount Purchased: " +
+                    (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Unable to generate report",
+                    "Report Status",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void printReport() {
         // Save the text from the textArea to a .txt file
         // trigger system print dialog if possible
     }

@@ -65,8 +65,8 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
     // retrieve all product information
     private void getInventory() {
         Client client = new Client();
-        client.sendAction("View Inventory");
-        List<Product> productList = client.receiveViewInventoryResponse();
+        client.sendAction("View Products");
+        List<Product> productList = client.receiveViewProductsResponse();
         client.closeConnections();
 
         int count = 0;

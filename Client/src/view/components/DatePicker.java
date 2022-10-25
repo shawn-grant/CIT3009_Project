@@ -26,6 +26,7 @@ public class DatePicker extends JPanel {
     public DatePicker() {
         super(new FlowLayout(FlowLayout.LEFT, 1, 0));
         setPreferredSize(new Dimension(270, 35));
+        setOpaque(false);
         setIndexValues();
         initializeComponents();
         addComponentsToPanel();

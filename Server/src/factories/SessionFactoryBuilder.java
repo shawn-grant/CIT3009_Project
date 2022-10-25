@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 /**
  * @author Malik Heron
  */
+
 public class SessionFactoryBuilder {
 
     private static final Configuration configuration = new Configuration();
@@ -22,7 +23,9 @@ public class SessionFactoryBuilder {
                         .addAnnotatedClass(Customer.class)
                         .addAnnotatedClass(Product.class)
                         .addAnnotatedClass(Invoice.class)
-                        .addAnnotatedClass(Department.class);
+                        .addAnnotatedClass(Department.class)
+                        .addAnnotatedClass(Inventory.class)
+                        .addAnnotatedClass(InventoryId.class);
                 sessionFactory = configuration.buildSessionFactory();
             }
         } catch (HibernateException e) {

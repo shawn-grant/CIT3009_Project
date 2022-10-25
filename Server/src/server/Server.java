@@ -2,12 +2,9 @@ package server;
 
 import factories.DBConnectorFactory;
 import factories.SessionFactoryBuilder;
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import models.*;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import view.MainScreen;
@@ -27,10 +24,9 @@ import java.util.List;
 /**
  * @author Malik Heron
  */
-
 public class Server {
 
-    private static final Logger logger = LogManager.getLogger(Server.class);
+    //private static final Logger logger = LogManager.getLogger(Server.class);
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private final SplashScreen splashScreen = new SplashScreen();
     private int requestAmount = 1;
@@ -52,7 +48,7 @@ public class Server {
             serverSocket.setReuseAddress(true);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
-            logger.error("IOException: " + e.getMessage());
+            //logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -278,6 +274,25 @@ public class Server {
         }
     }
 
+    public void updateInventoryData(Inventory inventory) throws IOException {
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                session.saveOrUpdate(inventory);
+                transaction.commit();
+                objOs.writeObject(true);
+            }
+        } catch (IOException e) {
+            System.err.println("IOException: " + e);
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            objOs.writeObject(false);
+        }
+    }
+
     /**
      * Select queries
      **/
@@ -345,6 +360,23 @@ public class Server {
         return product;
     }
 
+    private Inventory getInventoryItem(InventoryId inventoryId) {
+        Inventory inventory = null;
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                inventory = session.get(Inventory.class, inventoryId);
+                System.out.println(inventory);
+                transaction.commit();
+                session.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inventory;
+    }
+
     /**
      * Select queries for all
      **/
@@ -380,7 +412,7 @@ public class Server {
         return customerList;
     }
 
-    private List<Product> getInventoryList() {
+    private List<Product> getProductList() {
         List<Product> productList = null;
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
@@ -489,6 +521,7 @@ public class Server {
             Product product;
             Customer customer;
             Invoice invoice;
+            Inventory inventory;
             configureStreams();
             try {
                 action = (String) objIs.readObject();
@@ -559,8 +592,8 @@ public class Server {
                     String productCode = (String) objIs.readObject();
                     removeProductData(productCode);
                 }
-                if (action.equals("View Inventory")) {
-                    List<Product> productList = getInventoryList();
+                if (action.equals("View Products")) {
+                    List<Product> productList = getProductList();
                     for (Product prod : productList) {
                         objOs.writeObject(prod);
                     }
@@ -582,16 +615,31 @@ public class Server {
                     String invoiceNum = (String) objIs.readObject();
                     removeInvoiceData(invoiceNum);
                 }
+                if (action.equals("Update Inventory")) {
+                    inventory = (Inventory) objIs.readObject();
+                    updateInventoryData(inventory);
+                }
+                if (action.equals("Update Inventory")) {
+                    inventory = (Inventory) objIs.readObject();
+                    updateInventoryData(inventory);
+                }
+                if (action.equals("View Inventory Item")) {
+                    InventoryId inventoryId = (InventoryId) objIs.readObject();
+                    inventory = getInventoryItem(inventoryId);
+                    objOs.writeObject(inventory);
+                }
             } catch (EOFException e) {
-                System.err.println("EOFException: " + e.getMessage());
+                System.err.println("EOFException: " + e);
                 e.printStackTrace();
             } catch (IOException e) {
-                System.err.println("IOException: " + e.getMessage());
+                System.err.println("IOException: " + e);
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
-                System.err.println("ClassNotFoundException: " + e.getMessage());
+                System.err.println("ClassNotFoundException: " + e);
+                e.printStackTrace();
             } catch (ClassCastException e) {
-                System.err.println("ClassCastException: " + e.getMessage());
+                System.err.println("ClassCastException: " + e);
+                e.printStackTrace();
             } finally {
                 closeConnections();
             }

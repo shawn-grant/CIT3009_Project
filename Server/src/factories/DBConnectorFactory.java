@@ -32,6 +32,7 @@ public class DBConnectorFactory {
             createProductTable();
             createDepartmentTable();
             createInvoiceTable();
+            createInventoryTable();
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
             boolean isYes;
@@ -155,6 +156,22 @@ public class DBConnectorFactory {
 
             if (stmt.executeUpdate(query) == 0) {
                 System.out.println("Invoice table created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void createInventoryTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE inventory(product_code varchar(10) NOT NULL, date_modified date NOT NULL," +
+                    "stock int NOT NULL, unit_price float, amount_purchased int, PRIMARY KEY(product_code, date_modified))";
+
+            if (stmt.executeUpdate(query) == 0) {
+                System.out.println("Inventory table created.");
             }
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());

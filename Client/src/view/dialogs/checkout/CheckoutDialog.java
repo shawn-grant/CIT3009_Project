@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -174,7 +173,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
         return sum;
     }
 
-    public void updateInventory() {//Updates the inventory items after customer is cashed out
+    public void updateProduct() {//Updates the inventory items after customer is cashed out
         for (Product product : productList) {//For each product being checked out
             Client client = new Client();
             client.sendAction("Update Product"); //update all fields to update the product quantity in inventory
@@ -203,7 +202,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Insufficient amount tendered",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    updateInventory();
+                    updateProduct();
 
                     String date = String.valueOf(java.time.LocalDate.now());
                     LocalDate currentDate = LocalDate.parse(date);

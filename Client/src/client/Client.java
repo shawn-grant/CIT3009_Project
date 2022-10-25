@@ -1,9 +1,6 @@
 package client;
 
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
+import models.*;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -134,6 +131,25 @@ public class Client {
         }
     }
 
+    public void sendInventory(Inventory inventory) {
+        try {
+            objOs.writeObject(inventory);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e);
+        }
+    }
+
+    public void sendInventoryInfo(InventoryId inventoryInfo) {
+        try {
+            objOs.writeObject(inventoryInfo);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e);
+        }
+    }
+
+    /**
+     * General Responses
+     */
     public void receiveResponse() {
         try {
             if (action.equalsIgnoreCase("Add Employee")) {
@@ -378,6 +394,24 @@ public class Client {
                     );
                 }
             }
+            if (action.equalsIgnoreCase("Update Inventory")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Inventory updated successfully",
+                            "Update Inventory Status",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Failed to update inventory",
+                            "Update Inventory Status",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
         } catch (IOException e) {
             System.err.println("IOException: " + e);
         } catch (ClassNotFoundException e) {
@@ -387,6 +421,9 @@ public class Client {
         }
     }
 
+    /**
+     * Find Responses
+     */
     public Employee receiveFindEmployeeResponse() {
         Employee employee = new Employee();
         if (action.equalsIgnoreCase("Find Employee")) {
@@ -475,6 +512,25 @@ public class Client {
         return invoice;
     }
 
+    /**
+     * View Responses
+     */
+    public Inventory receiveViewInventoryItemResponse() {
+        Inventory inventory = new Inventory();
+        if (action.equalsIgnoreCase("View Inventory Item")) {
+            try {
+                inventory = (Inventory) objIs.readObject();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
+            }
+        }
+        return inventory;
+    }
+
     public List<Employee> receiveViewEmployeeResponse() {
         List<Employee> employeeList = new ArrayList<>();
         Employee employee;
@@ -523,10 +579,10 @@ public class Client {
         return customerList;
     }
 
-    public List<Product> receiveViewInventoryResponse() {
+    public List<Product> receiveViewProductsResponse() {
         List<Product> productList = new ArrayList<>();
         Product product;
-        if (action.equalsIgnoreCase("View Inventory")) {
+        if (action.equalsIgnoreCase("View Products")) {
             try {
                 while (true) {
                     product = (Product) objIs.readObject();
