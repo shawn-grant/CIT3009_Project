@@ -126,6 +126,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         setMainContent(container);
     }
 
+    //Get list of all products
     private String[] getProducts() {
         Client client = new Client();
         client.sendAction("View Products");
@@ -135,11 +136,13 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         String[] products = new String[productList.size()];
 
         for (int i = 0; i < productList.size(); i++) {
+            //Format item name using product code plus product name
             products[i] = productList.get(i).getCode() + " - " + productList.get(i).getName();
         }
         return products;
     }
 
+    //Get item information using start date
     private Inventory getInventoryItemByStartDate() {
         String productCode = productList.get(productSelect.getSelectedIndex()).getCode();
         Date startDate = startDateField.getSelectedDate();
@@ -151,6 +154,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         return inventory;
     }
 
+    //Get item information using end date
     private Inventory getInventoryItemByEndDate() {
         String productCode = productList.get(productSelect.getSelectedIndex()).getCode();
         Date endDate = endDateField.getSelectedDate();
@@ -162,6 +166,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         return inventory;
     }
 
+    //Get product information from server
     private Product getProductInfo(Inventory inventory) {
         Client client = new Client();
         client.sendAction("Find Product");
@@ -171,6 +176,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         return product;
     }
 
+    //Generate report using start and end dates
     private void generateReport() {
         Product product;
         Inventory inventoryStart = getInventoryItemByStartDate();

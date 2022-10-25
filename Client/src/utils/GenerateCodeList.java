@@ -10,17 +10,17 @@ public class GenerateCodeList {
 	 // retrieve all product information
     public String[] getCodes() {
     	Client client = new Client();
-        client.sendAction("View Inventory");
-        List<Product> productList = client.receiveViewInventoryResponse();
+        client.sendAction("View Products");
+        List<Product> productList = client.receiveViewProductsResponse();
         client.closeConnections();
-        String codes = " ";
+        StringBuilder codes = new StringBuilder(" ");
         String[] list = {""};
         for (Product product : productList) {
-        	codes += (product.getCode() + " ");
-        }  
-        list = codes.split(" ");
+        	codes.append(product.getCode()).append(" ");
+        }
+        list = codes.toString().split(" ");
         return list;
-        
+
     }
-         
+
 }

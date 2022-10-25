@@ -35,9 +35,19 @@ public class InsertDialog extends JDialog implements ActionListener {
     private JTextField addressField, telephoneField, emailField;
     private DatePicker dobPicker, membershipDatePicker, membershipExpiryDatePicker;
     private JButton cancelButton, confirmButton;
+    private String id;
 
     public InsertDialog() {
         initializeComponents();
+        addPanelsToWindow();
+        registerListeners();
+        setWindowProperties();
+    }
+
+    public InsertDialog(String id) {
+        this.id = id;
+        initializeComponents();
+        setId();
         addPanelsToWindow();
         registerListeners();
         setWindowProperties();
@@ -132,6 +142,10 @@ public class InsertDialog extends JDialog implements ActionListener {
         cancelButton = new JButton("Cancel");
         cancelButton.setPreferredSize(new Dimension(100, 30));
         cancelButton.setFocusPainted(false);
+    }
+
+    private void setId() {
+        idField.setText(id);
     }
 
     private void addPanelsToWindow() {

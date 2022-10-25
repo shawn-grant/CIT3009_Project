@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  * @author Malik Heron
  */
 public class RemoveDialog extends JDialog implements ActionListener {
-    private static final long serialVersionUID = 1L;
+
     private JLabel codeLabel;
     private JTextField codeField;
     private JButton confirmButton;

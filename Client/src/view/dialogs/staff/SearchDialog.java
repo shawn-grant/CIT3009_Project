@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
  */
 public class SearchDialog extends JDialog implements ActionListener {
 
-    private static final long serialVersionUID = 1L;
     private final DefaultTableModel model;
     private JLabel idLabel;
     private JTextField idField;
