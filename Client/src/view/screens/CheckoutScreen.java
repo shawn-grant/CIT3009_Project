@@ -31,7 +31,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import models.Customer;
 import models.Employee;
 import models.Product;
@@ -343,7 +342,6 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
                 }
             }
         } else {
-            int index = 0;
             for (Product product : productList) {
                 if (product.getCode().equals(productCode)) {
                     stock = product.getItemInStock() - Integer.parseInt(quantityField.getText());
