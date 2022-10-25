@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
  * @author Malik Heron
  */
 public class InsertDialog extends JDialog implements ActionListener {
-    private static final long serialVersionUID = 1L;
+
     private JLabel nameLabel, codeLabel, shortDescLabel, longDescLabel, inStockLabel, unitPriceLabel;
     private JTextField nameField, codeField, shortDescField, longDescField, inStockField, unitPriceField;
     private JButton cancelButton, confirmButton;

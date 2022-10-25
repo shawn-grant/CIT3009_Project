@@ -142,7 +142,7 @@ public class Employee implements Serializable {
     }
 
     public String getDepartment() {
-        return new Department(department).getCode();
+        return department;
     }
 
     public void setDepartment(String department) {

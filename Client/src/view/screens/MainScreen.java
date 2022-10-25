@@ -175,7 +175,7 @@ public class MainScreen extends JFrame implements ActionListener {
         }
         if (e.getSource() == reportButton) {
             rightPanel.removeAll();
-            // rightPanel.add(new ReportScreen());
+            rightPanel.add(new ReportScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }

@@ -2,87 +2,74 @@ package models;
 //============================================================================
 //Name        : Date.java
 //Author      : Tyrien Gilpin
-//Version     : 1
-//Copyright   : Your copyright notice
 //Description : Invoice Model Class
 //============================================================================
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity(name = "invoice")
 @Table(name = "invoice")
 public class Invoice implements Serializable {
 
-    @Id
-    @Column(name = "invoice_number")
-    private int invoiceNumber;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "billing_date")
-    private Date billingDate;
-    @Column(name = "item_name")
-    private String itemName;
+    @EmbeddedId
+    private InvoiceId id;
     @Column(name = "quantity")
     private int quantity;
+    @Column(name = "unit_price")
+    private float unitPrice;
+    @Column(name = "total_cost")
+    private float totalCost;
+    @Column(name = "amount_tendered")
+    private float amountTendered;
     @Column(name = "employeeId")
-    private String employee;
+    private String employeeId;
     @Column(name = "customerId")
-    private String customer;
+    private String customerId;
 
     public Invoice() {
-        invoiceNumber = 0;
-        billingDate = new Date();
-        itemName = "N/A";
+        id = new InvoiceId();
         quantity = 0;
-        employee = "N/A";
-        customer = "N/A";
+        unitPrice = 0f;
+        totalCost = 0f;
+        amountTendered = 0f;
+        employeeId = "N/A";
+        customerId = "N/A";
     }
 
     //Primary Constructor
-    public Invoice(int invoiceNumber, Date billingDate, String itemName,
-                   int quantity, String employee, String customer) {
-        setInvoiceNumber(invoiceNumber);
-        setBillingDate(billingDate);
-        setItemName(itemName);
+    public Invoice(InvoiceId id, int quantity, float unitPrice, float totalCost,
+                   float amountTendered, String employeeId, String customerId) {
+        setId(id);
         setQuantity(quantity);
-        this.employee = employee;
-        this.customer = customer;
+        setUnitPrice(unitPrice);
+        setTotalCost(totalCost);
+        setAmountTendered(amountTendered);
+        setEmployeeId(employeeId);
+        setCustomerId(customerId);
     }
 
     //Copy Constructor
     public Invoice(Invoice invoice) {
-        this.invoiceNumber = invoice.invoiceNumber;
-        this.billingDate = invoice.billingDate;
-        this.itemName = invoice.itemName;
+        this.id = invoice.id;
         this.quantity = invoice.quantity;
-        this.employee = invoice.employee;
-        this.customer = invoice.customer;
+        this.totalCost = invoice.totalCost;
+        this.amountTendered = invoice.amountTendered;
+        this.unitPrice = invoice.unitPrice;
+        this.employeeId = invoice.employeeId;
+        this.customerId = invoice.customerId;
     }
 
     //Getters and Setters
-    public int getInvoiceNumber() {
-        return invoiceNumber;
+    public InvoiceId getId() {
+        return id;
     }
 
-    public void setInvoiceNumber(int invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
-
-    public Date getBillingDate() {
-        return billingDate;
-    }
-
-    public void setBillingDate(Date billingDate) {
-        this.billingDate = billingDate;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setId(InvoiceId id) {
+        this.id = id;
     }
 
     public int getQuantity() {
@@ -93,37 +80,56 @@ public class Invoice implements Serializable {
         this.quantity = quantity;
     }
 
-    public String getEmployee() {
-        return employee;
+    public float getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee.getFirstName() + " " + employee.getLastName();
+    public void setUnitPrice(float unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    public String getCustomer() {
-        return customer;
+    public float getTotalCost() {
+        return totalCost;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer.getFirstName() + " " + customer.getLastName();
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
     }
 
-    public void displayInvoice() {
-        System.out.println("Invoice Number: " + getInvoiceNumber() + "\nDate" + getBillingDate()
-                + "Items" + getItemName() + "Quantity: " + getQuantity() + "Employee: "
-                + getEmployee() + "Customer: " + getCustomer());
+    public float getAmountTendered() {
+        return amountTendered;
+    }
+
+    public void setAmountTendered(float amountTendered) {
+        this.amountTendered = amountTendered;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     @Override
     public String toString() {
         return "Invoice{" +
-                "invoiceNumber=" + invoiceNumber +
-                ", billingDate=" + billingDate +
-                ", itemName='" + itemName + '\'' +
-                ", quantity=" + quantity +
-                ", employee='" + employee + '\'' +
-                ", customer='" + customer + '\'' +
+                "id=" + getId() +
+                ", quantity=" + getQuantity() +
+                ", unitPrice=" + getUnitPrice() +
+                ", totalCost=" + getTotalCost() +
+                ", amountTendered=" + getAmountTendered() +
+                ", employeeId='" + getEmployeeId() + '\'' +
+                ", customerId='" + getCustomerId() + '\'' +
                 '}';
     }
 }

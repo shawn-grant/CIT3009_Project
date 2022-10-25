@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
-import models.Department;
 import models.Employee;
 import view.dialogs.staff.RemoveDialog;
 import view.dialogs.staff.InsertDialog;
@@ -18,7 +17,7 @@ import view.dialogs.staff.UpdateDialog;
 
 public class StaffScreen extends BaseScreen implements ActionListener {
 
-    private final String[] tableHead = {"ID", "First Name", "Last Name", "D.O.B",
+    private final String[] tableHeaders = {"ID", "First Name", "Last Name", "D.O.B",
             "Address", "Telephone", "Email", "Employee Type", "Department Code"};
     private JTable table;
     private DefaultTableModel model;
@@ -35,7 +34,7 @@ public class StaffScreen extends BaseScreen implements ActionListener {
     private void initializeComponents() {
 
         //Table properties
-        model = new DefaultTableModel(tableHead, 0);
+        model = new DefaultTableModel(tableHeaders, 0);
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns

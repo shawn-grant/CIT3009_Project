@@ -11,10 +11,9 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 
 public class DefaultScreen extends JPanel {
-    private final JLabel jwrIcon;
 
-    DefaultScreen() {
-        jwrIcon = new JLabel(new ImageIcon(getClass().getResource("/res/JWR_intro.png")));
+    public DefaultScreen() {
+        JLabel jwrIcon = new JLabel(new ImageIcon(getClass().getResource("/res/JWR_intro.png")));
 
         this.setSize(800, 600);
         this.setBackground(new Color(0, 100, 205));

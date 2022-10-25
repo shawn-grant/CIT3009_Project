@@ -1,9 +1,6 @@
 package client;
 
-import models.Customer;
-import models.Employee;
-import models.Invoice;
-import models.Product;
+import models.*;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -32,7 +29,7 @@ public class Client {
         try {
             connectionSocket = new Socket("127.0.0.1", 8888);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e.getMessage());
             JOptionPane.showMessageDialog(null,
                     "Failure to Establish Connection with Server",
                     "Connection Status",
@@ -46,6 +43,7 @@ public class Client {
             objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
             objIs = new ObjectInputStream(connectionSocket.getInputStream());
         } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -56,7 +54,7 @@ public class Client {
             objIs.close();
             connectionSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -65,7 +63,7 @@ public class Client {
         try {
             objOs.writeObject(action);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -73,7 +71,7 @@ public class Client {
         try {
             objOs.writeObject(employee);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -81,7 +79,7 @@ public class Client {
         try {
             objOs.writeObject(employeeId);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -89,7 +87,7 @@ public class Client {
         try {
             objOs.writeObject(customer);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -97,7 +95,7 @@ public class Client {
         try {
             objOs.writeObject(customerId);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -105,7 +103,7 @@ public class Client {
         try {
             objOs.writeObject(product);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -113,15 +111,15 @@ public class Client {
         try {
             objOs.writeObject(productCode);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
-    public void sendInvoice(Invoice invoice) {
+    public void sendInvoice(List<Invoice> invoiceList) {
         try {
-            objOs.writeObject(invoice);
+            objOs.writeObject(invoiceList);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
@@ -129,10 +127,29 @@ public class Client {
         try {
             objOs.writeObject(invoiceNum);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
         }
     }
 
+    public void sendInventory(List<Inventory> inventoryList) {
+        try {
+            objOs.writeObject(inventoryList);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e);
+        }
+    }
+
+    public void sendInventoryInfo(InventoryId inventoryInfo) {
+        try {
+            objOs.writeObject(inventoryInfo);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e);
+        }
+    }
+
+    /**
+     * General Responses
+     */
     public void receiveResponse() {
         try {
             if (action.equalsIgnoreCase("Add Employee")) {
@@ -189,17 +206,6 @@ public class Client {
                     );
                 }
             }
-            if (action.equalsIgnoreCase("Find Employee")) {
-                Employee employee = (Employee) objIs.readObject();
-                if (employee == null) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Record could not be found",
-                            "Find Record Status",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            }
             if (action.equalsIgnoreCase("Add Customer")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
@@ -250,17 +256,6 @@ public class Client {
                             null,
                             "Failed to remove record",
                             "Remove Customer Status",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            }
-            if (action.equalsIgnoreCase("Find Customer")) {
-                Employee employee = (Employee) objIs.readObject();
-                if (employee == null) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Record could not be found",
-                            "Find Record Status",
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
@@ -366,26 +361,36 @@ public class Client {
                     );
                 }
             }
-            if (action.equalsIgnoreCase("Find Invoice")) {
-                Invoice invoice = (Invoice) objIs.readObject();
-                if (invoice == null) {
+            if (action.equalsIgnoreCase("Update Inventory")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Invoice could not be found",
-                            "Find Invoice Status",
+                            "Inventory updated successfully",
+                            "Update Inventory Status",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Failed to update inventory",
+                            "Update Inventory Status",
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
             }
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException: " + e);
+        } catch (ClassNotFoundException e) {
+            System.err.println("ClassNotFoundException: " + e);
+        } catch (ClassCastException e) {
+            System.err.println("ClassCastException: " + e);
         }
     }
 
+    /**
+     * Find Responses
+     */
     public Employee receiveFindEmployeeResponse() {
         Employee employee = new Employee();
         if (action.equalsIgnoreCase("Find Employee")) {
@@ -394,7 +399,7 @@ public class Client {
                 if (employee == null) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Record not found",
+                            "Employee record not found",
                             "Search Result",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -402,9 +407,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return employee;
@@ -418,7 +423,7 @@ public class Client {
                 if (customer == null) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Record not found",
+                            "Customer record not found",
                             "Search Result",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -426,9 +431,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return customer;
@@ -442,7 +447,7 @@ public class Client {
                 if (product == null) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Record not found",
+                            "Product record not found",
                             "Search Result",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -450,9 +455,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return product;
@@ -463,15 +468,42 @@ public class Client {
         if (action.equalsIgnoreCase("Find Invoice")) {
             try {
                 invoice = (Invoice) objIs.readObject();
+                if (invoice == null) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Invoice not found",
+                            "Search Result",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return invoice;
+    }
+
+    /**
+     * View Responses
+     */
+    public Inventory receiveViewInventoryItemResponse() {
+        Inventory inventory = new Inventory();
+        if (action.equalsIgnoreCase("View Inventory Item")) {
+            try {
+                inventory = (Inventory) objIs.readObject();
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
+            }
+        }
+        return inventory;
     }
 
     public List<Employee> receiveViewEmployeeResponse() {
@@ -490,9 +522,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return employeeList;
@@ -514,18 +546,18 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return customerList;
     }
 
-    public List<Product> receiveViewInventoryResponse() {
+    public List<Product> receiveViewProductsResponse() {
         List<Product> productList = new ArrayList<>();
         Product product;
-        if (action.equalsIgnoreCase("View Inventory")) {
+        if (action.equalsIgnoreCase("View Products")) {
             try {
                 while (true) {
                     product = (Product) objIs.readObject();
@@ -538,9 +570,9 @@ public class Client {
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
             }
         }
         return productList;
