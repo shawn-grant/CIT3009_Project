@@ -176,12 +176,14 @@ public class Server {
         }
     }
 
-    public void addInvoiceData(Invoice invoice) throws IOException {
+    public void addInvoiceData(List<Invoice> invoiceList) throws IOException {
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                session.save(invoice);
+                for (Invoice invoice: invoiceList) {
+                    session.save(invoice);
+                }
                 transaction.commit();
                 objOs.writeObject(true);
             }
@@ -274,12 +276,14 @@ public class Server {
         }
     }
 
-    public void updateInventoryData(Inventory inventory) throws IOException {
+    public void updateInventoryData(List<Inventory> inventoryList) throws IOException {
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                session.saveOrUpdate(inventory);
+                for (Inventory inventory: inventoryList) {
+                    session.saveOrUpdate(inventory);
+                }
                 transaction.commit();
                 objOs.writeObject(true);
             }
@@ -367,7 +371,6 @@ public class Server {
             if (session != null) {
                 transaction = session.beginTransaction();
                 inventory = session.get(Inventory.class, inventoryId);
-                System.out.println(inventory);
                 transaction.commit();
                 session.close();
             }
@@ -599,8 +602,8 @@ public class Server {
                     }
                 }
                 if (action.equals("Add Invoice")) {
-                    invoice = (Invoice) objIs.readObject();
-                    addInvoiceData(invoice);
+                    List<Invoice> invoiceList = (List<Invoice>) objIs.readObject();
+                    addInvoiceData(invoiceList);
                 }
                 if (action.equals("Update Invoice")) {
                     invoice = (Invoice) objIs.readObject();
@@ -616,12 +619,8 @@ public class Server {
                     removeInvoiceData(invoiceNum);
                 }
                 if (action.equals("Update Inventory")) {
-                    inventory = (Inventory) objIs.readObject();
-                    updateInventoryData(inventory);
-                }
-                if (action.equals("Update Inventory")) {
-                    inventory = (Inventory) objIs.readObject();
-                    updateInventoryData(inventory);
+                    List<Inventory> inventoryList = (List<Inventory>) objIs.readObject();
+                    updateInventoryData(inventoryList);
                 }
                 if (action.equals("View Inventory Item")) {
                     InventoryId inventoryId = (InventoryId) objIs.readObject();

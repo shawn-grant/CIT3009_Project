@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
-import models.Invoice;
-import models.Product;
+import models.*;
 import utils.CostValidator;
 import view.components.RoundedBorder;
 
@@ -30,11 +30,13 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     private JTextField totalItemsField, totalCostField, employeeIdField, customerIdField;
     private JTextField tenderedField;
     private JButton cashOutButton, cancelButton;
-    private String products;
+    private final List<Integer> quantityList;
 
-    public CheckoutDialog(DefaultTableModel model, List<Product> productList, String customer, String staff) {
+    public CheckoutDialog(DefaultTableModel model, List<Product> productList,
+                          List<Integer> quantityList, String customer, String staff) {
         this.model = model;
         this.productList = productList;
+        this.quantityList = quantityList;
         initializeComponents(customer, staff);
         addPanelsToWindow();
         registerListeners();
@@ -207,8 +209,6 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     product.getItemInStock(),
                     product.getUnitPrice()
             );
-            //Add product code to string
-            products = product.getCode() + "\n";
             client.sendProduct(prod);
             client.receiveResponse();
             client.closeConnections();
@@ -218,7 +218,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == cashOutButton) {
+        if (e.getSource().equals(cashOutButton)) {
             if (validateFields()) {
                 float change = calculateChange();
                 if (change < 0.0) {
@@ -229,19 +229,35 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     int invoiceNumber = generateInvoiceNum();
                     Client client = new Client();
                     client.sendAction("Add Invoice");
-                    Invoice invoice = new Invoice(
-                            invoiceNumber,
-                            new Date(),
-                            products,
-                            Integer.parseInt(totalItemsField.getText()),
-                            //NTS: update invoice model to add this field
-                            Float.parseFloat(totalCostField.getText().trim()),
-                            employeeIdField.getText().trim(),
-                            customerIdField.getText().trim()
-                    );
-                    client.sendInvoice(invoice);
+                    List<Invoice> invoiceList = new ArrayList<>();
+                    List<Inventory> inventoryList = new ArrayList<>();
+                    int index = 0;
+                    for (Product product: productList) {
+                        invoiceList.add(new Invoice(
+                                new InvoiceId(invoiceNumber, new Date(), product.getName()),
+                                quantityList.get(index),
+                                product.getUnitPrice(),
+                                Float.parseFloat(totalCostField.getText().trim()),
+                                Float.parseFloat(tenderedField.getText().trim()),
+                                employeeIdField.getText().trim(),
+                                customerIdField.getText().trim()
+                        ));
+                        inventoryList.add(new Inventory(
+                                new InventoryId(product.getCode(), new Date()),
+                                product.getItemInStock(),
+                                product.getUnitPrice(),
+                                quantityList.get(index++))
+                        );
+                    }
+                    client.sendInvoice(invoiceList);
                     client.receiveResponse();
                     client.closeConnections();
+
+                    Client client2 = new Client();
+                    client2.sendAction("Update Inventory");
+                    client2.sendInventory(inventoryList);
+                    client2.receiveResponse();
+                    client2.closeConnections();
 
                     JOptionPane.showMessageDialog(null, "Customer should receive $" + change + " in change.",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
@@ -253,7 +269,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                         "Missing information", JOptionPane.WARNING_MESSAGE);
             }
         }
-        if (e.getSource() == cancelButton) {
+        if (e.getSource().equals(cancelButton)) {
             dispose();
         }
     }

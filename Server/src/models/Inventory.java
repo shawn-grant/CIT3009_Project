@@ -12,7 +12,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity(name = "inventory")
 @Table(name = "inventory")
@@ -36,7 +35,7 @@ public class Inventory implements Serializable {
     }
 
     //Primary Constructor
-    public Inventory(InventoryId id, Date date_modified, int stock, Float unit_price, int amount_purchased) {
+    public Inventory(InventoryId id, int stock, Float unit_price, int amount_purchased) {
         setId(id);
         setStock(stock);
         setUnitPrice(unit_price);

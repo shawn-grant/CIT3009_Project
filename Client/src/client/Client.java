@@ -115,9 +115,9 @@ public class Client {
         }
     }
 
-    public void sendInvoice(Invoice invoice) {
+    public void sendInvoice(List<Invoice> invoiceList) {
         try {
-            objOs.writeObject(invoice);
+            objOs.writeObject(invoiceList);
         } catch (IOException e) {
             System.err.println("IOException: " + e);
         }
@@ -131,9 +131,9 @@ public class Client {
         }
     }
 
-    public void sendInventory(Inventory inventory) {
+    public void sendInventory(List<Inventory> inventoryList) {
         try {
-            objOs.writeObject(inventory);
+            objOs.writeObject(inventoryList);
         } catch (IOException e) {
             System.err.println("IOException: " + e);
         }
@@ -206,17 +206,6 @@ public class Client {
                     );
                 }
             }
-            if (action.equalsIgnoreCase("Find Employee")) {
-                Employee employee = (Employee) objIs.readObject();
-                if (employee == null) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Record could not be found",
-                            "Find Record Status",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            }
             if (action.equalsIgnoreCase("Add Customer")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
@@ -267,17 +256,6 @@ public class Client {
                             null,
                             "Failed to remove record",
                             "Remove Customer Status",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            }
-            if (action.equalsIgnoreCase("Find Customer")) {
-                Employee employee = (Employee) objIs.readObject();
-                if (employee == null) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Record could not be found",
-                            "Find Record Status",
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
@@ -383,17 +361,6 @@ public class Client {
                     );
                 }
             }
-            if (action.equalsIgnoreCase("Find Invoice")) {
-                Invoice invoice = (Invoice) objIs.readObject();
-                if (invoice == null) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Invoice could not be found",
-                            "Find Invoice Status",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            }
             if (action.equalsIgnoreCase("Update Inventory")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
@@ -432,7 +399,7 @@ public class Client {
                 if (employee == null) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Record not found",
+                            "Employee record not found",
                             "Search Result",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -456,7 +423,7 @@ public class Client {
                 if (customer == null) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Record not found",
+                            "Customer record not found",
                             "Search Result",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -480,7 +447,7 @@ public class Client {
                 if (product == null) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Record not found",
+                            "Product record not found",
                             "Search Result",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -501,6 +468,14 @@ public class Client {
         if (action.equalsIgnoreCase("Find Invoice")) {
             try {
                 invoice = (Invoice) objIs.readObject();
+                if (invoice == null) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Invoice not found",
+                            "Search Result",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
             } catch (IOException e) {
                 System.err.println("IOException: " + e);
             } catch (ClassNotFoundException e) {

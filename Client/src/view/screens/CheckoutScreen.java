@@ -31,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import client.Client;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import models.Customer;
 import models.Employee;
 import models.Product;
@@ -45,6 +46,7 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
     private final String[] tableHeaders = {"Product Code", "Product Name", "Quantity", "Unit Price", "Cost"};
     private final GridBagConstraints gbc = new GridBagConstraints();
     private final List<Product> productList = new ArrayList<>();
+    private final List<Integer> quantityList = new ArrayList<>();
     private JButton addButton, deleteButton, clearButton, checkoutButton, searchButton, addCustomerButton;
     private JLabel productCodeLabel, itemNameLabel, quantityLabel, unitPriceLabel;
     private JLabel customer, staff;
@@ -341,6 +343,7 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
                 }
             }
         } else {
+            int index = 0;
             for (Product product : productList) {
                 if (product.getCode().equals(productCode)) {
                     stock = product.getItemInStock() - Integer.parseInt(quantityField.getText());
@@ -395,6 +398,7 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
             remaining = product.getItemInStock() - Integer.parseInt(model.getValueAt(i, 2).toString());
             product.setItemInStock(remaining); //updating number of items remaining in stock for a product
             productList.add(product);
+            quantityList.add(Integer.valueOf(model.getValueAt(i, 2).toString()));
             client.closeConnections();
         }
     }
@@ -528,7 +532,7 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
             new InsertDialog(customerIdField.getText());
             Client client = new Client();
             client.sendAction("Find Customer");
-            client.sendCustomerId(customerIdField.getText());
+            client.sendCustomerId(customerIdField.getText().trim());
             Customer customer = client.receiveFindCustomerResponse();
             client.closeConnections();
             //If the new ID they tried to add did not process, reset customerID to default value C000
@@ -558,30 +562,46 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
                 client.sendEmployeeId(employeeIdField.getText().trim());
                 Employee employee = client.receiveFindEmployeeResponse();
                 client.closeConnections();
+
                 //if employeeID doesn't exist, show error message
-                if (employee == null) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Employee does not exist",
-                            "Missing Information",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                } else {
-                    //updating list before it is passed the checkout dialog
-                    updateList();
-                    new CheckoutDialog(
-                            model,
-                            productList,
-                            customerIdField.getText().trim(),
-                            employeeIdField.getText().trim()
-                    );
-                    clearInput();
-                    //Empty product list after checkout dialog is closed
-                    productList.clear();
+                if (employee != null) {
+                    boolean found = true;
+                    //Check if customer other than default is entered
+                     if (!customerIdField.getText().equals("C0000")) {
+                         Client client2 = new Client();
+                         client2.sendAction("Find Customer");
+                         client2.sendCustomerId(customerIdField.getText().trim());
+                         Customer customer = client2.receiveFindCustomerResponse();
+                         client2.closeConnections();
+
+                         //if customerID doesn't exist, show error message
+                         if (customer == null) {
+                             found = false;
+                         }
+                     }
+                     //Continue if customer exists
+                     if (found) {
+                         //updating list before it is passed the checkout dialog
+                         updateList();
+                         new CheckoutDialog(
+                                 model,
+                                 productList,
+                                 quantityList,
+                                 customerIdField.getText().trim(),
+                                 employeeIdField.getText().trim()
+                         );
+                         clearInput();
+                         //Empty product list after checkout dialog is closed
+                         productList.clear();
+                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Missing Customer or Employee ID", "Missing Information",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Missing Customer or Employee ID",
+                        "Missing Information",
+                        JOptionPane.ERROR_MESSAGE
+                );
             }
         }
     }
