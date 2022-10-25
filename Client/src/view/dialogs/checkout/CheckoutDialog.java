@@ -165,7 +165,13 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     public float calculateChange() {
         float tendered = Float.parseFloat(tenderedField.getText());
         float cost = getTotalCost();
-        return tendered - cost;
+        if (!customerIdField.getText().equals("C0000")) {
+            //Apply 10% discount
+            cost = (float) (cost - (cost * 0.10));
+        }
+        //Apply tax
+        cost = (float) (cost + (cost * 0.15));
+        return cost - tendered;
     }
 
     public void registerListeners() {
