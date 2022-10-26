@@ -5,10 +5,7 @@ package models;
 //Description : Invoice Model Class
 //============================================================================
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,6 +19,7 @@ public class Invoice implements Serializable {
     @Id
     private int invoice_number;
     @Column(name = "billing_date")
+    @Temporal(TemporalType.DATE)
     private Date billingDate;
     @Column(name = "total_cost")
     private float totalCost;

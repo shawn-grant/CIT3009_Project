@@ -609,9 +609,10 @@ public class Server {
             try {
                 action = (String) objIs.readObject();
                 System.out.println("Requested action: " + action);
+                System.out.println("Handled on: " + Thread.currentThread().getName());
                 mainScreen.setRequestsText(requestAmount++);
-                mainScreen.setTextArea("\nRequested action: " + action + "\n\n");
-
+                mainScreen.setTextArea("\nRequested action: " + action);
+                mainScreen.setTextArea("\nHandled on: " + Thread.currentThread().getName() + "\n\n");
                 if (action.equals("Add Employee")) {
                     employee = (Employee) objIs.readObject();
                     addEmployeeData(employee);

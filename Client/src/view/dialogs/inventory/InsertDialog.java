@@ -184,11 +184,11 @@ public class InsertDialog extends JDialog implements ActionListener {
                 ));
 
                 //Request an update of the inventory
-                Client client2 = new Client();
-                client2.sendAction("Update Inventory");
-                client2.sendInventory(inventory);
-                client2.receiveResponse();
-                client2.closeConnections();
+                client = new Client();
+                client.sendAction("Update Inventory");
+                client.sendInventory(inventory);
+                client.receiveResponse();
+                client.closeConnections();
                 dispose();
             }
         }
