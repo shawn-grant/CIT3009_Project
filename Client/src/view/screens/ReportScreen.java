@@ -104,7 +104,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         printButton = new JButton("Print");
         printButton.setPreferredSize(new Dimension(250, 40));
         printButton.setFont(labelFont);
-//        printButton.setEnabled(false);
+        printButton.setEnabled(false);
     }
 
     private void addComponentsToPanels() {
