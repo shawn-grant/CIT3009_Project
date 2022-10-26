@@ -2,8 +2,6 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,22 +9,18 @@ import java.util.Date;
  * @author Malik Heron
  */
 @Embeddable
-public class InvoiceId implements Serializable {
+public class InvoiceItemId implements Serializable {
 
     @Column(name = "invoice_number")
     private int invoiceNumber;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "billing_date")
-    private Date billingDate;
     @Column(name = "item_name")
     private String itemName;
 
-    public InvoiceId() {
+    public InvoiceItemId() {
     }
 
-    public InvoiceId(int invoiceNumber, Date billingDate, String itemName) {
+    public InvoiceItemId(int invoiceNumber, String itemName) {
         setInvoiceNumber(invoiceNumber);
-        setBillingDate(billingDate);
         setItemName(itemName);
     }
 
@@ -36,14 +30,6 @@ public class InvoiceId implements Serializable {
 
     public void setInvoiceNumber(int invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
-    }
-
-    public Date getBillingDate() {
-        return billingDate;
-    }
-
-    public void setBillingDate(Date billingDate) {
-        this.billingDate = billingDate;
     }
 
     public String getItemName() {
@@ -58,7 +44,6 @@ public class InvoiceId implements Serializable {
     public String toString() {
         return "InvoiceId{" +
                 "invoiceNumber=" + getInvoiceNumber() +
-                ", billingDate=" + getBillingDate() +
                 ", itemName='" + getItemName() + '\'' +
                 '}';
     }

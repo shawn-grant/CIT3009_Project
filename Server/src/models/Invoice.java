@@ -6,10 +6,11 @@ package models;
 //============================================================================
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Malik Heron
@@ -18,12 +19,10 @@ import java.io.Serializable;
 @Table(name = "invoice")
 public class Invoice implements Serializable {
 
-    @EmbeddedId
-    private InvoiceId id;
-    @Column(name = "quantity")
-    private int quantity;
-    @Column(name = "unit_price")
-    private float unitPrice;
+    @Id
+    private int invoice_number;
+    @Column(name = "billing_date")
+    private Date billingDate;
     @Column(name = "total_cost")
     private float totalCost;
     @Column(name = "amount_tendered")
@@ -34,9 +33,8 @@ public class Invoice implements Serializable {
     private String customerId;
 
     public Invoice() {
-        id = new InvoiceId();
-        quantity = 0;
-        unitPrice = 0f;
+        invoice_number = 0;
+        billingDate = new Date();
         totalCost = 0f;
         amountTendered = 0f;
         employeeId = "N/A";
@@ -44,11 +42,9 @@ public class Invoice implements Serializable {
     }
 
     //Primary Constructor
-    public Invoice(InvoiceId id, int quantity, float unitPrice, float totalCost,
-                   float amountTendered, String employeeId, String customerId) {
-        setId(id);
-        setQuantity(quantity);
-        setUnitPrice(unitPrice);
+    public Invoice(int invoice_number, Date billingDate, float totalCost, float amountTendered, String employeeId, String customerId) {
+        setInvoice_number(invoice_number);
+        setBillingDate(billingDate);
         setTotalCost(totalCost);
         setAmountTendered(amountTendered);
         setEmployeeId(employeeId);
@@ -57,38 +53,29 @@ public class Invoice implements Serializable {
 
     //Copy Constructor
     public Invoice(Invoice invoice) {
-        this.id = invoice.id;
-        this.quantity = invoice.quantity;
+        this.invoice_number = invoice.invoice_number;
+        this.billingDate = invoice.billingDate;
         this.totalCost = invoice.totalCost;
         this.amountTendered = invoice.amountTendered;
-        this.unitPrice = invoice.unitPrice;
         this.employeeId = invoice.employeeId;
         this.customerId = invoice.customerId;
     }
 
     //Getters and Setters
-    public InvoiceId getId() {
-        return id;
+    public int getInvoice_number() {
+        return invoice_number;
     }
 
-    public void setId(InvoiceId id) {
-        this.id = id;
+    public void setInvoice_number(int invoice_number) {
+        this.invoice_number = invoice_number;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Date getBillingDate() {
+        return billingDate;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public float getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(float unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setBillingDate(Date billingDate) {
+        this.billingDate = billingDate;
     }
 
     public float getTotalCost() {
@@ -126,13 +113,12 @@ public class Invoice implements Serializable {
     @Override
     public String toString() {
         return "Invoice{" +
-                "id=" + getId() +
-                ", quantity=" + getQuantity() +
-                ", unitPrice=" + getUnitPrice() +
-                ", totalCost=" + getTotalCost() +
-                ", amountTendered=" + getAmountTendered() +
-                ", employeeId='" + getEmployeeId() + '\'' +
-                ", customerId='" + getCustomerId() + '\'' +
+                "invoice_number=" + invoice_number +
+                ", billingDate=" + billingDate +
+                ", totalCost=" + totalCost +
+                ", amountTendered=" + amountTendered +
+                ", employeeId='" + employeeId + '\'' +
+                ", customerId='" + customerId + '\'' +
                 '}';
     }
 }

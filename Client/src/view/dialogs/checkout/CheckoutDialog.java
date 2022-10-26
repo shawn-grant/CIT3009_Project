@@ -233,19 +233,27 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     //Request to add an invoice
                     Client client = new Client();
                     client.sendAction("Add Invoice");
-                    List<Invoice> invoiceList = new ArrayList<>();
+                    Invoice invoice = new Invoice(
+                            invoiceNumber,
+                            new Date(),
+                            Float.parseFloat(totalCostField.getText().trim()),
+                            Float.parseFloat(tenderedField.getText().trim()),
+                            employeeIdField.getText().trim(),
+                            customerIdField.getText().trim()
+                    );
+                    client.sendInvoice(invoice);
+                    client.receiveResponse();
+                    client.closeConnections();
+
+                    List<InvoiceItem> invoiceItemList = new ArrayList<>();
                     List<Inventory> inventoryList = new ArrayList<>();
                     int index = 0;
                     for (Product product: productList) {
-                        invoiceList.add(new Invoice(
-                                new InvoiceId(invoiceNumber, new Date(), product.getName()),
+                        invoiceItemList.add(new InvoiceItem(
+                                new InvoiceItemId(invoiceNumber, product.getName()),
                                 quantityList.get(index),
-                                product.getUnitPrice(),
-                                Float.parseFloat(totalCostField.getText().trim()),
-                                Float.parseFloat(tenderedField.getText().trim()),
-                                employeeIdField.getText().trim(),
-                                customerIdField.getText().trim()
-                        ));
+                                product.getUnitPrice())
+                        );
                         inventoryList.add(new Inventory(
                                 new InventoryId(product.getCode(), new Date()),
                                 product.getItemInStock(),
@@ -253,16 +261,21 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                                 quantityList.get(index++))
                         );
                     }
-                    client.sendInvoice(invoiceList);
-                    client.receiveResponse();
-                    client.closeConnections();
 
-                    //Request to update inventory
+                    //Request to add invoice items
+                    System.out.println(invoiceItemList);
                     Client client2 = new Client();
-                    client2.sendAction("Update Inventory");
-                    client2.sendInventory(inventoryList);
+                    client2.sendAction("Add Invoice Item");
+                    client2.sendInvoiceItem(invoiceItemList);
                     client2.receiveResponse();
                     client2.closeConnections();
+
+                    //Request to update inventory
+                    Client client3 = new Client();
+                    client3.sendAction("Update Inventory");
+                    client3.sendInventory(inventoryList);
+                    client3.receiveResponse();
+                    client3.closeConnections();
 
                     JOptionPane.showMessageDialog(null, "Customer should receive $" + change + " in change.",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
