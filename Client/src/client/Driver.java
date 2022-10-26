@@ -58,5 +58,12 @@ public class Driver {
             System.out.println("Item total Cost: " + (inv.getQuantity() * inv.getUnitPrice()));
             System.out.println();
         }
+
+        //Delete an invoice
+        Client client4 = new Client();
+        client4.sendAction("Remove Invoice");
+        client4.sendInvoiceNumber(16646);
+        client4.receiveResponse();
+        client4.closeConnections();
     }
 }

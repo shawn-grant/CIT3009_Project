@@ -549,6 +549,12 @@ public class Server {
                 transaction = session.beginTransaction();
                 Invoice invoice = session.get(Invoice.class, invoiceNum);
                 session.delete(invoice);
+                //Remove invoice items
+                String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
+                List<InvoiceItem> invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
+                for (InvoiceItem invoiceItem: invoiceItemList) {
+                    session.delete(invoiceItem);
+                }
                 transaction.commit();
                 objOs.writeObject(true);
             }
