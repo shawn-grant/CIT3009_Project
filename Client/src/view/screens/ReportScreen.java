@@ -20,7 +20,9 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 import java.text.DateFormat;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -102,7 +104,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         printButton = new JButton("Print");
         printButton.setPreferredSize(new Dimension(250, 40));
         printButton.setFont(labelFont);
-        printButton.setEnabled(false);
+//        printButton.setEnabled(false);
     }
 
     private void addComponentsToPanels() {
@@ -230,8 +232,14 @@ public class ReportScreen extends BaseScreen implements ActionListener {
     }
 
     private void printReport() {
-        // Save the text from the textArea to a .txt file
-        // trigger system print dialog if possible
+        try {
+            // add spacing between content and header
+            reportTextArea.insert("\n\n", 0);
+            // trigger system print dialog
+            reportTextArea.print(new MessageFormat("REPORT | JANS WHOLESALE & RETAIL"), null);
+        } catch (PrinterException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
