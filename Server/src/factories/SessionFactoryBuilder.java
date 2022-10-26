@@ -14,7 +14,7 @@ public class SessionFactoryBuilder {
     private static final Configuration configuration = new Configuration();
     private static SessionFactory sessionFactory = null;
 
-    private static SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionFactory() {
         try {
             if (sessionFactory == null) {
                 configuration.configure("xml/hibernate.cfg.xml")
@@ -36,20 +36,11 @@ public class SessionFactoryBuilder {
 
     public static void closeSessionFactory() {
         try {
-            if (getSession() != null) {
-                getSession().close();
+            if (getSessionFactory() != null) {
+                getSessionFactory().close();
             }
         } catch (HibernateException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static Session getSession() {
-        SessionFactory factory = getSessionFactory();
-        if (factory != null) {
-            return factory.openSession();
-        } else {
-            return null;
         }
     }
 }

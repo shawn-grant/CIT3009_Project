@@ -120,99 +120,109 @@ public class Server {
      * Insert queries
      **/
     public void addCustomerData(Customer customer) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.save(customer);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(customer);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void addEmployeeData(Employee employee) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.save(employee);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(employee);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void addProductData(Product product) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.save(product);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(product);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void addInvoiceData(Invoice invoice) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.save(invoice);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(invoice);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void addInvoiceItemData(List<InvoiceItem> invoiceItemList) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                for (InvoiceItem invoiceItem: invoiceItemList) {
-                    session.save(invoiceItem);
-                }
-                transaction.commit();
-                objOs.writeObject(true);
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            for (InvoiceItem invoiceItem : invoiceItemList) {
+                session.save(invoiceItem);
             }
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
@@ -220,95 +230,103 @@ public class Server {
      * Update queries
      **/
     public void updateEmployeeData(Employee employee) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.update(employee);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(employee);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void updateCustomerData(Customer customer) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.update(customer);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(customer);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void updateProductData(Product product) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.update(product);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(product);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void updateInventoryData(List<Inventory> inventoryList) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                for (Inventory inv: inventoryList) {
-                    //Get current item from inventory
-                    Inventory inv2 = getInventoryItem(inv.getId());
-                    //Update new details and add amount purchased before to amount purchased after
-                    if (inv2 != null) {
-                        Inventory inventory = new Inventory(
-                                inv.getId(),
-                                inv.getStock(),
-                                inv.getUnitPrice(),
-                                inv.getAmountPurchased() + inv2.getAmountPurchased()
-                        );
-                        //Update record
-                        session.saveOrUpdate(inventory);
-                    } else {
-                        //Save as new record
-                        session.saveOrUpdate(inv);
-                    }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            for (Inventory inv : inventoryList) {
+                //Get current item from inventory
+                Inventory inv2 = getInventoryItem(inv.getId());
+                //Update new details and add amount purchased before to amount purchased after
+                if (inv2 != null) {
+                    Inventory inventory = new Inventory(
+                            inv.getId(),
+                            inv.getStock(),
+                            inv.getUnitPrice(),
+                            inv.getAmountPurchased() + inv2.getAmountPurchased()
+                    );
+                    //Update record
+                    session.saveOrUpdate(inventory);
+                } else {
+                    //Save as new record
+                    session.saveOrUpdate(inv);
                 }
-                transaction.commit();
-                objOs.writeObject(true);
             }
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
-            System.err.println("IOException: " + e);
+            System.err.println("IOException: " + e.getMessage());
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
@@ -317,80 +335,80 @@ public class Server {
      **/
     private Employee getEmployeeData(String employeeId) {
         Employee employee = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                employee = session.get(Employee.class, employeeId);
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            employee = session.get(Employee.class, employeeId);
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return employee;
     }
 
     private Customer getCustomerData(String customerId) {
         Customer customer = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                customer = session.get(Customer.class, customerId);
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            customer = session.get(Customer.class, customerId);
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return customer;
     }
 
     private Product getProductData(String productCode) {
         Product product = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                product = session.get(Product.class, productCode);
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            product = session.get(Product.class, productCode);
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return product;
     }
 
     private Invoice getInvoiceData(int invoiceNum) {
         Invoice invoice = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                invoice = session.get(Invoice.class, invoiceNum);
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            invoice = session.get(Invoice.class, invoiceNum);
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return invoice;
     }
 
     private Inventory getInventoryItem(InventoryId inventoryId) {
         Inventory inventory = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                inventory = session.get(Inventory.class, inventoryId);
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            inventory = session.get(Inventory.class, inventoryId);
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return inventory;
     }
@@ -400,81 +418,81 @@ public class Server {
      **/
     private List<Employee> getEmployeeList() {
         List<Employee> employeeList = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                employeeList = (List<Employee>) session.createQuery("FROM employee").getResultList();
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            employeeList = (List<Employee>) session.createQuery("FROM employee").getResultList();
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return employeeList;
     }
 
     private List<Customer> getCustomerList() {
         List<Customer> customerList = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                customerList = (List<Customer>) session.createQuery("FROM customer").getResultList();
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            customerList = (List<Customer>) session.createQuery("FROM customer").getResultList();
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return customerList;
     }
 
     private List<Product> getProductList() {
         List<Product> productList = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                productList = (List<Product>) session.createQuery("FROM product").getResultList();
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            productList = (List<Product>) session.createQuery("FROM product").getResultList();
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return productList;
     }
 
     private List<Invoice> getInvoiceList() {
         List<Invoice> invoiceList = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                invoiceList = (List<Invoice>) session.createQuery("FROM invoice").getResultList();
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            invoiceList = (List<Invoice>) session.createQuery("FROM invoice").getResultList();
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return invoiceList;
     }
 
     private List<InvoiceItem> getInvoiceItemList(int invoiceNum) {
         List<InvoiceItem> invoiceItemList = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
-                invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
-                transaction.commit();
-                session.close();
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
+            invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return invoiceItemList;
     }
@@ -483,88 +501,96 @@ public class Server {
      * Delete queries
      **/
     public void removeEmployeeData(String employeeId) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                Employee employee = session.get(Employee.class, employeeId);
-                session.delete(employee);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Employee employee = session.get(Employee.class, employeeId);
+            session.delete(employee);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void removeCustomerData(String customerId) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                Customer customer = session.get(Customer.class, customerId);
-                session.delete(customer);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Customer customer = session.get(Customer.class, customerId);
+            session.delete(customer);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void removeProductData(String productCode) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                Product product = session.get(Product.class, productCode);
-                session.delete(product);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Product product = session.get(Product.class, productCode);
+            session.delete(product);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
     public void removeInvoiceData(int invoiceNum) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                Invoice invoice = session.get(Invoice.class, invoiceNum);
-                session.delete(invoice);
-                //Remove invoice items
-                String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
-                List<InvoiceItem> invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
-                for (InvoiceItem invoiceItem: invoiceItemList) {
-                    session.delete(invoiceItem);
-                }
-                transaction.commit();
-                objOs.writeObject(true);
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Invoice invoice = session.get(Invoice.class, invoiceNum);
+            session.delete(invoice);
+            //Remove invoice items
+            String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
+            List<InvoiceItem> invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
+            for (InvoiceItem invoiceItem : invoiceItemList) {
+                session.delete(invoiceItem);
             }
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (IOException e) {
+            transaction.rollback();
             System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 

@@ -96,7 +96,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
         totalCostField.setBorder(new RoundedBorder(8));
         totalCostField.setPreferredSize(fieldSize);
         totalCostField.setEditable(false);
-        totalCostField.setText(Float.toString(getTotalCost()));
+        totalCostField.setText(String.valueOf(calculateCost()));
         totalCostField.setFont(fieldFont);
 
         tenderedField = new JTextField();
@@ -162,8 +162,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     }
 
     //calculating how much change customer will receive
-    public float calculateChange() {
-        float tendered = Float.parseFloat(tenderedField.getText());
+    public float calculateCost() {
         float cost = getTotalCost();
         if (!customerIdField.getText().equals("C0000")) {
             //Apply 10% discount
@@ -171,7 +170,8 @@ public class CheckoutDialog extends JDialog implements ActionListener {
         }
         //Apply tax
         cost = (float) (cost + (cost * 0.15));
-        return cost - tendered;
+        totalCostField.setText(String.valueOf(cost));
+        return cost;
     }
 
     public void registerListeners() {
@@ -223,7 +223,8 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cashOutButton)) {
             if (validateFields()) {
-                float change = calculateChange();
+                float tendered = Float.parseFloat(tenderedField.getText());
+                float change = tendered - calculateCost();
                 if (change < 0.0) {
                     JOptionPane.showMessageDialog(null, "Insufficient amount tendered",
                             "Customer Change", JOptionPane.INFORMATION_MESSAGE);
