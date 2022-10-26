@@ -152,26 +152,12 @@ public class ReportScreen extends BaseScreen implements ActionListener {
         return products;
     }
 
-    //Get item information using start date
-    private Inventory getInventoryItemByStartDate() {
+    //Get item information using date
+    private Inventory getInventoryItem(Date date) {
         String productCode = productList.get(productSelect.getSelectedIndex()).getCode();
-        Date startDate = startDateField.getSelectedDate();
         Client client = new Client();
         client.sendAction("View Inventory Item");
-        client.sendInventoryInfo(new InventoryId(productCode, startDate));
-        Inventory inventory = client.receiveViewInventoryItemResponse();
-        System.out.println(inventory);
-        client.closeConnections();
-        return inventory;
-    }
-
-    //Get item information using end date
-    private Inventory getInventoryItemByEndDate() {
-        String productCode = productList.get(productSelect.getSelectedIndex()).getCode();
-        Date endDate = endDateField.getSelectedDate();
-        Client client = new Client();
-        client.sendAction("View Inventory Item");
-        client.sendInventoryInfo(new InventoryId(productCode, endDate));
+        client.sendInventoryInfo(new InventoryId(productCode, date));
         Inventory inventory = client.receiveViewInventoryItemResponse();
         client.closeConnections();
         return inventory;
@@ -190,8 +176,9 @@ public class ReportScreen extends BaseScreen implements ActionListener {
     //Generate report using start and end dates
     private void generateReport() {
         Product product;
-        Inventory inventoryStart = getInventoryItemByStartDate();
-        Inventory inventoryEnd = getInventoryItemByEndDate();
+        Inventory inventoryStart = getInventoryItem(startDateField.getSelectedDate());
+        Inventory inventoryEnd = getInventoryItem(endDateField.getSelectedDate());
+        boolean valid = true;
 
         if (inventoryStart != null && inventoryEnd != null) {
             // set printButton to enabled once a report has been generated
@@ -200,26 +187,33 @@ public class ReportScreen extends BaseScreen implements ActionListener {
             product = getProductInfo(inventoryStart);
             // Add information to text area
             reportTextArea.setText("");
-            reportTextArea.append("Product name: " + product.getName());
+            reportTextArea.append("Product name: " + product.getName() + "\n");
 
             //Start and end date formatted (DD, MMM,  YYYY)
             String startDate = dateFormat.format(inventoryStart.getId().getDateModified());
             String endDate = dateFormat.format(inventoryEnd.getId().getDateModified());
 
+            reportTextArea.append("\n\nStock as at " + startDate + ": " + inventoryStart.getStock());
+            reportTextArea.append("\n\nUnit Cost as at " + startDate + ": $" + inventoryStart.getUnitPrice());
+
+            //Compare dates
+            int compareDates = startDateField.getSelectedDate().compareTo(endDateField.getSelectedDate());
             //Check if start and end dates are the same
-            if (startDateField.getSelectedDate().compareTo(endDateField.getSelectedDate()) == 0) {
-                reportTextArea.append("\n\nStock as at " + startDate + ": " + inventoryStart.getStock());
-                reportTextArea.append("\n\nUnit Cost as at " + startDate + ": $" + inventoryStart.getUnitPrice());
-                reportTextArea.append("\n\nAmount Purchased: " + inventoryStart.getAmountPurchased());
-            } else {
-                reportTextArea.append("\n\nStock as at " + startDate + ": " + inventoryStart.getStock());
-                reportTextArea.append("\n\nUnit Cost as at " + startDate + ": $" + inventoryStart.getUnitPrice());
-                reportTextArea.append("\n\nStock as at " + endDate + ": " + inventoryEnd.getStock());
+             if (compareDates == 0){
+                reportTextArea.append("\n\n\nAmount Purchased: " + inventoryStart.getAmountPurchased());
+            } else if (compareDates < 1) {
+                reportTextArea.append("\n\n\nStock as at " + endDate + ": " + inventoryEnd.getStock());
                 reportTextArea.append("\n\nUnit Cost as at " + endDate + ": $" + inventoryEnd.getUnitPrice());
-                reportTextArea.append("\n\nAmount Purchased: " +
+                reportTextArea.append("\n\n\nAmount Purchased: " +
                         (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
-            }
+            } else {
+                 valid = false;
+             }
         } else {
+            valid = false;
+        }
+
+        if (!valid) {
             JOptionPane.showMessageDialog(
                     null,
                     "Unable to generate report",
