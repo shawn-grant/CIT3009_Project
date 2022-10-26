@@ -22,7 +22,7 @@ public class SessionFactoryBuilder {
                         .addAnnotatedClass(Customer.class)
                         .addAnnotatedClass(Product.class)
                         .addAnnotatedClass(Invoice.class)
-                        .addAnnotatedClass(InvoiceId.class)
+                        .addAnnotatedClass(InvoiceItem.class)
                         .addAnnotatedClass(Department.class)
                         .addAnnotatedClass(Inventory.class)
                         .addAnnotatedClass(InventoryId.class);

@@ -32,6 +32,7 @@ public class DBConnectorFactory {
             createProductTable();
             createDepartmentTable();
             createInvoiceTable();
+            createInvoiceItemTable();
             createInventoryTable();
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
@@ -150,13 +151,28 @@ public class DBConnectorFactory {
 
     private static void createInvoiceTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE invoice(invoice_number varchar(10) NOT NULL, billing_date date NOT NULL," +
-                    "item_name varchar(40) NOT NULL, quantity int, unit_price float, total_cost float, " +
-                    "amount_tendered float, employeeID varchar(10), customerID varchar(10), " +
-                    "PRIMARY KEY(invoice_number, billing_date, item_name))";
+            String query = "CREATE TABLE invoice(invoice_number varchar(10) NOT NULL, billing_date date NOT NULL, " +
+                    "total_cost float, amount_tendered float, employeeID varchar(10), customerID varchar(10), " +
+                    "PRIMARY KEY(invoice_number))";
 
             if (stmt.executeUpdate(query) == 0) {
                 System.out.println("Invoice table created.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void createInvoiceItemTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE invoiceItem(invoice_number varchar(10) NOT NULL, item_name varchar(40) NOT NULL, " +
+                    "quantity int, unit_price float, PRIMARY KEY(invoice_number, item_name))";
+
+            if (stmt.executeUpdate(query) == 0) {
+                System.out.println("Invoice Item table created.");
             }
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());

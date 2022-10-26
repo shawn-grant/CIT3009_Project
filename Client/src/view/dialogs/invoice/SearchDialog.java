@@ -114,11 +114,8 @@ public class SearchDialog extends JDialog implements ActionListener {
         }
 
         model.insertRow(count, new Object[]{
-        		invoice.getId().getInvoiceNumber(),
-        		invoice.getId().getBillingDate(),
-        		invoice.getId().getItemName(),
-        		invoice.getQuantity(),
-                invoice.getUnitPrice(),
+        		invoice.getInvoice_number(),
+        		invoice.getBillingDate(),
         		invoice.getTotalCost(),
         		invoice.getCustomerId(),
         		invoice.getEmployeeId()

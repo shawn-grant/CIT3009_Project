@@ -115,17 +115,25 @@ public class Client {
         }
     }
 
-    public void sendInvoice(List<Invoice> invoiceList) {
+    public void sendInvoice(Invoice invoice) {
         try {
-            objOs.writeObject(invoiceList);
+            objOs.writeObject(invoice);
         } catch (IOException e) {
             System.err.println("IOException: " + e);
         }
     }
 
-    public void sendInvoiceNumber(String invoiceNum) {
+    public void sendInvoiceNumber(int invoiceNum) {
         try {
             objOs.writeObject(invoiceNum);
+        } catch (IOException e) {
+            System.err.println("IOException: " + e);
+        }
+    }
+
+    public void sendInvoiceItem(List<InvoiceItem> invoiceItemList) {
+        try {
+            objOs.writeObject(invoiceItemList);
         } catch (IOException e) {
             System.err.println("IOException: " + e);
         }
@@ -340,6 +348,17 @@ public class Client {
                             "Failed to remove record",
                             "Remove Invoice Status",
                             JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
+            if (action.equalsIgnoreCase("Add Invoice Item")) {
+                Boolean flag = (Boolean) objIs.readObject();
+                if (flag) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Invoice item/s added successfully",
+                            "Add Invoice Status",
+                            JOptionPane.INFORMATION_MESSAGE
                     );
                 }
             }
@@ -563,7 +582,7 @@ public class Client {
     public List<Invoice> receiveViewInvoiceResponse() {
         List<Invoice> invoiceList = new ArrayList<>();
         Invoice invoice;
-        if (action.equalsIgnoreCase("View Invoice")) {
+        if (action.equalsIgnoreCase("View Invoices")) {
             try {
                 while (true) {
                     invoice = (Invoice) objIs.readObject();
@@ -582,5 +601,29 @@ public class Client {
             }
         }
         return invoiceList;
+    }
+
+    public List<InvoiceItem> receiveViewInvoiceItemResponse() {
+        List<InvoiceItem> invoiceItemList = new ArrayList<>();
+        InvoiceItem invoiceItem;
+        if (action.equalsIgnoreCase("View Invoice Item")) {
+            try {
+                while (true) {
+                    invoiceItem = (InvoiceItem) objIs.readObject();
+                    if (invoiceItem != null) {
+                        invoiceItemList.add(invoiceItem);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("IOException: " + e);
+            } catch (ClassNotFoundException e) {
+                System.err.println("ClassNotFoundException: " + e);
+            } catch (ClassCastException e) {
+                System.err.println("ClassCastException: " + e);
+            }
+        }
+        return invoiceItemList;
     }
 }

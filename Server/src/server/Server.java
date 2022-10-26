@@ -176,13 +176,32 @@ public class Server {
         }
     }
 
-    public void addInvoiceData(List<Invoice> invoiceList) throws IOException {
+    public void addInvoiceData(Invoice invoice) throws IOException {
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
             if (session != null) {
                 transaction = session.beginTransaction();
-                for (Invoice invoice: invoiceList) {
-                    session.save(invoice);
+                session.save(invoice);
+                transaction.commit();
+                objOs.writeObject(true);
+            }
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            objOs.writeObject(false);
+        }
+    }
+
+    public void addInvoiceItemData(List<InvoiceItem> invoiceItemList) throws IOException {
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                for (InvoiceItem invoiceItem: invoiceItemList) {
+                    session.save(invoiceItem);
                 }
                 transaction.commit();
                 objOs.writeObject(true);
@@ -225,25 +244,6 @@ public class Server {
             if (session != null) {
                 transaction = session.beginTransaction();
                 session.update(customer);
-                transaction.commit();
-                objOs.writeObject(true);
-            }
-        } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
-            e.printStackTrace();
-            objOs.writeObject(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-            objOs.writeObject(false);
-        }
-    }
-
-    public void updateInvoiceData(Invoice invoice) throws IOException {
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                session.update(invoice);
                 transaction.commit();
                 objOs.writeObject(true);
             }
@@ -347,23 +347,6 @@ public class Server {
         return customer;
     }
 
-    private List<Invoice> getInvoiceData(String invoiceNum) {
-        List<Invoice> invoiceList = null;
-        try (Session session = SessionFactoryBuilder.getSession()) {
-            Transaction transaction;
-            if (session != null) {
-                transaction = session.beginTransaction();
-                String hql = "FROM invoice WHERE invoice_number = " + invoiceNum;
-                invoiceList = (List<Invoice>) session.createQuery(hql).getResultList();
-                transaction.commit();
-                session.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return invoiceList;
-    }
-
     private Product getProductData(String productCode) {
         Product product = null;
         try (Session session = SessionFactoryBuilder.getSession()) {
@@ -378,6 +361,22 @@ public class Server {
             e.printStackTrace();
         }
         return product;
+    }
+
+    private Invoice getInvoiceData(int invoiceNum) {
+        Invoice invoice = null;
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                invoice = session.get(Invoice.class, invoiceNum);
+                transaction.commit();
+                session.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return invoice;
     }
 
     private Inventory getInventoryItem(InventoryId inventoryId) {
@@ -447,6 +446,39 @@ public class Server {
         return productList;
     }
 
+    private List<Invoice> getInvoiceList() {
+        List<Invoice> invoiceList = null;
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                invoiceList = (List<Invoice>) session.createQuery("FROM invoice").getResultList();
+                transaction.commit();
+                session.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return invoiceList;
+    }
+
+    private List<InvoiceItem> getInvoiceItemList(int invoiceNum) {
+        List<InvoiceItem> invoiceItemList = null;
+        try (Session session = SessionFactoryBuilder.getSession()) {
+            Transaction transaction;
+            if (session != null) {
+                transaction = session.beginTransaction();
+                String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
+                invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
+                transaction.commit();
+                session.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return invoiceItemList;
+    }
+
     /**
      * Delete queries
      **/
@@ -510,7 +542,7 @@ public class Server {
         }
     }
 
-    public void removeInvoiceData(String invoiceNum) throws IOException {
+    public void removeInvoiceData(int invoiceNum) throws IOException {
         try (Session session = SessionFactoryBuilder.getSession()) {
             Transaction transaction;
             if (session != null) {
@@ -618,23 +650,34 @@ public class Server {
                     }
                 }
                 if (action.equals("Add Invoice")) {
-                    List<Invoice> invoiceList = (List<Invoice>) objIs.readObject();
-                    addInvoiceData(invoiceList);
-                }
-                if (action.equals("Update Invoice")) {
                     invoice = (Invoice) objIs.readObject();
-                    updateInvoiceData(invoice);
+                    addInvoiceData(invoice);
                 }
-                if (action.equals("View Invoice")) {
-                    String invoiceNum = (String) objIs.readObject();
-                    List<Invoice> invoiceList = getInvoiceData(invoiceNum);
+                if (action.equals("View Invoices")) {
+                    List<Invoice> invoiceList = getInvoiceList();
                     for (Invoice inv : invoiceList) {
                         objOs.writeObject(inv);
                     }
                 }
+                if (action.equals("Find Invoice")) {
+                    int invoiceNum = (int) objIs.readObject();
+                    invoice = getInvoiceData(invoiceNum);
+                    objOs.writeObject(invoice);
+                }
                 if (action.equals("Remove Invoice")) {
-                    String invoiceNum = (String) objIs.readObject();
+                    int invoiceNum = (int) objIs.readObject();
                     removeInvoiceData(invoiceNum);
+                }
+                if (action.equals("Add Invoice Item")) {
+                    List<InvoiceItem> invoiceItemList = (List<InvoiceItem>) objIs.readObject();
+                    addInvoiceItemData(invoiceItemList);
+                }
+                if (action.equals("View Invoice Item")) {
+                    int invoiceNum = (int) objIs.readObject();
+                    List<InvoiceItem> invoiceItemList = getInvoiceItemList(invoiceNum);
+                    for (InvoiceItem itemList : invoiceItemList) {
+                        objOs.writeObject(itemList);
+                    }
                 }
                 if (action.equals("Update Inventory")) {
                     List<Inventory> inventoryList = (List<Inventory>) objIs.readObject();
