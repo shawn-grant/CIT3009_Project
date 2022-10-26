@@ -569,11 +569,11 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
                     boolean found = true;
                     //Check if customer other than default is entered
                      if (!customerIdField.getText().equals("C0000")) {
-                         Client client2 = new Client();
-                         client2.sendAction("Find Customer");
-                         client2.sendCustomerId(customerIdField.getText().trim());
-                         Customer customer = client2.receiveFindCustomerResponse();
-                         client2.closeConnections();
+                         client = new Client();
+                         client.sendAction("Find Customer");
+                         client.sendCustomerId(customerIdField.getText().trim());
+                         Customer customer = client.receiveFindCustomerResponse();
+                         client.closeConnections();
 
                          //if customerID doesn't exist, show error message
                          if (customer == null) {
