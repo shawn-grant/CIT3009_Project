@@ -255,6 +255,7 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         	//new ViewDialog();
         }
         
+        
     }
     
 }
