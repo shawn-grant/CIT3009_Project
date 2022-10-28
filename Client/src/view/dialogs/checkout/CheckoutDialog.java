@@ -1,36 +1,30 @@
 package view.dialogs.checkout;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
 import client.Client;
 import models.*;
 import utils.CostValidator;
 import view.components.RoundedBorder;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class CheckoutDialog extends JDialog implements ActionListener {
 
     private final DefaultTableModel model;
     private final List<Product> productList;
+    private final List<Integer> quantityList;
     private JLabel totalItemsLabel, totalCostLabel, staffIDLabel, customerIDLabel, tenderedLabel;
     private JTextField totalItemsField, totalCostField, employeeIdField, customerIdField;
     private JTextField tenderedField;
     private JButton cashOutButton, cancelButton;
-    private final List<Integer> quantityList;
 
     public CheckoutDialog(DefaultTableModel model, List<Product> productList,
                           List<Integer> quantityList, String customer, String staff) {
@@ -165,10 +159,26 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     public float calculateCost() {
         float cost = getTotalCost();
         if (!customerIdField.getText().equals("C0000")) {
-            //Apply 10% discount
-            cost = (float) (cost - (cost * 0.10));
+            //Request to find a customer
+            Client client = new Client();
+            client.sendAction("Find Customer");
+            client.sendCustomerId(customerIdField.getText());
+            Customer customer = client.receiveFindCustomerResponse();
+            client.closeConnections();
+
+            //Get current local time
+            LocalDate localDateTime = LocalDate.now();
+            //Convert to Date
+            Date currentDate = Date.from(localDateTime.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            //Get customer membership expiry date
+            Date expiryDate = customer.getMembershipExpiryDate();
+
+            if (currentDate.compareTo(expiryDate) <= 0) {
+                //Apply 10% discount
+                cost = (float) (cost - (cost * 0.10));
+            }
         }
-        //Apply tax
+        //Apply 15% GCT
         cost = (float) (cost + (cost * 0.15));
         totalCostField.setText(String.valueOf(cost));
         return cost;
@@ -201,8 +211,8 @@ public class CheckoutDialog extends JDialog implements ActionListener {
     public void updateInventory() {
         //For each product being checked out
         for (Product product : productList) {
-            Client client = new Client();
             //update all fields to update the product quantity in inventory
+            Client client = new Client();
             client.sendAction("Update Product");
             Product prod = new Product(
                     product.getCode(),
@@ -249,7 +259,7 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     List<InvoiceItem> invoiceItemList = new ArrayList<>();
                     List<Inventory> inventoryList = new ArrayList<>();
                     int index = 0;
-                    for (Product product: productList) {
+                    for (Product product : productList) {
                         invoiceItemList.add(new InvoiceItem(
                                 new InvoiceItemId(invoiceNumber, product.getName()),
                                 quantityList.get(index),
