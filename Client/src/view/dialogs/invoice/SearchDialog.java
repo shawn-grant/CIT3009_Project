@@ -246,12 +246,12 @@ public class SearchDialog extends JDialog implements ActionListener {
 		}
 
 		model.insertRow(count, new Object[] { invoice.getInvoice_number(), invoice.getBillingDate(),
-				// invoice.getItemName(),
-				// invoice.getTotalQuantity(),
-				// invoice.getTotalCost(),
-				// invoice.getEmployee(),
-				// invoice.getCustomer()
-
+				invoice.getInvoice_number(),
+				invoice.getBillingDate(),
+				invoice.getTotalCost(),
+				invoice.getAmountTendered(),
+				invoice.getEmployeeId(),
+				invoice.getCustomerId()
 		});
 	}
 
@@ -261,7 +261,7 @@ public class SearchDialog extends JDialog implements ActionListener {
 			if (validateFields()) {
 				Client client = new Client();
 				client.sendAction("Find Invoice");
-				// client.sendInvoiceNumber(InvoiceField.getText());
+				client.sendInvoiceNumber(Integer.parseInt(InvoiceField.getText()));
 				Invoice invoice = client.receiveFindInvoiceResponse();
 				client.closeConnections();
 				if (invoice != null) {

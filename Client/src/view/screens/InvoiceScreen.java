@@ -31,8 +31,6 @@ import java.util.List;
 
 public class InvoiceScreen extends BaseScreen implements ActionListener {
 
-
-    private static final long serialVersionUID = 1L;
     private final GridBagConstraints gbc = new GridBagConstraints();
     private JTextArea textArea;
     private JButton viewButton;
@@ -41,7 +39,7 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
     private final String[] tableHeaders = {
             "Invoice Number",
             "Billing Date",
-            "Total Quantity",
+            "Total Cost",
             "Amount Tendered",
             "Customer ID",
             "Employee ID"
@@ -83,11 +81,11 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
 
-        viewButton = new JButton("View");
-        viewButton.setSize(25, 20);
-        viewButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        viewButton.setFont(new Font("arial", Font.PLAIN, 15));
-        viewButton.setFocusPainted(false);
+        //viewButton = new JButton("View");
+        //viewButton.setSize(25, 20);
+        //viewButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //viewButton.setFont(new Font("arial", Font.PLAIN, 15));
+        //viewButton.setFocusPainted(false);
         //viewButton.setBorder(new RoundedBorder(8));
         //viewButton.setPreferredSize(new Dimension(25, 25));
 
@@ -102,7 +100,10 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         panTop = new JPanel(new GridBagLayout());
         panTop.setPreferredSize(new Dimension(35, 20));
         panTop.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panTop.setBackground(Color.GREEN);
+        panTop.setBackground(getBackground());
+
+        addButton.setVisible(false);
+        updateButton.setVisible(false);
 
         //buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         mainContent = new JPanel(new GridLayout(0, 1, 0, 70));
@@ -121,18 +122,27 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         gbc.gridy = 3;
         panTop.add(textArea, gbc);
 
+        gbc.gridx = 2;
+        gbc.gridy = 3;
         gbc.gridwidth = 1;
-        gbc.gridheight = 3;
+        gbc.gridheight = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        panTop.add(deleteButton, gbc);
+
         gbc.gridx = 3;
         gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 2;
         gbc.fill = GridBagConstraints.BOTH;
         panTop.add(searchButton, gbc);
 
         gbc.gridx = 4;
         gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 2;
         panTop.add(refreshButton, gbc);
 
-        bottomPanel.add(viewButton);
+        //bottomPanel.add(viewButton);
     }
 
     public void addPanelsToWindow() {
@@ -162,7 +172,7 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
     }
 
     private void setUpListeners() {
-        viewButton.addActionListener(this);
+        //viewButton.addActionListener(this);
     }
 
     private void getInvoices() {

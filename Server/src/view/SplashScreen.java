@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.BoxLayout;
 import java.awt.Color;
+import java.util.Objects;
 
 public class SplashScreen extends JWindow {
 
@@ -32,7 +33,7 @@ public class SplashScreen extends JWindow {
         progressBar.setIndeterminate(true);
 
         // Label properties
-        jwrIcon = new JLabel(new ImageIcon(getClass().getResource("/res/JWR_intro.png")));
+        jwrIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/JWR_intro_1.png"))));
 
         // Panel properties
         panel = new JPanel();

@@ -1,0 +1,160 @@
+[WARN ] 2022-10-29 14:18:48.678 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-29 14:18:48.686 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-29 14:18:48.686 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-29 14:18:48.687 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-29 14:18:48.687 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-29 14:18:48.688 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-29 14:18:48.688 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-29 14:18:48.880 [main] Server - Sever is running
+[WARN ] 2022-10-29 14:21:37.224 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-29 14:21:37.228 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-29 14:21:37.229 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-29 14:21:37.229 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-29 14:21:37.230 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-29 14:21:37.230 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-29 14:21:37.231 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-29 14:21:37.408 [main] Server - Sever is running
+[WARN ] 2022-10-29 14:22:57.747 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-29 14:22:57.750 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-29 14:22:57.750 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-29 14:22:57.751 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-29 14:22:57.752 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-29 14:22:57.752 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-29 14:22:57.753 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-29 14:22:57.922 [main] Server - Sever is running
+[WARN ] 2022-10-29 14:23:01.551 [main] Server - SocketException: socket closed
+[WARN ] 2022-10-29 15:04:23.322 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-29 15:04:23.329 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-29 15:04:23.331 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-29 15:04:23.331 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-29 15:04:23.334 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-29 15:04:23.335 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-29 15:04:23.337 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-29 15:04:23.633 [main] Server - Sever is running
+[INFO ] 2022-10-29 15:04:38.815 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:04:23
+[INFO ] 2022-10-29 15:04:48.984 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:04:38
+[WARN ] 2022-10-29 15:08:48.320 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-29 15:08:48.324 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-29 15:08:48.325 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-29 15:08:48.326 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-29 15:08:48.327 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-29 15:08:48.329 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-29 15:08:48.331 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-29 15:08:48.613 [main] Server - Sever is running
+[INFO ] 2022-10-29 15:08:55.246 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:08:48
+[INFO ] 2022-10-29 15:08:55.298 [Thread-3] Server - Requested action: View Products
+[INFO ] 2022-10-29 15:08:55.298 [Thread-3] Server - Handled on: Thread-3
+[WARN ] 2022-10-29 15:09:41.871 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-29 15:09:41.875 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-29 15:09:41.875 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-29 15:09:41.876 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-29 15:09:41.877 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-29 15:09:41.878 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-29 15:09:41.879 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-29 15:09:42.227 [main] Server - Sever is running
+[INFO ] 2022-10-29 15:09:46.199 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:09:42
+[INFO ] 2022-10-29 15:09:46.221 [Thread-3] Server - Requested action: View Products
+[INFO ] 2022-10-29 15:09:57.707 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:09:46
+[INFO ] 2022-10-29 15:09:57.710 [Thread-4] Server - Requested action: View Products
+[INFO ] 2022-10-29 15:10:05.385 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:09:57
+[INFO ] 2022-10-29 15:10:05.389 [Thread-5] Server - Requested action: View Customers
+[INFO ] 2022-10-29 15:10:19.146 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:10:05
+[INFO ] 2022-10-29 15:10:19.149 [Thread-6] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:10:27.159 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:10:19
+[INFO ] 2022-10-29 15:10:27.161 [Thread-7] Server - Requested action: View Products
+[INFO ] 2022-10-29 15:10:35.251 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:10:27
+[INFO ] 2022-10-29 15:10:35.254 [Thread-8] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:10:36.737 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:10:35
+[INFO ] 2022-10-29 15:10:36.738 [Thread-9] Server - Requested action: View Products
+[INFO ] 2022-10-29 15:11:01.841 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:10:36
+[INFO ] 2022-10-29 15:11:01.850 [Thread-10] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:12:25.895 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:11:01
+[INFO ] 2022-10-29 15:12:25.904 [Thread-11] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:13:12.287 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:12:25
+[INFO ] 2022-10-29 15:13:12.297 [Thread-12] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:14:02.780 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:13:12
+[INFO ] 2022-10-29 15:14:02.790 [Thread-13] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:14:27.733 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:14:02
+[INFO ] 2022-10-29 15:14:27.741 [Thread-14] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:15:32.790 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:14:27
+[INFO ] 2022-10-29 15:15:32.800 [Thread-15] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:15:39.360 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:15:32
+[INFO ] 2022-10-29 15:15:39.365 [Thread-16] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:16:54.010 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:15:39
+[INFO ] 2022-10-29 15:16:54.021 [Thread-17] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:17:43.216 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:16:54
+[INFO ] 2022-10-29 15:17:43.225 [Thread-18] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:18:35.852 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:17:43
+[INFO ] 2022-10-29 15:18:35.861 [Thread-19] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:18:58.199 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:18:35
+[INFO ] 2022-10-29 15:18:58.209 [Thread-20] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:19:31.774 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:18:58
+[INFO ] 2022-10-29 15:19:31.784 [Thread-21] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:19:57.162 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:19:31
+[INFO ] 2022-10-29 15:19:57.174 [Thread-22] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:20:42.589 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:19:57
+[INFO ] 2022-10-29 15:20:42.600 [Thread-23] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:20:46.502 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:20:42
+[INFO ] 2022-10-29 15:20:46.505 [Thread-24] Server - Requested action: View Products
+[INFO ] 2022-10-29 15:20:47.955 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:20:46
+[INFO ] 2022-10-29 15:20:47.959 [Thread-25] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:21:28.046 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:20:47
+[INFO ] 2022-10-29 15:21:28.055 [Thread-26] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:22:58.433 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:21:28
+[INFO ] 2022-10-29 15:22:58.442 [Thread-27] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:23:25.584 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:22:58
+[INFO ] 2022-10-29 15:23:25.588 [Thread-28] Server - Requested action: Find Invoice
+[INFO ] 2022-10-29 15:24:57.900 [main] DBConnectorFactory - DB Connection Established @ Sat, Oct 29 2022 15:24:57
+[WARN ] 2022-10-29 15:24:57.938 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-29 15:24:57.939 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-29 15:24:57.940 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-29 15:24:57.941 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-29 15:24:57.942 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-29 15:24:57.943 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-29 15:24:57.944 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-29 15:24:58.256 [main] Server - Sever is running
+[INFO ] 2022-10-29 15:25:02.210 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:24:58
+[INFO ] 2022-10-29 15:25:02.233 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:25:17.480 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:25:02
+[INFO ] 2022-10-29 15:25:17.484 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-10-29 15:27:21.218 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:25:17
+[INFO ] 2022-10-29 15:27:21.227 [Thread-5] Server - Requested action: View Invoices
+[INFO ] 2022-10-29 15:27:36.160 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:27:21
+[INFO ] 2022-10-29 15:27:36.165 [Thread-6] Server - Requested action: Find Invoice
+[INFO ] 2022-10-29 15:27:39.216 [main] Server - 
+Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:27:36
+[INFO ] 2022-10-29 15:27:39.220 [Thread-7] Server - Requested action: View Invoices
+[WARN ] 2022-10-29 15:29:05.760 [main] Server - SocketException: socket closed

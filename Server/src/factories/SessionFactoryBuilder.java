@@ -1,8 +1,9 @@
 package factories;
 
 import models.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -11,6 +12,7 @@ import org.hibernate.cfg.Configuration;
  */
 public class SessionFactoryBuilder {
 
+    private static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
     private static final Configuration configuration = new Configuration();
     private static SessionFactory sessionFactory = null;
 
@@ -29,6 +31,10 @@ public class SessionFactoryBuilder {
                 sessionFactory = configuration.buildSessionFactory();
             }
         } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
         return sessionFactory;
@@ -40,6 +46,10 @@ public class SessionFactoryBuilder {
                 getSessionFactory().close();
             }
         } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }

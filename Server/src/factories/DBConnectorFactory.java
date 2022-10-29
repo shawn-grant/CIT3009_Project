@@ -1,5 +1,8 @@
 package factories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class DBConnectorFactory {
 
+    private static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USER = "root";
@@ -26,7 +30,7 @@ public class DBConnectorFactory {
                 dbConn = DriverManager.getConnection(URL + "jwr", USER, PASS);
             }
             LocalDateTime localDateTime = LocalDateTime.now();
-            System.out.println("DB Connection Established @ " + localDateTime.format(dateTimeFormatter));
+            logger.info("DB Connection Established @ " + localDateTime.format(dateTimeFormatter));
             createEmployeeTable();
             createCustomerTable();
             createProductTable();
@@ -35,7 +39,7 @@ public class DBConnectorFactory {
             createInvoiceItemTable();
             createInventoryTable();
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
             boolean isYes;
             int selection = JOptionPane.showConfirmDialog(
                     null,
@@ -53,7 +57,7 @@ public class DBConnectorFactory {
                 System.exit(0);
             }
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -67,10 +71,13 @@ public class DBConnectorFactory {
         ) {
             String query = "CREATE DATABASE IF NOT EXISTS jwr";
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("JWR Database created.");
+                logger.info("JWR Database created");
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -81,12 +88,12 @@ public class DBConnectorFactory {
                     "email varchar(25), dept_code varchar(40), employeeType varchar(25), PRIMARY KEY(ID))";
 
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("Employee table created.");
+                logger.info("Employee table created.");
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -99,12 +106,12 @@ public class DBConnectorFactory {
                     "PRIMARY KEY(ID))";
 
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("Customer table created.");
+                logger.info("Customer table created.");
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -116,12 +123,12 @@ public class DBConnectorFactory {
                     "PRIMARY KEY(product_code))";
 
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("Product table created.");
+                logger.info("Product table created.");
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -132,7 +139,7 @@ public class DBConnectorFactory {
                     "PRIMARY KEY(dept_code))";
 
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("Department table created.");
+                logger.info("Department table created.");
                 String query1 = "INSERT INTO department(dept_code, departmentName) VALUES ('MAN', 'Management')";
                 String query2 = "INSERT INTO department(dept_code, departmentName) VALUES ('INV', 'Inventory')";
                 String query3 = "INSERT INTO department(dept_code, departmentName) VALUES ('ACS', 'Accounting & sales')";
@@ -142,9 +149,9 @@ public class DBConnectorFactory {
                 stmt.executeUpdate(query3);
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -156,12 +163,12 @@ public class DBConnectorFactory {
                     "PRIMARY KEY(invoice_number))";
 
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("Invoice table created.");
+                logger.info("Invoice table created.");
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -172,12 +179,12 @@ public class DBConnectorFactory {
                     "quantity int, unit_price float, PRIMARY KEY(invoice_number, item_name))";
 
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("Invoice Item table created.");
+                logger.info("Invoice Item table created.");
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -188,12 +195,12 @@ public class DBConnectorFactory {
                     "stock int NOT NULL, unit_price float, amount_purchased int, PRIMARY KEY(product_code, date_modified))";
 
             if (stmt.executeUpdate(query) == 0) {
-                System.out.println("Inventory table created.");
+                logger.info("Inventory table created.");
             }
         } catch (SQLException e) {
-            System.err.println("SQLException: " + e.getMessage());
+            logger.warn("SQLException: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
     }

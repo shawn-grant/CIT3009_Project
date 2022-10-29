@@ -18,6 +18,7 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.util.Objects;
 
 public class BaseScreen extends JPanel {
 
@@ -54,11 +55,16 @@ public class BaseScreen extends JPanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // initialize buttons
-        addButton = new JButton("Add", new ImageIcon(getClass().getResource("/res/add_icon.png")));
-        updateButton = new JButton("Update", new ImageIcon(getClass().getResource("/res/update_icon.png")));
-        deleteButton = new JButton("Delete", new ImageIcon(getClass().getResource("/res/delete_icon.png")));
-        searchButton = new JButton("Search", new ImageIcon(getClass().getResource("/res/search_icon.png")));
-        refreshButton = new JButton("Refresh", new ImageIcon(getClass().getResource("/res/reload_icon.png")));
+        addButton = new JButton("Add",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/add_icon.png"))));
+        updateButton = new JButton("Update",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/update_icon.png"))));
+        deleteButton = new JButton("Delete",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/delete_icon.png"))));
+        searchButton = new JButton("Search",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/search_icon.png"))));
+        refreshButton = new JButton("Refresh",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/reload_icon.png"))));
 
         // Set button size
         addButton.setPreferredSize(new Dimension(120, 30));

@@ -3,8 +3,8 @@ package server;
 import factories.DBConnectorFactory;
 import factories.SessionFactoryBuilder;
 import models.*;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Server {
 
-    //private static final Logger logger = LogManager.getLogger(Server.class);
+    private static final Logger logger = LogManager.getLogger(Server.class);
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private final SplashScreen splashScreen = new SplashScreen();
     private int requestAmount = 1;
@@ -48,8 +48,7 @@ public class Server {
             serverSocket = new ServerSocket(8888);
             serverSocket.setReuseAddress(true);
         } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
-            //logger.error("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -59,7 +58,7 @@ public class Server {
             objOs = new ObjectOutputStream(clientSocket.getOutputStream());
             objIs = new ObjectInputStream(clientSocket.getInputStream());
         } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -70,7 +69,7 @@ public class Server {
             objIs.close();
             clientSocket.close();
         } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -79,7 +78,7 @@ public class Server {
         mainScreen = new MainScreen(serverSocket);
         splashScreen.dispose();
         mainScreen.setVisible(true);
-        System.out.println("Sever is running...");
+        logger.info("Sever is running");
         try {
             // running infinite loop for getting client request
             while (true) {
@@ -93,7 +92,7 @@ public class Server {
                         " @ " + localDateTime.format(dateTimeFormatter);
 
                 // Displaying that new client is connected to server
-                System.out.println("\n" + clientConnected);
+                logger.info("\n" + clientConnected);
 
                 // Update text area
                 mainScreen.setTextArea(clientConnected);
@@ -105,14 +104,15 @@ public class Server {
                 new Thread(clientHandler).start();
             }
         } catch (SocketException e) {
-            System.err.println("SocketException: " + e.getMessage());
+            logger.warn("SocketException: " + e.getMessage());
         } catch (IOException e) {
+            logger.warn("IOException: " + e.getMessage());
             e.printStackTrace();
         } finally {
             try {
                 serverSocket.close();
             } catch (IOException e) {
-                System.err.println("IOException: " + e.getMessage());
+                logger.error("IOException: " + e.getMessage());
             }
         }
     }
@@ -128,17 +128,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -154,17 +155,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -180,17 +182,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -206,17 +209,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -234,17 +238,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -263,17 +268,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -289,17 +295,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -315,17 +322,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -358,17 +366,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
             transaction.rollback();
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -387,11 +396,12 @@ public class Server {
             employee = session.get(Employee.class, employeeId);
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -407,11 +417,12 @@ public class Server {
             customer = session.get(Customer.class, customerId);
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -427,11 +438,12 @@ public class Server {
             product = session.get(Product.class, productCode);
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -447,11 +459,12 @@ public class Server {
             invoice = session.get(Invoice.class, invoiceNum);
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -467,11 +480,12 @@ public class Server {
             inventory = session.get(Inventory.class, inventoryId);
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -490,11 +504,12 @@ public class Server {
             employeeList = (List<Employee>) session.createQuery("FROM employee").getResultList();
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -510,11 +525,12 @@ public class Server {
             customerList = (List<Customer>) session.createQuery("FROM customer").getResultList();
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -530,11 +546,12 @@ public class Server {
             productList = (List<Product>) session.createQuery("FROM product").getResultList();
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -550,11 +567,12 @@ public class Server {
             invoiceList = (List<Invoice>) session.createQuery("FROM invoice").getResultList();
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -571,11 +589,12 @@ public class Server {
             invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
             transaction.commit();
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
@@ -595,17 +614,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -622,17 +642,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -649,17 +670,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -682,17 +704,18 @@ public class Server {
             transaction.commit();
             objOs.writeObject(true);
         } catch (HibernateException e) {
-            System.err.println("HibernateException: " + e.getMessage());
+            logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (IOException e) {
             transaction.rollback();
-            System.err.println("IOException: " + e.getMessage());
+            logger.error("IOException: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } catch (Exception e) {
             transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
             e.printStackTrace();
             objOs.writeObject(false);
         } finally {
@@ -714,8 +737,7 @@ public class Server {
             configureStreams();
             try {
                 action = (String) objIs.readObject();
-                System.out.println("Requested action: " + action);
-                System.out.println("Handled on: " + Thread.currentThread().getName());
+                logger.info("Requested action: " + action);
                 mainScreen.setRequestsText(requestAmount++);
                 mainScreen.setTextArea("\nRequested action: " + action);
                 mainScreen.setTextArea("\nHandled on: " + Thread.currentThread().getName() + "\n\n");
@@ -828,16 +850,16 @@ public class Server {
                     objOs.writeObject(inventory);
                 }
             } catch (EOFException e) {
-                System.err.println("EOFException: " + e);
+                logger.error("EOFException: " + e.getMessage());
                 e.printStackTrace();
             } catch (IOException e) {
-                System.err.println("IOException: " + e);
+                logger.error("IOException: " + e.getMessage());
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
-                System.err.println("ClassNotFoundException: " + e);
+                logger.error("ClassNotFoundException: " + e.getMessage());
                 e.printStackTrace();
             } catch (ClassCastException e) {
-                System.err.println("ClassCastException: " + e);
+                logger.error("ClassCastException: " + e.getMessage());
                 e.printStackTrace();
             } finally {
                 closeConnections();

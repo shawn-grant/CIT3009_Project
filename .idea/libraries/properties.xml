@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="properties">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/properties" />
+      <root url="file://$PROJECT_DIR$/Server/properties" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

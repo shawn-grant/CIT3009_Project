@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 public class MainScreen extends JFrame implements ActionListener {
 
@@ -47,13 +48,20 @@ public class MainScreen extends JFrame implements ActionListener {
 
     private void initializeComponents() {
         // initialize toggleButtons
-        customerButton = new JToggleButton(" Customers", new ImageIcon(getClass().getResource("/res/customer_icon.png")));
-        staffButton = new JToggleButton(" Staff", new ImageIcon(getClass().getResource("/res/staff_icon.png")));
-        inventoryButton = new JToggleButton(" Products", new ImageIcon(getClass().getResource("/res/product_icon.png")));
-        checkOutButton = new JToggleButton(" Checkout", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
-        invoiceButton = new JToggleButton(" Invoices", new ImageIcon(getClass().getResource("/res/invoice_icon.png")));
-        reportButton = new JToggleButton(" Reports", new ImageIcon(getClass().getResource("/res/report_icon.png")));
-        exitButton = new JToggleButton(" Exit", new ImageIcon(getClass().getResource("/res/exit_icon.png")));
+        customerButton = new JToggleButton(" Customers",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/customer_icon.png"))));
+        staffButton = new JToggleButton(" Staff",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/staff_icon.png"))));
+        inventoryButton = new JToggleButton(" Products",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/product_icon.png"))));
+        checkOutButton = new JToggleButton(" Checkout",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/checkout_icon.png"))));
+        invoiceButton = new JToggleButton(" Invoices",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/invoice_icon.png"))));
+        reportButton = new JToggleButton(" Reports",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/report_icon.png"))));
+        exitButton = new JToggleButton(" Exit",
+                new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/exit_icon.png"))));
 
         // used to create hover effect on toggleButtons
         MouseAdapter btnHover = new MouseAdapter() {
@@ -136,7 +144,7 @@ public class MainScreen extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setIconImage(new ImageIcon(getClass().getResource("/res/icon.png")).getImage());
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/icon.png"))).getImage());
         setVisible(true);
     }
 

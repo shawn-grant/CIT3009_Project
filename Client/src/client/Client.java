@@ -27,7 +27,7 @@ public class Client {
 
     private void createConnection() {
         try {
-            connectionSocket = new Socket("127.0.0.1", 8888);
+            connectionSocket = new Socket("localhost", 8888);
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
             JOptionPane.showMessageDialog(null,
