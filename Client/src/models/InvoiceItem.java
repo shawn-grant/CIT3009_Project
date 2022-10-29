@@ -1,9 +1,4 @@
 package models;
-//============================================================================
-//Name        : Date.java
-//Author      : Tyrien Gilpin
-//Description : Invoice Model Class
-//============================================================================
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -567,7 +567,7 @@ public class Server {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
-            String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
+            String hql = "FROM invoiceItem WHERE id.invoiceNumber = " + invoiceNum;
             invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
             transaction.commit();
         } catch (HibernateException e) {
@@ -674,7 +674,7 @@ public class Server {
             Invoice invoice = session.get(Invoice.class, invoiceNum);
             session.delete(invoice);
             //Remove invoice items
-            String hql = "FROM invoiceItem WHERE invoice_number = " + invoiceNum;
+            String hql = "FROM invoiceItem WHERE id.invoiceNumber = " + invoiceNum;
             List<InvoiceItem> invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
             for (InvoiceItem invoiceItem : invoiceItemList) {
                 session.delete(invoiceItem);
