@@ -25,6 +25,9 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class UpdateDialog extends JDialog implements ActionListener {
 
@@ -215,7 +218,48 @@ public class UpdateDialog extends JDialog implements ActionListener {
         } else return StringValidator.isValid(firstNameField.getText(), this)
                 && StringValidator.isValid(lastNameField.getText(), this)
                 && PhoneNumberValidator.isValid(telephoneField.getText(), this)
-                && EmailValidator.isValid(emailField.getText(), this);
+                && EmailValidator.isValid(emailField.getText(), this)
+                && checkDates();
+    }
+
+    private boolean checkDates() {
+        //Get current local time
+        LocalDate localDateTime = LocalDate.now();
+        //Convert to Date
+        Date currentDate = Date.from(localDateTime.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        //Get customer date of birth
+        Date dobDate = dobPicker.getSelectedDate();
+        //Get customer membership date
+        Date membershipDate = membershipDatePicker.getSelectedDate();
+        //Get customer membership date
+        Date membershipExpiryDate = membershipExpiryDatePicker.getSelectedDate();
+
+        if (currentDate.compareTo(dobDate) <= 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Invalid Date of birth",
+                    "Invalid Field",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        } else if (currentDate.compareTo(membershipDate) < 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Invalid membership date",
+                    "Invalid Field",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        } else if (membershipDate.compareTo(membershipExpiryDate) >= 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Invalid membership expiry date",
+                    "Invalid Field",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+        return true;
     }
 
     @Override

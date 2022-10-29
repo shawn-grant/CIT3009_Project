@@ -157,6 +157,7 @@ public class MainScreen extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
+        setIconImage(image);
     }
 
     private void registerListeners() {

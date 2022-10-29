@@ -13,6 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 /**
  * @author Malik Heron & Tori Horne
@@ -247,7 +250,28 @@ public class UpdateDialog extends JDialog implements ActionListener {
         } else return StringValidator.isValid(firstNameField.getText(), this)
                 && StringValidator.isValid(lastNameField.getText(), this)
                 && PhoneNumberValidator.isValid(telephoneField.getText(), this)
-                && EmailValidator.isValid(emailField.getText(), this);
+                && EmailValidator.isValid(emailField.getText(), this)
+                && checkDates();
+    }
+
+    private boolean checkDates() {
+        //Get current local time
+        LocalDate localDateTime = LocalDate.now();
+        //Convert to Date
+        Date currentDate = Date.from(localDateTime.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        //Get employee date of birth
+        Date dobDate = dobPicker.getSelectedDate();
+
+        if (currentDate.compareTo(dobDate) <= 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Invalid Date of birth",
+                    "Invalid Field",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+        return true;
     }
 
     @Override
