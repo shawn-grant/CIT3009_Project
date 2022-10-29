@@ -51,7 +51,7 @@ public class MainScreen extends JFrame implements ActionListener {
         staffButton = new JToggleButton(" Staff", new ImageIcon(getClass().getResource("/res/staff_icon.png")));
         inventoryButton = new JToggleButton(" Products", new ImageIcon(getClass().getResource("/res/product_icon.png")));
         checkOutButton = new JToggleButton(" Checkout", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
-        invoiceButton = new JToggleButton(" Invoices", new ImageIcon(getClass().getResource("/res/checkout_icon.png")));
+        invoiceButton = new JToggleButton(" Invoices", new ImageIcon(getClass().getResource("/res/invoice_icon.png")));
         reportButton = new JToggleButton(" Reports", new ImageIcon(getClass().getResource("/res/report_icon.png")));
         exitButton = new JToggleButton(" Exit", new ImageIcon(getClass().getResource("/res/exit_icon.png")));
 
@@ -136,7 +136,7 @@ public class MainScreen extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        //setIconImage();
+        setIconImage(new ImageIcon(getClass().getResource("/res/icon.png")).getImage());
         setVisible(true);
     }
 
