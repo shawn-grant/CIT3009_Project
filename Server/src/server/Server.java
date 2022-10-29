@@ -92,7 +92,7 @@ public class Server {
                         " @ " + localDateTime.format(dateTimeFormatter);
 
                 // Displaying that new client is connected to server
-                logger.info("\n" + clientConnected);
+                logger.info(clientConnected);
 
                 // Update text area
                 mainScreen.setTextArea(clientConnected);
