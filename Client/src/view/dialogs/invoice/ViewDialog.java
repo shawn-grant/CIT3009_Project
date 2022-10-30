@@ -136,7 +136,7 @@ public class ViewDialog extends JDialog implements ActionListener {
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
         );
-        scrollPane.setPreferredSize(new Dimension(460, 200));
+        scrollPane.setPreferredSize(new Dimension(455, 200));
 
         //Button properties
         closeButton = new JButton("CLOSE");
