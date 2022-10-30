@@ -797,3 +797,103 @@ Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:27:36
 [INFO ] 2022-10-30 13:45:41.514 [Thread-6] Server - Requested action: Find Employee
 [INFO ] 2022-10-30 13:45:41.533 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:45:41
 [INFO ] 2022-10-30 13:45:41.535 [Thread-7] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:46:18.495 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:45:41
+[INFO ] 2022-10-30 13:46:18.504 [Thread-8] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:46:21.947 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:46:18
+[INFO ] 2022-10-30 13:46:21.950 [Thread-9] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:46:21.973 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:46:21
+[INFO ] 2022-10-30 13:46:21.973 [Thread-10] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:46:21.995 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:46:21
+[INFO ] 2022-10-30 13:46:22.000 [Thread-11] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:46:22.014 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:46:21
+[INFO ] 2022-10-30 13:46:22.015 [Thread-12] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:12:21.279 [main] DBConnectorFactory - DB Connection Established @ Sun, Oct 30 2022 14:12:21
+[WARN ] 2022-10-30 14:12:21.322 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-30 14:12:21.323 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-30 14:12:21.323 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-30 14:12:21.323 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-30 14:12:21.323 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-30 14:12:21.323 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-30 14:12:21.323 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-30 14:12:21.547 [main] Server - Sever is running
+[INFO ] 2022-10-30 14:12:22.734 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:21
+[INFO ] 2022-10-30 14:12:22.750 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 14:12:26.741 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:22
+[INFO ] 2022-10-30 14:12:26.741 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:12:26.757 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:26
+[INFO ] 2022-10-30 14:12:26.757 [Thread-5] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:12:26.773 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:26
+[INFO ] 2022-10-30 14:12:26.773 [Thread-6] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:12:31.338 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:26
+[INFO ] 2022-10-30 14:12:31.338 [Thread-7] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:12:31.338 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:31
+[INFO ] 2022-10-30 14:12:31.353 [Thread-8] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:12:31.353 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:31
+[INFO ] 2022-10-30 14:12:31.353 [Thread-9] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:12:33.072 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:31
+[INFO ] 2022-10-30 14:12:33.072 [Thread-10] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:12:33.072 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:12:33
+[INFO ] 2022-10-30 14:12:33.072 [Thread-11] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 14:13:33.110 [main] DBConnectorFactory - DB Connection Established @ Sun, Oct 30 2022 14:13:33
+[WARN ] 2022-10-30 14:13:33.142 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-30 14:13:33.142 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-30 14:13:33.142 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-30 14:13:33.142 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-30 14:13:33.142 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-30 14:13:33.142 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-30 14:13:33.142 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-30 14:13:33.385 [main] Server - Sever is running
+[INFO ] 2022-10-30 14:13:39.908 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:13:33
+[INFO ] 2022-10-30 14:13:39.939 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 14:13:43.496 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:13:39
+[INFO ] 2022-10-30 14:13:43.511 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:13:43.527 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:13:43
+[INFO ] 2022-10-30 14:13:43.542 [Thread-5] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:13:43.542 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:13:43
+[INFO ] 2022-10-30 14:13:43.558 [Thread-6] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:14:31.723 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:13:43
+[INFO ] 2022-10-30 14:14:31.739 [Thread-7] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 14:14:33.270 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:31
+[INFO ] 2022-10-30 14:14:33.270 [Thread-8] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:14:33.270 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:33
+[INFO ] 2022-10-30 14:14:33.270 [Thread-9] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 14:14:33.285 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:33
+[INFO ] 2022-10-30 14:14:33.285 [Thread-10] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:14:33.301 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:33
+[INFO ] 2022-10-30 14:14:33.301 [Thread-11] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:14:52.412 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:33
+[INFO ] 2022-10-30 14:14:52.412 [Thread-12] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 14:14:53.817 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:52
+[INFO ] 2022-10-30 14:14:53.817 [Thread-13] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:14:53.832 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:53
+[INFO ] 2022-10-30 14:14:53.848 [Thread-14] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 14:14:53.864 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:53
+[INFO ] 2022-10-30 14:14:53.864 [Thread-15] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:14:53.864 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:53
+[INFO ] 2022-10-30 14:14:53.879 [Thread-16] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:15:07.218 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:14:53
+[INFO ] 2022-10-30 14:15:07.218 [Thread-17] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:15:07.218 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:07
+[INFO ] 2022-10-30 14:15:07.234 [Thread-18] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:15:07.234 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:07
+[INFO ] 2022-10-30 14:15:07.234 [Thread-19] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:15:22.078 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:07
+[INFO ] 2022-10-30 14:15:22.078 [Thread-20] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 14:15:23.769 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:22
+[INFO ] 2022-10-30 14:15:23.769 [Thread-21] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:15:23.784 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:23
+[INFO ] 2022-10-30 14:15:23.784 [Thread-22] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 14:15:23.800 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:23
+[INFO ] 2022-10-30 14:15:23.800 [Thread-23] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:15:23.800 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:23
+[INFO ] 2022-10-30 14:15:23.816 [Thread-24] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 14:15:34.999 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:23
+[INFO ] 2022-10-30 14:15:35.015 [Thread-25] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 14:15:36.564 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:34
+[INFO ] 2022-10-30 14:15:36.564 [Thread-26] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 14:15:36.579 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:36
+[INFO ] 2022-10-30 14:15:36.579 [Thread-27] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 14:15:36.595 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:36
+[INFO ] 2022-10-30 14:15:36.595 [Thread-28] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 14:15:36.610 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 14:15:36
+[INFO ] 2022-10-30 14:15:36.610 [Thread-29] Server - Requested action: View Invoice Item

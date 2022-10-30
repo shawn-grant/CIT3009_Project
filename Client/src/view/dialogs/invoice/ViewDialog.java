@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class ViewDialog extends JDialog implements ActionListener {
 
-    private JLabel invoiceNumLabel, billingDateLabel, tenderedLabel, customerLabel, cashierLabel, grandTotalLabel;
+    private JLabel invoiceNumLabel, billingDateLabel, tenderedLabel, customerLabel, cashierLabel, grandTotalLabel, discountLabel;
     private JTextField invoiceNumField, billingDateField, tenderedField, customerField, cashierField, grandTotalField;
     private JButton closeButton, confirmButton;
     private JScrollPane scrollPane;
@@ -82,6 +82,10 @@ public class ViewDialog extends JDialog implements ActionListener {
         grandTotalLabel = new JLabel("Grand Total");
         grandTotalLabel.setFont(labelFont);
         grandTotalLabel.setPreferredSize(labelSize);
+
+        discountLabel = new JLabel("No customer discount received");
+        discountLabel.setFont(labelFont);
+        discountLabel.setPreferredSize(new Dimension(400, 30));
 
         //Field properties
         invoiceNumField = new JTextField();
@@ -184,6 +188,7 @@ public class ViewDialog extends JDialog implements ActionListener {
         add(cashierLabel);
         add(cashierField);
         add(scrollPane);
+        add(discountLabel);
         add(tenderedLabel);
         add(tenderedField);
         add(grandTotalLabel);
@@ -204,7 +209,7 @@ public class ViewDialog extends JDialog implements ActionListener {
     private void setFormWindowProperties() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setTitle("Invoice Details");
-        setSize(480, 530);
+        setSize(480, 560);
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
@@ -245,6 +250,7 @@ public class ViewDialog extends JDialog implements ActionListener {
             client.closeConnections();
             //Set value in customerField
             customerField.setText(customer.getFirstName() + " " + customer.getLastName());
+            discountLabel.setText("Customer discount received");
         } else {
             customerField.setText("Anonymous");
         }
