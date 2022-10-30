@@ -1,21 +1,14 @@
 package view.screens;
 
-//import javax.swing.Box;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-//import view.components.RoundedBorder;
 import client.Client;
 import models.Invoice;
-import models.Product;
+import view.dialogs.invoice.RemoveDialog;
 import view.dialogs.invoice.SearchDialog;
+import view.dialogs.invoice.ViewDialog;
 
-//import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -34,7 +27,7 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
     private final GridBagConstraints gbc = new GridBagConstraints();
     private JTextArea textArea;
     private JButton viewButton;
-    private JPanel bottomPanel, mainContent, panTop;
+    private JPanel mainContent, panTop;
 
     private final String[] tableHeaders = {
             "Invoice Number",
@@ -56,7 +49,6 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         setContentView();
         addComponentsToPanels();
         addPanelsToWindow();
-        setUpListeners();
         getInvoices();
     }
 
@@ -81,35 +73,20 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
 
-        //viewButton = new JButton("View");
-        //viewButton.setSize(25, 20);
-        //viewButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        //viewButton.setFont(new Font("arial", Font.PLAIN, 15));
-        //viewButton.setFocusPainted(false);
-        //viewButton.setBorder(new RoundedBorder(8));
-        //viewButton.setPreferredSize(new Dimension(25, 25));
+        viewButton = new JButton("View");
+        viewButton.setPreferredSize(new Dimension(120, 30));
+        viewButton.setFont(new Font("arial", Font.PLAIN, 15));
+        viewButton.setFocusPainted(false);
 
         searchButton.setAlignmentX(LEFT_ALIGNMENT);
         refreshButton.setAlignmentX(LEFT_ALIGNMENT);
-        
-       /* buttonPanel = new JPanel();
-        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonPanel.setPreferredSize(new Dimension(0,20));
-        buttonPanel.setBackground(Color.GREEN);
-        */
+
         panTop = new JPanel(new GridBagLayout());
-        panTop.setPreferredSize(new Dimension(35, 20));
+        panTop.setPreferredSize(new Dimension(25, 10));
         panTop.setAlignmentX(Component.CENTER_ALIGNMENT);
         panTop.setBackground(getBackground());
 
-        addButton.setVisible(false);
-        updateButton.setVisible(false);
-
-        //buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         mainContent = new JPanel(new GridLayout(0, 1, 0, 70));
-
-        bottomPanel = new JPanel(new GridLayout(3, 3, 1, 0));
-        bottomPanel.setBackground(Color.red);
     }
 
     public void addComponentsToPanels() {
@@ -127,30 +104,32 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         gbc.gridwidth = 1;
         gbc.gridheight = 2;
         gbc.fill = GridBagConstraints.BOTH;
-        panTop.add(deleteButton, gbc);
+        panTop.add(viewButton, gbc);
 
         gbc.gridx = 3;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.gridheight = 2;
         gbc.fill = GridBagConstraints.BOTH;
-        panTop.add(searchButton, gbc);
+        panTop.add(deleteButton, gbc);
 
         gbc.gridx = 4;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.gridheight = 2;
-        panTop.add(refreshButton, gbc);
+        gbc.fill = GridBagConstraints.BOTH;
+        panTop.add(searchButton, gbc);
 
-        //bottomPanel.add(viewButton);
+        gbc.gridx = 5;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 2;
+        panTop.add(refreshButton, gbc);
     }
 
     public void addPanelsToWindow() {
-        //this.add(Box.createRigidArea(new Dimension(0, 20)));
         this.add(panTop);
-        //this.add(buttonPanel);
         this.add(mainContent);
-        this.add(bottomPanel);
     }
 
     public void setMainContent(Component content) {
@@ -164,15 +143,10 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
 
     // setup actions for buttons
     private void setupListeners() {
-        addButton.addActionListener(this);
-        updateButton.addActionListener(this);
         deleteButton.addActionListener(this);
         searchButton.addActionListener(this);
         refreshButton.addActionListener(this);
-    }
-
-    private void setUpListeners() {
-        //viewButton.addActionListener(this);
+        viewButton.addActionListener(this);
     }
 
     private void getInvoices() {
@@ -198,8 +172,8 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
             model.insertRow(count, new Object[]{
                     invoice.getInvoice_number(),
                     invoice.getBillingDate(),
-                    invoice.getTotalCost(),
-                    invoice.getAmountTendered(),
+                    "$" + invoice.getTotalCost(),
+                    "$" + invoice.getAmountTendered(),
                     invoice.getCustomerId(),
                     invoice.getEmployeeId()
             });
@@ -207,29 +181,58 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         }
     }
 
-    @Override
+    // remove item at selected row
+    private boolean removeItem() {
+        boolean isSelected = false;
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            int choice = JOptionPane.showConfirmDialog(
+                    null,
+                    "Remove this invoice?",
+                    "Remove prompt",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (choice == JOptionPane.YES_OPTION) {
+                Client client = new Client();
+                client.sendAction("Remove Invoice");
+                client.sendInvoiceNumber((int) model.getValueAt(table.getSelectedRow(), 0));
+                client.receiveResponse();
+                client.closeConnections();
+            }
+        }
+        return isSelected;
+    }
 
+    //view item at selected row
+    private boolean viewItem() {
+        boolean isSelected = false;
+        if (table.getSelectedRow() != -1) {
+            isSelected = true;
+            new ViewDialog((int) model.getValueAt(table.getSelectedRow(), 0));
+        }
+        return isSelected;
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource().equals(addButton)) {
-            //addButton.setVisible(false);
-            //new InsertDialog();
-        }
         if (e.getSource().equals(searchButton)) {
             new SearchDialog(model);
         }
-        if (e.getSource().equals(updateButton)) {
-            //updateButton.setVisible(false);
-            //new UpdateDialog();
-        }
         if (e.getSource().equals(deleteButton)) {
-            //deleteButton.setVisible(false);
+            if (!removeItem()) {
+                new RemoveDialog();
+            }
+            getInvoices();
         }
         if (e.getSource().equals(refreshButton)) {
             getInvoices();
         }
         if (e.getSource().equals(viewButton)) {
-            //new ViewDialog();
+            if (!viewItem()) {
+                new ViewDialog();
+            }
         }
     }
 }

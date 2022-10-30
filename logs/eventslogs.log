@@ -158,3 +158,622 @@ Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:27:21
 Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:27:36
 [INFO ] 2022-10-29 15:27:39.220 [Thread-7] Server - Requested action: View Invoices
 [WARN ] 2022-10-29 15:29:05.760 [main] Server - SocketException: socket closed
+[INFO ] 2022-10-30 10:39:21.591 [main] DBConnectorFactory - DB Connection Established @ Sun, Oct 30 2022 10:39:21
+[WARN ] 2022-10-30 10:39:21.620 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-10-30 10:39:21.620 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-10-30 10:39:21.620 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-10-30 10:39:21.628 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-10-30 10:39:21.629 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-10-30 10:39:21.629 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-10-30 10:39:21.631 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-10-30 10:39:21.952 [main] Server - Sever is running
+[INFO ] 2022-10-30 10:40:01.040 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:39:21
+[INFO ] 2022-10-30 10:40:01.059 [Thread-3] Server - Requested action: View Products
+[INFO ] 2022-10-30 10:40:12.019 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:40:01
+[INFO ] 2022-10-30 10:40:12.020 [Thread-4] Server - Requested action: View Products
+[INFO ] 2022-10-30 10:40:13.893 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:40:12
+[INFO ] 2022-10-30 10:40:13.898 [Thread-5] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:40:53.090 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:40:13
+[INFO ] 2022-10-30 10:40:53.099 [Thread-6] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:46:09.280 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:40:53
+[INFO ] 2022-10-30 10:46:09.290 [Thread-7] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:48:36.179 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:46:09
+[INFO ] 2022-10-30 10:48:36.251 [Thread-8] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:48:54.719 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:48:36
+[INFO ] 2022-10-30 10:48:54.730 [Thread-9] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:49:14.725 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:48:54
+[INFO ] 2022-10-30 10:49:14.739 [Thread-10] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:50:01.100 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:49:14
+[INFO ] 2022-10-30 10:50:01.110 [Thread-11] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:50:25.420 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:50:01
+[INFO ] 2022-10-30 10:50:25.429 [Thread-12] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:51:21.918 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:50:25
+[INFO ] 2022-10-30 10:51:21.922 [Thread-13] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:53:09.858 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:51:21
+[INFO ] 2022-10-30 10:53:09.873 [Thread-14] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:53:58.100 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:53:09
+[INFO ] 2022-10-30 10:53:58.109 [Thread-15] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:54:14.289 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:53:58
+[INFO ] 2022-10-30 10:54:14.300 [Thread-16] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:55:34.415 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:54:14
+[INFO ] 2022-10-30 10:55:34.420 [Thread-17] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:56:03.288 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:55:34
+[INFO ] 2022-10-30 10:56:03.290 [Thread-18] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:56:33.869 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:56:03
+[INFO ] 2022-10-30 10:56:33.880 [Thread-19] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:56:56.938 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:56:33
+[INFO ] 2022-10-30 10:56:56.949 [Thread-20] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:57:57.410 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:56:56
+[INFO ] 2022-10-30 10:57:57.418 [Thread-21] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:58:22.004 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:57:57
+[INFO ] 2022-10-30 10:58:22.010 [Thread-22] Server - Requested action: View Products
+[INFO ] 2022-10-30 10:58:22.344 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:58:22
+[INFO ] 2022-10-30 10:58:22.344 [Thread-23] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:58:49.939 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:58:22
+[INFO ] 2022-10-30 10:58:49.950 [Thread-24] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:59:01.682 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:58:49
+[INFO ] 2022-10-30 10:59:01.690 [Thread-25] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:59:20.459 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:59:01
+[INFO ] 2022-10-30 10:59:20.473 [Thread-26] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:59:43.768 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:59:20
+[INFO ] 2022-10-30 10:59:43.830 [Thread-27] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 10:59:57.349 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:59:43
+[INFO ] 2022-10-30 10:59:57.360 [Thread-28] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:00:05.939 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 10:59:57
+[INFO ] 2022-10-30 11:00:05.940 [Thread-29] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:00:06.990 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:00:05
+[INFO ] 2022-10-30 11:00:06.990 [Thread-30] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:00:09.160 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:00:06
+[INFO ] 2022-10-30 11:00:09.164 [Thread-31] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:00:23.100 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:00:09
+[INFO ] 2022-10-30 11:00:23.109 [Thread-32] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:01:18.614 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:00:23
+[INFO ] 2022-10-30 11:01:18.623 [Thread-33] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:05:04.807 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:01:18
+[INFO ] 2022-10-30 11:05:04.819 [Thread-34] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:05:07.388 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:05:04
+[INFO ] 2022-10-30 11:05:07.389 [Thread-35] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 11:05:09.181 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:05:07
+[INFO ] 2022-10-30 11:05:09.181 [Thread-36] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:08:22.490 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:05:09
+[INFO ] 2022-10-30 11:08:22.499 [Thread-37] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:08:42.628 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:08:22
+[INFO ] 2022-10-30 11:08:42.639 [Thread-38] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:09:08.341 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:08:42
+[INFO ] 2022-10-30 11:09:08.357 [Thread-39] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:09:45.089 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:09:08
+[INFO ] 2022-10-30 11:09:45.098 [Thread-40] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:10:15.710 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:09:45
+[INFO ] 2022-10-30 11:10:15.720 [Thread-41] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:10:16.710 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:10:15
+[INFO ] 2022-10-30 11:10:16.710 [Thread-42] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:10:35.319 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:10:16
+[INFO ] 2022-10-30 11:10:35.330 [Thread-43] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:15:05.763 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:10:35
+[INFO ] 2022-10-30 11:15:05.770 [Thread-44] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:15:13.200 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:15:05
+[INFO ] 2022-10-30 11:15:13.200 [Thread-45] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:15:17.959 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:15:13
+[INFO ] 2022-10-30 11:15:17.960 [Thread-46] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:15:22.719 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:15:17
+[INFO ] 2022-10-30 11:15:22.720 [Thread-47] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:15:58.530 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:15:22
+[INFO ] 2022-10-30 11:15:58.541 [Thread-48] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:02.550 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:15:58
+[INFO ] 2022-10-30 11:16:02.559 [Thread-49] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:03.269 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:02
+[INFO ] 2022-10-30 11:16:03.269 [Thread-50] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:03.799 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:03
+[INFO ] 2022-10-30 11:16:03.800 [Thread-51] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:04.788 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:03
+[INFO ] 2022-10-30 11:16:04.790 [Thread-52] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:05.269 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:04
+[INFO ] 2022-10-30 11:16:05.270 [Thread-53] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:06.741 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:05
+[INFO ] 2022-10-30 11:16:06.741 [Thread-54] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:07.138 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:06
+[INFO ] 2022-10-30 11:16:07.139 [Thread-55] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:07.980 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:07
+[INFO ] 2022-10-30 11:16:07.980 [Thread-56] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:08.330 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:07
+[INFO ] 2022-10-30 11:16:08.331 [Thread-57] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:09.222 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:08
+[INFO ] 2022-10-30 11:16:09.222 [Thread-58] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:10.090 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:09
+[INFO ] 2022-10-30 11:16:10.090 [Thread-59] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:10.689 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:10
+[INFO ] 2022-10-30 11:16:10.689 [Thread-60] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:11.689 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:10
+[INFO ] 2022-10-30 11:16:11.698 [Thread-61] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:12.166 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:11
+[INFO ] 2022-10-30 11:16:12.168 [Thread-62] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:16:12.770 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:12
+[INFO ] 2022-10-30 11:16:12.770 [Thread-63] Server - Requested action: View Products
+[INFO ] 2022-10-30 11:16:13.190 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:12
+[INFO ] 2022-10-30 11:16:13.190 [Thread-64] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:17:15.300 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:16:13
+[INFO ] 2022-10-30 11:17:15.320 [Thread-65] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:17:20.080 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:17:15
+[INFO ] 2022-10-30 11:17:20.086 [Thread-66] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:17:52.618 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:17:20
+[INFO ] 2022-10-30 11:17:52.620 [Thread-67] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:18:14.390 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:17:52
+[INFO ] 2022-10-30 11:18:14.400 [Thread-68] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:18:33.198 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:18:14
+[INFO ] 2022-10-30 11:18:33.209 [Thread-69] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:19:56.480 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:18:33
+[INFO ] 2022-10-30 11:19:56.488 [Thread-70] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:21:55.190 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:19:56
+[INFO ] 2022-10-30 11:21:55.199 [Thread-71] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:25:11.008 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:21:55
+[INFO ] 2022-10-30 11:25:11.010 [Thread-72] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:48:59.040 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:25:11
+[INFO ] 2022-10-30 11:48:59.050 [Thread-73] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:56:59.003 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:48:59
+[INFO ] 2022-10-30 11:56:59.010 [Thread-74] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:57:38.991 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:56:59
+[INFO ] 2022-10-30 11:57:39.000 [Thread-75] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:57:41.389 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:57:38
+[INFO ] 2022-10-30 11:57:41.389 [Thread-76] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 11:59:50.779 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:57:41
+[INFO ] 2022-10-30 11:59:50.786 [Thread-77] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 11:59:52.799 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:59:50
+[INFO ] 2022-10-30 11:59:52.799 [Thread-78] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:04:53.281 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 11:59:52
+[INFO ] 2022-10-30 12:04:53.297 [Thread-79] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:05:50.172 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:04:53
+[INFO ] 2022-10-30 12:05:50.183 [Thread-80] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:05:52.517 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:05:50
+[INFO ] 2022-10-30 12:05:52.520 [Thread-81] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:06:12.861 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:05:52
+[INFO ] 2022-10-30 12:06:12.872 [Thread-82] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:06:14.323 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:06:12
+[INFO ] 2022-10-30 12:06:14.324 [Thread-83] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:06:37.816 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:06:14
+[INFO ] 2022-10-30 12:06:37.818 [Thread-84] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:08:03.854 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:06:37
+[INFO ] 2022-10-30 12:08:03.863 [Thread-85] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:08:06.178 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:08:03
+[INFO ] 2022-10-30 12:08:06.187 [Thread-86] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:08:43.556 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:08:06
+[INFO ] 2022-10-30 12:08:43.565 [Thread-87] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:08:47.237 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:08:43
+[INFO ] 2022-10-30 12:08:47.238 [Thread-88] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:09:15.028 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:08:47
+[INFO ] 2022-10-30 12:09:15.042 [Thread-89] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:09:16.978 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:09:15
+[INFO ] 2022-10-30 12:09:16.979 [Thread-90] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:09:39.421 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:09:16
+[INFO ] 2022-10-30 12:09:39.436 [Thread-91] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:09:40.879 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:09:39
+[INFO ] 2022-10-30 12:09:40.880 [Thread-92] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:10:00.945 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:09:40
+[INFO ] 2022-10-30 12:10:00.956 [Thread-93] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:10:02.468 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:00
+[INFO ] 2022-10-30 12:10:02.470 [Thread-94] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:10:23.787 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:02
+[INFO ] 2022-10-30 12:10:23.797 [Thread-95] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:10:25.227 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:23
+[INFO ] 2022-10-30 12:10:25.228 [Thread-96] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:10:41.537 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:25
+[INFO ] 2022-10-30 12:10:41.539 [Thread-97] Server - Requested action: View Products
+[INFO ] 2022-10-30 12:10:42.233 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:41
+[INFO ] 2022-10-30 12:10:42.237 [Thread-98] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:10:44.247 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:42
+[INFO ] 2022-10-30 12:10:44.249 [Thread-99] Server - Requested action: View Products
+[INFO ] 2022-10-30 12:10:45.624 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:44
+[INFO ] 2022-10-30 12:10:45.627 [Thread-100] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:18:20.469 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:10:45
+[INFO ] 2022-10-30 12:18:20.478 [Thread-101] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:19:20.469 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:18:20
+[INFO ] 2022-10-30 12:19:20.484 [Thread-102] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:19:41.789 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:19:20
+[INFO ] 2022-10-30 12:19:41.802 [Thread-103] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:19:52.226 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:19:41
+[INFO ] 2022-10-30 12:19:52.227 [Thread-104] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:20:33.587 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:19:52
+[INFO ] 2022-10-30 12:20:33.598 [Thread-105] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:20:36.047 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:20:33
+[INFO ] 2022-10-30 12:20:36.050 [Thread-106] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:20:48.884 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:20:36
+[INFO ] 2022-10-30 12:20:48.903 [Thread-107] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:28:06.029 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:20:48
+[INFO ] 2022-10-30 12:28:06.033 [Thread-108] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:28:08.539 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:28:06
+[INFO ] 2022-10-30 12:28:08.539 [Thread-109] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:28:32.901 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:28:08
+[INFO ] 2022-10-30 12:28:32.908 [Thread-110] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:28:35.097 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:28:32
+[INFO ] 2022-10-30 12:28:35.098 [Thread-111] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:29:01.436 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:28:35
+[INFO ] 2022-10-30 12:29:01.444 [Thread-112] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:29:03.587 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:01
+[INFO ] 2022-10-30 12:29:03.589 [Thread-113] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 12:29:03.607 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:03
+[INFO ] 2022-10-30 12:29:03.614 [Thread-114] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 12:29:03.623 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:03
+[INFO ] 2022-10-30 12:29:03.627 [Thread-115] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 12:29:03.657 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:03
+[INFO ] 2022-10-30 12:29:03.658 [Thread-116] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 12:29:28.711 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:03
+[INFO ] 2022-10-30 12:29:28.711 [Thread-117] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 12:29:35.129 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:28
+[INFO ] 2022-10-30 12:29:35.129 [Thread-118] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 12:29:35.141 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:35
+[INFO ] 2022-10-30 12:29:35.143 [Thread-119] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 12:29:35.150 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:35
+[INFO ] 2022-10-30 12:29:35.150 [Thread-120] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 12:29:35.160 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:35
+[INFO ] 2022-10-30 12:29:35.160 [Thread-121] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:11:52.570 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 12:29:35
+[INFO ] 2022-10-30 13:11:52.575 [Thread-122] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:11:54.957 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:11:52
+[INFO ] 2022-10-30 13:11:54.959 [Thread-123] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:11:54.975 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:11:54
+[INFO ] 2022-10-30 13:11:54.977 [Thread-124] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:11:54.986 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:11:54
+[INFO ] 2022-10-30 13:11:54.988 [Thread-125] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:11:55.003 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:11:54
+[INFO ] 2022-10-30 13:11:55.007 [Thread-126] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:13:47.473 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:11:55
+[INFO ] 2022-10-30 13:13:47.482 [Thread-127] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:13:49.328 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:13:47
+[INFO ] 2022-10-30 13:13:49.329 [Thread-128] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:13:49.346 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:13:49
+[INFO ] 2022-10-30 13:13:49.348 [Thread-129] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:13:49.354 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:13:49
+[INFO ] 2022-10-30 13:13:49.354 [Thread-130] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:13:49.374 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:13:49
+[INFO ] 2022-10-30 13:13:49.374 [Thread-131] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:15:14.814 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:13:49
+[INFO ] 2022-10-30 13:15:14.824 [Thread-132] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:15:16.285 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:14
+[INFO ] 2022-10-30 13:15:16.287 [Thread-133] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:15:16.396 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:16
+[INFO ] 2022-10-30 13:15:16.396 [Thread-134] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:15:17.727 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:16
+[INFO ] 2022-10-30 13:15:17.727 [Thread-135] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:15:20.569 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:17
+[INFO ] 2022-10-30 13:15:20.638 [Thread-136] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:15:20.685 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:20
+[INFO ] 2022-10-30 13:15:20.685 [Thread-137] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:15:20.702 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:20
+[INFO ] 2022-10-30 13:15:20.703 [Thread-138] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:15:20.733 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:20
+[INFO ] 2022-10-30 13:15:20.733 [Thread-139] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:17:20.373 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:15:20
+[INFO ] 2022-10-30 13:17:20.377 [Thread-140] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:17:22.065 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:20
+[INFO ] 2022-10-30 13:17:22.065 [Thread-141] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:17:22.088 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:22
+[INFO ] 2022-10-30 13:17:22.091 [Thread-142] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:17:22.103 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:22
+[INFO ] 2022-10-30 13:17:22.104 [Thread-143] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:17:22.126 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:22
+[INFO ] 2022-10-30 13:17:22.126 [Thread-144] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:17:42.021 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:22
+[INFO ] 2022-10-30 13:17:42.024 [Thread-145] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:17:42.032 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:42
+[INFO ] 2022-10-30 13:17:42.035 [Thread-146] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:17:42.043 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:42
+[INFO ] 2022-10-30 13:17:42.045 [Thread-147] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:17:42.047 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:42
+[INFO ] 2022-10-30 13:17:42.053 [Thread-148] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:17:45.127 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:42
+[INFO ] 2022-10-30 13:17:45.127 [Thread-149] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:17:45.137 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:45
+[INFO ] 2022-10-30 13:17:45.137 [Thread-150] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:17:45.146 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:45
+[INFO ] 2022-10-30 13:17:45.148 [Thread-151] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:17:45.155 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:45
+[INFO ] 2022-10-30 13:17:45.159 [Thread-152] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:17:47.968 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:45
+[INFO ] 2022-10-30 13:17:47.968 [Thread-153] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:17:47.978 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:47
+[INFO ] 2022-10-30 13:17:47.978 [Thread-154] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:17:47.985 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:47
+[INFO ] 2022-10-30 13:17:47.988 [Thread-155] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:17:47.995 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:47
+[INFO ] 2022-10-30 13:17:47.997 [Thread-156] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:17:51.277 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:47
+[INFO ] 2022-10-30 13:17:51.278 [Thread-157] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:17:51.286 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:51
+[INFO ] 2022-10-30 13:17:51.287 [Thread-158] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:17:51.295 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:51
+[INFO ] 2022-10-30 13:17:51.297 [Thread-159] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:17:51.305 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:51
+[INFO ] 2022-10-30 13:17:51.306 [Thread-160] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:17:54.100 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:51
+[INFO ] 2022-10-30 13:17:54.103 [Thread-161] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:17:54.108 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:54
+[INFO ] 2022-10-30 13:17:54.113 [Thread-162] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:17:54.117 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:54
+[INFO ] 2022-10-30 13:17:54.117 [Thread-163] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:17:54.129 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:54
+[INFO ] 2022-10-30 13:17:54.129 [Thread-164] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:17:56.531 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:54
+[INFO ] 2022-10-30 13:17:56.534 [Thread-165] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:17:56.537 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:56
+[INFO ] 2022-10-30 13:17:56.541 [Thread-166] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:17:58.393 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:56
+[INFO ] 2022-10-30 13:17:58.395 [Thread-167] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:00.223 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:17:58
+[INFO ] 2022-10-30 13:18:00.224 [Thread-168] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:18:00.233 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:00
+[INFO ] 2022-10-30 13:18:00.235 [Thread-169] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:18:00.240 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:00
+[INFO ] 2022-10-30 13:18:00.243 [Thread-170] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:00.250 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:00
+[INFO ] 2022-10-30 13:18:00.251 [Thread-171] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:18:19.984 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:00
+[INFO ] 2022-10-30 13:18:19.984 [Thread-172] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:18:19.995 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:19
+[INFO ] 2022-10-30 13:18:19.996 [Thread-173] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:18:21.000 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:19
+[INFO ] 2022-10-30 13:18:21.003 [Thread-174] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:22.437 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:21
+[INFO ] 2022-10-30 13:18:22.441 [Thread-175] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:18:22.449 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:22
+[INFO ] 2022-10-30 13:18:22.449 [Thread-176] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:18:22.457 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:22
+[INFO ] 2022-10-30 13:18:22.457 [Thread-177] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:22.465 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:22
+[INFO ] 2022-10-30 13:18:22.467 [Thread-178] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:18:29.366 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:22
+[INFO ] 2022-10-30 13:18:29.366 [Thread-179] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:18:29.378 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:29
+[INFO ] 2022-10-30 13:18:29.379 [Thread-180] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:18:29.385 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:29
+[INFO ] 2022-10-30 13:18:29.385 [Thread-181] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:29.394 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:29
+[INFO ] 2022-10-30 13:18:29.395 [Thread-182] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:18:33.247 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:29
+[INFO ] 2022-10-30 13:18:33.248 [Thread-183] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:18:33.255 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:33
+[INFO ] 2022-10-30 13:18:33.257 [Thread-184] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:18:33.263 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:33
+[INFO ] 2022-10-30 13:18:33.265 [Thread-185] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:33.265 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:33
+[INFO ] 2022-10-30 13:18:33.272 [Thread-186] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:18:38.123 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:33
+[INFO ] 2022-10-30 13:18:38.124 [Thread-187] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:18:38.131 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:38
+[INFO ] 2022-10-30 13:18:38.133 [Thread-188] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:18:38.138 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:38
+[INFO ] 2022-10-30 13:18:38.140 [Thread-189] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:38.147 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:38
+[INFO ] 2022-10-30 13:18:38.149 [Thread-190] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:18:41.958 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:38
+[INFO ] 2022-10-30 13:18:41.958 [Thread-191] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:18:41.964 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:41
+[INFO ] 2022-10-30 13:18:41.967 [Thread-192] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:18:41.973 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:41
+[INFO ] 2022-10-30 13:18:41.975 [Thread-193] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:18:41.975 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:41
+[INFO ] 2022-10-30 13:18:41.982 [Thread-194] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:19:09.963 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:18:41
+[INFO ] 2022-10-30 13:19:09.974 [Thread-195] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:19:11.520 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:09
+[INFO ] 2022-10-30 13:19:11.523 [Thread-196] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:19:11.534 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:11
+[INFO ] 2022-10-30 13:19:11.540 [Thread-197] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:19:11.545 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:11
+[INFO ] 2022-10-30 13:19:11.545 [Thread-198] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:19:11.565 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:11
+[INFO ] 2022-10-30 13:19:11.568 [Thread-199] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:19:19.431 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:11
+[INFO ] 2022-10-30 13:19:19.433 [Thread-200] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:19:19.433 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:19
+[INFO ] 2022-10-30 13:19:19.442 [Thread-201] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:19:19.445 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:19
+[INFO ] 2022-10-30 13:19:19.445 [Thread-202] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:19:19.456 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:19
+[INFO ] 2022-10-30 13:19:19.459 [Thread-203] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:19:25.545 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:19
+[INFO ] 2022-10-30 13:19:25.546 [Thread-204] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:19:39.407 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:25
+[INFO ] 2022-10-30 13:19:39.407 [Thread-205] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:19:39.419 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:39
+[INFO ] 2022-10-30 13:19:39.423 [Thread-206] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:19:39.429 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:39
+[INFO ] 2022-10-30 13:19:39.429 [Thread-207] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:19:39.434 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:39
+[INFO ] 2022-10-30 13:19:39.443 [Thread-208] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:25:31.133 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:19:39
+[INFO ] 2022-10-30 13:25:31.145 [Thread-209] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:25:32.645 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:25:31
+[INFO ] 2022-10-30 13:25:32.648 [Thread-210] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:25:32.675 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:25:32
+[INFO ] 2022-10-30 13:25:32.676 [Thread-211] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:25:32.706 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:25:32
+[INFO ] 2022-10-30 13:25:32.709 [Thread-212] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:25:32.724 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:25:32
+[INFO ] 2022-10-30 13:25:32.728 [Thread-213] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:26:16.104 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:25:32
+[INFO ] 2022-10-30 13:26:16.123 [Thread-214] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:26:17.765 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:16
+[INFO ] 2022-10-30 13:26:17.765 [Thread-215] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:26:17.784 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:17
+[INFO ] 2022-10-30 13:26:17.784 [Thread-216] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:26:17.795 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:17
+[INFO ] 2022-10-30 13:26:17.803 [Thread-217] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:26:17.814 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:17
+[INFO ] 2022-10-30 13:26:17.814 [Thread-218] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:26:47.165 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:17
+[INFO ] 2022-10-30 13:26:47.165 [Thread-219] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:26:47.175 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:47
+[INFO ] 2022-10-30 13:26:47.176 [Thread-220] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:26:47.181 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:47
+[INFO ] 2022-10-30 13:26:47.181 [Thread-221] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:26:47.188 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:47
+[INFO ] 2022-10-30 13:26:47.190 [Thread-222] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:29:10.738 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:26:47
+[INFO ] 2022-10-30 13:29:10.744 [Thread-223] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:29:17.225 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:29:10
+[INFO ] 2022-10-30 13:29:17.225 [Thread-224] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:29:37.185 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:29:17
+[INFO ] 2022-10-30 13:29:37.195 [Thread-225] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:29:38.933 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:29:37
+[INFO ] 2022-10-30 13:29:38.935 [Thread-226] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:29:38.954 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:29:38
+[INFO ] 2022-10-30 13:29:38.955 [Thread-227] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:29:38.965 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:29:38
+[INFO ] 2022-10-30 13:29:38.973 [Thread-228] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:29:38.984 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:29:38
+[INFO ] 2022-10-30 13:29:38.985 [Thread-229] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:30:00.613 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:29:38
+[INFO ] 2022-10-30 13:30:00.622 [Thread-230] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:30:03.745 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:30:00
+[INFO ] 2022-10-30 13:30:03.746 [Thread-231] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:30:03.762 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:30:03
+[INFO ] 2022-10-30 13:30:03.764 [Thread-232] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:30:03.774 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:30:03
+[INFO ] 2022-10-30 13:30:03.783 [Thread-233] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:30:03.794 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:30:03
+[INFO ] 2022-10-30 13:30:03.796 [Thread-234] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:33:12.968 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:30:03
+[INFO ] 2022-10-30 13:33:12.983 [Thread-235] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:33:15.905 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:33:12
+[INFO ] 2022-10-30 13:33:15.908 [Thread-236] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:33:18.474 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:33:15
+[INFO ] 2022-10-30 13:33:18.479 [Thread-237] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:33:21.004 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:33:18
+[INFO ] 2022-10-30 13:33:21.005 [Thread-238] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:33:28.034 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:33:21
+[INFO ] 2022-10-30 13:33:28.037 [Thread-239] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:34:18.618 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:33:28
+[INFO ] 2022-10-30 13:34:18.627 [Thread-240] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:34:20.660 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:34:18
+[INFO ] 2022-10-30 13:34:20.661 [Thread-241] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:34:22.456 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:34:20
+[INFO ] 2022-10-30 13:34:22.456 [Thread-242] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:35:07.490 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:34:22
+[INFO ] 2022-10-30 13:35:07.503 [Thread-243] Server - Requested action: View Employees
+[INFO ] 2022-10-30 13:35:08.135 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:35:07
+[INFO ] 2022-10-30 13:35:08.135 [Thread-244] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:35:51.395 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:35:08
+[INFO ] 2022-10-30 13:35:51.404 [Thread-245] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:35:53.466 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:35:51
+[INFO ] 2022-10-30 13:35:53.466 [Thread-246] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:35:53.489 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:35:53
+[INFO ] 2022-10-30 13:35:53.493 [Thread-247] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:35:53.506 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:35:53
+[INFO ] 2022-10-30 13:35:53.507 [Thread-248] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:36:30.965 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:35:53
+[INFO ] 2022-10-30 13:36:30.965 [Thread-249] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:36:30.978 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:30
+[INFO ] 2022-10-30 13:36:30.978 [Thread-250] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:36:30.994 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:30
+[INFO ] 2022-10-30 13:36:30.995 [Thread-251] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:36:31.002 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:30
+[INFO ] 2022-10-30 13:36:31.003 [Thread-252] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:36:38.495 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:31
+[INFO ] 2022-10-30 13:36:38.495 [Thread-253] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:36:40.943 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:38
+[INFO ] 2022-10-30 13:36:40.944 [Thread-254] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:36:42.243 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:40
+[INFO ] 2022-10-30 13:36:42.243 [Thread-255] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:36:48.808 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:42
+[INFO ] 2022-10-30 13:36:48.815 [Thread-256] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:36:51.783 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:48
+[INFO ] 2022-10-30 13:36:51.784 [Thread-257] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:36:54.795 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:51
+[INFO ] 2022-10-30 13:36:54.795 [Thread-258] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:37:12.583 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:36:54
+[INFO ] 2022-10-30 13:37:12.585 [Thread-259] Server - Requested action: View Inventory Item
+[INFO ] 2022-10-30 13:37:12.635 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:12
+[INFO ] 2022-10-30 13:37:12.641 [Thread-260] Server - Requested action: View Inventory Item
+[INFO ] 2022-10-30 13:37:12.649 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:12
+[INFO ] 2022-10-30 13:37:12.651 [Thread-261] Server - Requested action: Find Product
+[INFO ] 2022-10-30 13:37:19.793 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:12
+[INFO ] 2022-10-30 13:37:19.795 [Thread-262] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:37:21.168 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:19
+[INFO ] 2022-10-30 13:37:21.171 [Thread-263] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:37:21.177 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:21
+[INFO ] 2022-10-30 13:37:21.178 [Thread-264] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:37:21.183 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:21
+[INFO ] 2022-10-30 13:37:21.185 [Thread-265] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:37:21.191 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:21
+[INFO ] 2022-10-30 13:37:21.193 [Thread-266] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:38:41.889 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:37:21
+[INFO ] 2022-10-30 13:38:41.903 [Thread-267] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:38:43.335 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:41
+[INFO ] 2022-10-30 13:38:43.341 [Thread-268] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:38:43.359 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:43
+[INFO ] 2022-10-30 13:38:43.360 [Thread-269] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:38:43.377 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:43
+[INFO ] 2022-10-30 13:38:43.377 [Thread-270] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:38:43.390 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:43
+[INFO ] 2022-10-30 13:38:43.393 [Thread-271] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:38:56.387 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:43
+[INFO ] 2022-10-30 13:38:56.387 [Thread-272] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:38:57.220 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:56
+[INFO ] 2022-10-30 13:38:57.220 [Thread-273] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:38:57.759 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:57
+[INFO ] 2022-10-30 13:38:57.759 [Thread-274] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:40:34.138 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:38:57
+[INFO ] 2022-10-30 13:40:34.148 [Thread-275] Server - Requested action: View Customers
+[INFO ] 2022-10-30 13:40:38.513 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:34
+[INFO ] 2022-10-30 13:40:38.515 [Thread-276] Server - Requested action: View Employees
+[INFO ] 2022-10-30 13:40:39.689 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:38
+[INFO ] 2022-10-30 13:40:39.690 [Thread-277] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:40:42.003 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:39
+[INFO ] 2022-10-30 13:40:42.003 [Thread-278] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:40:42.823 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:42
+[INFO ] 2022-10-30 13:40:42.824 [Thread-279] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:40:43.994 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:42
+[INFO ] 2022-10-30 13:40:43.994 [Thread-280] Server - Requested action: View Products
+[INFO ] 2022-10-30 13:40:44.775 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:43
+[INFO ] 2022-10-30 13:40:44.777 [Thread-281] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:40:48.219 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:44
+[INFO ] 2022-10-30 13:40:48.223 [Thread-282] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:40:48.237 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:48
+[INFO ] 2022-10-30 13:40:48.237 [Thread-283] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:40:48.254 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:48
+[INFO ] 2022-10-30 13:40:48.255 [Thread-284] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:41:31.534 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:40:48
+[INFO ] 2022-10-30 13:41:31.544 [Thread-285] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:41:32.956 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:31
+[INFO ] 2022-10-30 13:41:32.957 [Thread-286] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:41:32.975 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:32
+[INFO ] 2022-10-30 13:41:32.975 [Thread-287] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:41:32.994 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:32
+[INFO ] 2022-10-30 13:41:32.995 [Thread-288] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:41:33.005 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:32
+[INFO ] 2022-10-30 13:41:33.010 [Thread-289] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:41:37.754 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:33
+[INFO ] 2022-10-30 13:41:37.754 [Thread-290] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:41:37.768 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:37
+[INFO ] 2022-10-30 13:41:37.768 [Thread-291] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:41:37.776 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:37
+[INFO ] 2022-10-30 13:41:37.776 [Thread-292] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:41:37.783 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:37
+[INFO ] 2022-10-30 13:41:37.784 [Thread-293] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:41:42.015 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:37
+[INFO ] 2022-10-30 13:41:42.015 [Thread-294] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:41:42.026 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:42
+[INFO ] 2022-10-30 13:41:42.028 [Thread-295] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:41:42.035 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:42
+[INFO ] 2022-10-30 13:41:42.035 [Thread-296] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:41:42.043 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:42
+[INFO ] 2022-10-30 13:41:42.043 [Thread-297] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:42:09.265 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:41:42
+[INFO ] 2022-10-30 13:42:09.289 [Thread-298] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:42:10.747 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:09
+[INFO ] 2022-10-30 13:42:10.747 [Thread-299] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:42:10.767 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:10
+[INFO ] 2022-10-30 13:42:10.769 [Thread-300] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:42:10.783 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:10
+[INFO ] 2022-10-30 13:42:10.785 [Thread-301] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:42:10.793 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:10
+[INFO ] 2022-10-30 13:42:10.797 [Thread-302] Server - Requested action: View Invoice Item
+[INFO ] 2022-10-30 13:42:31.725 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:10
+[INFO ] 2022-10-30 13:42:31.736 [Thread-303] Server - Requested action: View Invoices
+[INFO ] 2022-10-30 13:42:33.259 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:31
+[INFO ] 2022-10-30 13:42:33.259 [Thread-304] Server - Requested action: Find Invoice
+[INFO ] 2022-10-30 13:42:33.275 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:33
+[INFO ] 2022-10-30 13:42:33.283 [Thread-305] Server - Requested action: Find Customer
+[INFO ] 2022-10-30 13:42:33.303 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:33
+[INFO ] 2022-10-30 13:42:33.304 [Thread-306] Server - Requested action: Find Employee
+[INFO ] 2022-10-30 13:42:33.313 [main] Server - Client connected: 127.0.0.1 @ Sun, Oct 30 2022 13:42:33
+[INFO ] 2022-10-30 13:42:33.316 [Thread-307] Server - Requested action: View Invoice Item
