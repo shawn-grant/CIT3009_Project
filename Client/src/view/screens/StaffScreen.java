@@ -1,5 +1,6 @@
 package view.screens;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -38,6 +39,10 @@ public class StaffScreen extends BaseScreen implements ActionListener {
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
+        table.getTableHeader().setOpaque(false);//Remove header background
+        table.getTableHeader().setBackground(new Color(224, 224, 224));//Setting new background of table headings
+        table.setBackground(Color.white);
+        table.setForeground(Color.black);
     }
 
     private void setupListeners() {

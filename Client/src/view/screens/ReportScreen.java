@@ -196,7 +196,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
             String endDate = dateFormat.format(inventoryEnd.getId().getDateModified());
 
             reportTextArea.append("\n\nStock as at " + startDate + ": " + inventoryStart.getStock());
-            reportTextArea.append("\n\nUnit Cost as at " + startDate + ": $" + inventoryStart.getUnitPrice());
+            reportTextArea.append("\n\nUnit Cost as at " + startDate + ": $ " + inventoryStart.getUnitPrice());
 
             //Compare dates
             int compareDates = startDateField.getSelectedDate().compareTo(endDateField.getSelectedDate());
@@ -205,7 +205,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
                 reportTextArea.append("\n\n\nAmount Purchased: " + inventoryStart.getAmountPurchased());
             } else if (compareDates < 1) {
                 reportTextArea.append("\n\n\nStock as at " + endDate + ": " + inventoryEnd.getStock());
-                reportTextArea.append("\n\nUnit Cost as at " + endDate + ": $" + inventoryEnd.getUnitPrice());
+                reportTextArea.append("\n\nUnit Cost as at " + endDate + ": $ " + inventoryEnd.getUnitPrice());
                 reportTextArea.append("\n\n\nAmount Purchased: " +
                         (inventoryStart.getAmountPurchased() + inventoryEnd.getAmountPurchased()));
             } else {
@@ -232,7 +232,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
             // trigger system print dialog
             reportTextArea.print(new MessageFormat("REPORT | JANS WHOLESALE & RETAIL"), null);
         } catch (PrinterException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

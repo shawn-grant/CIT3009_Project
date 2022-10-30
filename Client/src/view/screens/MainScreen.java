@@ -152,43 +152,43 @@ public class MainScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == customerButton) {
+        if (e.getSource().equals(customerButton)) {
             rightPanel.removeAll();
             rightPanel.add(new CustomerScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
-        if (e.getSource() == staffButton) {
+        if (e.getSource().equals(staffButton)) {
             rightPanel.removeAll();
             rightPanel.add(new StaffScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
-        if (e.getSource() == inventoryButton) {
+        if (e.getSource().equals(inventoryButton)) {
             rightPanel.removeAll();
             rightPanel.add(new InventoryScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
-        if (e.getSource() == checkOutButton) {
+        if (e.getSource().equals(checkOutButton)) {
             rightPanel.removeAll();
             rightPanel.add(new CheckoutScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
-        if (e.getSource() == invoiceButton) {
+        if (e.getSource().equals(invoiceButton)) {
             rightPanel.removeAll();
             rightPanel.add(new InvoiceScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
-        if (e.getSource() == reportButton) {
+        if (e.getSource().equals(reportButton)) {
             rightPanel.removeAll();
             rightPanel.add(new ReportScreen());
             rightPanel.repaint();
             rightPanel.revalidate();
         }
-        if (e.getSource() == exitButton) {
+        if (e.getSource().equals(exitButton)) {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception ex) {

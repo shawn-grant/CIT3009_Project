@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -46,6 +47,10 @@ public class InventoryScreen extends BaseScreen implements ActionListener {
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
+        table.getTableHeader().setOpaque(false);//Remove header background
+        table.getTableHeader().setBackground(new Color(224, 224, 224));//Setting new background of table headings
+        table.setBackground(Color.white);
+        table.setForeground(Color.black);
     }
 
     // set main content view

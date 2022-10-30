@@ -65,7 +65,7 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
         addComponentsToPanels();
         setContentView();
         addPanelsToWindow();
-        registerListeners();
+        setupListeners();
     }
 
     private void initializeComponents() {
@@ -513,7 +513,7 @@ public class CheckoutScreen extends BaseScreen implements ActionListener {
     }
 
     //Registering Button Listeners
-    public void registerListeners() {
+    public void setupListeners() {
         searchButton.addActionListener(this);
         addButton.addActionListener(this);
         deleteButton.addActionListener(this);
