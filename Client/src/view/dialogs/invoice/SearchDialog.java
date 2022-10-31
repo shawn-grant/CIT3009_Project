@@ -191,9 +191,9 @@ public class SearchDialog extends JDialog implements ActionListener {
 
 	private void initializeComponents() {
 		// Label properties
-		invoiceCodeLabel = new JLabel("Invoice Code");
+		invoiceCodeLabel = new JLabel("Invoice Number");
 		invoiceCodeLabel.setFont(new Font("arial", Font.BOLD, 14));
-		invoiceCodeLabel.setPreferredSize(new Dimension(100, 20));
+		invoiceCodeLabel.setPreferredSize(new Dimension(120, 20));
 
 		// Field properties
 		InvoiceField = new JTextField();
@@ -219,7 +219,7 @@ public class SearchDialog extends JDialog implements ActionListener {
 
 	private void setWindowProperties() {
 		setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
-		setTitle("Search Invoice");
+		setTitle("Search Invoices");
 		setSize(350, 90);
 		setLocationRelativeTo(null);
 		setResizable(false);
