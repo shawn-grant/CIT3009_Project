@@ -72,6 +72,10 @@ public class InvoiceScreen extends BaseScreen implements ActionListener {
         table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(true); //Enable sorting by columns
+        table.getTableHeader().setOpaque(false);//Remove header background
+        table.getTableHeader().setBackground(new Color(224, 224, 224));//Setting new background of table headings
+        table.setBackground(Color.white);
+        table.setForeground(Color.black);
 
         viewButton = new JButton("View");
         viewButton.setPreferredSize(new Dimension(120, 30));
