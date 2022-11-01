@@ -11,6 +11,8 @@ Project Definition: `./Project_Definition.pdf`
 
 UML Diagrams: https://drive.google.com/file/d/1nw7RqZm-k8h3IO4vLzLOyIuLJ322Bvsv/view?usp=sharing
 
+Staff Manual: https://docs.google.com/document/d/1ChtXZuNVGf1bK_MVr2mjnBDxAlmoVMK6v4vny6-PQ2A/edit?usp=sharing
+
 # Project Setup & installation
 
 - JDK 18 or higher
