@@ -3,23 +3,22 @@ package models;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Malik Heron
  */
 @Embeddable
-public class InvoiceItemId implements Serializable {
+public class PurchaseId implements Serializable {
 
     @Column(name = "invoice_number")
     private int invoiceNumber;
     @Column(name = "item_name")
     private String itemName;
 
-    public InvoiceItemId() {
+    public PurchaseId() {
     }
 
-    public InvoiceItemId(int invoiceNumber, String itemName) {
+    public PurchaseId(int invoiceNumber, String itemName) {
         setInvoiceNumber(invoiceNumber);
         setItemName(itemName);
     }

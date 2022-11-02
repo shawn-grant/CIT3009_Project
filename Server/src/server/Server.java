@@ -228,12 +228,12 @@ public class Server {
         }
     }
 
-    public void addInvoiceItemData(List<InvoiceItem> invoiceItemList) throws IOException {
+    public void addPurchaseData(List<Purchase> purchaseList) throws IOException {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
-            for (InvoiceItem invoiceItem : invoiceItemList) {
-                session.save(invoiceItem);
+            for (Purchase purchase : purchaseList) {
+                session.save(purchase);
             }
             transaction.commit();
             objOs.writeObject(true);
@@ -580,13 +580,13 @@ public class Server {
         return invoiceList;
     }
 
-    private List<InvoiceItem> getInvoiceItemList(int invoiceNum) {
-        List<InvoiceItem> invoiceItemList = null;
+    private List<Purchase> getPurchaseList(int invoiceNum) {
+        List<Purchase> purchaseList = null;
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
-            String hql = "FROM invoiceItem WHERE id.invoiceNumber = " + invoiceNum;
-            invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
+            String hql = "FROM purchase WHERE id.invoiceNumber = " + invoiceNum;
+            purchaseList = (List<Purchase>) session.createQuery(hql).getResultList();
             transaction.commit();
         } catch (HibernateException e) {
             logger.error("HibernateException: " + e.getMessage());
@@ -599,7 +599,7 @@ public class Server {
         } finally {
             session.close();
         }
-        return invoiceItemList;
+        return purchaseList;
     }
 
     /**
@@ -695,11 +695,11 @@ public class Server {
         try {
             Invoice invoice = session.get(Invoice.class, invoiceNum);
             session.delete(invoice);
-            //Remove invoice items
-            String hql = "FROM invoiceItem WHERE id.invoiceNumber = " + invoiceNum;
-            List<InvoiceItem> invoiceItemList = (List<InvoiceItem>) session.createQuery(hql).getResultList();
-            for (InvoiceItem invoiceItem : invoiceItemList) {
-                session.delete(invoiceItem);
+            //Remove purchase
+            String hql = "FROM purchase WHERE id.invoiceNumber = " + invoiceNum;
+            List<Purchase> purchaseList = (List<Purchase>) session.createQuery(hql).getResultList();
+            for (Purchase purchase : purchaseList) {
+                session.delete(purchase);
             }
             transaction.commit();
             objOs.writeObject(true);
@@ -829,14 +829,14 @@ public class Server {
                     int invoiceNum = (int) objIs.readObject();
                     removeInvoiceData(invoiceNum);
                 }
-                if (action.equals("Add Invoice Item")) {
-                    List<InvoiceItem> invoiceItemList = (List<InvoiceItem>) objIs.readObject();
-                    addInvoiceItemData(invoiceItemList);
+                if (action.equals("Add Purchase")) {
+                    List<Purchase> purchaseList = (List<Purchase>) objIs.readObject();
+                    addPurchaseData(purchaseList);
                 }
-                if (action.equals("View Invoice Item")) {
+                if (action.equals("View Purchase")) {
                     int invoiceNum = (int) objIs.readObject();
-                    List<InvoiceItem> invoiceItemList = getInvoiceItemList(invoiceNum);
-                    for (InvoiceItem itemList : invoiceItemList) {
+                    List<Purchase> purchaseList = getPurchaseList(invoiceNum);
+                    for (Purchase itemList : purchaseList) {
                         objOs.writeObject(itemList);
                     }
                 }

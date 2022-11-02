@@ -1267,3 +1267,523 @@ Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:27:36
 [INFO ] 2022-10-31 10:36:30.833 [main] Server - Client connected: 127.0.0.1 @ Mon, Oct 31 2022 10:36:24
 [INFO ] 2022-10-31 10:36:30.834 [Thread-26] Server - Requested action: View Products
 [WARN ] 2022-10-31 10:36:49.679 [main] Server - SocketException: socket closed
+[INFO ] 2022-11-02 07:10:46.385 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 07:10:46
+[WARN ] 2022-11-02 07:10:46.401 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 07:10:46.417 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 07:10:46.417 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 07:10:46.417 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 07:10:46.417 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 07:10:46.417 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-11-02 07:10:46.417 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 07:10:46.658 [main] Server - Sever is running
+[INFO ] 2022-11-02 07:10:48.718 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:10:46
+[INFO ] 2022-11-02 07:10:48.733 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:10:52.655 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:10:48
+[INFO ] 2022-11-02 07:10:52.655 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:10:52.671 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:10:52
+[INFO ] 2022-11-02 07:10:52.671 [Thread-5] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:10:52.686 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:10:52
+[INFO ] 2022-11-02 07:10:52.686 [Thread-6] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:10:52.702 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:10:52
+[INFO ] 2022-11-02 07:10:52.702 [Thread-7] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:22:36.509 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:10:52
+[INFO ] 2022-11-02 07:22:36.509 [Thread-8] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:22:39.370 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:22:36
+[INFO ] 2022-11-02 07:22:39.370 [Thread-9] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:22:39.386 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:22:39
+[INFO ] 2022-11-02 07:22:39.386 [Thread-10] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:22:39.386 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:22:39
+[INFO ] 2022-11-02 07:22:39.401 [Thread-11] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:22:39.401 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:22:39
+[INFO ] 2022-11-02 07:22:39.401 [Thread-12] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:34:39.994 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:22:39
+[INFO ] 2022-11-02 07:34:40.010 [Thread-13] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:34:42.110 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:34:39
+[INFO ] 2022-11-02 07:34:42.110 [Thread-14] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:34:42.126 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:34:42
+[INFO ] 2022-11-02 07:34:42.126 [Thread-15] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:34:42.129 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:34:42
+[INFO ] 2022-11-02 07:34:42.129 [Thread-16] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:34:42.142 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:34:42
+[INFO ] 2022-11-02 07:34:42.142 [Thread-17] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:36:08.070 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:34:42
+[INFO ] 2022-11-02 07:36:08.085 [Thread-18] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:36:09.674 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:36:08
+[INFO ] 2022-11-02 07:36:09.674 [Thread-19] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:36:09.690 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:36:09
+[INFO ] 2022-11-02 07:36:09.690 [Thread-20] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:36:09.690 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:36:09
+[INFO ] 2022-11-02 07:36:09.690 [Thread-21] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:36:09.737 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:36:09
+[INFO ] 2022-11-02 07:36:09.737 [Thread-22] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:37:11.455 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:36:09
+[INFO ] 2022-11-02 07:37:11.471 [Thread-23] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:37:14.976 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:37:11
+[INFO ] 2022-11-02 07:37:14.976 [Thread-24] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:37:14.992 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:37:14
+[INFO ] 2022-11-02 07:37:14.992 [Thread-25] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:37:15.008 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:37:14
+[INFO ] 2022-11-02 07:37:15.008 [Thread-26] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:37:15.008 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:37:15
+[INFO ] 2022-11-02 07:37:15.008 [Thread-27] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:40:36.114 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:37:15
+[INFO ] 2022-11-02 07:40:36.129 [Thread-28] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:40:38.032 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:40:36
+[INFO ] 2022-11-02 07:40:38.032 [Thread-29] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:40:38.048 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:40:38
+[INFO ] 2022-11-02 07:40:38.048 [Thread-30] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:40:38.063 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:40:38
+[INFO ] 2022-11-02 07:40:38.063 [Thread-31] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:40:38.063 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:40:38
+[INFO ] 2022-11-02 07:40:38.079 [Thread-32] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:41:34.258 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:40:38
+[INFO ] 2022-11-02 07:41:34.274 [Thread-33] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:41:36.170 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:41:34
+[INFO ] 2022-11-02 07:41:36.170 [Thread-34] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:41:36.186 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:41:36
+[INFO ] 2022-11-02 07:41:36.186 [Thread-35] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:41:36.201 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:41:36
+[INFO ] 2022-11-02 07:41:36.201 [Thread-36] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:41:36.201 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:41:36
+[INFO ] 2022-11-02 07:41:36.201 [Thread-37] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:54:25.001 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:41:36
+[INFO ] 2022-11-02 07:54:25.001 [Thread-38] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:54:28.548 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:54:25
+[INFO ] 2022-11-02 07:54:28.564 [Thread-39] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:54:28.564 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:54:28
+[INFO ] 2022-11-02 07:54:28.564 [Thread-40] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:54:28.580 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:54:28
+[INFO ] 2022-11-02 07:54:28.580 [Thread-41] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:54:28.595 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:54:28
+[INFO ] 2022-11-02 07:54:28.595 [Thread-42] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 07:57:08.060 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:54:28
+[INFO ] 2022-11-02 07:57:08.075 [Thread-43] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 07:57:10.521 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:57:08
+[INFO ] 2022-11-02 07:57:10.521 [Thread-44] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 07:57:10.537 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:57:10
+[INFO ] 2022-11-02 07:57:10.537 [Thread-45] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 07:57:10.552 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:57:10
+[INFO ] 2022-11-02 07:57:10.552 [Thread-46] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 07:57:10.569 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 07:57:10
+[INFO ] 2022-11-02 07:57:10.569 [Thread-47] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:00:33.750 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 08:00:33
+[WARN ] 2022-11-02 08:00:33.766 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 08:00:33.766 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 08:00:33.766 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 08:00:33.766 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 08:00:33.766 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 08:00:33.766 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-11-02 08:00:33.766 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 08:00:33.953 [main] Server - Sever is running
+[INFO ] 2022-11-02 08:00:37.947 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:00:33
+[INFO ] 2022-11-02 08:00:37.962 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:00:42.799 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:00:37
+[INFO ] 2022-11-02 08:00:42.799 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:00:42.815 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:00:42
+[INFO ] 2022-11-02 08:00:42.815 [Thread-5] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:00:42.831 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:00:42
+[INFO ] 2022-11-02 08:00:42.846 [Thread-6] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:00:42.894 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:00:42
+[INFO ] 2022-11-02 08:00:42.909 [Thread-7] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:01:31.518 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 08:01:31
+[WARN ] 2022-11-02 08:01:31.534 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 08:01:31.534 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 08:01:31.534 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 08:01:31.534 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 08:01:31.534 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 08:01:31.534 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-11-02 08:01:31.534 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 08:01:31.716 [main] Server - Sever is running
+[INFO ] 2022-11-02 08:01:41.412 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:01:31
+[INFO ] 2022-11-02 08:01:41.427 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:01:45.384 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:01:41
+[INFO ] 2022-11-02 08:01:45.384 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:01:45.401 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:01:45
+[INFO ] 2022-11-02 08:01:45.401 [Thread-5] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:01:45.416 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:01:45
+[INFO ] 2022-11-02 08:01:45.416 [Thread-6] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:01:45.431 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:01:45
+[INFO ] 2022-11-02 08:01:45.431 [Thread-7] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:02:37.286 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:01:45
+[INFO ] 2022-11-02 08:02:37.286 [Thread-8] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:02:39.632 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:02:37
+[INFO ] 2022-11-02 08:02:39.632 [Thread-9] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:02:39.648 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:02:39
+[INFO ] 2022-11-02 08:02:39.648 [Thread-10] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:02:39.663 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:02:39
+[INFO ] 2022-11-02 08:02:39.663 [Thread-11] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:02:39.663 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:02:39
+[INFO ] 2022-11-02 08:02:39.663 [Thread-12] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:16:41.840 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:02:39
+[INFO ] 2022-11-02 08:16:41.852 [Thread-13] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:16:45.349 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:16:41
+[INFO ] 2022-11-02 08:16:45.349 [Thread-14] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:16:45.354 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:16:45
+[INFO ] 2022-11-02 08:16:45.354 [Thread-15] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:16:45.369 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:16:45
+[INFO ] 2022-11-02 08:16:45.369 [Thread-16] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:16:45.385 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:16:45
+[INFO ] 2022-11-02 08:16:45.385 [Thread-17] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:22:14.405 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:16:45
+[INFO ] 2022-11-02 08:22:14.405 [Thread-18] Server - Requested action: View Products
+[INFO ] 2022-11-02 08:22:15.315 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:14
+[INFO ] 2022-11-02 08:22:15.315 [Thread-19] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:22:17.674 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:15
+[INFO ] 2022-11-02 08:22:17.689 [Thread-20] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:22:17.689 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:17
+[INFO ] 2022-11-02 08:22:17.689 [Thread-21] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:22:17.705 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:17
+[INFO ] 2022-11-02 08:22:17.705 [Thread-22] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:22:17.721 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:17
+[INFO ] 2022-11-02 08:22:17.721 [Thread-23] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:22:28.096 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:17
+[INFO ] 2022-11-02 08:22:28.096 [Thread-24] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:22:28.112 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:28
+[INFO ] 2022-11-02 08:22:28.112 [Thread-25] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:22:28.112 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:28
+[INFO ] 2022-11-02 08:22:28.112 [Thread-26] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:22:28.112 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:28
+[INFO ] 2022-11-02 08:22:28.112 [Thread-27] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:24:03.794 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:22:28
+[INFO ] 2022-11-02 08:24:03.794 [Thread-28] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:24:06.100 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:03
+[INFO ] 2022-11-02 08:24:06.100 [Thread-29] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:24:06.116 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:06
+[INFO ] 2022-11-02 08:24:06.116 [Thread-30] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:24:06.116 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:06
+[INFO ] 2022-11-02 08:24:06.116 [Thread-31] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:24:06.131 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:06
+[INFO ] 2022-11-02 08:24:06.131 [Thread-32] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:24:52.106 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:06
+[INFO ] 2022-11-02 08:24:52.107 [Thread-33] Server - Requested action: View Products
+[INFO ] 2022-11-02 08:24:54.948 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:52
+[INFO ] 2022-11-02 08:24:54.951 [Thread-34] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:24:58.341 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:54
+[INFO ] 2022-11-02 08:24:58.344 [Thread-35] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:01.740 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:24:58
+[INFO ] 2022-11-02 08:25:01.744 [Thread-36] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:09.720 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:01
+[INFO ] 2022-11-02 08:25:09.723 [Thread-37] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:16.518 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:09
+[INFO ] 2022-11-02 08:25:16.521 [Thread-38] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:27.013 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:16
+[INFO ] 2022-11-02 08:25:27.015 [Thread-39] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:40.939 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:27
+[INFO ] 2022-11-02 08:25:40.942 [Thread-40] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:25:40.956 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:40
+[INFO ] 2022-11-02 08:25:40.957 [Thread-41] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:40.972 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:40
+[INFO ] 2022-11-02 08:25:40.972 [Thread-42] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:40.972 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:40
+[INFO ] 2022-11-02 08:25:40.972 [Thread-43] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:40.972 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:40
+[INFO ] 2022-11-02 08:25:40.972 [Thread-44] Server - Requested action: Find Product
+[INFO ] 2022-11-02 08:25:47.012 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:40
+[INFO ] 2022-11-02 08:25:47.012 [Thread-45] Server - Requested action: Update Product
+[INFO ] 2022-11-02 08:25:48.284 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:47
+[INFO ] 2022-11-02 08:25:48.284 [Thread-46] Server - Requested action: Update Product
+[INFO ] 2022-11-02 08:25:49.068 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:48
+[INFO ] 2022-11-02 08:25:49.068 [Thread-47] Server - Requested action: Update Product
+[INFO ] 2022-11-02 08:25:49.786 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:49
+[INFO ] 2022-11-02 08:25:49.786 [Thread-48] Server - Requested action: Update Product
+[INFO ] 2022-11-02 08:25:50.508 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:49
+[INFO ] 2022-11-02 08:25:50.508 [Thread-49] Server - Requested action: Add Invoice
+[INFO ] 2022-11-02 08:25:52.108 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:50
+[INFO ] 2022-11-02 08:25:52.108 [Thread-50] Server - Requested action: Add Invoice Item
+[INFO ] 2022-11-02 08:25:53.068 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:52
+[INFO ] 2022-11-02 08:25:53.068 [Thread-51] Server - Requested action: Update Inventory
+[INFO ] 2022-11-02 08:25:56.466 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:53
+[INFO ] 2022-11-02 08:25:56.467 [Thread-52] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:26:00.284 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:25:56
+[INFO ] 2022-11-02 08:26:00.286 [Thread-53] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:26:00.293 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:26:00
+[INFO ] 2022-11-02 08:26:00.293 [Thread-54] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:26:00.293 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:26:00
+[INFO ] 2022-11-02 08:26:00.293 [Thread-55] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:26:55.808 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:26:00
+[INFO ] 2022-11-02 08:26:55.827 [Thread-56] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:26:58.366 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:26:55
+[INFO ] 2022-11-02 08:26:58.366 [Thread-57] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:26:58.382 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:26:58
+[INFO ] 2022-11-02 08:26:58.382 [Thread-58] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:26:58.397 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:26:58
+[INFO ] 2022-11-02 08:26:58.397 [Thread-59] Server - Requested action: View Invoice Item
+[WARN ] 2022-11-02 08:28:22.834 [main] Server - SocketException: socket closed
+[INFO ] 2022-11-02 08:32:30.253 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 08:32:30
+[WARN ] 2022-11-02 08:32:30.284 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 08:32:30.284 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 08:32:30.284 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 08:32:30.284 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 08:32:30.284 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 08:32:30.284 [main] DBConnectorFactory - SQLException: Table 'invoiceitem' already exists
+[WARN ] 2022-11-02 08:32:30.284 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 08:32:30.505 [main] Server - Sever is running
+[INFO ] 2022-11-02 08:32:38.335 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:32:30
+[INFO ] 2022-11-02 08:32:38.351 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:32:44.887 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:32:38
+[INFO ] 2022-11-02 08:32:44.887 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:32:44.918 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:32:44
+[INFO ] 2022-11-02 08:32:44.918 [Thread-5] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:32:44.934 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:32:44
+[INFO ] 2022-11-02 08:32:44.934 [Thread-6] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:32:44.934 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:32:44
+[INFO ] 2022-11-02 08:32:44.934 [Thread-7] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:33:24.156 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:32:44
+[INFO ] 2022-11-02 08:33:24.174 [Thread-8] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:33:26.157 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:24
+[INFO ] 2022-11-02 08:33:26.157 [Thread-9] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:33:26.173 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:26
+[INFO ] 2022-11-02 08:33:26.173 [Thread-10] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:33:26.188 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:26
+[INFO ] 2022-11-02 08:33:26.188 [Thread-11] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:33:26.204 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:26
+[INFO ] 2022-11-02 08:33:26.204 [Thread-12] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:33:40.594 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:26
+[INFO ] 2022-11-02 08:33:40.609 [Thread-13] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:33:42.461 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:40
+[INFO ] 2022-11-02 08:33:42.464 [Thread-14] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:33:42.477 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:42
+[INFO ] 2022-11-02 08:33:42.477 [Thread-15] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:33:42.477 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:42
+[INFO ] 2022-11-02 08:33:42.492 [Thread-16] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:33:42.492 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:42
+[INFO ] 2022-11-02 08:33:42.492 [Thread-17] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:33:57.024 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:42
+[INFO ] 2022-11-02 08:33:57.024 [Thread-18] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:33:59.030 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:57
+[INFO ] 2022-11-02 08:33:59.030 [Thread-19] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:33:59.046 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:59
+[INFO ] 2022-11-02 08:33:59.046 [Thread-20] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:33:59.062 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:59
+[INFO ] 2022-11-02 08:33:59.062 [Thread-21] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:33:59.077 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:59
+[INFO ] 2022-11-02 08:33:59.077 [Thread-22] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:34:12.859 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:33:59
+[INFO ] 2022-11-02 08:34:12.875 [Thread-23] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:34:14.657 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:34:12
+[INFO ] 2022-11-02 08:34:14.657 [Thread-24] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:34:14.673 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:34:14
+[INFO ] 2022-11-02 08:34:14.673 [Thread-25] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:34:14.688 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:34:14
+[INFO ] 2022-11-02 08:34:14.688 [Thread-26] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:34:14.704 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:34:14
+[INFO ] 2022-11-02 08:34:14.704 [Thread-27] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 08:35:52.111 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:34:14
+[INFO ] 2022-11-02 08:35:52.111 [Thread-28] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 08:35:56.178 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:35:52
+[INFO ] 2022-11-02 08:35:56.194 [Thread-29] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 08:35:56.194 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:35:56
+[INFO ] 2022-11-02 08:35:56.194 [Thread-30] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 08:35:56.209 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:35:56
+[INFO ] 2022-11-02 08:35:56.209 [Thread-31] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 08:35:56.225 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 08:35:56
+[INFO ] 2022-11-02 08:35:56.225 [Thread-32] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 12:43:31.756 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 12:43:31
+[WARN ] 2022-11-02 12:43:31.794 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 12:43:31.795 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 12:43:31.796 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 12:43:31.797 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 12:43:31.797 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 12:43:31.799 [main] DBConnectorFactory - SQLException: Table 'purchase' already exists
+[WARN ] 2022-11-02 12:43:31.800 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 12:43:32.100 [main] Server - Sever is running
+[INFO ] 2022-11-02 12:43:47.492 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:43:32
+[INFO ] 2022-11-02 12:43:47.523 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 12:43:54.475 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:43:47
+[INFO ] 2022-11-02 12:43:54.476 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:43:54.512 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:43:54
+[INFO ] 2022-11-02 12:43:54.515 [Thread-5] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 12:43:54.541 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:43:54
+[INFO ] 2022-11-02 12:43:54.542 [Thread-6] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:43:54.567 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:43:54
+[INFO ] 2022-11-02 12:43:54.569 [Thread-7] Server - Requested action: View Invoice Item
+[ERROR] 2022-11-02 12:43:54.577 [Thread-7] Server - Unexpected error: org.hibernate.hql.internal.ast.QuerySyntaxException: invoiceItem is not mapped [FROM invoiceItem WHERE id.invoiceNumber = 28793]
+[INFO ] 2022-11-02 12:44:43.269 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 12:44:43
+[WARN ] 2022-11-02 12:44:43.302 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 12:44:43.303 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 12:44:43.309 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 12:44:43.309 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 12:44:43.310 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 12:44:43.310 [main] DBConnectorFactory - SQLException: Table 'purchase' already exists
+[WARN ] 2022-11-02 12:44:43.311 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 12:44:43.552 [main] Server - Sever is running
+[INFO ] 2022-11-02 12:44:47.231 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:44:43
+[INFO ] 2022-11-02 12:44:47.251 [Thread-3] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:44:49.555 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:44:47
+[INFO ] 2022-11-02 12:44:49.556 [Thread-4] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 12:44:49.568 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:44:49
+[INFO ] 2022-11-02 12:44:49.569 [Thread-5] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:44:49.581 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:44:49
+[INFO ] 2022-11-02 12:44:49.582 [Thread-6] Server - Requested action: View Invoice Item
+[INFO ] 2022-11-02 12:48:26.959 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 12:48:26
+[WARN ] 2022-11-02 12:48:26.992 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 12:48:26.992 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 12:48:26.998 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 12:48:26.999 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 12:48:27.000 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 12:48:27.000 [main] DBConnectorFactory - SQLException: Table 'purchase' already exists
+[WARN ] 2022-11-02 12:48:27.001 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 12:48:27.216 [main] Server - Sever is running
+[INFO ] 2022-11-02 12:48:39.230 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:48:27
+[INFO ] 2022-11-02 12:48:39.247 [Thread-3] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:48:45.312 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:48:39
+[INFO ] 2022-11-02 12:48:45.314 [Thread-4] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:48:48.543 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:48:45
+[INFO ] 2022-11-02 12:48:48.545 [Thread-5] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:48:51.464 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:48:48
+[INFO ] 2022-11-02 12:48:51.465 [Thread-6] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:49:06.642 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:48:51
+[INFO ] 2022-11-02 12:49:06.643 [Thread-7] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:49:06.661 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:06
+[INFO ] 2022-11-02 12:49:06.663 [Thread-8] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 12:49:06.675 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:06
+[INFO ] 2022-11-02 12:49:06.676 [Thread-9] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:49:06.684 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:06
+[INFO ] 2022-11-02 12:49:06.686 [Thread-10] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:49:06.706 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:06
+[INFO ] 2022-11-02 12:49:06.709 [Thread-11] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 12:49:14.590 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:06
+[INFO ] 2022-11-02 12:49:14.591 [Thread-12] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 12:49:14.599 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:14
+[INFO ] 2022-11-02 12:49:14.601 [Thread-13] Server - Requested action: Update Product
+[INFO ] 2022-11-02 12:49:15.752 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:14
+[INFO ] 2022-11-02 12:49:15.754 [Thread-14] Server - Requested action: Update Product
+[INFO ] 2022-11-02 12:49:16.522 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:15
+[INFO ] 2022-11-02 12:49:16.524 [Thread-15] Server - Requested action: Add Invoice
+[INFO ] 2022-11-02 12:49:17.304 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:16
+[INFO ] 2022-11-02 12:49:17.306 [Thread-16] Server - Requested action: Add Purchase
+[INFO ] 2022-11-02 12:49:17.316 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:17
+[INFO ] 2022-11-02 12:49:17.317 [Thread-17] Server - Requested action: Update Inventory
+[INFO ] 2022-11-02 12:52:00.162 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:49:17
+[INFO ] 2022-11-02 12:52:00.170 [Thread-18] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:52:03.113 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:00
+[INFO ] 2022-11-02 12:52:03.115 [Thread-19] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:52:04.447 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:03
+[INFO ] 2022-11-02 12:52:04.448 [Thread-20] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:52:08.597 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:04
+[INFO ] 2022-11-02 12:52:08.599 [Thread-21] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:52:08.611 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:08
+[INFO ] 2022-11-02 12:52:08.612 [Thread-22] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:52:11.951 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:08
+[INFO ] 2022-11-02 12:52:11.952 [Thread-23] Server - Requested action: Update Product
+[INFO ] 2022-11-02 12:52:13.405 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:11
+[INFO ] 2022-11-02 12:52:13.407 [Thread-24] Server - Requested action: Add Invoice
+[INFO ] 2022-11-02 12:52:14.258 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:13
+[INFO ] 2022-11-02 12:52:14.259 [Thread-25] Server - Requested action: Add Purchase
+[INFO ] 2022-11-02 12:52:14.270 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:52:14
+[INFO ] 2022-11-02 12:52:14.272 [Thread-26] Server - Requested action: Update Inventory
+[INFO ] 2022-11-02 12:53:25.936 [main] DBConnectorFactory - DB Connection Established @ Wed, Nov 02 2022 12:53:25
+[WARN ] 2022-11-02 12:53:25.972 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-02 12:53:25.973 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-02 12:53:25.974 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-02 12:53:25.974 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-02 12:53:25.975 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-02 12:53:25.975 [main] DBConnectorFactory - SQLException: Table 'purchase' already exists
+[WARN ] 2022-11-02 12:53:25.977 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-02 12:53:26.305 [main] Server - Sever is running
+[INFO ] 2022-11-02 12:53:32.702 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:26
+[INFO ] 2022-11-02 12:53:32.728 [Thread-3] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 12:53:38.419 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:32
+[INFO ] 2022-11-02 12:53:38.421 [Thread-4] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:53:38.458 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:38
+[INFO ] 2022-11-02 12:53:38.460 [Thread-5] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:53:38.482 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:38
+[INFO ] 2022-11-02 12:53:38.484 [Thread-6] Server - Requested action: View Purchase
+[INFO ] 2022-11-02 12:53:43.027 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:38
+[INFO ] 2022-11-02 12:53:43.029 [Thread-7] Server - Requested action: Remove Invoice
+[INFO ] 2022-11-02 12:53:44.068 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:43
+[INFO ] 2022-11-02 12:53:44.070 [Thread-8] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 12:53:46.471 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:44
+[INFO ] 2022-11-02 12:53:46.472 [Thread-9] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:53:46.483 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:46
+[INFO ] 2022-11-02 12:53:46.484 [Thread-10] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 12:53:46.498 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:46
+[INFO ] 2022-11-02 12:53:46.499 [Thread-11] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:53:46.507 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:46
+[INFO ] 2022-11-02 12:53:46.509 [Thread-12] Server - Requested action: View Purchase
+[INFO ] 2022-11-02 12:53:54.497 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:46
+[INFO ] 2022-11-02 12:53:54.498 [Thread-13] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:53:54.506 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:54
+[INFO ] 2022-11-02 12:53:54.507 [Thread-14] Server - Requested action: Find Customer
+[INFO ] 2022-11-02 12:53:54.514 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:54
+[INFO ] 2022-11-02 12:53:54.515 [Thread-15] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:53:54.524 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:54
+[INFO ] 2022-11-02 12:53:54.525 [Thread-16] Server - Requested action: View Purchase
+[INFO ] 2022-11-02 12:53:58.151 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:54
+[INFO ] 2022-11-02 12:53:58.152 [Thread-17] Server - Requested action: Remove Invoice
+[INFO ] 2022-11-02 12:53:59.384 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:58
+[INFO ] 2022-11-02 12:53:59.385 [Thread-18] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 12:54:02.212 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:53:59
+[INFO ] 2022-11-02 12:54:02.212 [Thread-19] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:54:02.219 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:02
+[INFO ] 2022-11-02 12:54:02.220 [Thread-20] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:54:02.226 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:02
+[INFO ] 2022-11-02 12:54:02.227 [Thread-21] Server - Requested action: View Purchase
+[INFO ] 2022-11-02 12:54:06.872 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:02
+[INFO ] 2022-11-02 12:54:06.873 [Thread-22] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:54:06.879 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:06
+[INFO ] 2022-11-02 12:54:06.880 [Thread-23] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:54:06.885 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:06
+[INFO ] 2022-11-02 12:54:06.886 [Thread-24] Server - Requested action: View Purchase
+[INFO ] 2022-11-02 12:54:09.852 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:06
+[INFO ] 2022-11-02 12:54:09.853 [Thread-25] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:54:11.260 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:09
+[INFO ] 2022-11-02 12:54:11.261 [Thread-26] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:54:12.146 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:11
+[INFO ] 2022-11-02 12:54:12.147 [Thread-27] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:54:13.762 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:12
+[INFO ] 2022-11-02 12:54:13.763 [Thread-28] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:54:16.494 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:13
+[INFO ] 2022-11-02 12:54:16.495 [Thread-29] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:54:20.268 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:16
+[INFO ] 2022-11-02 12:54:20.269 [Thread-30] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:54:23.712 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:20
+[INFO ] 2022-11-02 12:54:23.712 [Thread-31] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:54:26.735 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:23
+[INFO ] 2022-11-02 12:54:26.736 [Thread-32] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:54:34.762 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:26
+[INFO ] 2022-11-02 12:54:34.763 [Thread-33] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:54:34.768 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:34
+[INFO ] 2022-11-02 12:54:34.769 [Thread-34] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:54:34.775 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:34
+[INFO ] 2022-11-02 12:54:34.776 [Thread-35] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:54:38.800 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:34
+[INFO ] 2022-11-02 12:54:38.801 [Thread-36] Server - Requested action: Update Product
+[INFO ] 2022-11-02 12:54:40.469 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:38
+[INFO ] 2022-11-02 12:54:40.470 [Thread-37] Server - Requested action: Update Product
+[INFO ] 2022-11-02 12:54:41.235 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:40
+[INFO ] 2022-11-02 12:54:41.236 [Thread-38] Server - Requested action: Add Invoice
+[INFO ] 2022-11-02 12:54:42.463 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:41
+[INFO ] 2022-11-02 12:54:42.464 [Thread-39] Server - Requested action: Add Purchase
+[INFO ] 2022-11-02 12:54:43.805 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:42
+[INFO ] 2022-11-02 12:54:43.806 [Thread-40] Server - Requested action: Update Inventory
+[INFO ] 2022-11-02 12:54:48.075 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:43
+[INFO ] 2022-11-02 12:54:48.076 [Thread-41] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:54:50.316 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:48
+[INFO ] 2022-11-02 12:54:50.317 [Thread-42] Server - Requested action: View Invoices
+[INFO ] 2022-11-02 12:54:54.219 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:50
+[INFO ] 2022-11-02 12:54:54.220 [Thread-43] Server - Requested action: Find Invoice
+[INFO ] 2022-11-02 12:54:54.225 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:54
+[INFO ] 2022-11-02 12:54:54.226 [Thread-44] Server - Requested action: Find Employee
+[INFO ] 2022-11-02 12:54:54.232 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:54
+[INFO ] 2022-11-02 12:54:54.232 [Thread-45] Server - Requested action: View Purchase
+[INFO ] 2022-11-02 12:54:57.616 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:54
+[INFO ] 2022-11-02 12:54:57.617 [Thread-46] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:55:20.035 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:54:57
+[INFO ] 2022-11-02 12:55:20.036 [Thread-47] Server - Requested action: View Inventory Item
+[INFO ] 2022-11-02 12:55:20.041 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:55:20
+[INFO ] 2022-11-02 12:55:20.041 [Thread-48] Server - Requested action: View Inventory Item
+[INFO ] 2022-11-02 12:55:25.785 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:55:20
+[INFO ] 2022-11-02 12:55:25.786 [Thread-49] Server - Requested action: View Inventory Item
+[INFO ] 2022-11-02 12:55:25.791 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:55:25
+[INFO ] 2022-11-02 12:55:25.792 [Thread-50] Server - Requested action: View Inventory Item
+[INFO ] 2022-11-02 12:55:25.797 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:55:25
+[INFO ] 2022-11-02 12:55:25.798 [Thread-51] Server - Requested action: Find Product
+[INFO ] 2022-11-02 12:56:43.490 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:55:25
+[INFO ] 2022-11-02 12:56:43.491 [Thread-52] Server - Requested action: View Products
+[INFO ] 2022-11-02 12:56:45.112 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:56:43
+[INFO ] 2022-11-02 12:56:45.113 [Thread-53] Server - Requested action: View Employees
+[INFO ] 2022-11-02 12:56:46.264 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:56:45
+[INFO ] 2022-11-02 12:56:46.264 [Thread-54] Server - Requested action: View Customers
+[INFO ] 2022-11-02 12:56:48.352 [main] Server - Client connected: 127.0.0.1 @ Wed, Nov 02 2022 12:56:46
+[INFO ] 2022-11-02 12:56:48.353 [Thread-55] Server - Requested action: View Products

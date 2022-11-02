@@ -1,12 +1,9 @@
 package client;
 
 import java.awt.Color;
-import java.util.List;
 
 import javax.swing.UIManager;
 
-import models.Invoice;
-import models.InvoiceItem;
 import view.screens.MainScreen;
 
 public class Driver {

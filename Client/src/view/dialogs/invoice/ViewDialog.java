@@ -4,7 +4,7 @@ import client.Client;
 import models.Customer;
 import models.Employee;
 import models.Invoice;
-import models.InvoiceItem;
+import models.Purchase;
 import view.components.RoundedBorder;
 
 import javax.swing.*;
@@ -305,9 +305,9 @@ public class ViewDialog extends JDialog implements ActionListener {
     private void getInvoiceItems() {
         //Get invoice items
         Client client = new Client();
-        client.sendAction("View Invoice Item");
+        client.sendAction("View Purchase");
         client.sendInvoiceNumber(invoiceNum);
-        List<InvoiceItem> invoiceItemList = client.receiveViewInvoiceItemResponse();
+        List<Purchase> purchaseList = client.receiveViewInvoiceItemResponse();
         client.closeConnections();
 
         int count = 0;
@@ -324,7 +324,7 @@ public class ViewDialog extends JDialog implements ActionListener {
         //Set headers
         textArea.append("Product Name\t     Unit Price\tQuantity\tTotal Cost\n\n");
 
-        for (InvoiceItem item : invoiceItemList) {
+        for (Purchase item : purchaseList) {
             //Calculate item cost
             itemCost = (item.getQuantity() * item.getUnitPrice());
 

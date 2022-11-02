@@ -131,10 +131,11 @@ public class Client {
         }
     }
 
-    public void sendInvoiceItem(List<InvoiceItem> invoiceItemList) {
+    public void sendPurchase(List<Purchase> purchaseList) {
         try {
-            objOs.writeObject(invoiceItemList);
+            objOs.writeObject(purchaseList);
         } catch (IOException e) {
+            e.printStackTrace();
             System.err.println("IOException: " + e);
         }
     }
@@ -351,12 +352,12 @@ public class Client {
                     );
                 }
             }
-            if (action.equalsIgnoreCase("Add Invoice Item")) {
+            if (action.equalsIgnoreCase("Add Purchase")) {
                 Boolean flag = (Boolean) objIs.readObject();
                 if (flag) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Invoice item/s added successfully",
+                            "Purchase added successfully",
                             "Add Invoice Status",
                             JOptionPane.INFORMATION_MESSAGE
                     );
@@ -603,15 +604,15 @@ public class Client {
         return invoiceList;
     }
 
-    public List<InvoiceItem> receiveViewInvoiceItemResponse() {
-        List<InvoiceItem> invoiceItemList = new ArrayList<>();
-        InvoiceItem invoiceItem;
-        if (action.equalsIgnoreCase("View Invoice Item")) {
+    public List<Purchase> receiveViewInvoiceItemResponse() {
+        List<Purchase> purchaseList = new ArrayList<>();
+        Purchase purchase;
+        if (action.equalsIgnoreCase("View Purchase")) {
             try {
                 while (true) {
-                    invoiceItem = (InvoiceItem) objIs.readObject();
-                    if (invoiceItem != null) {
-                        invoiceItemList.add(invoiceItem);
+                    purchase = (Purchase) objIs.readObject();
+                    if (purchase != null) {
+                        purchaseList.add(purchase);
                     } else {
                         break;
                     }
@@ -624,6 +625,6 @@ public class Client {
                 System.err.println("ClassCastException: " + e);
             }
         }
-        return invoiceItemList;
+        return purchaseList;
     }
 }

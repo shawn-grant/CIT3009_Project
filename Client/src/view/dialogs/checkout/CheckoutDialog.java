@@ -256,12 +256,12 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                     client.receiveResponse();
                     client.closeConnections();
 
-                    List<InvoiceItem> invoiceItemList = new ArrayList<>();
+                    List<Purchase> purchaseList = new ArrayList<>();
                     List<Inventory> inventoryList = new ArrayList<>();
                     int index = 0;
                     for (Product product : productList) {
-                        invoiceItemList.add(new InvoiceItem(
-                                new InvoiceItemId(invoiceNumber, product.getName()),
+                        purchaseList.add(new Purchase(
+                                new PurchaseId(invoiceNumber, product.getName()),
                                 quantityList.get(index),
                                 product.getUnitPrice())
                         );
@@ -273,10 +273,10 @@ public class CheckoutDialog extends JDialog implements ActionListener {
                         );
                     }
 
-                    //Request to add invoice items
+                    //Request to add purchase
                     client = new Client();
-                    client.sendAction("Add Invoice Item");
-                    client.sendInvoiceItem(invoiceItemList);
+                    client.sendAction("Add Purchase");
+                    client.sendPurchase(purchaseList);
                     client.receiveResponse();
                     client.closeConnections();
 

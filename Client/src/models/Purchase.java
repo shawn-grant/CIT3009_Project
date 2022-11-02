@@ -6,43 +6,43 @@ import java.io.Serializable;
 /**
  * @author Malik Heron
  */
-@Entity(name = "invoiceItem")
-@Table(name = "invoiceItem")
-public class InvoiceItem implements Serializable {
+@Entity(name = "purchase")
+@Table(name = "purchase")
+public class Purchase implements Serializable {
 
     @EmbeddedId
-    private InvoiceItemId id;
+    private PurchaseId id;
     @Column(name = "quantity")
     private int quantity;
     @Column(name = "unit_price")
     private float unitPrice;
 
-    public InvoiceItem() {
-        id = new InvoiceItemId();
+    public Purchase() {
+        id = new PurchaseId();
         quantity = 0;
         unitPrice = 0f;
     }
 
     //Primary Constructor
-    public InvoiceItem(InvoiceItemId id, int quantity, float unitPrice) {
+    public Purchase(PurchaseId id, int quantity, float unitPrice) {
         setId(id);
         setQuantity(quantity);
         setUnitPrice(unitPrice);
     }
 
     //Copy Constructor
-    public InvoiceItem(InvoiceItem invoiceItem) {
-        this.id = invoiceItem.id;
-        this.quantity = invoiceItem.quantity;
-        this.unitPrice = invoiceItem.unitPrice;
+    public Purchase(Purchase purchase) {
+        this.id = purchase.id;
+        this.quantity = purchase.quantity;
+        this.unitPrice = purchase.unitPrice;
     }
 
     //Getters and Setters
-    public InvoiceItemId getId() {
+    public PurchaseId getId() {
         return id;
     }
 
-    public void setId(InvoiceItemId id) {
+    public void setId(PurchaseId id) {
         this.id = id;
     }
 

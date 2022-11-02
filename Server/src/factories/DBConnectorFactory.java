@@ -36,7 +36,7 @@ public class DBConnectorFactory {
             createProductTable();
             createDepartmentTable();
             createInvoiceTable();
-            createInvoiceItemTable();
+            createPurchaseTable();
             createInventoryTable();
         } catch (SQLException e) {
             logger.warn("SQLException: " + e.getMessage());
@@ -173,13 +173,13 @@ public class DBConnectorFactory {
         }
     }
 
-    private static void createInvoiceItemTable() {
+    private static void createPurchaseTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE invoiceItem(invoice_number varchar(10) NOT NULL, item_name varchar(40) NOT NULL, " +
+            String query = "CREATE TABLE purchase(invoice_number varchar(10) NOT NULL, item_name varchar(40) NOT NULL, " +
                     "quantity int, unit_price float, PRIMARY KEY(invoice_number, item_name))";
 
             if (stmt.executeUpdate(query) == 0) {
-                logger.info("Invoice Item table created.");
+                logger.info("Purchase table created.");
             }
         } catch (SQLException e) {
             logger.warn("SQLException: " + e.getMessage());
