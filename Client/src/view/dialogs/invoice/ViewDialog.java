@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -21,8 +23,10 @@ public class ViewDialog extends JDialog implements ActionListener {
 
     private JLabel invoiceNumLabel, billingDateLabel, tenderedLabel, customerLabel, cashierLabel, grandTotalLabel, discountLabel;
     private JTextField invoiceNumField, billingDateField, tenderedField, customerField, cashierField, grandTotalField;
-    private JButton closeButton, confirmButton;
+    private JButton closeButton, confirmButton, printButton;
+    private JTextArea textArea;
     private JScrollPane scrollPane;
+    private Invoice invoice;
     private int invoiceNum = 0;
     private final String[] tableHeaders = {
             "Product Name",
@@ -30,7 +34,6 @@ public class ViewDialog extends JDialog implements ActionListener {
             "Quantity",
             "Total Cost",
     };
-    private JTable table;
     private DefaultTableModel model;
 
     public ViewDialog() {
@@ -124,13 +127,20 @@ public class ViewDialog extends JDialog implements ActionListener {
 
         //Table properties
         model = new DefaultTableModel(tableHeaders, 0);
-        table = new JTable(model);
+        JTable table = new JTable(model);
         table.setDefaultEditor(Object.class, null); //Set to not editable
         table.setAutoCreateRowSorter(false); //Enable sorting by columns
         table.getTableHeader().setOpaque(false);//Remove header background
         table.getTableHeader().setBackground(new Color(224, 224, 224));//Setting new background of table headings
         table.setBackground(Color.white);
         table.setForeground(Color.black);
+
+        //TextArea
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setPreferredSize(new Dimension(490, 400));
+        textArea.setLineWrap(true);
+        textArea.setFont(new Font("arial", Font.PLAIN, 14));
 
         // scrollPane properties
         scrollPane = new JScrollPane(
@@ -146,6 +156,12 @@ public class ViewDialog extends JDialog implements ActionListener {
         closeButton.setForeground(Color.BLUE);
         closeButton.setFont(labelFont);
         closeButton.setFocusPainted(false);
+
+        printButton = new JButton("PRINT");
+        printButton.setPreferredSize(new Dimension(200, 35));
+        //printButton.setForeground(Color.BLUE);
+        printButton.setFont(labelFont);
+        printButton.setFocusPainted(false);
     }
 
     private void initializeComponents() {
@@ -192,6 +208,7 @@ public class ViewDialog extends JDialog implements ActionListener {
         add(grandTotalLabel);
         add(grandTotalField);
         add(closeButton);
+        add(printButton);
     }
 
     private void setWindowProperties() {
@@ -220,6 +237,7 @@ public class ViewDialog extends JDialog implements ActionListener {
 
     private void registerFormListeners() {
         closeButton.addActionListener(this);
+        printButton.addActionListener(this);
     }
 
     private boolean validateFields() {
@@ -231,7 +249,7 @@ public class ViewDialog extends JDialog implements ActionListener {
         Client client = new Client();
         client.sendAction("Find Invoice");
         client.sendInvoiceNumber(invoiceNum);
-        Invoice invoice = client.receiveFindInvoiceResponse();
+        invoice = client.receiveFindInvoiceResponse();
         client.closeConnections();
 
         invoiceNumField.setText(String.valueOf(invoice.getInvoice_number()));
@@ -239,12 +257,13 @@ public class ViewDialog extends JDialog implements ActionListener {
         grandTotalField.setText("$ " + invoice.getTotalCost());
         tenderedField.setText("$ " + invoice.getAmountTendered());
 
+        Customer customer = null;
         if (!invoice.getCustomerId().equals("C0000")) {
             //Get customer info
             client = new Client();
             client.sendAction("Find Customer");
             client.sendCustomerId(invoice.getCustomerId());
-            Customer customer = client.receiveFindCustomerResponse();
+            customer = client.receiveFindCustomerResponse();
             client.closeConnections();
             //Set value in customerField
             customerField.setText(customer.getFirstName() + " " + customer.getLastName());
@@ -261,6 +280,26 @@ public class ViewDialog extends JDialog implements ActionListener {
         client.closeConnections();
         //Set value in cashierField
         cashierField.setText(employee.getFirstName() + " " + employee.getLastName());
+
+        //Add to textArea
+        textArea.append(
+                "121 Old Hope Road\n" +
+                        "Kingston 6, Jamaica\n" +
+                        "Tel: 993-3454\n\n"
+        );
+        textArea.append("Invoice Number: " + invoiceNum + "\n\n");
+        textArea.append("Billing Date: " + invoice.getBillingDate() + "\n\n");
+
+        //Check if customer exists
+        if (customer != null) {
+            textArea.append("Issued to: " + customer.getFirstName() + " " + customer.getLastName() + "\n");
+            textArea.append("Address: " + customer.getAddress() + "\n\n");
+        } else {
+            textArea.append("Issued to: Anonymous\n\n");
+        }
+
+        //Add to employee
+        textArea.append("Cashier: " + employee.getFirstName() + " " + employee.getLastName() + "\n\n");
     }
 
     private void getInvoiceItems() {
@@ -274,20 +313,64 @@ public class ViewDialog extends JDialog implements ActionListener {
         int count = 0;
         int rowCount = model.getRowCount();
         int counter = 0;
+        float itemCost;
+        float subTotal = 0f;
 
         while (counter < rowCount) {
             model.removeRow(count);
             counter++;
         }
 
+        //Set headers
+        textArea.append("Product Name\t     Unit Price\tQuantity\tTotal Cost\n\n");
+
         for (InvoiceItem item : invoiceItemList) {
+            //Calculate item cost
+            itemCost = (item.getQuantity() * item.getUnitPrice());
+
+            //Add to table
             model.insertRow(count, new Object[]{
                     item.getId().getItemName(),
                     "$ " + item.getUnitPrice(),
                     item.getQuantity(),
-                    "$ " + (item.getQuantity() * item.getUnitPrice())
+                    "$ " + itemCost
             });
+            //Add to TextArea
+            textArea.append(
+                    item.getId().getItemName() + "\t     " +
+                            "$ " + item.getUnitPrice() + "\t" +
+                            item.getQuantity() + "\t" +
+                            "$ " + itemCost + "\n"
+            );
+            subTotal += itemCost;
             count++;
+        }
+
+        //Add tax and total info to textArea
+        textArea.append("\n\nSub-Total: $ " + subTotal + "\n\n");
+
+        if (discountLabel.getText().equals("Customer discount received")) {
+            float customerDiscount = (float) (subTotal * 0.10);
+            float gct = (float) ((subTotal - customerDiscount) * 0.15);
+
+            textArea.append("Customer discount: $ " + customerDiscount + "\n\n");
+            textArea.append("GCT: $ " + gct + "\n\n");
+        } else {
+            textArea.append("GCT: $ " + (subTotal * 0.15) + "\n\n");
+        }
+
+        textArea.append("Total Cost: $ " + invoice.getTotalCost());
+        textArea.append("\n\nAmount paid: $ " + invoice.getAmountTendered());
+    }
+
+    private void printInvoice() {
+        try {
+            // add spacing between content and header
+            textArea.insert("\n\n", 0);
+            // trigger system print dialog
+            textArea.print(new MessageFormat("INVOICE | JAN'S WHOLESALE & RETAIL"), null);
+        } catch (PrinterException e) {
+            e.printStackTrace();
         }
     }
 
@@ -302,6 +385,9 @@ public class ViewDialog extends JDialog implements ActionListener {
         }
         if (e.getSource().equals(closeButton)) {
             dispose();
+        }
+        if (e.getSource().equals(printButton)) {
+            printInvoice();
         }
     }
 }

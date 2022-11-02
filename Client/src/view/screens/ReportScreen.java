@@ -230,7 +230,7 @@ public class ReportScreen extends BaseScreen implements ActionListener {
             // add spacing between content and header
             reportTextArea.insert("\n\n", 0);
             // trigger system print dialog
-            reportTextArea.print(new MessageFormat("REPORT | JANS WHOLESALE & RETAIL"), null);
+            reportTextArea.print(new MessageFormat("REPORT | JAN'S WHOLESALE & RETAIL"), null);
         } catch (PrinterException e) {
             e.printStackTrace();
         }
