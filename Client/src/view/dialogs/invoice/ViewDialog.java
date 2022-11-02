@@ -152,14 +152,14 @@ public class ViewDialog extends JDialog implements ActionListener {
 
         //Button properties
         closeButton = new JButton("CLOSE");
-        closeButton.setPreferredSize(new Dimension(200, 35));
-        closeButton.setForeground(Color.BLUE);
+        closeButton.setPreferredSize(new Dimension(220, 35));
+        closeButton.setForeground(Color.RED);
         closeButton.setFont(labelFont);
         closeButton.setFocusPainted(false);
 
         printButton = new JButton("PRINT");
-        printButton.setPreferredSize(new Dimension(200, 35));
-        //printButton.setForeground(Color.BLUE);
+        printButton.setPreferredSize(new Dimension(220, 35));
+        printButton.setForeground(Color.BLUE);
         printButton.setFont(labelFont);
         printButton.setFocusPainted(false);
     }
