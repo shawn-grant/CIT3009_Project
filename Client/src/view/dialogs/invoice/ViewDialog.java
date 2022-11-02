@@ -298,7 +298,7 @@ public class ViewDialog extends JDialog implements ActionListener {
             textArea.append("Issued to: Anonymous\n\n");
         }
 
-        //Add to employee
+        //Add employee
         textArea.append("Cashier: " + employee.getFirstName() + " " + employee.getLastName() + "\n\n");
     }
 
