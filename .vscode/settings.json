@@ -1,9 +1,24 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30.jar",
+        "Jar_Libraries/hibernate-release-5.4.20.Final.jar",
         "c:\\apache-log4j-2.18.0-bin\\log4j-api-2.18.0.jar",
         "c:\\apache-log4j-2.18.0-bin\\log4j-core-2.18.0.jar",
-        "c:\\Users\\shawn\\Downloads\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30.jar"
+        "lib/mysql-connector-java-8.0.30.jar"
+    ],
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "Databases",
+            "database": "jwr",
+            "username": "root",
+            "password": ""
+        }
     ]
 }
