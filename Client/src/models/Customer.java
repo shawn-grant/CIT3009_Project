@@ -1,16 +1,14 @@
 package models;
-//============================================================================
-// Name        : Customer.java
-// Author      : Tyrien Gilpin
-// Version     : 1
-// Copyright   : Your copyright notice
-// Description : Customer Model Class
-//============================================================================
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Model class for Customer
+ * @author Tyrien Gilpin
+ * @author Malik Heron
+ */
 @Entity(name = "customer")
 @Table(name = "customer")
 public class Customer implements Serializable {

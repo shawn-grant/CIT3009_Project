@@ -5,6 +5,10 @@ import java.util.List;
 import client.Client;
 import models.Product;
 
+/**
+ * For generating a list of all products
+ * @author Tyrien Gilpin
+ */
 public class GenerateCodeList {
 	
 	 // retrieve all product information

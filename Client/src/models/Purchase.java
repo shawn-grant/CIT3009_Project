@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * Model class for Purchase
  * @author Malik Heron
  */
 @Entity(name = "purchase")

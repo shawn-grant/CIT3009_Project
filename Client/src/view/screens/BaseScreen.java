@@ -1,8 +1,3 @@
-/**
- * BaseScreen.java
- * To be inherited by other screens, contains a title & buttons for CRUD operations
- * Author (s): Shawn Grant
- */
 package view.screens;
 
 import javax.swing.JPanel;
@@ -20,6 +15,10 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.Objects;
 
+/**
+ * To be inherited by other screens, contains a title & buttons for CRUD operations
+ * @author Shawn Grant
+ */
 public class BaseScreen extends JPanel {
 
     private final Color headerColor = new Color(0, 100, 205);

@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.regex.Pattern;
 
 /**
+ * For validating email address fields
  * @author Malik Heron
  */
 public class EmailValidator {

@@ -3,6 +3,10 @@ package utils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * For validating String fields
+ * @author Malik Heron
+ */
 public class StringValidator {
 
     public static boolean isValid(String str, Dialog component) {

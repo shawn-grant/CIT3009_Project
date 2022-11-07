@@ -5,6 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
+ * Model class for Purchase
  * @author Malik Heron
  */
 @Embeddable

@@ -1,16 +1,14 @@
 package models;
-//============================================================================
-//Name        : Employee.java
-//Author      : Tyrien Gilpin
-//Version     : 1
-//Copyright   : Your copyright notice
-//Description : Employee Model Class
-//============================================================================
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Model class for Employee
+ * @author Tyrien Gilpin
+ * @author Malik Heron
+ */
 @Entity(name = "employee")
 @Table(name = "employee")
 public class Employee implements Serializable {

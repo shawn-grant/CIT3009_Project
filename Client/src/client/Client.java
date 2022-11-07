@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class for sending requests and receiving responses from the Server
  * @author Malik Heron
  */
 public class Client {

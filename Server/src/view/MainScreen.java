@@ -1,8 +1,3 @@
-/**
- * MainScreen.java
- * Main Screen for viewing server details
- * Author (s): Malik Heron
- */
 package view;
 
 import factories.SessionFactoryBuilder;
@@ -35,6 +30,10 @@ import java.awt.AWTException;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * Main Screen for viewing server details
+ * @author Malik Heron
+ */
 public class MainScreen extends JFrame implements ActionListener {
 
     private final ServerSocket serverSocket;

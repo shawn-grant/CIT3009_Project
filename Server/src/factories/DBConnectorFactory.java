@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * For establishing connection with the database and creating the necessary tables
  * @author Malik Heron
  */
 public class DBConnectorFactory {

@@ -1,8 +1,3 @@
-/**
- * MainScreen.java
- * A tabbed layout to switch between diffrent sections of the app
- * Author (s): Shawn Grant, Malik Heron
- */
 package view.screens;
 
 import javax.swing.JPanel;
@@ -25,6 +20,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 
+/**
+ * A tabbed layout to switch between different sections of the app
+ * @author Shawn Grant
+ * @author Malik Heron
+ */
 public class MainScreen extends JFrame implements ActionListener {
 
     private JPanel leftPanel;

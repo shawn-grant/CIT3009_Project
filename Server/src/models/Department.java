@@ -1,15 +1,13 @@
 package models;
-//============================================================================
-//Name        : Department.java
-//Author      : Tyrien Gilpin
-//Version     : 1
-//Copyright   : Your copyright notice
-//Description : Department Model Class
-//============================================================================
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Model class for Department
+ * @author Tyrien Gilpin
+ * @author Malik Heron
+ */
 @Entity(name = "department")
 @Table(name = "department")
 public class Department implements Serializable {

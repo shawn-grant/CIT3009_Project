@@ -16,6 +16,10 @@ import view.dialogs.staff.InsertDialog;
 import view.dialogs.staff.SearchDialog;
 import view.dialogs.staff.UpdateDialog;
 
+/**
+ * View for editing and displaying Employee info
+ * @author Tori Horne
+ */
 public class StaffScreen extends BaseScreen implements ActionListener {
 
     private final String[] tableHeaders = {"ID", "First Name", "Last Name", "D.O.B",

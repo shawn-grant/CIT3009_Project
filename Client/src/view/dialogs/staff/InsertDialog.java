@@ -28,7 +28,7 @@ import utils.EmailValidator;
 import utils.IDGenerator;
 
 /**
- * @author Malik Heron & Tori Horne
+ * @author Tori Horne
  */
 public class InsertDialog extends JDialog implements ActionListener {
 

@@ -1,11 +1,4 @@
 package models;
-//============================================================================
-//Name        : Product.java
-//Author      : Tyrien Gilpin
-//Version     : 1
-//Copyright   : Your copyright notice
-//Description : Product Model Class
-//============================================================================
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * Model class for Product
+ * @author Tyrien Gilpin
+ * @author Malik Heron
+ */
 @Entity(name = "product")
 @Table(name = "product")
 public class Product implements Serializable {

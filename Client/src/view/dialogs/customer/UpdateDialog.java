@@ -1,8 +1,3 @@
-/**
- * InsertDialog.java
- * Popup to update existing customer
- * Author (s): Shawn Grant & Malik Heron
- */
 package view.dialogs.customer;
 
 import client.Client;
@@ -29,6 +24,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+/**
+ * Popup to update existing customer
+ * Author (s): Shawn Grant & Malik Heron
+ */
 public class UpdateDialog extends JDialog implements ActionListener {
 
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;

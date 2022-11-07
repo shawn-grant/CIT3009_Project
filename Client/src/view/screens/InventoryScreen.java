@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
+ * View for editing and displaying Product info
  * @author Malik Heron
  */
 public class InventoryScreen extends BaseScreen implements ActionListener {

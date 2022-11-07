@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Popup to check out customer purchases
+ * @author Tyrien Gilpin
+ */
 public class CheckoutDialog extends JDialog implements ActionListener {
 
     private final DefaultTableModel model;

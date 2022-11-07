@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Malik Heron & Tori Horne
+ * @author Tori Horne
  */
 public class SearchDialog extends JDialog implements ActionListener {
 

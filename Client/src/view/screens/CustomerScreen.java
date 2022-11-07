@@ -1,8 +1,3 @@
-/**
- * CustomerScreen.java
- * View for editing and displaying Customer info
- * Author (s): Shawn Grant
- */
 package view.screens;
 
 import client.Client;
@@ -20,6 +15,10 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * View for editing and displaying Customer info
+ * @author Shawn Grant
+ */
 public class CustomerScreen extends BaseScreen implements ActionListener {
 
     private final String[] tableHeaders = {

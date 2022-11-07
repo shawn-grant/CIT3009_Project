@@ -22,6 +22,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * View for displaying Invoice info
+ * @author Tori Horne
+ */
 public class InvoiceScreen extends BaseScreen implements ActionListener {
 
     private final GridBagConstraints gbc = new GridBagConstraints();

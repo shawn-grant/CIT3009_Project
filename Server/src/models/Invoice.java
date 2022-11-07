@@ -1,15 +1,12 @@
 package models;
-//============================================================================
-//Name        : Date.java
-//Author      : Tyrien Gilpin
-//Description : Invoice Model Class
-//============================================================================
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Model class for Invoice
+ * @author Tyrien Gilpin
  * @author Malik Heron
  */
 @Entity(name = "invoice")
@@ -18,8 +15,8 @@ public class Invoice implements Serializable {
 
     @Id
     private int invoice_number;
-    @Temporal(TemporalType.DATE)
     @Column(name = "billing_date")
+    @Temporal(TemporalType.DATE)
     private Date billingDate;
     @Column(name = "total_cost")
     private float totalCost;

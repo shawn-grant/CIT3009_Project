@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Malik Heron & Tori Horne
+ * @author Tori Horne
  */
 public class RemoveDialog extends JDialog implements ActionListener {
 

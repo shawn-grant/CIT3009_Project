@@ -1,8 +1,3 @@
-/**
- * ReportScreen.java
- * Report Screen to display reports
- * Author (s): Shawn Grant and Malik Heron
- */
 package view.screens;
 
 import javax.swing.*;
@@ -27,6 +22,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Report Screen to display reports
+ * @author Shawn Grant
+ * @author Malik Heron
+ */
 public class ReportScreen extends BaseScreen implements ActionListener {
 
     private final Locale locale = new Locale("en", "EN");

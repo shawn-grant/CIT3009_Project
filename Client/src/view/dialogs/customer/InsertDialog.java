@@ -1,8 +1,3 @@
-/**
- * InsertDialog.java
- * Popup to add a new customer
- * Author (s): Shawn Grant and Malik Heron
- */
 package view.dialogs.customer;
 
 import client.Client;
@@ -29,6 +24,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+/**
+ * Popup to add a new customer
+ * @author Shawn Grant
+ * @author Malik Heron
+ */
 public class InsertDialog extends JDialog implements ActionListener {
 
     private JLabel idLabel, firstNameLabel, lastNameLabel, dobLabel;

@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * For validating phone number fields
  * Source: "<a href="https://www.javatpoint.com/mobile-number-validation-in-java">...</a>"
+ * @author Malik Heron
  */
 public class PhoneNumberValidator {
 

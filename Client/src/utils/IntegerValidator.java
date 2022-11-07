@@ -3,6 +3,10 @@ package utils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * For validating integer fields
+ * @author Malik Heron
+ */
 public class IntegerValidator {
 
     public static boolean isValid(String str, Dialog component) {

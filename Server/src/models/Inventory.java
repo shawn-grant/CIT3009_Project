@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
+ * Model class for Inventory
  * @author Malik Heron
  */
 @Entity(name = "inventory")

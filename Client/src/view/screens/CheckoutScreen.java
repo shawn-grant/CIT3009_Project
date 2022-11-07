@@ -1,10 +1,4 @@
 package view.screens;
-//============================================================================
-//Name        : CheckoutScreen.java
-//Author      : Tyrien Gilpin
-//Version     : 1
-//Description : GUI Screen class for cashing checkout 
-//============================================================================
 
 import java.awt.Color;
 import java.awt.Component;
@@ -40,6 +34,10 @@ import view.components.RoundedBorder;
 import view.dialogs.checkout.*;
 import view.dialogs.customer.InsertDialog;
 
+/**
+ * GUI Screen class for cashing checkoutGUI Screen class for cashing checkout
+ * @author Tyrien Gilpin
+ */
 public class CheckoutScreen extends BaseScreen implements ActionListener {
 
     private final String[] tableHeaders = {"Product Code", "Product Name", "Quantity", "Unit Price", "Cost"};

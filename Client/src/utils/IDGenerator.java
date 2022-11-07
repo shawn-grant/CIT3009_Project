@@ -1,6 +1,7 @@
 package utils;
 
 /**
+ * For generating a random ID given a letter
  * @author Shawn Grant
  */
 public class IDGenerator {

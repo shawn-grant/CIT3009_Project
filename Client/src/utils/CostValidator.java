@@ -8,6 +8,10 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+/**
+ * For validating currency fields
+ * @author Malik Heron
+ */
 public class CostValidator {
 
     public static boolean isValid(String str, Dialog component) {

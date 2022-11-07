@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
+ * Class for receiving requests from Client and sending back responses
  * @author Malik Heron
  */
 public class Server {

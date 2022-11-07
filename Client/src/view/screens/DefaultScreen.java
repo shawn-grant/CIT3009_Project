@@ -1,8 +1,3 @@
-/**
- * DefaultScreen.java
- * A splash screen shown when the app launches
- * Author (s): Shawn Grant
- */
 package view.screens;
 
 import javax.swing.JLabel;
@@ -11,6 +6,10 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.util.Objects;
 
+/**
+ * A splash screen shown when the app launches
+ * @author Shawn Grant
+ */
 public class DefaultScreen extends JPanel {
 
     public DefaultScreen() {

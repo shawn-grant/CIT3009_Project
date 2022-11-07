@@ -1,8 +1,3 @@
-/**
- * MainScreen.java
- * A loading screen for when the server is starting
- * Author (s): Malik Heron
- */
 package view;
 
 import javax.swing.JWindow;
@@ -14,6 +9,10 @@ import javax.swing.BoxLayout;
 import java.awt.Color;
 import java.util.Objects;
 
+/**
+ * A loading screen for when the server is starting
+ * @author Malik Heron
+ */
 public class SplashScreen extends JWindow {
 
     private JProgressBar progressBar;

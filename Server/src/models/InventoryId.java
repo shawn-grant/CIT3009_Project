@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Model class for InventoryId
  * @author Malik Heron
  */
 @Embeddable

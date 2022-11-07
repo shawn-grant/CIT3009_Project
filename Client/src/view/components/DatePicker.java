@@ -1,9 +1,3 @@
-/**
- * DatePicker.java
- * A standardized way to accept Date input
- *
- * @author Malik Heron & Shawn Grant
- */
 package view.components;
 
 import javax.swing.*;
@@ -11,6 +5,11 @@ import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * A standardized way to accept Date input
+ * @author Malik Heron
+ * @author Shawn Grant
+ */
 public class DatePicker extends JPanel {
 
     private final Integer[] days = new Integer[31];

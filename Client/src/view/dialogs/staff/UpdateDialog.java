@@ -18,7 +18,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 /**
- * @author Malik Heron & Tori Horne
+ * @author Tori Horne
  */
 public class UpdateDialog extends JDialog implements ActionListener {
 
