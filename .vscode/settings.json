@@ -1,10 +1,12 @@
 {
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "Jar_Libraries/hibernate-release-5.4.20.Final.jar",
-        "c:\\apache-log4j-2.18.0-bin\\log4j-api-2.18.0.jar",
-        "c:\\apache-log4j-2.18.0-bin\\log4j-core-2.18.0.jar",
-        "lib/mysql-connector-java-8.0.30.jar"
+        "libs/*.jar",
+        "libs/hibernate-core-5.2.12.Final.jar",
+        "libs/log4j-api-2.18.0.jar",
+        "libs/log4j-core-2.18.0.jar",
+        "libs/mysql-connector-java-8.0.30.jar",
+        "libs/jakarta.persistence-api-2.2.3.jar",
+        "libs/commons-validator-1.7.jar"
     ],
     "sqltools.connections": [
         {
