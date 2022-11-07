@@ -20,7 +20,7 @@ Staff Manual: https://docs.google.com/document/d/1ChtXZuNVGf1bK_MVr2mjnBDxAlmoVM
 # Project Setup & installation
 
 - JDK 18 or higher
-### Jar/ Maven Pacakges:
+### Jar/Maven Packges:
 - on Server:
     - hibernate-core-5.2.12.Final
     - jakarta.persistence-api-2.2.3 (should be included in hibernate)
