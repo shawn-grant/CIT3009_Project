@@ -1930,3 +1930,23 @@ Client connected: 127.0.0.1 @ Sat, Oct 29 2022 15:27:36
 [INFO ] 2022-11-07 09:39:20.837 [main] Server - Client connected: 127.0.0.1 @ Mon, Nov 07 2022 09:39:17
 [INFO ] 2022-11-07 09:39:20.837 [Thread-16] Server - Requested action: View Products
 [WARN ] 2022-11-07 09:39:31.168 [main] Server - SocketException: socket closed
+[INFO ] 2022-11-08 11:29:15.352 [main] DBConnectorFactory - DB Connection Established @ Tue, Nov 08 2022 11:29:15
+[WARN ] 2022-11-08 11:29:15.394 [main] DBConnectorFactory - SQLException: Table 'employee' already exists
+[WARN ] 2022-11-08 11:29:15.396 [main] DBConnectorFactory - SQLException: Table 'customer' already exists
+[WARN ] 2022-11-08 11:29:15.397 [main] DBConnectorFactory - SQLException: Table 'product' already exists
+[WARN ] 2022-11-08 11:29:15.397 [main] DBConnectorFactory - SQLException: Table 'department' already exists
+[WARN ] 2022-11-08 11:29:15.397 [main] DBConnectorFactory - SQLException: Table 'invoice' already exists
+[WARN ] 2022-11-08 11:29:15.402 [main] DBConnectorFactory - SQLException: Table 'purchase' already exists
+[WARN ] 2022-11-08 11:29:15.402 [main] DBConnectorFactory - SQLException: Table 'inventory' already exists
+[INFO ] 2022-11-08 11:29:15.742 [main] Server - Sever is running
+[INFO ] 2022-11-08 11:29:21.302 [main] Server - Client connected: 127.0.0.1 @ Tue, Nov 08 2022 11:29:15
+[INFO ] 2022-11-08 11:29:21.352 [Thread-3] Server - Requested action: View Products
+[INFO ] 2022-11-08 11:29:27.582 [main] Server - Client connected: 127.0.0.1 @ Tue, Nov 08 2022 11:29:21
+[INFO ] 2022-11-08 11:29:27.592 [Thread-4] Server - Requested action: View Products
+[INFO ] 2022-11-08 11:29:29.432 [main] Server - Client connected: 127.0.0.1 @ Tue, Nov 08 2022 11:29:27
+[INFO ] 2022-11-08 11:29:29.439 [Thread-5] Server - Requested action: View Employees
+[INFO ] 2022-11-08 11:29:31.067 [main] Server - Client connected: 127.0.0.1 @ Tue, Nov 08 2022 11:29:29
+[INFO ] 2022-11-08 11:29:31.069 [Thread-6] Server - Requested action: View Customers
+[INFO ] 2022-11-08 11:29:32.335 [main] Server - Client connected: 127.0.0.1 @ Tue, Nov 08 2022 11:29:31
+[INFO ] 2022-11-08 11:29:32.336 [Thread-7] Server - Requested action: View Products
+[WARN ] 2022-11-08 11:29:39.069 [main] Server - SocketException: socket closed
