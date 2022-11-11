@@ -7,15 +7,15 @@ University of Technology, Advanced Programming (CIT3009) group project.
 - Shawn Grant (2002432)
 - Tyrien Gilpin (2003893)
 
-**Project Definition:** `./Documentation/Project_Definition.pdf`
+**Project Definition:** `./documentation/Project_Definition.pdf`
 
-**UML Diagrams:** https://drive.google.com/file/d/17c2X129m_Jdedp-Q4Ddttx-0nokiK22h/view?usp=share_link
+**UML Diagrams:** `./documentation/Class_UML-Diagram.pdf`
 
-**ERD Diagram:** `./Documentation/ERD_Diagram.pdf`
+**ERD Diagram:** `./documentation/ERD_Diagram.pdf`
 
-**Database Relational Notation:** `./Documentation/Relational_Database_Design.pdf`
+**Database Relational Notation:** `./documentation/Relational_Database_Design.pdf`
 
-**Staff Manual:** https://docs.google.com/document/d/1ChtXZuNVGf1bK_MVr2mjnBDxAlmoVMK6v4vny6-PQ2A/edit?usp=sharing
+**Staff Manual:** `./documentation/JWR_Staff_Manual.pdf`
 
 # Project Setup & installation
 
